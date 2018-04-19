@@ -1,4 +1,4 @@
-package logic.pathfinder;
+package logic.path;
 
 /**
  * Node Class

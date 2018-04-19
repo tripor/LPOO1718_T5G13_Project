@@ -1,0 +1,15 @@
+package place.type;
+
+import place.Mine;
+
+public class IronMine extends Mine {
+	
+	public IronMine(int top, int left, int width, int height, int doorAtBorder, int doorAtPx) {
+		super(top, left, width, height, doorAtBorder, doorAtPx);
+	}
+	
+	public IronMine(int row, int col) {
+		super(row, col);
+	}
+
+}

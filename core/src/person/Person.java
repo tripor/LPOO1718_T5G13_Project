@@ -3,8 +3,8 @@ package person;
 import java.util.List;
 
 import logic.map.Map;
-import logic.pathfinder.AStar;
-import logic.pathfinder.Node;
+import logic.path.AStar;
+import logic.path.Node;
 
 public class Person {
 	

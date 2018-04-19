@@ -3,7 +3,7 @@ package logic.storage;
 import java.util.ArrayList;
 import java.util.List;
 
-import building.Place;
+import place.Place;
 
 public class PlaceList {
 	
