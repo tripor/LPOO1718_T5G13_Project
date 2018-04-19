@@ -2,7 +2,6 @@ package com.groundup.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.groundup.game.Game;
 import graphic.GroundUpGame;
 
 public class DesktopLauncher {

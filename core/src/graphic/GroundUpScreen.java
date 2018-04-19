@@ -3,6 +3,7 @@ package graphic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 /**
  * 
@@ -19,6 +20,19 @@ public class GroundUpScreen extends ScreenAdapter {
 	 */
 	private final Texture worker;
 	/**
+     * Viewport width in meters. Height depends on screen ratio
+     */
+	private static final int VIEWPORT_WIDTH = 6;
+	/**
+     * 1 meter is 100 pixels
+     */
+    private static final float PIXEL_TO_METER = 1f / 100;
+    /**
+     * The camera.
+     */
+    private final OrthographicCamera camera;
+	
+	/**
 	 * Constructor for the GroundUpScreen class
 	 * @param game
 	 */
@@ -30,12 +44,19 @@ public class GroundUpScreen extends ScreenAdapter {
 		
 		worker= game.getAssetManager().get("worker.png");
 		
+		//create camera
+		float ratio = ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
+		camera = new OrthographicCamera(VIEWPORT_WIDTH / PIXEL_TO_METER, VIEWPORT_WIDTH / PIXEL_TO_METER * ratio);
 	}
 	
 	@Override
 	public void render(float delta)
 	{
 		super.render(delta);
+		
+		// Update the camera
+        camera.update();
+        game.getBatch().setProjectionMatrix(camera.combined);
 		
 		//Clear screen
 		 Gdx.gl.glClearColor( 103/255f, 69/255f, 117/255f, 1 );
@@ -45,6 +66,13 @@ public class GroundUpScreen extends ScreenAdapter {
 	     game.getBatch().begin();
 	     game.getBatch().draw(worker, 100, 100);
 	     game.getBatch().end();
+	}
+	/**
+	 * gets the screen camera
+	 * @return OrthographicCamera camera of the screen
+	 */
+	public OrthographicCamera getCamera() {
+		return camera;
 	}
 
 }
