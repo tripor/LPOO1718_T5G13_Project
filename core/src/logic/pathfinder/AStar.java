@@ -34,7 +34,7 @@ public class AStar {
     		setInitialNode(initialNode);
         setFinalNode(finalNode);
         this.searchArea = new Node[rows][cols];
-        this.openList = new PriorityQueue<Node>(new Comparator<Node>() {
+        this.openList = new PriorityQueue<Node>(0, new Comparator<Node>() {
             @Override
             public int compare(Node node0, Node node1) {
                 return node0.getF() < node1.getF() ? -1 : node0.getF() > node1.getF() ? 1 : 0;
