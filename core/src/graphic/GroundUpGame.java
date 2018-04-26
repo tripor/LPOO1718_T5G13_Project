@@ -4,6 +4,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import user_input.UserInput;
+
 public class GroundUpGame extends Game {
 	/**
 	 * Manages the game assets
@@ -14,6 +16,7 @@ public class GroundUpGame extends Game {
 	 */
 	private SpriteBatch batch;
 	
+	private UserInput input;
 
 	@Override
 	public void create() {
@@ -24,7 +27,7 @@ public class GroundUpGame extends Game {
 		
 		this.setScreen(new GroundUpScreen(this));
 		
-		
+		this.setInput(new UserInput((GroundUpScreen) this.getScreen()));
 	}
 
 	/**
@@ -57,6 +60,20 @@ public class GroundUpGame extends Game {
 	 */
 	public void setBatch(SpriteBatch batch) {
 		this.batch = batch;
+	}
+	/**
+	 * Gets the class input of game
+	 * @return the class input
+	 */
+	public UserInput getInput() {
+		return input;
+	}
+	/**
+	 * Sets the class input
+	 * @param input the class I want to set to
+	 */
+	public void setInput(UserInput input) {
+		this.input = input;
 	}
 
 }

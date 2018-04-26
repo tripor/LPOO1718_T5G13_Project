@@ -1,12 +1,14 @@
 package graphic;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -30,11 +32,11 @@ public class GroundUpScreen extends ScreenAdapter {
 	/**
      * Viewport width in meters. Height depends on screen ratio
      */
-	private static final int VIEWPORT_WIDTH = 60;
+	private static final int VIEWPORT_WIDTH = 4;
 	/**
      * 1 meter is 100 pixels
      */
-    private static final float PIXEL_TO_METER = 1f / 100;
+    private static final float PIXEL_TO_METER = 0.22f / 200;
     /**
      * The camera.
      */
@@ -73,6 +75,7 @@ public class GroundUpScreen extends ScreenAdapter {
 		//create camera
 		float ratio = ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
 		camera = new OrthographicCamera(VIEWPORT_WIDTH / PIXEL_TO_METER, VIEWPORT_WIDTH / PIXEL_TO_METER * ratio);
+		camera.position.set(new Vector3(camera.viewportWidth / 2, camera.viewportHeight / 2, 0));
 		
 		// Create debug camera
         debugRenderer = new Box2DDebugRenderer();
@@ -93,11 +96,11 @@ public class GroundUpScreen extends ScreenAdapter {
         // Create the ball body
         float ratio = ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
         Body body = world.createBody(bodyDef);
-        body.setTransform(VIEWPORT_WIDTH / 2, (VIEWPORT_WIDTH * ratio) / 2, 0); // Middle of the viewport, no rotation
+        body.setTransform(VIEWPORT_WIDTH / 2, (VIEWPORT_WIDTH * ratio) / 2, 0);
 
         // Create circle shape
         CircleShape circle = new CircleShape();
-        circle.setRadius(1f);
+        circle.setRadius(0.11f);
 
         // Create ball fixture
         FixtureDef fixtureDef = new FixtureDef();
@@ -119,6 +122,12 @@ public class GroundUpScreen extends ScreenAdapter {
 	public void render(float delta) {
 		super.render(delta);
 
+		this.game.getInput().InputHandler();
+		
+		// Update the world
+        //world.step(delta, 6, 2);
+		
+		
 		// Update the camera
 		camera.update();
 		game.getBatch().setProjectionMatrix(camera.combined);
@@ -129,7 +138,7 @@ public class GroundUpScreen extends ScreenAdapter {
 
 		// Draw
 		game.getBatch().begin();
-		game.getBatch().draw(worker, 100, 100);
+		game.getBatch().draw(worker,(workerBody.getPosition().x -.11f) / PIXEL_TO_METER,  (workerBody.getPosition().y - .11f) / PIXEL_TO_METER);
 		game.getBatch().end();
 
 		// Render debug camera

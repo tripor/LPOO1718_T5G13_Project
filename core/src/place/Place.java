@@ -3,9 +3,11 @@ package place;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+
 import person.Person;
 
-public class Place {
+public class Place extends Actor {
 	
 	public List<Person> _people_here = new ArrayList<Person>();
 	public int	bound_top,
