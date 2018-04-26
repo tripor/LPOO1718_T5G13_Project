@@ -2,6 +2,7 @@ package com.groundup.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import place.Place;
 import place.type.Factory;
@@ -11,23 +12,55 @@ import logic.path.byAStar.Node;
 import person.Person;
 
 public class Game {
+	
+	private int Random(int min, int max) {
+		return (new Random()).nextInt(max) + min;
+	}
 
 	public Game() {
 		// TODO Auto-generated constructor stub
 		
 		Map map = new Map();
-		map.setMapWidth(20);
-		map.setMapHeight(20);
+		map.setMapWidth(5000);
+		map.setMapHeight(5000);
 		
 		Console console = new Console(map);
+
+		int i = 0;
+		int min_size = 4;
+		int max_size = 20;
 		
-		//map.addPlace(new Factory(6,5,5,3,1,1));
-		//map.addPlace(new Factory(5,8));
-		//map.addPlace(new Factory(13,11,7,1,3,1));
+		while (i < 10) {
+			
+			console.log("fac- " + i);
+			
+			int row = map.randRow(),
+			    col = map.randCol(),
+			    w = Random(min_size, max_size),
+			    h = Random(min_size, max_size),
+			    side = Random(1,4),	// Norte, Leste, Sol, Oeste
+			    door_px = 0;
+			
+			if(side == 1 || side == 3) {
+				door_px = Random(0, w);
+			}
+			else {
+				door_px = Random(0, h);
+			}
+			
+			if(row+h < map.getMapHeight() || col+w < map.getMapWidth()) {
+				map.addPlace(new Place(row, col, w, h, Random(1,4), door_px));
+				i++;
+
+				console.log("factory " + i + "  left-top [" + col + "," + row + "]  right-bot [" + (col+w) + "," + (row+h) + "]");
+			}
+		}
 		
 		List<Node> path = new ArrayList<Node>();
 		
-		for(int i = 0; i < 20; i++) {
+		for(i = 0; i < 20; i++) {
+			
+			console.log("per- " + i);
 			
 			int s_row = map.randRow(),
 				s_col = map.randCol(),

@@ -54,15 +54,19 @@ public class AStar {
         }
     }
     
-    public void setBlocks(List<Place> places) {
+    public void setBlocks(List<Place> places, int grid_size) {
     		int i, j;
     		for(Place p : places) {
     			for(i=p.getBoundTop(); i<=p.getBoundBottom(); i++) {
     				for(j=p.getBoundLeft(); j<=p.getBoundRight(); j++) {
-    					setBlock(i, j);
+    					setBlock(i/grid_size, j/grid_size);
     				}
     			}
     		}
+    }
+
+    public void setBlocks(List<Place> places) {
+    		setBlocks(places, 1);
     }
 
     public List<Node> findPath() {

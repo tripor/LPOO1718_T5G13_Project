@@ -14,6 +14,7 @@ public class Person {
 	public int target_row;
 	public int target_col;
 	
+	private static int grid_size = 100;
 	private Map map;
 	
 	public Person(Map map) {
@@ -25,13 +26,20 @@ public class Person {
 		this.target_row = _target_row;
 		this.target_col = _target_col;
 		
-		Node initialNode = new Node(current_row, current_col);
-        Node finalNode = new Node(target_row, target_col);
-        int rows = map.getMapHeight();
-        int cols = map.getMapWidth();
+		Node initialNode = new Node(current_row/grid_size, current_col/grid_size);
+        Node finalNode = new Node(target_row/grid_size, target_col/grid_size);
+        int rows = map.getMapHeight()/grid_size;
+        int cols = map.getMapWidth()/grid_size;
         AStar aStar = new AStar(rows, cols, initialNode, finalNode);
-        aStar.setBlocks(map.getPlaceList());
-		return aStar.findPath();
+        aStar.setBlocks(map.getPlaceList(), grid_size);
+        
+        List<Node> path = aStar.findPath();
+        for(Node n : path) {
+        		n.setRow(n.getRow() * grid_size);
+        		n.setCol(n.getCol() * grid_size);
+        }
+        
+        return path;
 	}
 	
 	public void setCurrentRow(int row) {
