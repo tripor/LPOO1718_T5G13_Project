@@ -1,4 +1,4 @@
-package logic.path;
+package logic.path.byAStar;
 
 /**
  * Node Class

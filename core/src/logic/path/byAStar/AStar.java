@@ -1,4 +1,4 @@
-package logic.path;
+package logic.path.byAStar;
 
 import java.util.ArrayList;
 import java.util.Comparator;

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Random;
 
 import place.Place;
-import logic.path.Node;
 import logic.storage.PlaceList;
 
 public class Map {

@@ -3,7 +3,7 @@ package logic.console;
 import java.util.List;
 
 import logic.map.Map;
-import logic.path.Node;
+import logic.path.byAStar.Node;
 import place.Place;
 
 public class Console {

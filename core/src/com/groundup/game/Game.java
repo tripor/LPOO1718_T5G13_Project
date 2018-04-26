@@ -7,7 +7,7 @@ import place.Place;
 import place.type.Factory;
 import logic.console.Console;
 import logic.map.Map;
-import logic.path.Node;
+import logic.path.byAStar.Node;
 import person.Person;
 
 public class Game {
