@@ -25,6 +25,8 @@ public class Game {
 		map.addPlace(new Factory(5,8));
 		map.addPlace(new Factory(13,11,7,1,3,1));
 		
+		List<Node> path = new ArrayList<Node>();
+		
 		for(int i = 0; i < 20; i++) {
 			
 			int s_row = map.randRow(),
@@ -72,7 +74,7 @@ public class Game {
 			p.setCurrentCol(s_col);
 			
 			// List<Node> path;
-			List<Node> path = p.getPath(t_row, t_col);
+			path = p.getPath(t_row, t_col);
 			
 			console.log("Person " + i + "  from [" + s_col + "," + s_row + "]"
 					+ "  to [" + t_col + "," + t_row + "]"
@@ -82,6 +84,8 @@ public class Game {
 					+ (startEnd_samePlace ? "[Same] " : "")
 				);
 		}
+
+		console.printMap(path);
 	}
 	
 	public static void main (String[] arg) {

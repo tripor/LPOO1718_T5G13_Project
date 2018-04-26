@@ -18,6 +18,16 @@ public class Console {
 		System.out.println(s.replaceAll("  ", " \t"));
 	}
 	
+	public String print_num(int i) {
+		if(i < 10) {
+			return " " + i;
+		}
+		if(i < 0) {
+			return "  ";
+		}
+		return "" + i;
+	}
+	
 	public String printFactory(int i) {
 		if(i < 10) {
 			return "" + i + i + i + i;
@@ -42,10 +52,16 @@ public class Console {
     					path_map[i][j] = printFactory(k);
     				}
     			}
+
+    			path_map[pl.getDoorRow()][pl.getDoorCol()] = " DD ";
+    		}
+		
+		for(j = -1; j < path_map[0].length; j++) {
+			System.out.print("[" + print_num(j) + "]");
 		}
 		
 		for(i = 0; i < path_map.length; i++) {
-			System.out.print("\n");
+			System.out.print("\n" + "[" + print_num(i) + "]");
 
 			// middle
 			for(j = 0; j < path_map[0].length; j++) {

@@ -20,11 +20,15 @@ public class Map {
 		placeList = new PlaceList();
 	}
 	
+	// for testing.
+	int i = 0;
+	
 	public boolean addPlace(Place p) {
 		boolean result = placeList.addPlace(p);
+		i++;
 		
 		if(!result) {
-			System.out.println("Place not added.");
+			System.out.println("Place " + i + " not added.");
 		}
 		return result;
 	}

@@ -17,18 +17,6 @@ public class Place extends Actor {
 				door_col,
 				door_row;
 	
-	public Place(int row, int col) {
-		// for single dot place
-		
-		this.bound_top    = row;
-		this.bound_bottom = row;
-		this.door_row     = row;
-		
-		this.bound_right  = col;
-		this.bound_left   = col;
-		this.door_col     = col;
-	}
-	
 	/**
 	 * @param doorAtBorder
 	 *  1 = TOP
@@ -54,21 +42,21 @@ public class Place extends Actor {
 		if(doorAtBorder == 1) {
 			// at top, count from left.
 			this.door_col = this.bound_left + doorAtPx;
-			this.door_row = this.bound_top;
+			this.door_row = this.bound_top - 1;	// make it outside of the building
 		}
 		else if(doorAtBorder == 2) {
 			// at right, count from top
-			this.door_col = this.bound_right;
+			this.door_col = this.bound_right + 1;
 			this.door_row = this.bound_top + doorAtPx;
 		}
 		else if(doorAtBorder == 3) {
 			// at bottom, count from right
 			this.door_col = this.bound_right - doorAtPx;
-			this.door_row = this.bound_bottom;
+			this.door_row = this.bound_bottom + 1;
 		}
 		else if(doorAtBorder == 4) {
 			// at left, count from bottom
-			this.door_col = this.bound_left;
+			this.door_col = this.bound_left - 1;
 			this.door_row = this.bound_bottom - doorAtPx;
 		}
 	}
@@ -101,14 +89,16 @@ public class Place extends Actor {
 		return p.getBoundLeft() <= this.getBoundRight()
 				&& p.getBoundRight() >= this.getBoundLeft()
 				&& p.getBoundBottom() >= this.getBoundTop()
-				&& p.getBoundTop() <= this.getBoundBottom();
+				&& p.getBoundTop() <= this.getBoundBottom()
+				&& p.getDoorCol() != this.getDoorCol()
+				&& p.getDoorRow() != this.getDoorRow();
 	}
 	
 	public boolean including(int row, int col) {
 		return col <= this.getBoundRight()
 				&& col >= this.getBoundLeft()
-				&& col >= this.getBoundTop()
-				&& col >= this.getBoundBottom();
+				&& row >= this.getBoundTop()
+				&& row <= this.getBoundBottom();
 	}
 
 }
