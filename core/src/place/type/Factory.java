@@ -1,15 +1,84 @@
 package place.type;
 
+import static graphic.GameState.VIEWPORT_WIDTH;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+
+import graphic.GroundUpGame;
 import place.Place;
 
 public class Factory extends Place {
 	
-	public Factory(int top, int left, int width, int height, int doorAtBorder, int doorAtPx) {
-		super(top, left, width, height, doorAtBorder, doorAtPx);
+	private Sprite sprite;
+
+	private void createFactory(GroundUpGame game)
+	{
+		Texture texture=game.getAssetManager().get("factory.png");
+		
+		sprite = new Sprite(texture);
+		
+		setWidth(texture.getWidth());
+        setHeight(texture.getHeight());
+		
+        setOrigin(getWidth() / 2, getHeight() / 2);
+        sprite.setOrigin(getWidth() / 2, getHeight() / 2);
 	}
 	
-	public Factory(int row, int col) {
-		super(row, col);
+	@Override
+	public void setPosition(float x,float y)
+	{
+		super.setPosition(x - getWidth()/2, y - getHeight() /2);
+	}
+	
+	@Override
+    protected void positionChanged() {
+        super.positionChanged();
+        sprite.setPosition(getX(), getY());
+    }
+	
+	@Override
+    protected void rotationChanged() {
+        super.rotationChanged();
+        sprite.setRotation(getRotation());
+    }
+	
+	@Override
+    public void act(float delta) {
+        super.act(delta);
+    }
+	
+	@Override
+    public void draw(Batch batch, float parentAlpha) {
+        sprite.setColor(getColor());
+        sprite.draw(batch);
+    }
+	
+	public void createFactoryBody(World world)
+	{
+		BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        
+        float ratio = ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
+        Body body = world.createBody(bodyDef);
+        body.setTransform(VIEWPORT_WIDTH / 2, (VIEWPORT_WIDTH * ratio) / 2, 0);
+        
+        PolygonShape rectangule;
+        
+
+	}
+	
+	public Factory(GroundUpGame game, int top, int left, int width, int height, int doorAtBorder, int doorAtPx) {
+		super(top, left, width, height, doorAtBorder, doorAtPx);
+		
+		createFactory(game);
 	}
 
 }

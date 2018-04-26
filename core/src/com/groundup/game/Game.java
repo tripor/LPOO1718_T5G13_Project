@@ -21,9 +21,9 @@ public class Game {
 		
 		Console console = new Console(map);
 		
-		map.addPlace(new Factory(6,5,5,3,1,1));
-		map.addPlace(new Factory(5,8));
-		map.addPlace(new Factory(13,11,7,1,3,1));
+		//map.addPlace(new Factory(6,5,5,3,1,1));
+		//map.addPlace(new Factory(5,8));
+		//map.addPlace(new Factory(13,11,7,1,3,1));
 		
 		List<Node> path = new ArrayList<Node>();
 		

@@ -11,8 +11,4 @@ public class Mine extends Place {
 		super(top, left, width, height, doorAtBorder, doorAtPx);
 	}
 
-	public Mine(int row, int col) {
-		super(row, col);
-	}
-
 }

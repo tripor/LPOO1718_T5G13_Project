@@ -19,7 +19,7 @@ public class UserInput {
 	public void InputHandler()
 	{
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            screen.getCamera().translate(new Vector3(0,1,0));
+            screen.getCamera().translate(new Vector3(0,-1,0));
         }
 	}
 }
