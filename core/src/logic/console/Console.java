@@ -1,44 +1,52 @@
 package logic.console;
 
-import java.util.List;
-
-import logic.map.Map;
-import logic.path.byAStar.Node;
-import place.Place;
+// import java.util.List;
+// 
+// import logic.map.Map;
+// import logic.path.byAStar.Node;
+// import place.Place;
 
 public class Console {
 	
-	Map map;
-
-	public Console(Map m) {
-		this.map = m;
-	}
+//	Map map;
+//
+//	public Console(Map m) {
+//		this.map = m;
+//	}
 	
-	public void log(String s) {
-		System.out.println(s.replaceAll("  ", " \t"));
-	}
-	
-	public String print_num(int i) {
-		if(i < 10) {
-			return " " + i;
-		}
-		if(i < 0) {
-			return "  ";
-		}
-		return "" + i;
-	}
-	
-	public String printFactory(int i) {
-		if(i < 10) {
-			return "" + i + i + i + i;
-		}
-		return "" + i + i;
-	}
-	
-	public void printMap(List<Node> path) {
+	public static void log(String s) {
 		
-		System.out.println("Print Map();");
-		
+		if(s.toLowerCase().equals("hr")) {
+			System.out.println("========================================");
+		}
+		else {
+			System.out.println(s.replaceAll("  ", " \t"));
+		}
+	}
+}
+	
+//	public String print_num(int i) {
+//		if(i < 10) {
+//			return " " + i;
+//		}
+//		if(i < 0) {
+//			return "  ";
+//		}
+//		return "" + i;
+//	}
+//	
+//	public String printFactory(int i) {
+//		if(i < 10) {
+//			return "" + i + i + i + i;
+//		}
+//		return "" + i + i;
+//	}
+//
+//	public void printMap(List<Node> path) {
+//
+//		System.out.println("\n" + "Called Print Map();");
+//		System.out.println("Finish.");
+//		
 //		int i, j, k;
 //		String[][] path_map = new String[map.getMapHeight()][map.getMapWidth()];
 //		
@@ -76,5 +84,4 @@ public class Console {
 //				}
 //			}
 //		}
-	}
-}
+//	}

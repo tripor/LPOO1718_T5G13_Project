@@ -1,4 +1,4 @@
-package user_input;
+package userInput;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -8,7 +8,6 @@ import graphic.GroundUpScreen;
 
 public class UserInput {
 	
-	@SuppressWarnings("unused")
 	private GroundUpScreen screen;
 	
 	public UserInput(GroundUpScreen screen)

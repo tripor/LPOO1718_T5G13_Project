@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import user_input.UserInput;
+import userInput.UserInput;
 
 public class GroundUpGame extends Game {
 	/**
