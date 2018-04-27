@@ -9,6 +9,7 @@ import place.Place;
 public class PlaceList {
 	
 	private static int GROUP_SIZE = 40;
+	// split the full map into 40x40 groups.
 	
 	public List<Place> placeSet = new ArrayList<Place>();
 	public HashMap<String, List<Place>> placeMap = new HashMap<String, List<Place>>();

@@ -3,12 +3,11 @@ package logic.storage;
 import java.util.HashMap;
 
 import conveyor.Conveyor;
+import place.Place;
 
 public class ConveyorList {
 	
-	private static int GROUP_SIZE = 40;
-	
-	public HashMap<String, Conveyor[][]> conveyorMap = new HashMap<String, Conveyor[][]>();
+	public HashMap<String, Conveyor> conveyorMap = new HashMap<String, Conveyor>();
 	// Usage: conveyorMap.get(index(ROW, COL));
 	
 	public ConveyorList() {
@@ -20,33 +19,19 @@ public class ConveyorList {
 		int row = c.getRow();
 		int col = c.getCol();
 		
-		int row_hash = row / GROUP_SIZE,
-			col_hash = col / GROUP_SIZE;
-		
-		row -= row_hash;
-		col -= col_hash;
-		
-		Conveyor[][] cs = getMap(row_hash, col_hash);
-		cs[row][col] = c;
-		
-		conveyorMap.put(index(row_hash, col_hash), cs);
-		
-		return true;
+		if(getConveyor(row, col) == null) {
+			conveyorMap.put(index(row, col), c);
+			return true;
+		}
+		return false;
+	}
+	
+	public Conveyor getConveyor(int row, int col) {
+		return conveyorMap.get(index(row, col));
 	}
 	
 	public String index(int row, int col) {
 		return row + "/" + col;
-	}
-	
-	// this function has already implemented in latest Java.
-	public Conveyor[][] getMap(int row, int col) {
-		
-		Conveyor[][] c = conveyorMap.get(index(row, col));
-		
-		if(c == null) {
-			c = new Conveyor[GROUP_SIZE][GROUP_SIZE];
-		}
-		return c;
 	}
 	
 	public int[] checkNextGrid(Conveyor thisObj, int row_delta, int col_delta) {
@@ -54,22 +39,14 @@ public class ConveyorList {
 		int row = thisObj.getRow() + row_delta,
 			col = thisObj.getCol() + col_delta;
 		
-		int row_hash = row / GROUP_SIZE,
-			col_hash = col / GROUP_SIZE;
-		
-		int row_rest = row - row_hash,
-			col_rest = col - col_hash;
-		
-		Conveyor[][] cs = getMap(row_hash, col_hash);
-		
-		if(cs[row_rest][col_rest] != null) {
+		if(conveyorMap.get(index(row, col)) != null) {
 			int[] result = {row, col};
 			return result;
 		}
 		return null;
 	}
 	
-	public int[] canMoveNext(Conveyor thisObj) {
+	public int[] next(Conveyor thisObj) {
 		
 		boolean is_intersection = thisObj.getRowMovement() == 0
 									&& thisObj.getColMovement() == 0;
@@ -92,7 +69,6 @@ public class ConveyorList {
 		}
 		else {
 			return checkNextGrid(thisObj, thisObj.getRowMovement(), thisObj.getColMovement());
-		}
-		
+		}	
 	}
 }

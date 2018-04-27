@@ -1,5 +1,7 @@
 package conveyor;
 
+import place.Place;
+
 public class Conveyor {
 	
 	// If a product passes through this pipe => add ? pixels to it's position.
@@ -40,4 +42,17 @@ public class Conveyor {
 		return movement_col;
 	}
 	
+	public boolean connectedFrom(Place p) {
+		
+		// we need to get it's REVERSED direction
+		// in order to know whether this conveyor can get things from the building
+		
+		int movement_row = 0 - this.movement_row;
+		int movement_col = 0 - this.movement_col;
+		
+		if(p.including(this.row - movement_row, this.col - movement_col)) {
+			return true;
+		}
+		return false;
+	}
 }

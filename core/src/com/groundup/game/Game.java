@@ -129,21 +129,16 @@ public class Game {
 		p.setCurrentRow(s_row);
 		p.setCurrentCol(s_col);
 		
-		List<Node> path = p.getPath(t_row, t_col);
+		// List<Node> path = 
+		p.getPath(t_row, t_col);
 		
-		Console.log("Person " + i + "  total " + path.size() + " steps.  "
-				+ (pathStart_in_a_Place ? "[StartFK] " : "")
-				+ (pathEnd_in_a_Place ? "[EndFK] " : "")
-				+ (startEnd_samePlace ? "[Same] " : "")
-			);
+	//	Console.log("Person " + i + "  total " + path.size() + " steps.  "
+	//			+ (pathStart_in_a_Place ? "[StartFK] " : "")
+	//			+ (pathEnd_in_a_Place ? "[EndFK] " : "")
+	//			+ (startEnd_samePlace ? "[Same] " : "")
+	//		);
 		
-		Node step;
-		
-		for(int s = 0; s < 5; s++) {
-			step = p.popPath();
-			Console.log(s + "th step = [" + step.getCol() + "," + step.getRow() + "]");
-		}
-		Console.log("");
+		// p.popPath();
 	}
 
 }

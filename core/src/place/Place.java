@@ -100,5 +100,4 @@ public class Place extends Actor {
 				&& row >= this.getBoundTop()
 				&& row <= this.getBoundBottom();
 	}
-
 }
