@@ -49,24 +49,50 @@ public class ConveyorList {
 		return c;
 	}
 	
-	public boolean nextConveyor(Conveyor thisObj) {
-		
-		int row = thisObj.getRow() + thisObj.getRowMovement(),
-			col = thisObj.getCol() + thisObj.getColMovement();
-		
-		// TODO: T-shape conveyors.
+	public int[] checkNextGrid(Conveyor thisObj, int row_delta, int col_delta) {
+
+		int row = thisObj.getRow() + row_delta,
+			col = thisObj.getCol() + col_delta;
 		
 		int row_hash = row / GROUP_SIZE,
 			col_hash = col / GROUP_SIZE;
 		
-		row -= row_hash;
-		col -= col_hash;
+		int row_rest = row - row_hash,
+			col_rest = col - col_hash;
 		
-		Conveyor[][] cs = getMap(row, col);
+		Conveyor[][] cs = getMap(row_hash, col_hash);
 		
-		if(cs[row][col] != null) {
-			return true;
+		if(cs[row_rest][col_rest] != null) {
+			int[] result = {row, col};
+			return result;
 		}
-		return false;
+		return null;
+	}
+	
+	public int[] canMoveNext(Conveyor thisObj) {
+		
+		boolean is_intersection = thisObj.getRowMovement() == 0
+									&& thisObj.getColMovement() == 0;
+		
+		if(is_intersection) {
+			
+			int[] tmp = null;
+			
+			for(int row = -1; row <=1; row++) {
+				for(int col = -1; col<=1; col++) {
+
+					// TODO: T-shape conveyors, need to make product self-balancing.
+					tmp = checkNextGrid(thisObj, row, col);
+					if(tmp != null) {
+						return tmp;
+					}
+				}
+			}
+			return null;
+		}
+		else {
+			return checkNextGrid(thisObj, thisObj.getRowMovement(), thisObj.getColMovement());
+		}
+		
 	}
 }
