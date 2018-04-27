@@ -1,13 +1,13 @@
 # Ground Up
 
-**Author**
-João Augusto dos Santo Lima - up201605314@fe.up.pt
+### Author
+João Augusto dos Santo Lima - up201605314@fe.up.pt  
 Ka Chon Ho - up201711244@fe.up.pt
 
-**Concept**
+### Concept
 Let the players deal with the supply and demand between mines, factories, villagers.
 
-**Structure**
+### Structure
 - Place: All place types.
   - Mine: Produces materials for Factories.
     - IronMine: Mines only produce iron.
@@ -28,5 +28,6 @@ Let the players deal with the supply and demand between mines, factories, villag
 
 - Logic
 
+### UML Diagram
 ![UML Diagram (Updated 2018-04-27)](https://github.com/tripor/LPOO1718_T5G13_Project/blob/master/uml_20180427.jpg)
 (Simplified Version)
