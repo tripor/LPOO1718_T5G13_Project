@@ -66,7 +66,10 @@ public class Person {
 			List<Node> smallerPath = this.getPath(latestNode.getRow(), latestNode.getCol(), false);
 			Console.log(">> " + smallerPath.size() + " steps added.");
 			
-			smallerPath.addAll(path);
+			for(Node n : path) {
+				smallerPath.add(n);
+			}
+			// performance VS smallerPath.addAll(path);
 			
 			path = smallerPath;
 			latestNode = path.remove(0);

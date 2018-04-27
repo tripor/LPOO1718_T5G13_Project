@@ -1,11 +1,9 @@
 package com.groundup.game;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import place.Place;
-import place.type.Factory;
 import logic.console.Console;
 import logic.map.Map;
 import logic.path.byAStar.Node;
@@ -14,7 +12,7 @@ import person.Person;
 public class Game {
 	
 	public Game() {
-		// TODO Auto-generated constructor stub
+		// long start = System.nanoTime();
 		
 		Map map = new Map();
 		map.setMapWidth(5000);
@@ -22,15 +20,20 @@ public class Game {
 		
 		int i = 0;
 		
-		while (i < 10) {
+		while (i < 100) {
 			i = generateFactory(map, i);
 		}
 		
 		Console.log("hr");
 		
-		for(i = 0; i < 20; i++) {
+		for(i = 0; i < 200; i++) {
 			generatePerson(map, i);
 		}
+		
+		Console.log("hr");
+		Console.log("Finish.");
+		
+		// Console.log(System.nanoTime() - start + " ns");
 	}
 	
 	public static void main (String[] arg) {
@@ -86,7 +89,12 @@ public class Game {
 				pathEnd_in_a_Place   = false,
 				startEnd_samePlace   = false;
 
-		List<Place> places = map.getPlaceList();
+		List<Place> places = map.getPlaceList(s_row, s_col);
+		
+		for(Place pl : map.getPlaceList(t_row, t_col)) {
+			places.add(pl);
+		}
+		// Performance? VS places.addAll(map.getPlaceList(t_row, t_col));
 		
 		// Loop through the place list.
 		for(int f = 0; f < places.size(); f++) {

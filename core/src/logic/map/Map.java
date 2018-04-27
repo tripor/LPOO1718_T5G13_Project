@@ -41,6 +41,9 @@ public class Map {
 	public List<Place> getPlaceList(){
 		return placeList.getPlaceList();
 	}
+	public List<Place> getPlaceList(int row, int col){
+		return placeList.getPlaceList(row, col);
+	}
 	
 	public void setMapWidth(int mapWidth) {
 		this.mapWidth = mapWidth;
