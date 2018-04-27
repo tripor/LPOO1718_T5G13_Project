@@ -8,26 +8,32 @@ Ka Chon Ho - up201711244@fe.up.pt
 Let the players deal with the supply and demand between mines, factories, villagers.
 
 ### Structure
-- Place: All place types.
-  - Mine: Produces materials for Factories.
-    - IronMine: Mines only produce iron.
+- `Place`: All place types.
+  - `Mine`: Produces materials for Factories.
+    - `IronMine`: Mines only produce iron.
+    - `...`
+  - `Factory`: Produces products for villagers.
+    - `...`: Factory only produce specific product(s).
+  - `House`: For villagers' living.
+    - `...`: Different kinds of houses.
+
+- `Person`: All human types.
+  - `Worker`: The people who work in a factory.
+
+- `Coisa`: Everything else.
+  - `FryingPan`
+  - `...`: Different materials, products
+
+- `Conveyor`: For moving one material/product to another place.
+
+- `Logic`
+  - `Console`: For programming habit (`Console.log("...")`).
+  - `Map`: Manage all the information for the game renderer.
+  - `Path`: Path finder
+    - `byAStar`: A Star algorithm
+  - `Storage`
     - ...
-  - Factory: Produces products for villagers.
-    - ...: Factory only produce specific product(s).
-  - House: For villagers' living.
-    - ...: Different kinds of houses.
-
-- Person: All human types.
-  - Worker: The people who work in a factory.
-
-- Coisa: Everything else.
-  - FryingPan
-  - ...: Different materials, products
-
-- Conveyor: For moving one material/product to another place.
-
-- Logic
 
 ### UML Diagram
-![UML Diagram (Updated 2018-04-27)](https://github.com/tripor/LPOO1718_T5G13_Project/blob/master/uml_20180427.jpg)
+![UML Diagram (Updated 2018-04-27)](https://github.com/tripor/LPOO1718_T5G13_Project/blob/master/uml_20180427_2.jpg)
 (Simplified Version)
