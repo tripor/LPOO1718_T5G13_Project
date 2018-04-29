@@ -50,4 +50,8 @@ Let the players deal with the supply and demand between mines, factories, villag
  - `State` : Alter an object's behavior when its state changes
  - `Strategy` : Encapsulates an algorithm inside a class
 
+### GUI Design
+Menu with Play and Load Game.
+The game it self should have on the top right a list the the materials/money of the player to build new buildings. On the bottom left there will be a build button with options to build different buildings
 
+![GUI](https://github.com/tripor/LPOO1718_T5G13_Project/blob/master/intermed/GUI.png)
