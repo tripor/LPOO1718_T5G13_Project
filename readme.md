@@ -35,5 +35,5 @@ Let the players deal with the supply and demand between mines, factories, villag
     - ...
 
 ### UML Diagram
-![UML Diagram (Updated 2018-04-27)](https://github.com/tripor/LPOO1718_T5G13_Project/blob/master/uml_20180427_2.jpg)
+![UML Diagram (Updated 2018-04-27)](https://github.com/tripor/LPOO1718_T5G13_Project/blob/master/intermed/uml_20180427_2.jpg)
 (Simplified Version)
