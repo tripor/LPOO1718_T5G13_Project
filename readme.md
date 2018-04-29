@@ -55,3 +55,10 @@ Menu with Play and Load Game.
 The game it self should have on the top right a list the the materials/money of the player to build new buildings. On the bottom left there will be a build button with options to build different buildings
 
 ![GUI](https://github.com/tripor/LPOO1718_T5G13_Project/blob/master/intermed/GUI.png)
+
+### Test Design
+- Test if the people move correctly
+- If the materials move currectly to the position
+- If the user can add building and delete
+- Check if the position of placement is currect
+- Save and Load Game
