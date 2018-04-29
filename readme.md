@@ -40,3 +40,6 @@ Let the players deal with the supply and demand between mines, factories, villag
 
 ### Behavioural Aspects
 ![State Diagram](https://github.com/tripor/LPOO1718_T5G13_Project/blob/master/intermed/states.PNG)
+
+### Design Patterns
+ - 'Factory Method'
