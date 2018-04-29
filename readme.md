@@ -42,4 +42,12 @@ Let the players deal with the supply and demand between mines, factories, villag
 ![State Diagram](https://github.com/tripor/LPOO1718_T5G13_Project/blob/master/intermed/states.PNG)
 
 ### Design Patterns
- - 'Factory Method'
+ - `Factory Method`
+ - `Object Pool`
+ Used the two design in combination
+ - `Composite` : A tree structure of simple and composite objects
+ - `Facade` : A single class that represents an entire subsystem
+ - `State` : Alter an object's behavior when its state changes
+ - `Strategy` : Encapsulates an algorithm inside a class
+
+
