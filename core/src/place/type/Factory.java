@@ -6,9 +6,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -60,25 +60,8 @@ public class Factory extends Place {
         sprite.setColor(getColor());
         sprite.draw(batch);
     }
-	
-	public void createFactoryBody(World world)
-	{
-		BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-        
-        float ratio = ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
-        Body body = world.createBody(bodyDef);
-        body.setTransform(VIEWPORT_WIDTH / 2, (VIEWPORT_WIDTH * ratio) / 2, 0);
-        
-        PolygonShape rectangule;
-        
-
-	}
-	
 	public Factory(GroundUpGame game, int top, int left, int width, int height, int doorAtBorder, int doorAtPx) {
 		super(top, left, width, height, doorAtBorder, doorAtPx);
-		
-		createFactory(game);
 	}
 
 }
