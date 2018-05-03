@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+import logic.console.Console;
 import person.Person;
 
 public class Place extends Actor {
@@ -156,12 +157,12 @@ public class Place extends Actor {
 	@Override
     public void draw(Batch batch, float parentAlpha) {
         sprite.draw(batch);
+		Console.log(this.getWidth() + " VS " + (this.bound_right-this.bound_left) + ", " + this.getHeight() + " VS " + (this.bound_bottom-this.bound_top));
     }
 	
-	public void sizePlace(float amountX,float amountY)
-	{
-		this.setWidth(amountX);
-		this.setHeight(amountY);
-		sprite.setSize(this.getWidth(), this.getHeight());
-	}
+//	public void sizePlace(float amountX,float amountY) {
+//		this.setWidth(amountX);
+//		this.setHeight(amountY);
+//		sprite.setSize(this.getWidth(), this.getHeight());
+//	}
 }

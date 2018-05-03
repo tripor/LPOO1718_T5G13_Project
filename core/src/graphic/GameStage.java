@@ -32,18 +32,18 @@ public class GameStage extends Stage {
         
         initGame();
         
-        Console.log("Left=" + this.getCamera().position.x
-        		+ " Right=" + this.getWidth() + "VS" + this.getCamera().viewportWidth
-        		+ " Top=" + this.getCamera().position.y
-        		+ " Bottom=" + this.getHeight() + "VS" + this.getCamera().viewportHeight);
+		// Console.log("Left=" + this.getCamera().position.x
+		//		+ " Right=" + this.getWidth() + "VS" + this.getCamera().viewportWidth
+		//		+ " Top=" + this.getCamera().position.y
+		//		+ " Bottom=" + this.getHeight() + "VS" + this.getCamera().viewportHeight);
     }
     
     private void initGame() {
-		map.setMapWidth(500000);
-		map.setMapHeight(500000);
+		map.setMapWidth(500);
+		map.setMapHeight(500);
 		
 		int i = 0;
-		while (i < 1000) {
+		while (i < 100) {
 			i = generateFactory(i);	// generateFactory will return i++.
 		}
     }
@@ -75,10 +75,12 @@ public class GameStage extends Stage {
 			
 			Factory p = new Factory(row, col, w, h, Random(1,4), door_px);
 			
-			map.addPlace(p);
-			Console.log(p.toString());
+			boolean success = map.addPlace(p);
 			
-			this.addActor(p);
+			if(success) {
+				Console.log(p.toString());
+				this.addActor(p);
+			}
 			
 			i++;
 		}
