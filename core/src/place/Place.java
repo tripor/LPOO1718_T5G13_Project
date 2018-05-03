@@ -106,7 +106,7 @@ public class Place extends Actor {
 	
 	public String toString() {
 		return "[" + this.getType() + " " + unique_id + "] "
-			+ "From"
+			+ " From"
 				+ " Row " + this.getBoundTop()
 				+ " Col " + this.getBoundLeft()
 			+ " | To"

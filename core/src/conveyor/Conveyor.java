@@ -10,7 +10,6 @@ public class Conveyor {
 	int movement_col = 0;
 	
 	int row, col;
-	
 	ConveyorList conveyorList = ConveyorList.getInstance();
 
 	public Conveyor(int row, int col, int direction) {

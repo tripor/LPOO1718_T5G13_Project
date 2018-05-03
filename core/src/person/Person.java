@@ -17,10 +17,19 @@ public class Person {
 	public int target_col;
 	
 	private Map map = Map.getInstance();
+	public String unique_id = "undefined";
 	
 	List<Node> path = new ArrayList<Node>();
 	
 	public Person() {
+	}
+	
+	public Person(String id) {
+		this.unique_id = id;
+	}
+	
+	public String getId() {
+		return this.unique_id;
 	}
 	
 	public List<Node> getPath(int _target_row, int _target_col, boolean should_replace_global) {
@@ -63,7 +72,7 @@ public class Person {
 			|| Math.abs(latestNode.getRow() - current_row) > 1) {
 			
 			List<Node> smallerPath = this.getPath(latestNode.getRow(), latestNode.getCol(), false);
-			Console.log(">> " + smallerPath.size() + " steps added.");
+//			Console.log(">> " + smallerPath.size() + " steps added.");
 			
 			for(Node n : path) {
 				smallerPath.add(n);
@@ -76,7 +85,22 @@ public class Person {
 		
 		current_col = latestNode.getCol();
 		current_row = latestNode.getRow();
+		
+//		Console.log(this.toString());
 
 		return latestNode;
+	}
+
+	public String toString() {
+		return "[Person " + unique_id + "] "
+				+ " Row " + current_row
+				+ " Col " + current_col;
+	}
+	
+	public int getRow() {
+		return this.current_row;
+	}
+	public int getCol() {
+		return this.current_col;
 	}
 }
