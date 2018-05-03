@@ -11,23 +11,12 @@ public class GroundUpGame extends Game {
 	 * Manages the game assets
 	 */
 	private AssetManager assetManager;
-	/**
-	 * The sprite batch used for drawing to the screen
-	 */
-	private SpriteBatch batch;
-	
-	private UserInput input;
 
 	@Override
 	public void create() {
 		this.assetManager= new AssetManager();
 		
-		this.batch= new SpriteBatch();
-		
-		
 		this.setScreen(new GroundUpScreen(this));
-		
-		this.setInput(new UserInput((GroundUpScreen) this.getScreen()));
 	}
 
 	/**
@@ -44,36 +33,6 @@ public class GroundUpGame extends Game {
 	 */
 	public void setAssetManager(AssetManager assetManager) {
 		this.assetManager = assetManager;
-	}
-
-	/**
-	 * Gets the Sprite Batch of the game
-	 * @return returns the spritebatch
-	 */
-	public SpriteBatch getBatch() {
-		return batch;
-	}
-
-	/**
-	 * Sets the Sprite Batch of the game
-	 * @param batch the spriteBatch I want to change to
-	 */
-	public void setBatch(SpriteBatch batch) {
-		this.batch = batch;
-	}
-	/**
-	 * Gets the class input of game
-	 * @return the class input
-	 */
-	public UserInput getInput() {
-		return input;
-	}
-	/**
-	 * Sets the class input
-	 * @param input the class I want to set to
-	 */
-	public void setInput(UserInput input) {
-		this.input = input;
 	}
 
 }
