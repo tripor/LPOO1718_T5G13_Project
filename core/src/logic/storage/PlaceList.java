@@ -52,6 +52,7 @@ public class PlaceList {
 			}
 		}
 		placeSet.add(p);
+		p.setUniqueId("R" + p.getBoundTop() + "C" + p.getBoundLeft());
 		return true;
 	}
 	

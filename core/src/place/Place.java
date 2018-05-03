@@ -17,6 +17,8 @@ public class Place extends Actor {
 				door_col,
 				door_row;
 	
+	public String unique_id = "undefined";
+	
 	/**
 	 * @param doorAtBorder
 	 *  1 = TOP
@@ -99,5 +101,25 @@ public class Place extends Actor {
 				&& col >= this.getBoundLeft()
 				&& row >= this.getBoundTop()
 				&& row <= this.getBoundBottom();
+	}
+
+	
+	public String toString() {
+		return "[" + this.getType() + " " + unique_id + "] "
+			+ "From"
+				+ " Row " + this.getBoundTop()
+				+ " Col " + this.getBoundLeft()
+			+ " | To"
+				+ " Row " + this.getBoundBottom()
+				+ " Col " + this.getBoundRight()
+			+ " | Door at Row " + this.getDoorRow() + " Col " + this.getDoorCol();
+	}
+	
+	public void setUniqueId(String id) {
+		this.unique_id = id;
+	}
+	
+	public String getType() {
+		return "Place";
 	}
 }
