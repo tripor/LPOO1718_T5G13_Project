@@ -13,7 +13,8 @@ import logic.path.byAStar.AStar;
 import logic.path.byAStar.Node;
 
 public class Person extends Actor{
-	
+
+	// for graphic.
 	protected Sprite sprite;
 	
 	public int current_row;
@@ -100,7 +101,7 @@ public class Person extends Actor{
 	}
 
 	public String toString() {
-		return "[Person " + unique_id + "] "
+		return "[Person " + unique_id + "]"
 				+ " Row " + current_row
 				+ " Col " + current_col;
 	}
@@ -112,9 +113,10 @@ public class Person extends Actor{
 		return this.current_col;
 	}
 	
+
+	// for graphic.
 	@Override
-	public void setPosition(float x,float y)
-	{
+	public void setPosition(float x,float y)	{
 		super.setPosition(x, y);
 	}
 	
@@ -138,11 +140,12 @@ public class Person extends Actor{
 	@Override
     public void draw(Batch batch, float parentAlpha) {
         sprite.draw(batch);
+		Console.log("Print person");
     }
-	public void sizePlace(float amountX,float amountY)
-	{
-		this.setWidth(amountX);
-		this.setHeight(amountY);
-		sprite.setSize(this.getWidth(), this.getHeight());
-	}
+//	public void sizePlace(float amountX,float amountY)
+//	{
+//		this.setWidth(amountX);
+//		this.setHeight(amountY);
+//		sprite.setSize(this.getWidth(), this.getHeight());
+//	}
 }

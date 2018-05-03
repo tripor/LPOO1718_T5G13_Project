@@ -17,12 +17,12 @@ public class Game {
 	
 	public Game() {
 		
-		map.setMapWidth(500000);
-		map.setMapHeight(500000);
+		map.setMapWidth(5000);
+		map.setMapHeight(5000);
 		
 		int i = 0;
 		
-		while (i < 1000) {
+		while (i < 10) {
 			i = generateFactory(i);
 		}
 		
@@ -30,7 +30,7 @@ public class Game {
 		Console.log("Start generating people.");
 		long start = System.nanoTime();
 		
-		for(i = 0; i < 200000; i++) {
+		for(i = 0; i < 200; i++) {
 			generatePerson(i);
 		}
 		

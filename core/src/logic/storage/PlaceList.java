@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import logic.console.Console;
+import logic.map.Map;
 import place.Place;
 
 public class PlaceList {
 	
-	private static int GROUP_SIZE = 40;
-	// split the full map into 40x40 groups.
+	private static int GROUP_SIZE = 1500;
+	// split the full map into groups, the size should be = Map.getInstance().getbuildingMaxSize() * 15
 	
 	public List<Place> placeSet = new ArrayList<Place>();
 	public HashMap<String, List<Place>> placeMap = new HashMap<String, List<Place>>();
@@ -38,10 +40,19 @@ public class PlaceList {
 				List<Place> place_list = placeMap.get(index(row, col));
 				
 				if(place_list == null) {
+					// Console.log("> NULL LIST");
 					continue;
 				}
+
+				// Console.log("> LIST WITH " + place_list.size() + " ELEMENTS");
+				
 				for(Place pl : place_list) {
+					// Console.log("\n  > COMPARE PLACE " + pl.getUniqueId());
+					// Console.log("  THIS=  " + p.toString());
+					// Console.log("  " + pl.toString());
+					
 					if(pl.overlapWith(p)) {
+						// Console.log(">> Overlap.");
 						return false;
 					}
 				}

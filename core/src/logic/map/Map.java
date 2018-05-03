@@ -16,7 +16,13 @@ public class Map {
 	public int mapWidth = 0;
 	public int mapHeight = 0;
 	
+	private int buildingMinSize = 20;
+	private int buildingMaxSize = 100;
+
+	// for testing.
 	private static Map instance = new Map();
+	
+	private String testingTrack = "";
 
 	private Map() {
 		// TODO Auto-generated constructor stub
@@ -63,11 +69,33 @@ public class Map {
 	public int getMapHeight() {
 		return mapHeight;
 	}
+	public int getbuildingMinSize() {
+		return buildingMinSize;
+	}
+	public int getbuildingMaxSize() {
+		return buildingMaxSize;
+	}
+	public void setbuildingMinSize(int size) {
+		buildingMinSize = size;
+	}
+	public void setbuildingMaxSize(int size) {
+		buildingMaxSize = size;
+	}
 	public int randRow() {
 		return (new Random()).nextInt(this.getMapHeight());
 	}
 	public int randCol() {
 		return (new Random()).nextInt(this.getMapWidth());
+	}
+
+	// for testing.
+	public String getTestingTrack() {
+		return testingTrack;
+	}
+	public void setTestingTrack(String testingTrack) {
+		if(this.testingTrack.equals("")) {
+			this.testingTrack = testingTrack;
+		}
 	}
 
 }

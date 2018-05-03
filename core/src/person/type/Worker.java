@@ -8,8 +8,9 @@ import person.Person;
 
 public class Worker extends Person {
 	
-	private void createWorker(GroundUpGame game)	{
-		Texture texture=game.getAssetManager().get("worker.png");
+	private void createWorker()	{
+		
+		Texture texture = GroundUpGame.getInstance().getAssetManager().get("worker.png");
 		
 		sprite = new Sprite(texture);
 		sprite.setSize(this.getWidth(), this.getHeight());
@@ -19,10 +20,10 @@ public class Worker extends Person {
 	
 	public Worker(int row, int col) {
 		super(row, col);
-		this.setWidth(2);
-		this.setHeight(2);
-		this.createWorker(GroundUpGame.getInstance());
-		this.setPosition(row, col);
+		this.setWidth(20);
+		this.setHeight(20);
+		this.createWorker();
+		this.setPosition(col, row);
 	}
 
 }

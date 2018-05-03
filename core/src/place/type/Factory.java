@@ -8,9 +8,9 @@ import place.Place;
 
 public class Factory extends Place {
 
-	private void createFactory(GroundUpGame game)
-	{
-		Texture texture=game.getAssetManager().get("factory.png");
+	private void createFactory() {
+		
+		Texture texture = GroundUpGame.getInstance().getAssetManager().get("factory.png");
 		
 		sprite = new Sprite(texture);
 		sprite.setSize(this.getWidth(), this.getHeight());
@@ -22,8 +22,8 @@ public class Factory extends Place {
 		super(top, left, width, height, doorAtBorder, doorAtPx);
 		this.setWidth(width);
 		this.setHeight(height);
-		this.createFactory(GroundUpGame.getInstance());
-		this.setPosition(top, left);
+		this.createFactory();
+		this.setPosition(left, top);
 	}
 
 }
