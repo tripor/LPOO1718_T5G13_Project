@@ -14,17 +14,15 @@ public class GroundUpScreen extends ScreenAdapter {
 	 * The game it self
 	 */
 	private final GameStage game;
-	
 	private final UserInput input;
     
 	public GroundUpScreen(GroundUpGame game) {
-		this.game=new GameStage(game);
 		
-		input=new UserInput(this.game);
+		this.game = new GameStage();
+		input = new UserInput(this.game);
 		
 		Gdx.input.setInputProcessor(this.game);
 	}
-	
 	
 	@Override
 	public void render(float delta) {

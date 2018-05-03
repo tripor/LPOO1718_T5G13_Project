@@ -17,11 +17,12 @@ public class Factory extends Place {
 		
 		this.setDebug(true);
 	}
-	public Factory(GroundUpGame game, int top, int left, int width, int height, int doorAtBorder, int doorAtPx) {
+	
+	public Factory(int top, int left, int width, int height, int doorAtBorder, int doorAtPx) {
 		super(top, left, width, height, doorAtBorder, doorAtPx);
 		this.setWidth(width);
 		this.setHeight(height);
-		this.createFactory(game);
+		this.createFactory(GroundUpGame.getInstance());
 		this.setPosition(top, left);
 	}
 

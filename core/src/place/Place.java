@@ -11,7 +11,7 @@ import person.Person;
 
 public class Place extends Actor {
 
-	
+	// for graphic.
 	protected Sprite sprite;
 	
 	public List<Person> _people_here = new ArrayList<Person>();
@@ -129,10 +129,10 @@ public class Place extends Actor {
 	}
 
 	
-	
+
+	// for graphic.
 	@Override
-	public void setPosition(float x,float y)
-	{
+	public void setPosition(float x,float y)	{
 		super.setPosition(x, y);
 	}
 	
@@ -157,8 +157,6 @@ public class Place extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         sprite.draw(batch);
     }
-	
-
 	
 	public void sizePlace(float amountX,float amountY)
 	{

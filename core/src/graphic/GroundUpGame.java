@@ -3,6 +3,8 @@ package graphic;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 
+import logic.storage.PersonList;
+
 public class GroundUpGame extends Game {
 	/**
 	 * Manages the game assets
@@ -12,8 +14,17 @@ public class GroundUpGame extends Game {
 	@Override
 	public void create() {
 		this.assetManager= new AssetManager();
-		
 		this.setScreen(new GroundUpScreen(this));
+	}
+
+	private static GroundUpGame instance = new GroundUpGame();
+	
+	private GroundUpGame() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public static GroundUpGame getInstance() {
+		return instance;
 	}
 
 	/**

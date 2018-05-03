@@ -8,8 +8,7 @@ import person.Person;
 
 public class Worker extends Person {
 	
-	private void createWorker(GroundUpGame game)
-	{
+	private void createWorker(GroundUpGame game)	{
 		Texture texture=game.getAssetManager().get("worker.png");
 		
 		sprite = new Sprite(texture);
@@ -17,17 +16,13 @@ public class Worker extends Person {
 		
 		this.setDebug(true);
 	}
-	public Worker(GroundUpGame game, int top, int left, int width, int height, int doorAtBorder, int doorAtPx) {
-		super(top, left, width, height, doorAtBorder, doorAtPx);
-		this.setWidth(width);
-		this.setHeight(height);
-		this.createWorker(game);
-		this.setPosition(top, left);
-	}
 	
-	
-	public Worker() {
-		super();
+	public Worker(int row, int col) {
+		super(row, col);
+		this.setWidth(2);
+		this.setHeight(2);
+		this.createWorker(GroundUpGame.getInstance());
+		this.setPosition(row, col);
 	}
 
 }

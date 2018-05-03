@@ -27,7 +27,9 @@ public class Person extends Actor{
 	
 	List<Node> path = new ArrayList<Node>();
 	
-	public Person() {
+	public Person(int row, int col) {
+		this.current_col = col;
+		this.current_row = row;
 	}
 	
 	public Person(String id) {
