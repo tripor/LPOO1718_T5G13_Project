@@ -11,9 +11,9 @@ public class Conveyor {
 	
 	int row, col;
 	
-	ConveyorList conveyorList;
+	ConveyorList conveyorList = ConveyorList.getInstance();
 
-	public Conveyor(int row, int col, int direction, ConveyorList conveyorList) {
+	public Conveyor(int row, int col, int direction) {
 		
 		this.row = row;
 		this.col = col;

@@ -16,12 +16,11 @@ public class Person {
 	public int target_row;
 	public int target_col;
 	
-	private Map map;
+	private Map map = Map.getInstance();
 	
 	List<Node> path = new ArrayList<Node>();
 	
-	public Person(Map map) {
-		this.map = map;
+	public Person() {
 	}
 	
 	public List<Node> getPath(int _target_row, int _target_col, boolean should_replace_global) {

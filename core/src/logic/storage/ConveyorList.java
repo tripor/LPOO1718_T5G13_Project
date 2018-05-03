@@ -3,15 +3,20 @@ package logic.storage;
 import java.util.HashMap;
 
 import conveyor.Conveyor;
-import place.Place;
 
 public class ConveyorList {
 	
 	public HashMap<String, Conveyor> conveyorMap = new HashMap<String, Conveyor>();
 	// Usage: conveyorMap.get(index(ROW, COL));
 	
-	public ConveyorList() {
+	private static ConveyorList instance = new ConveyorList();
+	
+	private ConveyorList() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public static ConveyorList getInstance() {
+		return instance;
 	}
 	
 	public boolean addConveyor(Conveyor c) {

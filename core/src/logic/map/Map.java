@@ -15,12 +15,18 @@ public class Map {
 
 	public int mapWidth = 0;
 	public int mapHeight = 0;
+	
+	private static Map instance = new Map();
 
-	public Map() {
+	private Map() {
 		// TODO Auto-generated constructor stub
 		
-		placeList = new PlaceList();
-		conveyorList = new ConveyorList();
+		placeList = PlaceList.getInstance();
+		conveyorList = ConveyorList.getInstance();
+	}
+	
+	public static Map getInstance () {
+		return instance;
 	}
 	
 	// i - just for testing.

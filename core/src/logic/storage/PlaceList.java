@@ -15,8 +15,14 @@ public class PlaceList {
 	public HashMap<String, List<Place>> placeMap = new HashMap<String, List<Place>>();
 	// Usage: placeMap.get(index(ROW, COL));
 	
-	public PlaceList() {
-		
+	private static PlaceList instance = new PlaceList();
+	
+	private PlaceList() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public static PlaceList getInstance() {
+		return instance;
 	}
 	
 	public boolean addPlace(Place p) {

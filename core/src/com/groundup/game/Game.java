@@ -14,7 +14,7 @@ public class Game {
 	public Game() {
 		// long start = System.nanoTime();
 		
-		Map map = new Map();
+		Map map = Map.getInstance();
 		map.setMapWidth(5000);
 		map.setMapHeight(5000);
 		
