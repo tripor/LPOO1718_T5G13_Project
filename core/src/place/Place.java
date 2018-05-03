@@ -3,11 +3,16 @@ package place;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import person.Person;
 
 public class Place extends Actor {
+
+	
+	protected Sprite sprite;
 	
 	public List<Person> _people_here = new ArrayList<Person>();
 	public int	bound_top,
@@ -121,5 +126,44 @@ public class Place extends Actor {
 	
 	public String getType() {
 		return "Place";
+	}
+
+	
+	
+	@Override
+	public void setPosition(float x,float y)
+	{
+		super.setPosition(x, y);
+	}
+	
+	@Override
+    protected void positionChanged() {
+        super.positionChanged();
+        sprite.setPosition(getX(), getY());
+    }
+	
+	@Override
+    protected void rotationChanged() {
+        super.rotationChanged();
+        sprite.setRotation(getRotation());
+    }
+	
+	@Override
+    public void act(float delta) {
+        super.act(delta);
+    }
+	
+	@Override
+    public void draw(Batch batch, float parentAlpha) {
+        sprite.draw(batch);
+    }
+	
+
+	
+	public void sizePlace(float amountX,float amountY)
+	{
+		this.setWidth(amountX);
+		this.setHeight(amountY);
+		sprite.setSize(this.getWidth(), this.getHeight());
 	}
 }

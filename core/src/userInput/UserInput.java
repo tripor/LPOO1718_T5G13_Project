@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
 
 import graphic.GameStage;
-import graphic.GroundUpScreen;
 
 public class UserInput {
 	
@@ -30,5 +29,7 @@ public class UserInput {
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             game.getCamera().translate(new Vector3(-5,0,0));
         }
+        int amount = 0;
+        Gdx.input.getInputProcessor().scrolled(amount);
 	}
 }
