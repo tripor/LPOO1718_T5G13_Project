@@ -3,12 +3,18 @@ package person;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+
 import logic.console.Console;
 import logic.map.Map;
 import logic.path.byAStar.AStar;
 import logic.path.byAStar.Node;
 
-public class Person {
+public class Person extends Actor{
+	
+	protected Sprite sprite;
 	
 	public int current_row;
 	public int current_col;
@@ -102,5 +108,39 @@ public class Person {
 	}
 	public int getCol() {
 		return this.current_col;
+	}
+	
+	@Override
+	public void setPosition(float x,float y)
+	{
+		super.setPosition(x, y);
+	}
+	
+	@Override
+    protected void positionChanged() {
+        super.positionChanged();
+        sprite.setPosition(getX(), getY());
+    }
+	
+	@Override
+    protected void rotationChanged() {
+        super.rotationChanged();
+        sprite.setRotation(getRotation());
+    }
+	
+	@Override
+    public void act(float delta) {
+        super.act(delta);
+    }
+	
+	@Override
+    public void draw(Batch batch, float parentAlpha) {
+        sprite.draw(batch);
+    }
+	public void sizePlace(float amountX,float amountY)
+	{
+		this.setWidth(amountX);
+		this.setHeight(amountY);
+		sprite.setSize(this.getWidth(), this.getHeight());
 	}
 }

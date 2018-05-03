@@ -27,6 +27,8 @@ public class GameStage extends Stage {
         game.getAssetManager().load("worker.png", Texture.class);
         game.getAssetManager().finishLoading();
         
+        
+        
         this.fab=new Factory(game,100,100,100,100,100,100);
         this.addActor(fab);
     }
