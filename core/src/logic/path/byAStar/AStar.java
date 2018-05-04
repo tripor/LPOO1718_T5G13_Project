@@ -33,7 +33,7 @@ public class AStar {
     /**
      * Constructor
      */
-    public AStar(int rows, int cols, Node initialNode, Node finalNode) {
+    public AStar(Node initialNode, Node finalNode) {
     		this.hvCost = DEFAULT_HV_COST;
     		this.diagonalCost = DEFAULT_DIAGONAL_COST;
     		

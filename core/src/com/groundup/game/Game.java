@@ -9,6 +9,7 @@ import logic.map.Map;
 import logic.path.byAStar.Node;
 import logic.storage.PersonList;
 import person.Person;
+import person.type.Worker;
 
 public class Game {
 	
@@ -134,10 +135,9 @@ public class Game {
 				t_col = places.get(f).getDoorCol();
 			}
 		}
-		
-		Person p = new Person("" + i);
-		p.setCurrentRow(s_row);
-		p.setCurrentCol(s_col);
+
+		Person p = new Person(s_row, s_col);
+		p.setId("" + i);
 		
 		personList.addPerson(p);
 		

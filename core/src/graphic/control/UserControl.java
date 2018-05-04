@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
 
 import graphic.GameStage;
+import logic.storage.PersonList;
 
 public class UserControl {
 	
@@ -18,14 +19,17 @@ public class UserControl {
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {	// camera goes up.
             game.getCamera().translate(new Vector3(0,5,0));
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {	// camera goes down
+        else if (Gdx.input.isKeyPressed(Input.Keys.S)) {	// camera goes down
             game.getCamera().translate(new Vector3(0,-5,0));
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {	// camera goes right
+        else if (Gdx.input.isKeyPressed(Input.Keys.D)) {	// camera goes right
             game.getCamera().translate(new Vector3(5,0,0));
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {	// camera goes left
+        else if (Gdx.input.isKeyPressed(Input.Keys.A)) {	// camera goes left
             game.getCamera().translate(new Vector3(-5,0,0));
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+        		PersonList.getInstance().popPaths();
         }
         int amount = 0;
         Gdx.input.getInputProcessor().scrolled(amount);

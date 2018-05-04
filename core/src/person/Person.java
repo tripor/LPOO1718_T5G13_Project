@@ -11,6 +11,8 @@ import logic.console.Console;
 import logic.map.Map;
 import logic.path.byAStar.AStar;
 import logic.path.byAStar.Node;
+import logic.storage.PlaceList;
+import place.Place;
 
 public class Person extends Actor{
 
@@ -33,31 +35,30 @@ public class Person extends Actor{
 		this.current_row = row;
 	}
 	
-	public Person(String id) {
-		this.unique_id = id;
-	}
-	
 	public String getId() {
 		return this.unique_id;
+	}
+	public void setId(String id) {
+		this.unique_id = id;
 	}
 	
 	public List<Node> getPath(int _target_row, int _target_col, boolean should_replace_global) {
 
-		this.target_row = _target_row;
-		this.target_col = _target_col;
+		// Console.log(":: CALC PATH " + current_row+","+current_col
+		// 			+ " - " + target_row+","+target_col);
 		
 		Node initialNode = new Node(current_row, current_col);
-        Node finalNode = new Node(target_row, target_col);
-        int rows = map.getMapHeight();
-        int cols = map.getMapWidth();
+        Node finalNode = new Node(_target_row, _target_col);
         
-        AStar aStar = new AStar(rows, cols, initialNode, finalNode);
+        AStar aStar = new AStar(initialNode, finalNode);
         aStar.setBlocks(map.getPlaceList());
         
         List<Node> thisPath = aStar.findPath();
         
         if(should_replace_global) {
             this.path = thisPath;
+	    		this.target_row = _target_row;
+	    		this.target_col = _target_col;
         }
         return thisPath;
 	}
@@ -73,15 +74,54 @@ public class Person extends Actor{
 		this.current_col = col;
 	}
 	
+	public void setCurrentPos(int row, int col) {
+		setCurrentRow(row);
+		setCurrentCol(col);
+		this.setPosition(col, row);
+	}
+	
 	public Node popPath() {
 		
+		if(path.size() < 1) {
+			return null;
+		}
+		
 		Node latestNode = path.remove(0);
+		
+//		Place nextStep_building = PlaceList.getInstance().checkIfPointInBuilding(latestNode.getRow(), latestNode.getCol());
+		
+//		if(nextStep_building != null) {
+//			
+//			this.current_col = nextStep_building.getDoorCol();
+//			this.current_row = nextStep_building.getDoorRow();
+//			
+//			// Console.log("Person " + this.getId() + "crushed to the wall, at "+current_row+","+current_col+" for target "+target_row+","+target_col+".");
+//			
+//			this.getPath(target_row, target_col);
+//			latestNode = path.remove(0);
+//		}
 		
 		while (Math.abs(latestNode.getCol() - current_col) > 1
 			|| Math.abs(latestNode.getRow() - current_row) > 1) {
 			
 			List<Node> smallerPath = this.getPath(latestNode.getRow(), latestNode.getCol(), false);
-//			Console.log(">> " + smallerPath.size() + " steps added.");
+			
+			if(smallerPath.size() < 1) {
+				// prevent infinite loop.
+
+				Console.log("BREAK > ID=" + this.getId() + " - PATHSIZE=" + path.size()
+				
+					+ " CUR=" + current_row
+					+ "," + current_col
+
+					+ " NEXT#" + latestNode.getRow()
+					+ "," + latestNode.getCol()
+				
+					+ " DELTA@" + Math.abs(latestNode.getRow() - current_row)
+					+ "/" + Math.abs(latestNode.getCol() - current_col));
+				
+				break;
+			}
 			
 			for(Node n : path) {
 				smallerPath.add(n);
@@ -92,10 +132,8 @@ public class Person extends Actor{
 			latestNode = path.remove(0);
 		}
 		
-		current_col = latestNode.getCol();
-		current_row = latestNode.getRow();
-		
-//		Console.log(this.toString());
+		this.setCurrentPos(latestNode.getRow(), latestNode.getCol());
+		// Console.log("POP > " + this.toString());
 
 		return latestNode;
 	}
@@ -139,8 +177,11 @@ public class Person extends Actor{
 	
 	@Override
     public void draw(Batch batch, float parentAlpha) {
+		
+		// Console.log(sprite.toString());
+		
         sprite.draw(batch);
-		Console.log("Print person");
+		// Console.log("Print person");
     }
 //	public void sizePlace(float amountX,float amountY)
 //	{

@@ -197,7 +197,7 @@ public class Place extends Actor {
 	
 	@Override
     public void draw(Batch batch, float parentAlpha) {
-        // sprite.draw(batch);
+         sprite.draw(batch);
 		
 		//if(this.getUniqueId().equals(Map.getInstance().getTestingTrack())) {
 		//	Console.log("Printing " + Map.getInstance().getTestingTrack() + " - " + System.nanoTime());

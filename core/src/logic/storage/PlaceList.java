@@ -114,4 +114,16 @@ public class PlaceList {
 		}
 		return p;
 	}
+	
+	public Place checkIfPointInBuilding(int row, int col) {
+		
+		List<Place> map = getPlaceList(row, col);
+		
+		for(Place p : map) {
+			if(p.including(row, col)) {
+				return p;
+			}
+		}
+		return null;
+	}
 }

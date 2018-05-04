@@ -20,8 +20,8 @@ public class Worker extends Person {
 	
 	public Worker(int row, int col) {
 		super(row, col);
-		this.setWidth(20);
-		this.setHeight(20);
+		this.setWidth(1);
+		this.setHeight(1);
 		this.createWorker();
 		this.setPosition(col, row);
 	}

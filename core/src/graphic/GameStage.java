@@ -3,20 +3,18 @@ package graphic;
 import java.util.List;
 import java.util.Random;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.async.AsyncExecutor;
-import com.badlogic.gdx.utils.async.AsyncResult;
 import com.badlogic.gdx.utils.async.AsyncTask;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import logic.console.Console;
 import logic.map.Map;
+import logic.path.byAStar.AStar;
+import logic.path.byAStar.Node;
 import logic.storage.PersonList;
-import person.Person;
+import person.type.Worker;
 import place.Place;
 import place.type.Factory;
 
@@ -83,9 +81,9 @@ public class GameStage extends Stage {
 	        public Void call() {
 	        		int	i = 0;
 	        		
-//	        		for(i = 0; i < 30; i++) {
-//	        			generateFactory(i);
-//	        		}
+	        		for(i = 0; i < 30; i++) {
+	        			generateFactory(i);
+	        		}
 	        		for(i = 0; i < 30; i++) {
 	        			generatePerson(i);
 	        		}
@@ -181,9 +179,8 @@ public class GameStage extends Stage {
 			}
 		}
 		
-		Person p = new Person("" + i);
-		p.setCurrentRow(s_row);
-		p.setCurrentCol(s_col);
+		Worker p = new Worker(s_row, s_col);
+		p.setId("" + i);
 		
 		if(PersonList.getInstance().addPerson(p)) {
 
