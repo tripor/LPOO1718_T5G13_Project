@@ -9,10 +9,10 @@ import logic.storage.PersonList;
 
 public class UserControl {
 	
-	private GameStage game = GameStage.getInstance();
+	private GameStage game;
 	
-	public UserControl() {
-		
+	public UserControl(GameStage game) {
+		this.game=game;
 	}
 	
 	public void InputHandler() {
@@ -30,6 +30,10 @@ public class UserControl {
         }
         else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
         		PersonList.getInstance().popPaths();
+        }
+        else if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
+        {
+        	System.exit(0);
         }
         int amount = 0;
         Gdx.input.getInputProcessor().scrolled(amount);

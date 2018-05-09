@@ -1,11 +1,13 @@
 package place.type;
 
+import graphic.GameStage;
 import place.Place;
 
 public class House extends Place {
-	
-	public House(int top, int left, int width, int height, int doorAtBorder, int doorAtPx) {
-		super(top, left, width, height, doorAtBorder, doorAtPx);
+
+	public House(GameStage game, int top, int left, int width, int height, int doorAtBorder, int doorAtPx) {
+		super(game, top, left, width, height, doorAtBorder, doorAtPx);
+		// TODO Auto-generated constructor stub
 	}
 	
 }

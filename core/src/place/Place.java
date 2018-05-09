@@ -3,18 +3,13 @@ package place;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-
-import logic.console.Console;
+import graphic.ActorExtension;
+import graphic.GameStage;
+import graphic.GroundUpGame;
 import logic.map.Map;
 import person.Person;
 
-public class Place extends Actor {
-
-	// for graphic.
-	protected Sprite sprite;
+public class Place extends ActorExtension {
 	
 	public List<Person> _people_here = new ArrayList<Person>();
 	public int	bound_top,
@@ -31,6 +26,7 @@ public class Place extends Actor {
 	public String unique_id = "undefined";
 	
 	/**
+	 * @param game 
 	 * @param doorAtBorder
 	 *  1 = TOP
 	 *  2 = RIGHT
@@ -45,7 +41,9 @@ public class Place extends Actor {
 	 *        [LEFT, 5] = 6th pixel from bottom.
 	 *        [BOTTOM, ...
 	 */
-	public Place(int top, int left, int width, int height, int doorAtBorder, int doorAtPx) {
+	public Place(GameStage game, int top, int left, int width, int height, int doorAtBorder, int doorAtPx) {
+		this.game=game;
+		
 		// for rectangle place
 		this.bound_top    = top;
 		this.bound_right  = left + width;
@@ -159,7 +157,7 @@ public class Place extends Actor {
 		this.unique_id = id;
 		
 		// for testing.
-		Map.getInstance().setTestingTrack(id);
+		this.game.getMap().setTestingTrack(id);
 	}
 	
 	public String getUniqueId() {
@@ -169,40 +167,6 @@ public class Place extends Actor {
 	public String getType() {
 		return "Place";
 	}
-
-	
-
-	// for graphic.
-	@Override
-	public void setPosition(float x,float y)	{
-		super.setPosition(x, y);
-	}
-	
-	@Override
-    protected void positionChanged() {
-        super.positionChanged();
-        sprite.setPosition(getX(), getY());
-    }
-	
-	@Override
-    protected void rotationChanged() {
-        super.rotationChanged();
-        sprite.setRotation(getRotation());
-    }
-	
-	@Override
-    public void act(float delta) {
-        super.act(delta);
-    }
-	
-	@Override
-    public void draw(Batch batch, float parentAlpha) {
-         sprite.draw(batch);
-		
-		//if(this.getUniqueId().equals(Map.getInstance().getTestingTrack())) {
-		//	Console.log("Printing " + Map.getInstance().getTestingTrack() + " - " + System.nanoTime());
-		//}
-    }
 	
 //	public void sizePlace(float amountX, float amountY) {
 //		this.setWidth(amountX);

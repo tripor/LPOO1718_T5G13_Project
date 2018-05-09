@@ -12,20 +12,7 @@ public class GroundUpGame extends Game {
 	@Override
 	public void create() {
 		this.assetManager = new AssetManager();
-		this.setScreen(new GroundUpScreen());
-
-		// Gdx.graphics.setContinuousRendering(false);
-		// Gdx.graphics.requestRendering();
-	}
-
-	private static GroundUpGame instance = new GroundUpGame();
-	
-	private GroundUpGame() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public static GroundUpGame getInstance() {
-		return instance;
+		this.setScreen(new GroundUpScreen(this));
 	}
 
 	/**

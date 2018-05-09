@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import person.Person;
-
+/**
+ * Class that saves and handles all the persons in the game
+ *
+ */
 public class PersonList {
 	
 	public HashMap<String, Person> personMap = new HashMap<String, Person>();
@@ -12,7 +15,7 @@ public class PersonList {
 	
 	private static PersonList instance = new PersonList();
 	
-	private PersonList() {
+	public PersonList() {
 		// TODO Auto-generated constructor stub
 	}
 	

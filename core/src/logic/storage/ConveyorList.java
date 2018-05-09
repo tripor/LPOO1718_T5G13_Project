@@ -9,14 +9,8 @@ public class ConveyorList {
 	public HashMap<String, Conveyor> conveyorMap = new HashMap<String, Conveyor>();
 	// Usage: conveyorMap.get(index(ROW, COL));
 	
-	private static ConveyorList instance = new ConveyorList();
-	
-	private ConveyorList() {
+	public ConveyorList() {
 		// TODO Auto-generated constructor stub
-	}
-	
-	public static ConveyorList getInstance() {
-		return instance;
 	}
 	
 	public boolean addConveyor(Conveyor c) {

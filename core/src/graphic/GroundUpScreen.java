@@ -5,7 +5,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 
 import graphic.control.UserControl;
-import logic.console.Console;
 /**
  * 
  * Class that deals with the Screen for the game
@@ -15,11 +14,17 @@ public class GroundUpScreen extends ScreenAdapter {
 	/**
 	 * The game it self
 	 */
-	private final GameStage game = GameStage.getInstance();
+	private final GameStage game;
 	private final UserControl userControl;
     
-	public GroundUpScreen() {
-		userControl = new UserControl();
+	
+	/**
+	 * Constructor for the Game Screen
+	 * @param game The Game
+	 */
+	public GroundUpScreen(GroundUpGame game) {
+		this.game=new GameStage(game);
+		userControl = new UserControl(this.game);
 		Gdx.input.setInputProcessor(this.game);
 	}
 	

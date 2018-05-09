@@ -3,6 +3,7 @@ package person.type;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import graphic.GameStage;
 import graphic.GroundUpGame;
 import person.Person;
 
@@ -10,7 +11,7 @@ public class Worker extends Person {
 	
 	private void createWorker()	{
 		
-		Texture texture = GroundUpGame.getInstance().getAssetManager().get("worker.png");
+		Texture texture = this.game.getGame().getAssetManager().get("worker.png");
 		
 		sprite = new Sprite(texture);
 		sprite.setSize(this.getWidth(), this.getHeight());
@@ -18,8 +19,8 @@ public class Worker extends Person {
 		this.setDebug(true);
 	}
 	
-	public Worker(int row, int col) {
-		super(row, col);
+	public Worker(GameStage game,int row, int col) {
+		super(game,row, col);
 		this.setWidth(1);
 		this.setHeight(1);
 		this.createWorker();

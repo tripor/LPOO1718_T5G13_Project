@@ -1,55 +1,87 @@
 package graphic;
 
-import java.util.List;
 import java.util.Random;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.async.AsyncExecutor;
-import com.badlogic.gdx.utils.async.AsyncTask;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import logic.console.Console;
 import logic.map.Map;
-import logic.path.byAStar.AStar;
-import logic.path.byAStar.Node;
+import logic.storage.ConveyorList;
 import logic.storage.PersonList;
+import logic.storage.PlaceList;
 import person.type.Worker;
 import place.Place;
 import place.type.Factory;
 
 public class GameStage extends Stage {
 	
+	/**
+	 * The viewport width
+	 */
     public static final int VIEWPORT_WIDTH = 40;
+    /**
+     * Conversion from pixel to meter
+     */
     public static final float PIXEL_TO_METER = 1f / 500;
-	
-    public static GameStage instance = new GameStage();
+    /**
+     * Instance of the ground up game
+     */
+    public GroundUpGame game;
+    /**
+     * Instance of the game map
+     */
+    protected Map map;
+    /**
+     * Class with all the places in the game
+     */
+    protected PlaceList place_list;
+    /**
+     * Class with all the conveyors in the game
+     */
+    protected ConveyorList conveyor_list;
+    /**
+     * Class with all the persons in this game
+     */
+    protected PersonList person_list;
 
-    public GroundUpGame game = GroundUpGame.getInstance();
-    public          Map map  = Map.getInstance();
-
+	/**
+     * Missing Description
+     */
 	private AsyncExecutor asyncExecutor = new AsyncExecutor(10);
-	
-	private GameStage() {
+	/**
+	 * Constructor of the class GameStage
+	 * It creates a viewport and loads all the texture of the game
+	 * @param game 
+	 */
+	public GameStage(GroundUpGame game) {
+	    this.game=game;
+	    this.map= new Map(this);
+		this.place_list=new PlaceList();
+		this.conveyor_list=new ConveyorList();
+		this.person_list= new PersonList();
 		
-		// float ratio = ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
-	    
 		// Set the viewport
 		setViewport(new ScreenViewport());
 	
 	    // Load the textures
 	    game.getAssetManager().load("factory.png", Texture.class);
 	    game.getAssetManager().load("worker.png", Texture.class);
-	    game.getAssetManager().finishLoading();
-	
-	    // this.setActionsRequestRendering(false);
+	    game.getAssetManager().finishLoading(); // should be replaced by something more efficiente
+	    
+	    
+	    
+	    //Initialize the game
 	    initGame();
 	}
-	
-	public static GameStage getInstance() {
-		return instance;
-	}
     
+	
+
+	/**
+	 * Initializes the games creating all the places and people
+	 */
     private void initGame() {
 		map.setMapWidth(300);
 		map.setMapHeight(300);
@@ -77,7 +109,7 @@ public class GameStage extends Stage {
 		//		i = generateFactory(i);	// generateFactory will return i++.
 		//	}
 
-		asyncExecutor.submit(new AsyncTask<Void>() {
+		/*asyncExecutor.submit(new AsyncTask<Void>() {
 	        public Void call() {
 	        		int	i = 0;
 	        		
@@ -89,7 +121,7 @@ public class GameStage extends Stage {
 	        		}
 	            return null;
 	        } 
-	    });
+	    });*/
     }
     
 	private int Random(int min, int max) {
@@ -103,8 +135,8 @@ public class GameStage extends Stage {
 		int max_size = map.getbuildingMaxSize();
 
 		// TODO: Move camera instead of modifying buildings' position.
-		int row = (map.randRow() - Map.getInstance().getMapWidth()  / 2),
-		    col = (map.randCol() - Map.getInstance().getMapHeight() / 2),
+		int row = (map.randRow() - this.map.getMapWidth()  / 2),
+		    col = (map.randCol() - this.map.getMapHeight() / 2),
 		    
 		    w = Random(min_size, max_size),
 		    h = Random(min_size, max_size),
@@ -120,8 +152,8 @@ public class GameStage extends Stage {
 		
 		// if(row+h < map.getMapHeight() && col+w < map.getMapWidth()) {
 			
-			p = new Factory(row, col, w, h, Random(1,4), door_px);
-			boolean success = map.addPlace(p);
+			p = new Factory(this,row, col, w, h, Random(1,4), door_px);
+			boolean success = this.place_list.addPlace(p);
 			
 			if(success) {
 				this.addActor(p);
@@ -134,6 +166,10 @@ public class GameStage extends Stage {
 		return null;
 	}
 	
+	
+
+
+
 	private boolean generateFactory(int i) {
 		
 		Place p = generateFactory();
@@ -160,7 +196,7 @@ public class GameStage extends Stage {
 			t_col = map.randCol();
 
 		// For Starting Point
-		for(Place pl : map.getPlaceList(s_row, s_col)) {
+		for(Place pl : this.place_list.getPlaceList(s_row, s_col)) {
 			if(pl.including(s_row, s_col)) {
 				// Move the person to the door.
 				s_row = pl.getDoorRow();
@@ -170,7 +206,7 @@ public class GameStage extends Stage {
 		}
 		
 		// For Destination
-		for(Place pl : map.getPlaceList(t_row, t_col)) {
+		for(Place pl : this.place_list.getPlaceList(t_row, t_col)) {
 			if(pl.including(t_row, t_col)) {
 				// Move the person to the door.
 				t_row = pl.getDoorRow();
@@ -179,7 +215,7 @@ public class GameStage extends Stage {
 			}
 		}
 		
-		Worker p = new Worker(s_row, s_col);
+		Worker p = new Worker(this,s_row, s_col);
 		p.setId("" + i);
 		
 		if(PersonList.getInstance().addPerson(p)) {
@@ -192,4 +228,41 @@ public class GameStage extends Stage {
 			p.getPath(t_row, t_col);
 		}
 	}
+	
+	/**
+	 * 
+	 * @return Returns a class containing all the places in the game
+	 */
+    public PlaceList getPlace_list() {
+		return place_list;
+	}
+    /**
+     * Sets the class containing all the places in the game
+     * @param place_list The class PlaceList I want to change to
+     */
+	public void setPlace_list(PlaceList place_list) {
+		this.place_list = place_list;
+	}
+	/**
+	 * 
+	 * @return Return the Map of this game
+	 */
+	public Map getMap() {
+		return map;
+	}
+	/**
+	 * 
+	 * @return Return the Class GroundUpGame of this game
+	 */
+	public GroundUpGame getGame() {
+		return game;
+	}
+	/**
+	 * 
+	 * @return Returns the Conveyor List of this game
+	 */
+	public ConveyorList getConveyor_list() {
+		return conveyor_list;
+	}
+	
 }

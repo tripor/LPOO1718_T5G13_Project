@@ -7,6 +7,6 @@ import graphic.GroundUpGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(GroundUpGame.getInstance(), config);
+		new LwjglApplication(new GroundUpGame(), config);
 	}
 }

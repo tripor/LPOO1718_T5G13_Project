@@ -1,18 +1,19 @@
 package conveyor;
 
+import graphic.ActorExtension;
+import graphic.GameStage;
 import logic.storage.ConveyorList;
 import place.Place;
 
-public class Conveyor {
+public class Conveyor extends ActorExtension{
 	
 	// If a product passes through this pipe => add ? pixels to it's position.
 	int movement_row = 0;
 	int movement_col = 0;
-	
 	int row, col;
-	ConveyorList conveyorList = ConveyorList.getInstance();
 
-	public Conveyor(int row, int col, int direction) {
+	public Conveyor(GameStage game,int row, int col, int direction) {
+		this.game=game;
 		
 		this.row = row;
 		this.col = col;
@@ -64,7 +65,7 @@ public class Conveyor {
 		int row = thisObj.getRow() + row_delta,
 			col = thisObj.getCol() + col_delta;
 		
-		if(conveyorList.getConveyor(row, col) != null) {
+		if(this.game.getConveyor_list().getConveyor(row, col) != null) {
 			int[] result = {row, col};
 			return result;
 		}

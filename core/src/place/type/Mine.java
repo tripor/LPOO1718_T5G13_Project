@@ -1,14 +1,16 @@
 package place.type;
 
+import graphic.GameStage;
 import logic.storage.Demand;
 import place.Place;
 
 public class Mine extends Place {
 
-	public Demand _demand = new Demand();
-	
-	public Mine(int top, int left, int width, int height, int doorAtBorder, int doorAtPx) {
-		super(top, left, width, height, doorAtBorder, doorAtPx);
+	public Mine(GameStage game, int top, int left, int width, int height, int doorAtBorder, int doorAtPx) {
+		super(game, top, left, width, height, doorAtBorder, doorAtPx);
+		// TODO Auto-generated constructor stub
 	}
+
+	public Demand _demand = new Demand();
 
 }

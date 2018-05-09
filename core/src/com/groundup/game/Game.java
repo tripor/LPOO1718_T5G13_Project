@@ -13,7 +13,7 @@ import person.type.Worker;
 
 public class Game {
 	
-	Map map = Map.getInstance();
+	/*Map map = Map.getInstance();
 	PersonList personList = PersonList.getInstance();
 	
 	public Game() {
@@ -146,6 +146,6 @@ public class Game {
 		
 		// List<Node> path = 
 		p.getPath(t_row, t_col);
-	}
+	}*/
 
 }

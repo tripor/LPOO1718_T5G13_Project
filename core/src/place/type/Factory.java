@@ -3,6 +3,7 @@ package place.type;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import graphic.GameStage;
 import graphic.GroundUpGame;
 import place.Place;
 
@@ -10,7 +11,7 @@ public class Factory extends Place {
 
 	private void createFactory() {
 		
-		Texture texture = GroundUpGame.getInstance().getAssetManager().get("factory.png");
+		Texture texture = this.game.getGame().getAssetManager().get("factory.png");
 		
 		sprite = new Sprite(texture);
 		sprite.setSize(this.getWidth(), this.getHeight());
@@ -18,8 +19,8 @@ public class Factory extends Place {
 		this.setDebug(true);
 	}
 	
-	public Factory(int top, int left, int width, int height, int doorAtBorder, int doorAtPx) {
-		super(top, left, width, height, doorAtBorder, doorAtPx);
+	public Factory(GameStage game,int top, int left, int width, int height, int doorAtBorder, int doorAtPx) {
+		super(game,top, left, width, height, doorAtBorder, doorAtPx);
 		this.setWidth(width);
 		this.setHeight(height);
 		this.createFactory();

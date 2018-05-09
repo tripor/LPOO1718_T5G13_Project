@@ -3,21 +3,18 @@ package person;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-
+import graphic.ActorExtension;
+import graphic.GameStage;
 import logic.console.Console;
-import logic.map.Map;
 import logic.path.byAStar.AStar;
 import logic.path.byAStar.Node;
-import logic.storage.PlaceList;
-import place.Place;
 
-public class Person extends Actor{
-
-	// for graphic.
-	protected Sprite sprite;
+/**
+ * Class that the top layer of all the persons in the game
+ * @author figor
+ *
+ */
+public class Person extends ActorExtension{
 	
 	public int current_row;
 	public int current_col;
@@ -25,12 +22,12 @@ public class Person extends Actor{
 	public int target_row;
 	public int target_col;
 	
-	private Map map = Map.getInstance();
 	public String unique_id = "undefined";
 	
 	List<Node> path = new ArrayList<Node>();
 	
-	public Person(int row, int col) {
+	public Person(GameStage game,int row, int col) {
+		this.game=game;
 		this.current_col = col;
 		this.current_row = row;
 	}
@@ -51,7 +48,7 @@ public class Person extends Actor{
         Node finalNode = new Node(_target_row, _target_col);
         
         AStar aStar = new AStar(initialNode, finalNode);
-        aStar.setBlocks(map.getPlaceList());
+        aStar.setBlocks(this.game.getPlace_list().getPlaceList());
         
         List<Node> thisPath = aStar.findPath();
         
@@ -150,39 +147,6 @@ public class Person extends Actor{
 	public int getCol() {
 		return this.current_col;
 	}
-	
-
-	// for graphic.
-	@Override
-	public void setPosition(float x,float y)	{
-		super.setPosition(x, y);
-	}
-	
-	@Override
-    protected void positionChanged() {
-        super.positionChanged();
-        sprite.setPosition(getX(), getY());
-    }
-	
-	@Override
-    protected void rotationChanged() {
-        super.rotationChanged();
-        sprite.setRotation(getRotation());
-    }
-	
-	@Override
-    public void act(float delta) {
-        super.act(delta);
-    }
-	
-	@Override
-    public void draw(Batch batch, float parentAlpha) {
-		
-		// Console.log(sprite.toString());
-		
-        sprite.draw(batch);
-		// Console.log("Print person");
-    }
 //	public void sizePlace(float amountX,float amountY)
 //	{
 //		this.setWidth(amountX);

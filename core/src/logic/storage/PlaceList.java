@@ -10,23 +10,33 @@ import place.Place;
 
 public class PlaceList {
 	
+	/**
+	 * split the full map into groups, the size should be = Map.getInstance().getbuildingMaxSize() * 15
+	 */
 	private static int GROUP_SIZE = 1500;
-	// split the full map into groups, the size should be = Map.getInstance().getbuildingMaxSize() * 15
 	
+	/**
+	 * List contaning all the place in the game
+	 */
 	public List<Place> placeSet = new ArrayList<Place>();
+	/**
+	 * Missing Description
+	 * 
+	 * 
+	 * Usage: placeMap.get(index(ROW, COL));
+	 */
 	public HashMap<String, List<Place>> placeMap = new HashMap<String, List<Place>>();
-	// Usage: placeMap.get(index(ROW, COL));
-	
-	private static PlaceList instance = new PlaceList();
-	
-	private PlaceList() {
-		// TODO Auto-generated constructor stub
+	/**
+	 * Constructor for the Class Place List
+	 */
+	public PlaceList() {
+		
 	}
-	
-	public static PlaceList getInstance() {
-		return instance;
-	}
-	
+	/**
+	 * Missing Description
+	 * @param p
+	 * @return
+	 */
 	public boolean addPlace(Place p) {
 		
 		int left = p.getBoundLeft()/GROUP_SIZE, right  = p.getBoundRight()/GROUP_SIZE,
@@ -72,7 +82,10 @@ public class PlaceList {
 		p.setUniqueId("R" + p.getBoundTop() + "C" + p.getBoundLeft());
 		return true;
 	}
-	
+	/**
+	 * Missing Description
+	 * @param p
+	 */
 	public void removePlace(Place p) {
 		
 		int left = p.getBoundLeft()/GROUP_SIZE, right  = p.getBoundRight()/GROUP_SIZE,
@@ -87,11 +100,19 @@ public class PlaceList {
 		}
 		placeSet.remove(p);
 	}
-	
+	/**
+	 * Missing Description
+	 * @return
+	 */
 	public List<Place> getPlaceList(){
 		return placeSet;
 	}
-	
+	/**
+	 * Missing Description
+	 * @param row
+	 * @param col
+	 * @return
+	 */
 	public List<Place> getPlaceList(int row, int col) {
 		
 		row = row / GROUP_SIZE;
@@ -99,12 +120,21 @@ public class PlaceList {
 		
 		return getMap(row, col);
 	}
-	
+	/**
+	 * Missing Description
+	 * @param row
+	 * @param col
+	 * @return
+	 */
 	public String index(int row, int col) {
 		return row + "/" + col;
 	}
-	
-	// this function has already implemented in latest Java.
+	/**
+	 * Missing Description.this function has already implemented in latest Java.
+	 * @param row
+	 * @param col
+	 * @return
+	 */
 	public List<Place> getMap(int row, int col) {
 		
 		List<Place> p = placeMap.get(index(row, col));
@@ -114,7 +144,12 @@ public class PlaceList {
 		}
 		return p;
 	}
-	
+	/**
+	 * Missing Description
+	 * @param row
+	 * @param col
+	 * @return
+	 */
 	public Place checkIfPointInBuilding(int row, int col) {
 		
 		List<Place> map = getPlaceList(row, col);
