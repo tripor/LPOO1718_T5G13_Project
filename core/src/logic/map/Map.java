@@ -12,6 +12,10 @@ import logic.storage.PlaceList;
 public class Map {
 
 	/**
+	 * Amount of pixel the map is divided. Squares 10 by 10
+	 */
+	public static int division = 10;
+	/**
 	 * Missing description
 	 */
 	public int mapWidth = 0;
@@ -39,6 +43,9 @@ public class Map {
 	 */
 	public Map(GameStage game) {
 		this.game=game;
+		
+		this.mapHeight=1000;
+		this.mapWidth=1000;
 	}
 	/**
 	 * Missing description

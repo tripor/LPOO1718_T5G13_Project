@@ -6,7 +6,10 @@ import com.badlogic.gdx.math.Vector3;
 
 import graphic.GameStage;
 import logic.storage.PersonList;
-
+/**
+ * Class that handles the user input
+ *
+ */
 public class UserControl {
 	
 	private GameStage game;

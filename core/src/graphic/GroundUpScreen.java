@@ -3,6 +3,7 @@ package graphic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector3;
 
 import graphic.control.UserControl;
 /**
@@ -35,7 +36,7 @@ public class GroundUpScreen extends ScreenAdapter {
 		Gdx.gl.glClearColor(103 / 255f, 69 / 255f, 117 / 255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		
-		this.userControl.InputHandler();
+		this.userControl.InputHandler(); 
 		
 		// Console.log("DELTA=" + delta + "s");
 		game.draw();

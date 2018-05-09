@@ -14,12 +14,10 @@ public class Background extends ActorExtension {
 	 */
 	private void createBackground() {
 
-		Texture texture = this.game.getGame().getAssetManager().get("factory.png");
+		Texture texture = this.game.getGame().getAssetManager().get("grass01.png");
 
 		sprite = new Sprite(texture);
 		sprite.setSize(this.getWidth(), this.getHeight());
-
-		this.setDebug(true);
 	}
 	/**
 	 * Constructor for the Class Background
@@ -28,7 +26,8 @@ public class Background extends ActorExtension {
 	 * @param width
 	 * @param height
 	 */
-	public Background(int top, int left, int width, int height) {
+	public Background(GameStage game,int top, int left, int width, int height) {
+		this.game=game;
 		this.setWidth(width);
 		this.setHeight(height);
 		this.createBackground();

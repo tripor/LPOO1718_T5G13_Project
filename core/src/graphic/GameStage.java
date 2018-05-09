@@ -2,13 +2,17 @@ package graphic;
 
 import java.util.Random;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.async.AsyncExecutor;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import logic.console.Console;
 import logic.map.Map;
+import logic.storage.BackGroundList;
 import logic.storage.ConveyorList;
 import logic.storage.PersonList;
 import logic.storage.PlaceList;
@@ -46,6 +50,14 @@ public class GameStage extends Stage {
      * Class with all the persons in this game
      */
     protected PersonList person_list;
+    /**
+     * Class with all the background in this game
+     */
+    protected BackGroundList background_list;
+    /**
+     * Game camera
+     */
+    private OrthographicCamera camera;
 
 	/**
      * Missing Description
@@ -62,29 +74,48 @@ public class GameStage extends Stage {
 		this.place_list=new PlaceList();
 		this.conveyor_list=new ConveyorList();
 		this.person_list= new PersonList();
+		this.background_list=new BackGroundList();
 		
 		// Set the viewport
-		setViewport(new ScreenViewport());
+		camera= new OrthographicCamera();
+		setViewport(new FitViewport(100,100,camera));
 	
 	    // Load the textures
 	    game.getAssetManager().load("factory.png", Texture.class);
 	    game.getAssetManager().load("worker.png", Texture.class);
+	    game.getAssetManager().load("grass01.png", Texture.class);
 	    game.getAssetManager().finishLoading(); // should be replaced by something more efficiente
 	    
-	    
+	    initializeMap();
 	    
 	    //Initialize the game
-	    initGame();
+	    //initGame();
+
 	}
     
+	/**
+	 * Initializes the map as for the background
+	 */
+	private void initializeMap()
+	{
+		for(int i=0; i< this.map.getMapWidth();i+=Map.division)
+		{
+			for(int j=0; j < this.map.getMapHeight();j+=Map.division)
+			{
+				Background adicionar= new Background(this,i,j,Map.division,Map.division);
+				this.addActor(adicionar);
+				this.background_list.addBackground(adicionar);
+			}
+		}
+		
+		
+	}
 	
 
 	/**
 	 * Initializes the games creating all the places and people
 	 */
     private void initGame() {
-		map.setMapWidth(300);
-		map.setMapHeight(300);
 
 		//	Factory p2 = new Factory(170,484,69,75,3,43);
 		//	Console.log("ADDING: " + p2.toString());
