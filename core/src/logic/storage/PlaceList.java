@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.badlogic.gdx.scenes.scene2d.Group;
+
 import logic.console.Console;
 import logic.map.Map;
 import place.Place;
 
-public class PlaceList {
+public class PlaceList extends Group{
 	
 	/**
 	 * split the full map into groups, the size should be = Map.getInstance().getbuildingMaxSize() * 15
@@ -80,6 +82,7 @@ public class PlaceList {
 		}
 		placeSet.add(p);
 		p.setUniqueId("R" + p.getBoundTop() + "C" + p.getBoundLeft());
+		this.addActor(p);;
 		return true;
 	}
 	/**

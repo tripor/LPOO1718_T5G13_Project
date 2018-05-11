@@ -10,10 +10,13 @@ import com.badlogic.gdx.utils.async.AsyncExecutor;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import icon.Icon;
+import icon.type.FactoryIcon;
 import logic.console.Console;
 import logic.map.Map;
 import logic.storage.BackGroundList;
 import logic.storage.ConveyorList;
+import logic.storage.IconList;
 import logic.storage.PersonList;
 import logic.storage.PlaceList;
 import person.type.Worker;
@@ -25,7 +28,11 @@ public class GameStage extends Stage {
 	/**
 	 * The viewport width
 	 */
-    public static final int VIEWPORT_WIDTH = 40;
+    public static final int VIEWPORT_WIDTH = 200;
+    /**
+     * The viewport height
+     */
+    public static final int VIEWPORT_HEIGHT=100;
     /**
      * Conversion from pixel to meter
      */
@@ -55,6 +62,10 @@ public class GameStage extends Stage {
      */
     protected BackGroundList background_list;
     /**
+     * Class with all the buttons in this game
+     */
+    protected IconList icon_list;
+    /**
      * Game camera
      */
     private OrthographicCamera camera;
@@ -70,27 +81,43 @@ public class GameStage extends Stage {
 	 */
 	public GameStage(GroundUpGame game) {
 	    this.game=game;
+	    // I create a group of actor and I add it to the stage/GameStage
+		this.background_list=new BackGroundList();
+		this.addActor(this.background_list);
 	    this.map= new Map(this);
 		this.place_list=new PlaceList();
+		this.addActor(place_list);
 		this.conveyor_list=new ConveyorList();
+		this.addActor(conveyor_list);
 		this.person_list= new PersonList();
-		this.background_list=new BackGroundList();
+		this.addActor(person_list);
+		this.icon_list= new IconList();
+		this.addActor(icon_list);
 		
 		// Set the viewport
 		camera= new OrthographicCamera();
-		setViewport(new FitViewport(100,100,camera));
+		setViewport(new FitViewport(GameStage.VIEWPORT_WIDTH,GameStage.VIEWPORT_HEIGHT,camera));
 	
 	    // Load the textures
 	    game.getAssetManager().load("factory.png", Texture.class);
+	    game.getAssetManager().load("factory_icon.png", Texture.class);
 	    game.getAssetManager().load("worker.png", Texture.class);
 	    game.getAssetManager().load("grass01.png", Texture.class);
 	    game.getAssetManager().finishLoading(); // should be replaced by something more efficiente
+	    
+	    initializeIcons();
 	    
 	    initializeMap();
 	    
 	    //Initialize the game
 	    //initGame();
 
+	}
+	
+	private void initializeIcons()
+	{
+		Icon factory_icon= new FactoryIcon(this,10,10,10,10);
+		this.icon_list.addIcon(factory_icon);
 	}
     
 	/**
@@ -103,7 +130,6 @@ public class GameStage extends Stage {
 			for(int j=0; j < this.map.getMapHeight();j+=Map.division)
 			{
 				Background adicionar= new Background(this,i,j,Map.division,Map.division);
-				this.addActor(adicionar);
 				this.background_list.addBackground(adicionar);
 			}
 		}

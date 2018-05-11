@@ -2,9 +2,11 @@ package logic.storage;
 
 import java.util.HashMap;
 
+import com.badlogic.gdx.scenes.scene2d.Group;
+
 import conveyor.Conveyor;
 
-public class ConveyorList {
+public class ConveyorList extends Group{
 	
 	public HashMap<String, Conveyor> conveyorMap = new HashMap<String, Conveyor>();
 	// Usage: conveyorMap.get(index(ROW, COL));
@@ -14,6 +16,7 @@ public class ConveyorList {
 	}
 	
 	public boolean addConveyor(Conveyor c) {
+		this.addActor(c);
 		
 		int row = c.getRow();
 		int col = c.getCol();

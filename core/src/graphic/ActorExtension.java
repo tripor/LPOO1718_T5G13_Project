@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  * Class that implements some overloaded funtion of actor
  *
  */
-public class ActorExtension extends Actor {
+public abstract class ActorExtension extends Actor {
 	/**
 	 * Sprite for the design of the actor
 	 */
@@ -18,6 +18,11 @@ public class ActorExtension extends Actor {
 	 * The game that this actor is in
 	 */
 	protected GameStage game;
+	
+	protected void setTransparency(float alpha)
+	{
+		this.sprite.setAlpha(alpha);
+	}
 	
 	@Override
 	public void setPosition(float x, float y) {
