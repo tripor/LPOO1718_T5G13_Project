@@ -4,6 +4,9 @@ package icon.type;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import graphic.GameStage;
 import icon.Icon;
@@ -20,12 +23,18 @@ public class FactoryIcon extends Icon {
 		this.setDebug(true);
 	}
 	
-	public FactoryIcon(GameStage game,int posX,int posY,int width,int height) {
+	public FactoryIcon(final GameStage game,int posX,int posY,final int width,final int height) {
 		super(game,posX,posY);
 		this.setWidth(width);
 		this.setHeight(height);
 		this.createFactoryIcon();
 		this.setPosition(posX, posY);
+		
+		this.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                game.getMouse().createMouse("factory.png", width, height);
+            }
+        });
 	}
 	@Override
 	public void draw(Batch batch, float parentAlpha) {

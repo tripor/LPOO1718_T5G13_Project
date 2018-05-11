@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.async.AsyncExecutor;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import graphic.control.Mouse;
 import icon.Icon;
 import icon.type.FactoryIcon;
 import logic.console.Console;
@@ -66,6 +67,10 @@ public class GameStage extends Stage {
      */
     protected IconList icon_list;
     /**
+     * Game mouse
+     */
+    protected Mouse mouse;
+    /**
      * Game camera
      */
     private OrthographicCamera camera;
@@ -91,6 +96,8 @@ public class GameStage extends Stage {
 		this.addActor(conveyor_list);
 		this.person_list= new PersonList();
 		this.addActor(person_list);
+		this.mouse= new Mouse(this);
+		this.addActor(mouse);
 		this.icon_list= new IconList();
 		this.addActor(icon_list);
 		
@@ -113,7 +120,9 @@ public class GameStage extends Stage {
 	    //initGame();
 
 	}
-	
+	/**
+	 * Initializes all buttons of the game
+	 */
 	private void initializeIcons()
 	{
 		Icon factory_icon= new FactoryIcon(this,10,10,10,10);
@@ -320,6 +329,13 @@ public class GameStage extends Stage {
 	 */
 	public ConveyorList getConveyor_list() {
 		return conveyor_list;
+	}
+	/**
+	 * 
+	 * @return Returns the mouse of the game
+	 */
+	public Mouse getMouse() {
+		return mouse;
 	}
 	
 }

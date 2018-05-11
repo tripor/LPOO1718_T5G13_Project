@@ -23,11 +23,7 @@ public class IconList extends Group{
 	 */
 	public void addIcon(Icon icon)
 	{
-		icon.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                System.out.println("clicked");
-            }
-        });
+		
 		this.addActor(icon);
 	}
 }
