@@ -1,6 +1,8 @@
 package graphic;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
@@ -26,7 +28,12 @@ public class GroundUpScreen extends ScreenAdapter {
 	public GroundUpScreen(GroundUpGame game) {
 		this.game=new GameStage(game);
 		userControl = new UserControl(this.game);
-		Gdx.input.setInputProcessor(this.game);
+		InputProcessor inputProcessorOne = this.game;
+		InputProcessor inputProcessorTwo = this.userControl;
+		InputMultiplexer inputMultiplexer = new InputMultiplexer();
+		inputMultiplexer.addProcessor(inputProcessorOne);
+		inputMultiplexer.addProcessor(inputProcessorTwo);
+		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
 	
 	@Override

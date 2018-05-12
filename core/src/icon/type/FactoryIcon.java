@@ -4,12 +4,12 @@ package icon.type;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import graphic.GameStage;
 import icon.Icon;
+import place.type.Factory;
 
 public class FactoryIcon extends Icon {
 
@@ -32,7 +32,7 @@ public class FactoryIcon extends Icon {
 		
 		this.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                game.getMouse().createMouse("factory.png", width, height);
+                game.getMouse().createMouse("factory.png", Factory.width, Factory.height);
             }
         });
 	}

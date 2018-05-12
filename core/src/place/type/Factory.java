@@ -8,6 +8,9 @@ import graphic.GroundUpGame;
 import place.Place;
 
 public class Factory extends Place {
+	
+	public static int width=20;
+	public static int height=20;
 
 	private void createFactory() {
 		
