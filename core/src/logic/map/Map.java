@@ -1,8 +1,10 @@
 package logic.map;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import graphic.Background;
 import graphic.GameStage;
 import place.Place;
 import logic.console.Console;
@@ -18,11 +20,11 @@ public class Map {
 	/**
 	 * Missing description
 	 */
-	public int mapWidth = 0;
+	private int mapWidth = 0;
 	/**
 	 * Missing description
 	 */
-	public int mapHeight = 0;
+	private int mapHeight = 0;
 	/**
 	 * Missing description
 	 */
@@ -48,61 +50,33 @@ public class Map {
 		this.mapWidth=1000;
 	}
 	/**
-	 * Missing description
-	 * @param mapWidth
-	 */
-	public void setMapWidth(int mapWidth) {
-		this.mapWidth = mapWidth;
-	}
-	/**
-	 * Missing description
-	 * @param mapHeight
-	 */
-	public void setMapHeight(int mapHeight) {
-		this.mapHeight = mapHeight;
-	}
-	/**
-	 * Missing description
-	 * @return
+	 * @return The map Width in pixels
 	 */
 	public int getMapWidth() {
 		return mapWidth;
 	}
 	/**
-	 * Missing description
-	 * @return
+	 * @return the map Height in pixels
 	 */
 	public int getMapHeight() {
 		return mapHeight;
 	}
 	/**
-	 * Missing description
-	 * @return
+	 * @return the minum size of a building in pixels
 	 */
 	public int getbuildingMinSize() {
 		return buildingMinSize;
 	}
-	/**
-	 * Missing description
-	 * @return
+	/**«
+	 * @return the maximun size of a building in pixels
 	 */
 	public int getbuildingMaxSize() {
 		return buildingMaxSize;
 	}
 	/**
-	 * Missing description
-	 * @param size
-	 */
-	public void setbuildingMinSize(int size) {
-		buildingMinSize = size;
-	}
-	/**
-	 * Missing description
-	 * @param size
-	 */
-	public void setbuildingMaxSize(int size) {
-		buildingMaxSize = size;
-	}
+	
+	
+	
 	/**
 	 * Missing description
 	 * @return

@@ -33,5 +33,11 @@ public class Background extends ActorExtension {
 		this.createBackground();
 		this.setPosition(left, top);
 	}
+	
+	@Override
+	public String toString()
+	{
+		return "BackGround";
+	}
 
 }

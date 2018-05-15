@@ -82,7 +82,7 @@ public class PlaceList extends Group{
 		}
 		placeSet.add(p);
 		p.setUniqueId("R" + p.getBoundTop() + "C" + p.getBoundLeft());
-		this.addActor(p);;
+		this.addActor(p);
 		return true;
 	}
 	/**
