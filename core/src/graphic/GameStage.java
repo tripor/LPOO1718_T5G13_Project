@@ -77,9 +77,10 @@ public class GameStage extends Stage {
     private OrthographicCamera camera;
 
 	/**
-     * Missing Description
+     * For testing. For adding 100000 people into the map.
      */
-	private AsyncExecutor asyncExecutor = new AsyncExecutor(10);
+	// private AsyncExecutor asyncExecutor = new AsyncExecutor(10);
+    
 	/**
 	 * Constructor of the class GameStage
 	 * It creates a viewport and loads all the texture of the game
@@ -179,19 +180,19 @@ public class GameStage extends Stage {
 		//		i = generateFactory(i);	// generateFactory will return i++.
 		//	}
 
-		/*asyncExecutor.submit(new AsyncTask<Void>() {
-	        public Void call() {
-	        		int	i = 0;
-	        		
-	        		for(i = 0; i < 30; i++) {
-	        			generateFactory(i);
-	        		}
-	        		for(i = 0; i < 30; i++) {
-	        			generatePerson(i);
-	        		}
-	            return null;
-	        } 
-	    });*/
+		//	asyncExecutor.submit(new AsyncTask<Void>() {
+		//        public Void call() {
+		//        		int	i = 0;
+		//        		
+		//        		for(i = 0; i < 30; i++) {
+		//        			generateFactory(i);
+		//        		}
+		//        		for(i = 0; i < 30; i++) {
+		//        			generatePerson(i);
+		//        		}
+		//            return null;
+		//        } 
+		//    });
     }
     
 	private int Random(int min, int max) {
