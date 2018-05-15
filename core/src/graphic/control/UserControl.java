@@ -43,6 +43,9 @@ public class UserControl implements InputProcessor  {
             game.getCamera().translate(new Vector3(-5,0,0));
             this.checkMapPosition();
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+        	this.game.getPerson_list().popPaths();
+        }
 	}
 	/**
 	 * Corrects if the translation of the camera went out of the map
@@ -75,16 +78,13 @@ public class UserControl implements InputProcessor  {
 	}
 	@Override
 	public boolean keyDown(int keycode) {
-        if (keycode==Input.Keys.SPACE) {
-        		PersonList.getInstance().popPaths();
-        }
         if(keycode==Input.Keys.ESCAPE)
         {
         	System.exit(0);
         }
         if(keycode==Input.Keys.Q)
         {
-        	
+        	this.game.generatePerson(1);
         }
 		return false;
 	}

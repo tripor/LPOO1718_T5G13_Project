@@ -79,7 +79,7 @@ public class GameStage extends Stage {
 	/**
      * For testing. For adding 100000 people into the map.
      */
-	// private AsyncExecutor asyncExecutor = new AsyncExecutor(10);
+	 private AsyncExecutor asyncExecutor = new AsyncExecutor(10);
     
 	/**
 	 * Constructor of the class GameStage
@@ -121,8 +121,9 @@ public class GameStage extends Stage {
 	    
 	    initializeMap();
 	    
+	    
 	    //Initialize the game
-	    //initGame();
+	    initGame();
 
 	}
 	/**
@@ -157,50 +158,33 @@ public class GameStage extends Stage {
 	 */
     private void initGame() {
 
-		//	Factory p2 = new Factory(170,484,69,75,3,43);
-		//	Console.log("ADDING: " + p2.toString());
-		//	if(map.addPlace(p2)) {
-		//		this.addActor(p2);
-		//		this.addLabel("1", p2.getBoundLeft(), p2.getBoundTop());
-		//	}
-		//	Factory p = new Factory(204,477,86,39,1,57);
-		//	Console.log("ADDING: " + p.toString());
-		//	if(map.addPlace(p)) {
-		//		this.addActor(p);
-		//		this.addLabel("2", p.getBoundLeft(), p.getBoundTop());
-		//	}
-		//	Console.log("Size=" + PlaceList.getInstance().getPlaceList().size());
+			int i = 0;
+			while (i < 1500) {
+				generateFactory();	 //generateFactory will return i++.
+				i++;
+			}
 
-		//	Factory p = new Factory(0,0,640,480,1,50);
-		//	map.addPlace(p);
-		//	this.addActor(p);
-
-		//	int i = 0;
-		//	while (i < 150) {
-		//		i = generateFactory(i);	// generateFactory will return i++.
-		//	}
-
-		//	asyncExecutor.submit(new AsyncTask<Void>() {
-		//        public Void call() {
-		//        		int	i = 0;
-		//        		
-		//        		for(i = 0; i < 30; i++) {
-		//        			generateFactory(i);
-		//        		}
-		//        		for(i = 0; i < 30; i++) {
-		//        			generatePerson(i);
-		//        		}
-		//            return null;
-		//        } 
-		//    });
+			/*asyncExecutor.submit(new AsyncTask<Void>() {
+		        public Void call() {
+		        		int	i = 0;
+		        		
+		        		for(i = 0; i < 30; i++) {
+		        			generateFactory(i);
+		        		}
+		        		for(i = 0; i < 30; i++) {
+		        			generatePerson(i);
+		        		}
+		            return null;
+		        } 
+		    });*/
     }
     
 	private int Random(int min, int max) {
 		return (new Random()).nextInt(max) + min;
 	}
 
-	private Place generateFactory() {
-		Factory p = null;
+	private void generateFactory() {
+		/*Factory p = null;
 
 		int min_size = map.getbuildingMinSize();
 		int max_size = map.getbuildingMaxSize();
@@ -219,37 +203,36 @@ public class GameStage extends Stage {
 		}
 		else {
 			door_px = Random(0, h);
-		}
+		}*/
 		
 		// if(row+h < map.getMapHeight() && col+w < map.getMapWidth()) {
 			
-			p = new Factory(this,row, col, w, h, Random(1,4), door_px);
+			Factory p = new Factory(this,this.Random(1, 1000), this.Random(1, 1000), this.Random(5, 30), this.Random(5, 30), Random(1,4), 2);
 			boolean success = this.place_list.addPlace(p);
 			
-			if(success) {
-				this.addActor(p);
+			/*if(success) {
 				// this.addLabel(p.getUniqueId(), col, row);
 
 				Console.log(p.toString());
 				return p;
-			}
+			}*/
 		// }
-		return null;
+		//return null;
 	}
 	
 	
 
 
 
-	private boolean generateFactory(int i) {
+	/*private boolean generateFactory(int i) {
 		
 		Place p = generateFactory();
 		
-		if(p == null) {
+		/*if(p == null) {
 			return false;
 		}
 		return true;
-	}
+	}*/
 	
 	// for testing
 	//private void addLabel(String str, int col, int row) {
@@ -259,7 +242,7 @@ public class GameStage extends Stage {
 	//    this.addActor(scoreLabel);
 	//}
 	
-	private void generatePerson(int i) {
+	public void generatePerson(int i) {
 
 		int s_row = map.randRow(),
 			s_col = map.randCol(),
@@ -289,9 +272,7 @@ public class GameStage extends Stage {
 		Worker p = new Worker(this,s_row, s_col);
 		p.setId("" + i);
 		
-		if(PersonList.getInstance().addPerson(p)) {
-
-			this.addActor(p);
+		if(this.person_list.addPerson(p)) {
 			Console.log(p.toString());
 			//	Console.log(p.getId());
 			
@@ -349,5 +330,14 @@ public class GameStage extends Stage {
 	public IconList getIcon_list() {
 		return icon_list;
 	}
+	/**
+	 * 
+	 * @return Returns the Person list of the game
+	 */
+	public PersonList getPerson_list() {
+		return person_list;
+	}
+	
+	
 	
 }

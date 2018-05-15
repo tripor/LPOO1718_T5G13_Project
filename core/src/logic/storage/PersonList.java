@@ -15,14 +15,8 @@ public class PersonList extends Group{
 	public HashMap<String, Person> personMap = new HashMap<String, Person>();
 	// Usage: conveyorMap.get(index(ROW, COL));
 	
-	private static PersonList instance = new PersonList();
-	
 	public PersonList() {
 		// TODO Auto-generated constructor stub
-	}
-	
-	public static PersonList getInstance() {
-		return instance;
 	}
 	
 	public boolean addPerson(Person p) {

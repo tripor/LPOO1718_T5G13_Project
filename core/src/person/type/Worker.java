@@ -21,8 +21,8 @@ public class Worker extends Person {
 	
 	public Worker(GameStage game,int row, int col) {
 		super(game,row, col);
-		this.setWidth(1);
-		this.setHeight(1);
+		this.setWidth(5);
+		this.setHeight(5);
 		this.createWorker();
 		this.setPosition(col, row);
 	}
