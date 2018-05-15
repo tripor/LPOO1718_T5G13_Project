@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import graphic.control.Mouse;
 import icon.Icon;
+import icon.type.BuildIcon;
 import icon.type.FactoryIcon;
 import logic.console.Console;
 import logic.map.Map;
@@ -108,8 +109,11 @@ public class GameStage extends Stage {
 	    // Load the textures
 	    game.getAssetManager().load("factory.png", Texture.class);
 	    game.getAssetManager().load("factory_icon.png", Texture.class);
+	    game.getAssetManager().load("menu_icon.png", Texture.class);
+	    game.getAssetManager().load("build_icon.png", Texture.class);
 	    game.getAssetManager().load("worker.png", Texture.class);
 	    game.getAssetManager().load("grass01.png", Texture.class);
+	    
 	    game.getAssetManager().finishLoading(); // should be replaced by something more efficiente
 	    
 	    initializeIcons();
@@ -125,8 +129,8 @@ public class GameStage extends Stage {
 	 */
 	private void initializeIcons()
 	{
-		Icon factory_icon= new FactoryIcon(this,10,10,10,10);
-		this.icon_list.addIcon(factory_icon);
+		Icon build_icon= new BuildIcon(this,7,7,7,7);
+		this.icon_list.addIcon(build_icon);
 	}
     
 	/**
@@ -336,6 +340,13 @@ public class GameStage extends Stage {
 	 */
 	public Mouse getMouse() {
 		return mouse;
+	}
+	/**
+	 * 
+	 * @return Returns the Icon list of the game
+	 */
+	public IconList getIcon_list() {
+		return icon_list;
 	}
 	
 }

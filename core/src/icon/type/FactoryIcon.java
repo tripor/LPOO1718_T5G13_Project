@@ -19,8 +19,6 @@ public class FactoryIcon extends Icon {
 		
 		sprite = new Sprite(texture);
 		sprite.setSize(this.getWidth(), this.getHeight());
-		
-		this.setDebug(true);
 	}
 	
 	public FactoryIcon(final GameStage game,int posX,int posY,final int width,final int height) {
@@ -35,11 +33,6 @@ public class FactoryIcon extends Icon {
                 game.getMouse().createMouse("factory.png", Factory.width, Factory.height);
             }
         });
-	}
-	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		this.setPosition(this.game.getCamera().position.x + this.pos_x - (GameStage.VIEWPORT_WIDTH/2), this.game.getCamera().position.y + this.pos_y -(GameStage.VIEWPORT_HEIGHT/2));
-		sprite.draw(batch);
 	}
 	
 	
