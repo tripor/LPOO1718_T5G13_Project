@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
+import logic.console.Console;
 import place.Place;
 
 /**
@@ -22,12 +23,11 @@ public class AStar {
     private static int DEFAULT_HV_COST = 10;	    // Move Horizontally / Vertically
     private static int DEFAULT_DIAGONAL_COST = 14;	// Move Diagonally
     
-    private static int GAP = 10;
-    // leave some pixels around the origin and destination
+    private static int GAP = 5;
+    // leave some grids around the origin and destination
     
-    private static int MAX_BLOCKS = 2*GAP + 20;
+    private static int MAX_BLOCKS = 30;
     // limit the grid-map for better performance
-    // NOTE: MAX_BLOCKS must be larger than 2*GAP, or the ratio will never be 1x1.
     
     
     /**
@@ -87,19 +87,26 @@ public class AStar {
         this.finalNode_raw = new Node(target_row, target_col);
     	
     		// count the distance.
-    		int rowDistance = GAP + Math.abs(init_row - target_row) + GAP,
-    		    colDistance = GAP + Math.abs(init_col - target_col) + GAP;
+    		int rowDistance = Math.abs(init_row - target_row),
+    		    colDistance = Math.abs(init_col - target_col);
     		
-    		this.mapRatio = Math.max(rowDistance, colDistance) / MAX_BLOCKS;
+    		int rowRatio = rowDistance / MAX_BLOCKS,
+    			colRatio = colDistance / MAX_BLOCKS;
+    		
+    		this.mapRatio = Math.max(rowRatio, colRatio);
     		
     		if(this.mapRatio < 1) {
     			this.mapRatio = 1;
     		}
+    		
+    		// Console.log("" + this.mapRatio);
 
-        this.mapOrigin_left = Math.min(init_col, target_col) - GAP;
-        this.mapOrigin_top  = Math.min(init_row, target_row) - GAP;
+        this.mapOrigin_left = Math.min(init_col, target_col);
+        this.mapOrigin_top  = Math.min(init_row, target_row);
         
-        // Console.log("MAP_ORIGIN=" + this.mapOrigin_left + "," + this.mapOrigin_top);
+        // Move the map to leave the gap
+        this.mapOrigin_left -= GAP * this.mapRatio;
+        this.mapOrigin_top  -= GAP * this.mapRatio;
         
         // set the initial node to the new coordinates.
         this.initialNode.setRow(convertPixelToGrid_row(init_row));
@@ -112,6 +119,13 @@ public class AStar {
         // make the grid bigger, make the a* area smaller.
         int searchAreaRowsCount = rowDistance / mapRatio;
         int searchAreaColsCount = colDistance / mapRatio;
+        
+        searchAreaRowsCount += GAP * 2;
+        searchAreaColsCount += GAP * 2;
+        
+        // Console.log("AREA=" + searchAreaRowsCount+1 + "," + searchAreaColsCount+1);
+        // Console.log("INIT=" + this.initialNode.getRow() + "," + this.initialNode.getCol());
+        // Console.log("FIN=" + this.finalNode.getRow() + "," + this.finalNode.getCol());
         
         this.searchArea = new Node[searchAreaRowsCount + 1][searchAreaColsCount + 1];
     }
@@ -128,13 +142,40 @@ public class AStar {
     public void setBlocks(List<Place> places) {
 
     		for(Place p : places) {
-    			boolean noSpace_atTop = p.getBoundTop() % mapRatio == 0,
-    					noSpace_atBottom = (p.getBoundBottom() + 1) % mapRatio == 0,
-    					noSpace_atLeft = p.getBoundLeft() % mapRatio == 0,
-    					noSpace_atRight = (p.getBoundRight() + 1) % mapRatio == 0;
-
-    			if(noSpace_atTop && noSpace_atBottom && noSpace_atLeft && noSpace_atRight) {
-    				setBlock(p.getBoundTop(), p.getBoundRight(), p.getBoundBottom(), p.getBoundLeft());
+    			
+    			int blockTop = convertPixelToGrid_row(p.getBoundTop()),
+    			    blockLeft = convertPixelToGrid_col(p.getBoundLeft()),
+    			    blockRight = convertPixelToGrid_col(p.getBoundRight()),
+    			    blockBottom = convertPixelToGrid_row(p.getBoundBottom());
+    			
+    			// If there is a street at North
+    			if(p.getBoundTop() % this.mapRatio > 0) {
+    				blockTop++;
+    			}
+    			
+    			// South
+    			if((p.getBoundBottom() + 1) % this.mapRatio > 0) {
+    				blockBottom--;
+    			}
+    			
+    			// left (West)
+    			if(p.getBoundLeft() % this.mapRatio > 0) {
+    				blockLeft++;
+    			}
+    			
+    			// right (East)
+    			if((p.getBoundRight() + 1) % this.mapRatio > 0) {
+    				blockRight--;
+    			}
+    			
+    			if(blockTop > blockBottom) {
+    				// factory didn't occupy the full height of a grid.
+    			}
+    			else if(blockLeft > blockRight) {
+    				// factory didn't occupy the full width of a grid.
+    			}
+    			else {
+        			setBlock(blockTop, blockRight, blockBottom, blockLeft);
     			}
 		}
     }
@@ -303,15 +344,10 @@ public class AStar {
     
     private void setBlock(int top, int right, int bottom, int left) {
 		int i, j;
-		
-		top    = convertPixelToGrid_row(top);
-		right  = convertPixelToGrid_col(right);
-		bottom = convertPixelToGrid_row(bottom);
-		left   = convertPixelToGrid_col(left);
 				
 		for(i=top; i<=bottom; i++) {
 			for(j=left; j<=right; j++) {
-				setBlock(convertPixelToGrid_row(i), convertPixelToGrid_col(j));
+				setBlock(i, j);
 			}
 		}
     }
@@ -373,10 +409,11 @@ public class AStar {
 	}
 
     private int convertGridToPixel_row(int row) {
-    		return (row * this.mapRatio) + this.mapOrigin_top;
+    		return (row * this.mapRatio) + this.mapOrigin_top + (this.mapRatio / 2);
+    		// return the central pixel of the grid
     }
     private int convertGridToPixel_col(int col) {
-		return (col * this.mapRatio) + this.mapOrigin_left;
+		return (col * this.mapRatio) + this.mapOrigin_left + (this.mapRatio / 2);
     }
     private int convertPixelToGrid_row(int row) {
 		return (row - this.mapOrigin_top) / this.mapRatio;

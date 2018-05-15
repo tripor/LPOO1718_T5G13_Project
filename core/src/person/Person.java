@@ -41,8 +41,8 @@ public class Person extends ActorExtension{
 	
 	public List<Node> getPath(int _target_row, int _target_col, boolean should_replace_global) {
 
-		// Console.log(":: CALC PATH " + current_row+","+current_col
-		// 			+ " - " + target_row+","+target_col);
+		// Console.log(":: CALC_PATH " + current_row+","+current_col
+		//				+ " - " + _target_row+","+_target_col);
 		
 		Node initialNode = new Node(current_row, current_col);
         Node finalNode = new Node(_target_row, _target_col);
@@ -57,6 +57,9 @@ public class Person extends ActorExtension{
 	    		this.target_row = _target_row;
 	    		this.target_col = _target_col;
         }
+        
+        // Console.log(":: FINISH => Person " + this.getId() + " " + thisPath.size() + " steps.");
+        
         return thisPath;
 	}
 	
@@ -80,6 +83,7 @@ public class Person extends ActorExtension{
 	public Node popPath() {
 		
 		if(path.size() < 1) {
+			// Console.log(this.getId() + " path-end");
 			return null;
 		}
 		
@@ -106,7 +110,7 @@ public class Person extends ActorExtension{
 			if(smallerPath.size() < 1) {
 				// prevent infinite loop.
 
-				Console.log("BREAK > ID=" + this.getId() + " - PATHSIZE=" + path.size()
+				Console.log("\nBREAK > ID=" + this.getId() + " - PATHSIZE=" + path.size()
 				
 					+ " CUR=" + current_row
 					+ "," + current_col

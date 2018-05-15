@@ -23,6 +23,10 @@ public class Console {
 			System.out.println(s.replaceAll("  ", " \t"));
 		}
 	}
+	
+	public static void log(int s) {
+		Console.log("" + s);
+	}
 }
 	
 //	public String print_num(int i) {

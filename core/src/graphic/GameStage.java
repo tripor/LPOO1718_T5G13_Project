@@ -160,23 +160,27 @@ public class GameStage extends Stage {
 
 			int i = 0;
 			while (i < 1500) {
-				generateFactory();	 //generateFactory will return i++.
+				generateFactory();	 // generateFactory will return i++.
 				i++;
 			}
+			
+			for (i=0; i<30; i++) {
+				generatePerson(i);
+			}
 
-			/*asyncExecutor.submit(new AsyncTask<Void>() {
-		        public Void call() {
-		        		int	i = 0;
-		        		
-		        		for(i = 0; i < 30; i++) {
-		        			generateFactory(i);
-		        		}
-		        		for(i = 0; i < 30; i++) {
-		        			generatePerson(i);
-		        		}
-		            return null;
-		        } 
-		    });*/
+//			asyncExecutor.submit(new AsyncTask<Void>() {
+//		        public Void call() {
+//		        		int	i = 0;
+//		        		
+//		        		for(i = 0; i < 30; i++) {
+//		        			generateFactory(i);
+//		        		}
+//		        		for(i = 0; i < 30; i++) {
+//		        			generatePerson(i);
+//		        		}
+//		            return null;
+//		        } 
+//		    });
     }
     
 	private int Random(int min, int max) {
@@ -184,38 +188,39 @@ public class GameStage extends Stage {
 	}
 
 	private void generateFactory() {
-		/*Factory p = null;
-
-		int min_size = map.getbuildingMinSize();
-		int max_size = map.getbuildingMaxSize();
-
-		// TODO: Move camera instead of modifying buildings' position.
-		int row = (map.randRow() - this.map.getMapWidth()  / 2),
-		    col = (map.randCol() - this.map.getMapHeight() / 2),
-		    
-		    w = Random(min_size, max_size),
-		    h = Random(min_size, max_size),
-		    side = Random(1,4),	// 1=Top, 2=Right, 3=Bottom, 4=Left
-		    door_px = 0;
 		
-		if(side == 1 || side == 3) {
-			door_px = Random(0, w);
-		}
-		else {
-			door_px = Random(0, h);
-		}*/
+		//	Factory p = null;
+		//
+		//	int min_size = map.getbuildingMinSize();
+		//	int max_size = map.getbuildingMaxSize();
+		//
+		//	// TODO: Move camera instead of moving buildings to negative quadrant.
+		//	int row = (map.randRow() - this.map.getMapWidth()  / 2),
+		//	    col = (map.randCol() - this.map.getMapHeight() / 2),
+		//	    
+		//	    w = Random(min_size, max_size),
+		//	    h = Random(min_size, max_size),
+		//	    side = Random(1,4),	// 1=Top, 2=Right, 3=Bottom, 4=Left
+		//	    door_px = 0;
+		//	
+		//	if(side == 1 || side == 3) {
+		//		door_px = Random(0, w);
+		//	}
+		//	else {
+		//		door_px = Random(0, h);
+		//	}
 		
 		// if(row+h < map.getMapHeight() && col+w < map.getMapWidth()) {
 			
-			Factory p = new Factory(this,this.Random(1, 1000), this.Random(1, 1000), this.Random(5, 30), this.Random(5, 30), Random(1,4), 2);
+			Factory p = new Factory(this, this.Random(1, 1000), this.Random(1, 1000), this.Random(5, 30), this.Random(5, 30), Random(1,4), 2);
 			boolean success = this.place_list.addPlace(p);
 			
-			/*if(success) {
+			if(success) {
 				// this.addLabel(p.getUniqueId(), col, row);
 
 				Console.log(p.toString());
-				return p;
-			}*/
+				// return p;
+			}
 		// }
 		//return null;
 	}
@@ -224,15 +229,15 @@ public class GameStage extends Stage {
 
 
 
-	/*private boolean generateFactory(int i) {
-		
-		Place p = generateFactory();
-		
-		/*if(p == null) {
-			return false;
-		}
-		return true;
-	}*/
+//	private boolean generateFactory(int i) {
+//		
+//		Place p = generateFactory();
+//		
+//		if(p == null) {
+//			return false;
+//		}
+//		return true;
+//	}
 	
 	// for testing
 	//private void addLabel(String str, int col, int row) {
@@ -248,6 +253,8 @@ public class GameStage extends Stage {
 			s_col = map.randCol(),
 			t_row = map.randRow(),
 			t_col = map.randCol();
+		
+		Console.log("\nPerson " + i + " (" + s_row + "," + s_col + ") T (" + t_row + "," + t_col + ")");
 
 		// For Starting Point
 		for(Place pl : this.place_list.getPlaceList(s_row, s_col)) {
@@ -269,11 +276,11 @@ public class GameStage extends Stage {
 			}
 		}
 		
-		Worker p = new Worker(this,s_row, s_col);
+		Worker p = new Worker(this, s_row, s_col);
 		p.setId("" + i);
 		
 		if(this.person_list.addPerson(p)) {
-			Console.log(p.toString());
+			// Console.log(p.toString());
 			//	Console.log(p.getId());
 			
 			// List<Node> path = 
