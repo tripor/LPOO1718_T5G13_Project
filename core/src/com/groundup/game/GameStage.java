@@ -121,6 +121,7 @@ public class GameStage extends Stage {
 	    game.getAssetManager().load("grass01.png", Texture.class);
 	    game.getAssetManager().load("nothing.png", Texture.class);
 	    game.getAssetManager().load("conveyor1.png", Texture.class);
+	    game.getAssetManager().load("iron_plate.png", Texture.class);
 	    
 	    game.getAssetManager().finishLoading(); // should be replaced by something more efficiente
 	    

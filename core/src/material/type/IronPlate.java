@@ -14,7 +14,7 @@ public class IronPlate extends Material {
 
 	private void createIronPlate() {
 		
-		Texture texture = this.game.getGame().getAssetManager().get("nothing.png");
+		Texture texture = this.game.getGame().getAssetManager().get("iron_plate.png");
 		
 		sprite = new Sprite(texture);
 		sprite.setSize(this.getWidth(), this.getHeight());
