@@ -3,6 +3,7 @@ package logic.storage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 
@@ -18,14 +19,13 @@ public class PlaceList extends Group{
 	private static int GROUP_SIZE = 1500;
 	
 	/**
-	 * List contaning all the place in the game
+	 * List containing all the place in the game
 	 */
 	public List<Place> placeSet = new ArrayList<Place>();
 	/**
-	 * Missing Description
-	 * 
-	 * 
-	 * Usage: placeMap.get(index(ROW, COL));
+	 * Grouped place list,
+	 * for better performance on getting a building by coordinates.
+	 * @usage placeMap.get(index(ROW, COL));
 	 */
 	public HashMap<String, List<Place>> placeMap = new HashMap<String, List<Place>>();
 	/**
@@ -104,14 +104,20 @@ public class PlaceList extends Group{
 		placeSet.remove(p);
 	}
 	/**
-	 * Missing Description
+	 * Get all the place in the map
 	 * @return
 	 */
 	public List<Place> getPlaceList(){
 		return placeSet;
 	}
 	/**
-	 * Missing Description
+	 * Randomly return a building on the map
+	 */
+	public Place getRandomPlace() {
+		return placeSet.get((new Random()).nextInt(placeSet.size()));
+	}
+	/**
+	 * Get all the place nearby a given coordinate.
 	 * @param row
 	 * @param col
 	 * @return
