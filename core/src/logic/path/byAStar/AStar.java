@@ -37,11 +37,26 @@ public class AStar {
     private boolean start_jump = false;
     // for force-moving origin outside the building.
     
+    private long start_at,
+    	             init_at,
+    	             end_init_at,
+    	             setblock_at,
+    	             end_setblock_at,
+    	             findpath_at,
+    	             end_findpath_at;
+    // for console log: time marker.
+    
     
     /**
      * Constructor
      */
     public AStar(GameStage game, Node initialNode, Node finalNode) {
+
+		// for console log: time marker.
+    		this.start_at = System.currentTimeMillis();
+    		
+    		System.out.print("A.");
+    	
     		this.hvCost = DEFAULT_HV_COST;
     		this.diagonalCost = DEFAULT_DIAGONAL_COST;
     		
@@ -49,7 +64,6 @@ public class AStar {
     			this.skip_calc = true;
     		}
     		else {
-    		
 	    		// Move the origin and destination out of a building.
 	    		Place start_building = game.places().checkIfPointInBuilding(initialNode.getRow(), initialNode.getCol());
 	    		Place end_building   = game.places().checkIfPointInBuilding(finalNode.getRow(), finalNode.getCol());
@@ -112,6 +126,9 @@ public class AStar {
      * Make the map smaller by cropping the original map and condense it.
      */
     private void initSearchMap() {
+
+		// for console log: time marker.
+		this.init_at = System.currentTimeMillis();
     	
     		int init_row = this.initialNode.getRow(),
     			init_col = this.initialNode.getCol(),
@@ -164,6 +181,9 @@ public class AStar {
         // Console.log("FIN=" + this.finalNode.getRow() + "," + this.finalNode.getCol());
         
         this.searchArea = new Node[searchAreaRowsCount + 1][searchAreaColsCount + 1];
+
+		// for console log: time marker.
+		this.end_init_at = System.currentTimeMillis();
     }
     
     /**
@@ -180,6 +200,9 @@ public class AStar {
     		if(this.skip_calc == true) {
     			return;
     		}
+
+    		// for console log: time marker.
+    		this.setblock_at = System.currentTimeMillis();
 
     		for(Place p : places) {
     			
@@ -218,6 +241,9 @@ public class AStar {
         			setBlock(blockTop, blockRight, blockBottom, blockLeft);
     			}
 		}
+
+    		// for console log: time marker.
+    		this.end_setblock_at = System.currentTimeMillis();
     }
 
     /**
@@ -226,6 +252,10 @@ public class AStar {
     public List<Node> findPath() {
     	
     		if(this.skip_calc == false) {
+
+        		// for console log: time marker.
+        		this.findpath_at = System.currentTimeMillis();
+        		
 	        openList.add(initialNode);
 	        while (!isEmpty(openList)) {
 	            Node currentNode = openList.poll();
@@ -236,6 +266,20 @@ public class AStar {
 	                addAdjacentNodes(currentNode);
 	            }
 	        }
+
+	    		// for console log: time marker.
+	    		this.end_findpath_at = System.currentTimeMillis();
+	    		
+	    		Console.log("A-Star Finished. "
+	    			+ "Total:" + ((int) (System.currentTimeMillis() - this.start_at)) + " ms (incl "
+	    			+ "Init:" + ((int) (this.end_init_at - this.init_at)) + " ms, "
+	    	    		+ "SetBlock:" + ((int) (this.end_setblock_at - this.setblock_at)) + " ms, "
+	    		    	+ "FindPath:" + ((int) (this.end_findpath_at - this.findpath_at)) + " ms"
+	    			+ ")"
+	    		);
+    		}
+    		else {
+    			Console.log("A-Star Skipped. Total:" + ((int) (System.currentTimeMillis() - this.start_at)) + "ms");
     		}
         return new ArrayList<Node>();
     }
