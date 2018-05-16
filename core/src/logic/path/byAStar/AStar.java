@@ -55,7 +55,7 @@ public class AStar {
 		// for console log: time marker.
     		this.start_at = System.currentTimeMillis();
     		
-    		System.out.print("A.");
+    		System.out.print(";");
     	
     		this.hvCost = DEFAULT_HV_COST;
     		this.diagonalCost = DEFAULT_DIAGONAL_COST;
