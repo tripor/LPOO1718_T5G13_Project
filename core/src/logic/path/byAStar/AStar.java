@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
+import com.groundup.game.GameStage;
+
 import logic.console.Console;
 import place.Place;
 
@@ -29,26 +31,59 @@ public class AStar {
     private static int MAX_BLOCKS = 30;
     // limit the grid-map for better performance
     
+    private boolean skip_calc = false;
+    // if start==end, skip calculation.
+    
+    private boolean start_jump = false;
+    // for force-moving origin outside the building.
+    
     
     /**
      * Constructor
      */
-    public AStar(Node initialNode, Node finalNode) {
+    public AStar(GameStage game, Node initialNode, Node finalNode) {
     		this.hvCost = DEFAULT_HV_COST;
     		this.diagonalCost = DEFAULT_DIAGONAL_COST;
     		
-    		this.initialNode = initialNode;
-    		this.finalNode = finalNode;
-        
-        this.initSearchMap();
-        this.openList = new PriorityQueue<Node>(1, new Comparator<Node>() {
-            @Override
-            public int compare(Node node0, Node node1) {
-                return node0.getF() < node1.getF() ? -1 : node0.getF() > node1.getF() ? 1 : 0;
-            }
-        });
-        setNodes();
-        this.closedList = new ArrayList<Node>();
+    		if(initialNode.equals(finalNode)) {
+    			this.skip_calc = true;
+    		}
+    		else {
+    		
+	    		// Move the origin and destination out of a building.
+	    		Place start_building = game.places().checkIfPointInBuilding(initialNode.getRow(), initialNode.getCol());
+	    		Place end_building   = game.places().checkIfPointInBuilding(finalNode.getRow(), finalNode.getCol());
+	    		
+	    		if(start_building != null) {
+	    			
+	    			// Console.log("Start in Building, DOOR(" + start_building.getDoorRow() + "," + start_building.getDoorCol() + ")");
+		    		initialNode.setRow(start_building.getDoorRow());
+		    		initialNode.setCol(start_building.getDoorCol());
+	    			
+	    			start_jump = true;
+	    		}
+	    		if(end_building != null) {
+	
+	    			// Console.log("End in Building, DOOR(" + end_building.getDoorRow() + "," + end_building.getDoorCol() + ")");
+	    			finalNode.setRow(end_building.getDoorRow());
+	    			finalNode.setCol(end_building.getDoorCol());
+	    			
+	    			// end_jump = true;
+	    		}
+	    		
+	    		this.initialNode = initialNode;
+	    		this.finalNode = finalNode;
+	        
+	        this.initSearchMap();
+	        this.openList = new PriorityQueue<Node>(1, new Comparator<Node>() {
+	            @Override
+	            public int compare(Node node0, Node node1) {
+	                return node0.getF() < node1.getF() ? -1 : node0.getF() > node1.getF() ? 1 : 0;
+	            }
+	        });
+	        setNodes();
+	        this.closedList = new ArrayList<Node>();
+    		}
     }
 
     /**
@@ -84,6 +119,7 @@ public class AStar {
     			target_col = this.finalNode.getCol();
 
         // save a copy of the initial node and final node.
+    		// note: this copy already ensured that destination is outside of buildings.
         this.finalNode_raw = new Node(target_row, target_col);
     	
     		// count the distance.
@@ -140,6 +176,10 @@ public class AStar {
      * grid = pixel, when ratio is 1.
      */
     public void setBlocks(List<Place> places) {
+    	
+    		if(this.skip_calc == true) {
+    			return;
+    		}
 
     		for(Place p : places) {
     			
@@ -184,16 +224,19 @@ public class AStar {
      * Main function being called by another files.
      */
     public List<Node> findPath() {
-        openList.add(initialNode);
-        while (!isEmpty(openList)) {
-            Node currentNode = openList.poll();
-            closedList.add(currentNode);
-            if (isFinalNode(currentNode)) {
-                return getPath(currentNode);
-            } else {
-                addAdjacentNodes(currentNode);
-            }
-        }
+    	
+    		if(this.skip_calc == false) {
+	        openList.add(initialNode);
+	        while (!isEmpty(openList)) {
+	            Node currentNode = openList.poll();
+	            closedList.add(currentNode);
+	            if (isFinalNode(currentNode)) {
+	                return getPath(currentNode);
+	            } else {
+	                addAdjacentNodes(currentNode);
+	            }
+	        }
+    		}
         return new ArrayList<Node>();
     }
 
@@ -217,11 +260,16 @@ public class AStar {
         		n.setRow(convertGridToPixel_row(n.getRow()));
         }
 
-        path.remove(0);
-        
+   		path.remove(0);
+   		
         if(path.size() > 0) {
             path.set(path.size()-1, this.finalNode_raw);
+
+            if(start_jump == true) {
+            		path.get(0).setJumping(true);
+            }
         }
+        
         return path;
     }
 

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.utils.async.AsyncExecutor;
+import com.badlogic.gdx.utils.async.AsyncTask;
 
 import person.Person;
 /**
@@ -11,6 +13,11 @@ import person.Person;
  *
  */
 public class PersonList extends Group{
+
+	/**
+     * For testing. For adding 100000 people into the map.
+     */
+	private AsyncExecutor asyncExecutor = new AsyncExecutor(10);
 	
 	public HashMap<String, Person> personMap = new HashMap<String, Person>();
 	// Usage: conveyorMap.get(index(ROW, COL));
@@ -43,7 +50,12 @@ public class PersonList extends Group{
 	
 	public void popPaths() {
 		for (Entry<String, Person> p : personMap.entrySet()) {
-			p.getValue().popPath();
+			// asyncExecutor.submit(new AsyncTask<Void>() {
+		    //    public Void call() {
+					p.getValue().popPath();
+			//    		return null;
+		    //    } 
+		    // });
 		}
 	}
 }

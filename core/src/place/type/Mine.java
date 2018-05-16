@@ -1,6 +1,6 @@
 package place.type;
 
-import graphic.GameStage;
+import com.groundup.game.GameStage;
 import logic.storage.Demand;
 import place.Place;
 

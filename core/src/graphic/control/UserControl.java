@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector3;
 
-import graphic.GameStage;
+import com.groundup.game.GameStage;
 import logic.storage.PersonList;
 /**
  * Class that handles the user input
@@ -44,7 +44,7 @@ public class UserControl implements InputProcessor  {
             this.checkMapPosition();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-        	this.game.getPerson_list().popPaths();
+        	this.game.people().popPaths();
         }
 	}
 	/**

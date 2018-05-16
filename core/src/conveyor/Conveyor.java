@@ -1,7 +1,7 @@
 package conveyor;
 
 import graphic.ActorExtension;
-import graphic.GameStage;
+import com.groundup.game.GameStage;
 import logic.storage.ConveyorList;
 import place.Place;
 
@@ -65,7 +65,7 @@ public class Conveyor extends ActorExtension{
 		int row = thisObj.getRow() + row_delta,
 			col = thisObj.getCol() + col_delta;
 		
-		if(this.game.getConveyor_list().getConveyor(row, col) != null) {
+		if(this.game.conveyors().getConveyor(row, col) != null) {
 			int[] result = {row, col};
 			return result;
 		}

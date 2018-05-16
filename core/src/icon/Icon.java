@@ -3,7 +3,7 @@ package icon;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 import graphic.ActorExtension;
-import graphic.GameStage;
+import com.groundup.game.GameStage;
 
 public class Icon extends ActorExtension {
 

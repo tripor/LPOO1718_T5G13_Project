@@ -1,4 +1,4 @@
-package graphic;
+package com.groundup.game;
 
 import java.util.Random;
 
@@ -7,9 +7,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.async.AsyncExecutor;
+import com.badlogic.gdx.utils.async.AsyncTask;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import graphic.Background;
+import graphic.GroundUpGame;
 import graphic.control.Mouse;
 import icon.Icon;
 import icon.type.BuildIcon;
@@ -79,7 +82,7 @@ public class GameStage extends Stage {
 	/**
      * For testing. For adding 100000 people into the map.
      */
-	 private AsyncExecutor asyncExecutor = new AsyncExecutor(10);
+//	private AsyncExecutor asyncExecutor = new AsyncExecutor(10);
     
 	/**
 	 * Constructor of the class GameStage
@@ -118,9 +121,7 @@ public class GameStage extends Stage {
 	    game.getAssetManager().finishLoading(); // should be replaced by something more efficiente
 	    
 	    initializeIcons();
-	    
 	    initializeMap();
-	    
 	    
 	    //Initialize the game
 	    initGame();
@@ -164,23 +165,23 @@ public class GameStage extends Stage {
 				i++;
 			}
 			
-			for (i=0; i<30; i++) {
+			for (i=0; i<1000; i++) {
 				generatePerson(i);
 			}
 
-//			asyncExecutor.submit(new AsyncTask<Void>() {
-//		        public Void call() {
-//		        		int	i = 0;
-//		        		
-//		        		for(i = 0; i < 30; i++) {
-//		        			generateFactory(i);
-//		        		}
-//		        		for(i = 0; i < 30; i++) {
-//		        			generatePerson(i);
-//		        		}
-//		            return null;
-//		        } 
-//		    });
+			//	asyncExecutor.submit(new AsyncTask<Void>() {
+			//        public Void call() {
+			//        		int	i = 0;
+			//        		
+			//        		for(i = 0; i < 1500; i++) {
+			//        			generateFactory();
+			//        		}
+			//        		for(i = 0; i < 1000; i++) {
+			//        			generatePerson(i);
+			//        		}
+			//            return null;
+			//        } 
+			//    });
     }
     
 	private int Random(int min, int max) {
@@ -218,7 +219,7 @@ public class GameStage extends Stage {
 			if(success) {
 				// this.addLabel(p.getUniqueId(), col, row);
 
-				Console.log(p.toString());
+				// Console.log(p.toString());
 				// return p;
 			}
 		// }
@@ -254,24 +255,18 @@ public class GameStage extends Stage {
 			t_row = map.randRow(),
 			t_col = map.randCol();
 		
-		Console.log("\nPerson " + i + " (" + s_row + "," + s_col + ") T (" + t_row + "," + t_col + ")");
+		// Console.log("\nPerson " + i + " (" + s_row + "," + s_col + ") T (" + t_row + "," + t_col + ")");
 
+		/**
+		 *  TODO:
+		 *  Can be replaced by "this.place_list.checkIfPointInBuilding(s_row, s_col)"
+		 */
 		// For Starting Point
 		for(Place pl : this.place_list.getPlaceList(s_row, s_col)) {
 			if(pl.including(s_row, s_col)) {
 				// Move the person to the door.
 				s_row = pl.getDoorRow();
 				s_col = pl.getDoorCol();
-				break;
-			}
-		}
-		
-		// For Destination
-		for(Place pl : this.place_list.getPlaceList(t_row, t_col)) {
-			if(pl.including(t_row, t_col)) {
-				// Move the person to the door.
-				t_row = pl.getDoorRow();
-				t_col = pl.getDoorCol();
 				break;
 			}
 		}
@@ -292,14 +287,14 @@ public class GameStage extends Stage {
 	 * 
 	 * @return Returns a class containing all the places in the game
 	 */
-    public PlaceList getPlace_list() {
+    public PlaceList places() {
 		return place_list;
 	}
     /**
      * Sets the class containing all the places in the game
      * @param place_list The class PlaceList I want to change to
      */
-	public void setPlace_list(PlaceList place_list) {
+	public void setPlaceList(PlaceList place_list) {
 		this.place_list = place_list;
 	}
 	/**
@@ -320,7 +315,7 @@ public class GameStage extends Stage {
 	 * 
 	 * @return Returns the Conveyor List of this game
 	 */
-	public ConveyorList getConveyor_list() {
+	public ConveyorList conveyors() {
 		return conveyor_list;
 	}
 	/**
@@ -334,14 +329,14 @@ public class GameStage extends Stage {
 	 * 
 	 * @return Returns the Icon list of the game
 	 */
-	public IconList getIcon_list() {
+	public IconList icons() {
 		return icon_list;
 	}
 	/**
 	 * 
 	 * @return Returns the Person list of the game
 	 */
-	public PersonList getPerson_list() {
+	public PersonList people() {
 		return person_list;
 	}
 	

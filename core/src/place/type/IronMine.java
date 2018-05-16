@@ -1,6 +1,6 @@
 package place.type;
 
-import graphic.GameStage;
+import com.groundup.game.GameStage;
 
 public class IronMine extends Mine {
 

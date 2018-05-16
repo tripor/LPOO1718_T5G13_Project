@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import graphic.ActorExtension;
-import graphic.GameStage;
+import com.groundup.game.GameStage;
 import logic.console.Console;
 import logic.path.byAStar.AStar;
 import logic.path.byAStar.Node;
@@ -47,8 +47,8 @@ public class Person extends ActorExtension{
 		Node initialNode = new Node(current_row, current_col);
         Node finalNode = new Node(_target_row, _target_col);
         
-        AStar aStar = new AStar(initialNode, finalNode);
-        aStar.setBlocks(this.game.getPlace_list().getPlaceList());
+        AStar aStar = new AStar(this.game, initialNode, finalNode);
+        aStar.setBlocks(this.game.places().getPlaceList());
         
         List<Node> thisPath = aStar.findPath();
         
@@ -102,25 +102,25 @@ public class Person extends ActorExtension{
 //			latestNode = path.remove(0);
 //		}
 		
-		while (Math.abs(latestNode.getCol() - current_col) > 1
-			|| Math.abs(latestNode.getRow() - current_row) > 1) {
+		while (latestNode.isJumping() == false && (Math.abs(latestNode.getCol() - current_col) > 1
+			|| Math.abs(latestNode.getRow() - current_row) > 1)) {
 			
 			List<Node> smallerPath = this.getPath(latestNode.getRow(), latestNode.getCol(), false);
 			
 			if(smallerPath.size() < 1) {
 				// prevent infinite loop.
 
-				Console.log("\nBREAK > ID=" + this.getId() + " - PATHSIZE=" + path.size()
-				
-					+ " CUR=" + current_row
-					+ "," + current_col
-
-					+ " NEXT#" + latestNode.getRow()
-					+ "," + latestNode.getCol()
-				
-					+ " DELTA@" + Math.abs(latestNode.getRow() - current_row)
-					+ "/" + Math.abs(latestNode.getCol() - current_col));
-				
+				//	Console.log("BREAK > ID=" + this.getId() + " - PATHSIZE=" + path.size()
+				//	
+				//		+ " CUR=" + current_row
+				//		+ "," + current_col
+				//
+				//		+ " NEXT#" + latestNode.getRow()
+				//		+ "," + latestNode.getCol()
+				//	
+				//		+ " DELTA@" + Math.abs(latestNode.getRow() - current_row)
+				//		+ "/" + Math.abs(latestNode.getCol() - current_col));
+				//	
 				break;
 			}
 			

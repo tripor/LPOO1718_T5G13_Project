@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import graphic.Background;
-import graphic.GameStage;
+import com.groundup.game.GameStage;
 import place.Place;
 import logic.console.Console;
 import logic.storage.ConveyorList;
@@ -67,7 +67,7 @@ public class Map {
 	public int getbuildingMinSize() {
 		return buildingMinSize;
 	}
-	/**«
+	/**ï¿½
 	 * @return the maximun size of a building in pixels
 	 */
 	public int getbuildingMaxSize() {

@@ -1,6 +1,6 @@
 package place.type;
 
-import graphic.GameStage;
+import com.groundup.game.GameStage;
 import place.Place;
 
 public class House extends Place {

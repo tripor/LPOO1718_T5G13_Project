@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import graphic.ActorExtension;
-import graphic.GameStage;
+import com.groundup.game.GameStage;
 import graphic.GroundUpGame;
 import logic.map.Map;
 import person.Person;

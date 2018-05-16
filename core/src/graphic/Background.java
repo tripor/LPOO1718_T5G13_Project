@@ -2,6 +2,7 @@ package graphic;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.groundup.game.GameStage;
 
 /**
  * Class that handles the creation of the BackGround
@@ -10,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class Background extends ActorExtension {
 	
 	/**
-	 * Create a Graphic desing of this Actor
+	 * Create a Graphic design of this Actor
 	 */
 	private void createBackground() {
 

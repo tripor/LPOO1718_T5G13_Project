@@ -15,6 +15,9 @@ public class Node {
     private int col;
     private boolean isBlock;
     private Node parent;
+    
+    private boolean jumping = false;
+    // for force-moving a dot to the door.
 
     public Node(int row, int col) {
         super();
@@ -112,6 +115,14 @@ public class Node {
 
     public void setCol(int col) {
         this.col = col;
+    }
+
+    public boolean isJumping() {
+        return jumping;
+    }
+
+    public void setJumping(boolean bool) {
+        this.jumping = bool;
     }
 
 }

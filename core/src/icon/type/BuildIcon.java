@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import graphic.GameStage;
+import com.groundup.game.GameStage;
 import icon.Icon;
 /**
  * Class Build Icon
@@ -51,7 +51,7 @@ public class BuildIcon extends Icon{
 		
 		FactoryIcon button1= new FactoryIcon(this.game,pos_x,pos_y,7,7);
 		button1.setVisible(false);
-		this.game.getIcon_list().addIcon(button1);
+		this.game.icons().addIcon(button1);
 		this.icon_build.add(button1);
 		pos_x+=8;
 	}

@@ -1,15 +1,19 @@
+/**
+ * Deprecated, please go to GameStage.java.
+ */
+
 package com.groundup.game;
 
-import java.util.List;
-import java.util.Random;
-
-import place.Place;
-import logic.console.Console;
-import logic.map.Map;
-import logic.path.byAStar.Node;
-import logic.storage.PersonList;
-import person.Person;
-import person.type.Worker;
+//	import java.util.List;
+//	import java.util.Random;
+//	
+//	import place.Place;
+//	import logic.console.Console;
+//	import logic.map.Map;
+//	import logic.path.byAStar.Node;
+//	import logic.storage.PersonList;
+//	import person.Person;
+//	import person.type.Worker;
 
 public class Game {
 	

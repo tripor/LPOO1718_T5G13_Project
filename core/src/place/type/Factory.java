@@ -3,7 +3,7 @@ package place.type;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import graphic.GameStage;
+import com.groundup.game.GameStage;
 import graphic.GroundUpGame;
 import place.Place;
 

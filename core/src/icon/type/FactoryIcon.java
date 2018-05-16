@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import graphic.GameStage;
+import com.groundup.game.GameStage;
 import icon.Icon;
 import place.type.Factory;
 
