@@ -16,13 +16,13 @@ public class ConveyorList extends Group{
 	}
 	
 	public boolean addConveyor(Conveyor c) {
-		this.addActor(c);
 		
 		int row = c.getRow();
 		int col = c.getCol();
 		
 		if(getConveyor(row, col) == null) {
 			conveyorMap.put(index(row, col), c);
+			this.addActor(c);
 			return true;
 		}
 		return false;

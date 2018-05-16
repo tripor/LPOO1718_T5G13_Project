@@ -9,5 +9,11 @@ public class House extends Place {
 		super(game, top, left, width, height, doorAtBorder, doorAtPx);
 		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+	public void update(float delta) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

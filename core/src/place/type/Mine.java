@@ -11,6 +11,11 @@ public class Mine extends Place {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Demand _demand = new Demand();
+
+	@Override
+	public void update(float delta) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

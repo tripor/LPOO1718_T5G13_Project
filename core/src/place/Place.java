@@ -9,7 +9,7 @@ import graphic.GroundUpGame;
 import logic.map.Map;
 import person.Person;
 
-public class Place extends ActorExtension {
+public abstract class Place extends ActorExtension {
 	
 	public List<Person> _people_here = new ArrayList<Person>();
 	public int	bound_top,

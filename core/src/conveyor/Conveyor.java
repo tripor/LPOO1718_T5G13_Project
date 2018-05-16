@@ -1,6 +1,9 @@
 package conveyor;
 
 import graphic.ActorExtension;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.groundup.game.GameStage;
 import logic.storage.ConveyorList;
 import place.Place;
@@ -11,9 +14,30 @@ public class Conveyor extends ActorExtension{
 	int movement_row = 0;
 	int movement_col = 0;
 	int row, col;
+	public static int width=10;
+	public static int height=8;
+	private int direction;
+	
+	private void createConveyor() {
+		
+		Texture texture = this.game.getGame().getAssetManager().get("conveyor1.png");
+		
+		sprite = new Sprite(texture);
+		sprite.setSize(this.getWidth(), this.getHeight());
+		sprite.setOrigin(width/2, height/2);
+		if(this.direction!=4)
+			sprite.rotate(-90*direction);
+		
+		//this.setDebug(true);
+	}
 
-	public Conveyor(GameStage game,int row, int col, int direction) {
+	public Conveyor(GameStage game,int col, int row, int width, int height, int direction) {
 		this.game=game;
+		this.setWidth(width);
+		this.setHeight(height);
+		this.direction=direction;
+		this.createConveyor();
+		this.setPosition(row, col);
 		
 		this.row = row;
 		this.col = col;
@@ -96,5 +120,11 @@ public class Conveyor extends ActorExtension{
 		else {
 			return checkNextGrid(thisObj, thisObj.getRowMovement(), thisObj.getColMovement());
 		}	
+	}
+
+	@Override
+	public void update(float delta) {
+		// TODO Auto-generated method stub
+		
 	}
 }

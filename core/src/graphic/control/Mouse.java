@@ -8,8 +8,11 @@ import com.badlogic.gdx.math.Vector3;
 
 import graphic.ActorExtension;
 import com.groundup.game.GameStage;
+
+import conveyor.Conveyor;
 import logic.map.Map;
 import place.type.Factory;
+import place.type.IronMine;
 /**
  * Class that handles related mouse evets
  *
@@ -20,6 +23,7 @@ public class Mouse extends ActorExtension {
 	private String type;
 	private int width;
 	private int height;
+	private int doorPosition=4;
 	/**
 	 * Cosntructor for the class mouse
 	 * @param game the game the mouse belongs to 
@@ -42,6 +46,10 @@ public class Mouse extends ActorExtension {
 		
 		sprite = new Sprite(texture);
 		sprite.setSize(width, height);
+		sprite.setOrigin(width/2, height/2);
+
+		if(this.doorPosition!=4)
+			sprite.rotate(-90*doorPosition);
 		
 		this.setDebug(true);
 		
@@ -52,14 +60,31 @@ public class Mouse extends ActorExtension {
 	{
 		if(isSelected)
 		{
+			Vector3 mouse_pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+			this.game.getViewport().unproject(mouse_pos);
+			int adicao_x=0;
+			int adicao_y=0;
+			if(this.width % 10!=0)
+				adicao_x = (10 - (this.width % 10)) / 2;
+			if(this.height % 10!=0)
+				adicao_y = (10 - (this.height % 10)) / 2;
+			int x = ((int) (mouse_pos.x / Map.division)) * 10 + adicao_x;
+			int y = ((int) (mouse_pos.y / Map.division)) * 10 + adicao_y;
 			if(this.type.equals("factory.png"))
 			{
-				Vector3 mouse_pos = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
-				this.game.getViewport().unproject(mouse_pos);
-				Factory fab= new Factory(this.game,((int)(mouse_pos.y/Map.division))*10,((int)(mouse_pos.x/Map.division))*10,this.width,this.height,10,10);
+				Factory fab= new Factory(this.game,y,x,this.width,this.height,this.doorPosition,10);
 				this.game.places().addPlace(fab);
 			}
-			
+			if(this.type.equals("nothing.png"))
+			{
+				IronMine im= new IronMine(this.game,y,x,this.width,this.height,this.doorPosition,5);
+				this.game.places().addPlace(im);
+			}
+			if(this.type.equals("conveyor1.png"))
+			{
+				Conveyor c= new Conveyor(this.game,y,x,this.width,this.height,this.doorPosition);
+				this.game.conveyors().addConveyor(c);
+			}
 			
 			
 			this.isSelected=false;
@@ -68,13 +93,36 @@ public class Mouse extends ActorExtension {
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		if(this.isSelected)
-		{
-			Vector3 mouse_pos = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
+		if (this.isSelected) {
+			Vector3 mouse_pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
 			this.game.getViewport().unproject(mouse_pos);
-			this.setPosition(((int)(mouse_pos.x/Map.division))*10,((int)(mouse_pos.y/Map.division))*10);
+			int adicao_x=0;
+			int adicao_y=0;
+			if(this.width % 10!=0)
+				adicao_x = (10 - (this.width % 10)) / 2;
+			if(this.height % 10!=0)
+				adicao_y = (10 - (this.height % 10)) / 2;
+			int x = ((int) (mouse_pos.x / Map.division)) * 10 + adicao_x;
+			int y = ((int) (mouse_pos.y / Map.division)) * 10 + adicao_y;
+			this.setPosition(x, y);
 			sprite.draw(batch);
 		}
+	}
+
+	public void rotateMouse()
+	{
+		if(this.isSelected)
+		{
+			this.sprite.rotate(-90);
+			this.doorPosition++;
+			if(this.doorPosition>=5)
+				this.doorPosition=1;
+		}
+	}
+	@Override
+	public void update(float delta) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

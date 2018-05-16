@@ -86,6 +86,10 @@ public class UserControl implements InputProcessor  {
         {
         	this.game.generatePerson(1);
         }
+        if(keycode==Input.Keys.R)
+        {
+        	this.game.getMouse().rotateMouse();
+        }
 		return false;
 	}
 	@Override

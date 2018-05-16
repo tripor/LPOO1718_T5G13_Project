@@ -45,6 +45,7 @@ public class BuildIcon extends Icon{
 		
 		sprite = new Sprite(texture);
 		sprite.setSize(this.getWidth(), this.getHeight());
+		sprite.setOrigin(this.getWidth()/2, this.getHeight()/2);
 		
 		int pos_x=7+8;
 		int pos_y=7;
@@ -53,6 +54,18 @@ public class BuildIcon extends Icon{
 		button1.setVisible(false);
 		this.game.icons().addIcon(button1);
 		this.icon_build.add(button1);
+		pos_x+=8;
+		
+		MineIcon button2= new MineIcon(this.game,pos_x,pos_y,7,7);
+		button2.setVisible(false);
+		this.game.icons().addIcon(button2);
+		this.icon_build.add(button2);
+		pos_x+=8;
+		
+		ConveyorIcon button3= new ConveyorIcon(this.game,pos_x,pos_y,7,7);
+		button3.setVisible(false);
+		this.game.icons().addIcon(button3);
+		this.icon_build.add(button3);
 		pos_x+=8;
 	}
 	/**
@@ -76,6 +89,12 @@ public class BuildIcon extends Icon{
             	clickHandler();
             }
         });
+	}
+
+	@Override
+	public void update(float delta) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

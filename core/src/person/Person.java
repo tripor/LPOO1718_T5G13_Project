@@ -14,7 +14,7 @@ import logic.path.byAStar.Node;
  * @author figor
  *
  */
-public class Person extends ActorExtension{
+public abstract class Person extends ActorExtension{
 	
 	public int current_row;
 	public int current_col;

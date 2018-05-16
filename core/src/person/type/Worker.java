@@ -27,4 +27,10 @@ public class Worker extends Person {
 		this.setPosition(col, row);
 	}
 
+	@Override
+	public void update(float delta) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

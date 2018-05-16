@@ -18,6 +18,9 @@ public class Factory extends Place {
 		
 		sprite = new Sprite(texture);
 		sprite.setSize(this.getWidth(), this.getHeight());
+		sprite.setOrigin(width/2, height/2);
+		if(this.door_atBorder!=4)
+			sprite.rotate(-90*door_atBorder);
 		
 		this.setDebug(true);
 	}
@@ -28,6 +31,12 @@ public class Factory extends Place {
 		this.setHeight(height);
 		this.createFactory();
 		this.setPosition(left, top);
+	}
+
+	@Override
+	public void update(float delta) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

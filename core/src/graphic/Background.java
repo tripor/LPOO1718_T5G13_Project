@@ -40,5 +40,10 @@ public class Background extends ActorExtension {
 	{
 		return "BackGround";
 	}
+	@Override
+	public void update(float delta) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

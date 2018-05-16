@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import graphic.ActorExtension;
 import com.groundup.game.GameStage;
 
-public class Icon extends ActorExtension {
+public abstract class Icon extends ActorExtension {
 
 	protected final float pos_x;
 	protected final float pos_y;
@@ -25,4 +25,6 @@ public class Icon extends ActorExtension {
 		this.setPosition(this.game.getCamera().position.x + this.pos_x - (GameStage.VIEWPORT_WIDTH/2), this.game.getCamera().position.y + this.pos_y -(GameStage.VIEWPORT_HEIGHT/2));
 		sprite.draw(batch);
 	}
+
+
 }

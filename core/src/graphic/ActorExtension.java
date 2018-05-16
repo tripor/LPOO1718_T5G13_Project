@@ -1,5 +1,6 @@
 package graphic;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -50,5 +51,8 @@ public abstract class ActorExtension extends Actor {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		sprite.draw(batch);
+		this.update(Gdx.graphics.getDeltaTime());
 	}
+	
+	public abstract void update(float delta);
 }

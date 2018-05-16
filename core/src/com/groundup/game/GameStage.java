@@ -115,8 +115,12 @@ public class GameStage extends Stage {
 	    game.getAssetManager().load("factory_icon.png", Texture.class);
 	    game.getAssetManager().load("menu_icon.png", Texture.class);
 	    game.getAssetManager().load("build_icon.png", Texture.class);
+	    game.getAssetManager().load("mine_icon.png", Texture.class);
+	    game.getAssetManager().load("conveyor_icon.png", Texture.class);
 	    game.getAssetManager().load("worker.png", Texture.class);
 	    game.getAssetManager().load("grass01.png", Texture.class);
+	    game.getAssetManager().load("nothing.png", Texture.class);
+	    game.getAssetManager().load("conveyor1.png", Texture.class);
 	    
 	    game.getAssetManager().finishLoading(); // should be replaced by something more efficiente
 	    
@@ -124,7 +128,7 @@ public class GameStage extends Stage {
 	    initializeMap();
 	    
 	    //Initialize the game
-	    initGame();
+	    //initGame();
 
 	}
 	/**
@@ -149,8 +153,6 @@ public class GameStage extends Stage {
 				this.background_list.addBackground(adicionar);
 			}
 		}
-		
-		
 	}
 	
 
