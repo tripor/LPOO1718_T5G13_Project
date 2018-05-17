@@ -223,7 +223,26 @@ public class GameStage extends Stage {
 			return devolver;
 		}
 	}
-	
+	/**
+	 * Checks if a given pixel is on the camera
+	 * @param top The x/top position in pixels
+	 * @param left The y/left Position in pixels
+	 * @return True is it is or false otherwise
+	 */
+	public boolean pixelOnScreen(int top,int left)
+	{
+		Vector3 position=this.camera.position;
+		float x=position.x;
+		float y=position.y;
+		if(x<=top && top<=x+this.camera.viewportWidth)
+		{
+			if(y<=left && left <=y+this.camera.viewportHeight)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * Initializes the games creating all the places and people
