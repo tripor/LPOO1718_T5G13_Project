@@ -1,5 +1,7 @@
 package inserter;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -20,7 +22,9 @@ public class Inserter extends ActorExtension{
 	private boolean isRotating = false;
 	private boolean rotationDirection=true;
 	private int rotating_quantity=0;
-	private int rotating_velocity=5;
+	private int rotating_velocity=7;
+	
+	private ArrayList<Object> pickUpFrom;
 	
 	
 	
@@ -55,10 +59,10 @@ public class Inserter extends ActorExtension{
 		this.direction=direction;
 		this.createInserter();
 		this.setPosition(row, col);
+		this.pickUpFrom = this.game.getMap().getMap(col, row);
 		this.sprite2.setPosition(row-6, (float) (col));
 		this.row = row;
 		this.col = col;
-		this.rotateHand();
 	}
 
 	public int getRow() {
@@ -72,6 +76,10 @@ public class Inserter extends ActorExtension{
 	{
 		this.isRotating=true;
 		this.rotating_quantity=0;
+		if(this.direction!=4)
+		{
+			this.rotating_quantity=-90*direction;
+		}
 		this.rotationDirection=true;
 	}
 
@@ -79,26 +87,31 @@ public class Inserter extends ActorExtension{
 	public void update(float delta) {
 		if(this.isRotating)
 		{
+			int error=0;
+			if(this.direction!=4)
+			{
+				error=90*direction;
+			}
 			if(this.rotationDirection)
 			{
 				this.sprite2.rotate(-rotating_velocity);
 				this.rotating_quantity-=this.rotating_velocity;
-				if(this.rotating_quantity<=-180)
+				if(this.rotating_quantity<=-(180+error))
 				{	
 					this.rotationDirection=false;
-					this.sprite2.rotate(this.sprite2.getRotation()+180);
-					this.rotating_quantity=-180;
+					this.sprite2.rotate(-(this.sprite2.getRotation()+180+error));
+					this.rotating_quantity=-(180+error);
 				}
 			}
 			else
 			{
 				this.sprite2.rotate(rotating_velocity);
 				this.rotating_quantity+=this.rotating_velocity;
-				if(this.rotating_quantity>=0)
+				if(this.rotating_quantity>=-error)
 				{	
 					this.isRotating=false;
-					this.sprite2.rotate(-this.sprite2.getRotation());
-					this.rotating_quantity=0;
+					this.sprite2.rotate(-(this.sprite2.getRotation()+error));
+					this.rotating_quantity=-error;
 				}
 			}
 		}

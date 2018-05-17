@@ -6,13 +6,18 @@ import java.util.List;
 import java.util.Random;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.groundup.game.GameStage;
 
 import logic.console.Console;
 import logic.map.Map;
 import place.Place;
 
 public class PlaceList extends Group{
-	
+
+	/**
+	 * The game that this group is in
+	 */
+	protected GameStage game;
 	/**
 	 * split the full map into groups, the size should be = Map.getInstance().getbuildingMaxSize() * 15
 	 */
@@ -31,7 +36,8 @@ public class PlaceList extends Group{
 	/**
 	 * Constructor for the Class Place List
 	 */
-	public PlaceList() {
+	public PlaceList(GameStage game) {
+		this.game=game;
 		
 	}
 	/**
@@ -82,7 +88,11 @@ public class PlaceList extends Group{
 		}
 		placeSet.add(p);
 		p.setUniqueId("R" + p.getBoundTop() + "C" + p.getBoundLeft());
+		int width=(int) p.getWidth();
+		int height = (int) p.getHeight();
+		this.game.getMap().addMap(p, p.bound_top, p.bound_left, width, height);
 		this.addActor(p);
+		
 		return true;
 	}
 	/**
