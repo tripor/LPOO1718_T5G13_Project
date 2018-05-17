@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.async.AsyncExecutor;
 import com.badlogic.gdx.utils.async.AsyncTask;
@@ -35,7 +36,7 @@ public class PersonList extends Group{
 		int left = p.getCol()/Map.division,
 			top  = p.getRow()/Map.division;
 
-		ArrayList<Object> element_list = this.game.map().getMap(top, left);
+		ArrayList<Actor> element_list = this.game.map().getMap(top, left);
 
 		// todo: check point, but not check block.
 		if(element_list.size() > 0) {

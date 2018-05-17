@@ -48,7 +48,7 @@ public class Map {
 	 */
 	private GameStage game;
 	
-	private ArrayList<ArrayList<ArrayList<Object>>> map;
+	private ArrayList<ArrayList<ArrayList<Actor>>> map;
 	
 	private String testingTrack = "";
 
@@ -60,13 +60,13 @@ public class Map {
 		
 		this.mapHeight=1000;
 		this.mapWidth=1000;
-		map = new ArrayList<ArrayList<ArrayList<Object>>>();
+		map = new ArrayList<ArrayList<ArrayList<Actor>>>();
 		for(int i=0 ; i<this.mapWidth/Map.division;i++)
 		{
-			map.add(new ArrayList<ArrayList<Object>>());
+			map.add(new ArrayList<ArrayList<Actor>>());
 			for(int j=0; j<this.mapHeight/Map.division;j++)
 			{
-				map.get(i).add(new ArrayList<Object>());
+				map.get(i).add(new ArrayList<Actor>());
 			}
 		}
 	}
@@ -104,7 +104,7 @@ public class Map {
 	 * @param width the width in pixels
 	 * @param height the height in pixels
 	 */
-	public void addMap(Object obj, int pos_x, int pos_y, int width, int height) {
+	public void addMap(Actor obj, int pos_x, int pos_y, int width, int height) {
 		int x = pos_x / Map.division;
 		int y = pos_y / Map.division;
 
@@ -133,7 +133,7 @@ public class Map {
 	 * @param width the width in pixels
 	 * @param height the height in pixels
 	 */
-	public void removeMap(Object obj, int pos_x, int pos_y, int width, int height) 
+	public void removeMap(Actor obj, int pos_x, int pos_y, int width, int height) 
 	{
 		int x = pos_x / Map.division;
 		int y = pos_y / Map.division;
@@ -162,7 +162,7 @@ public class Map {
 	 * @param pos_y the y position in pixels
 	 * @return Return an arraylist of the objects in that position
 	 */
-	public ArrayList<Object> getMap(int pos_x,int pos_y)
+	public ArrayList<Actor> getMap(int pos_x,int pos_y)
 	{
 		return this.map.get(pos_x/Map.division).get(pos_y/Map.division);
 	}
@@ -170,12 +170,12 @@ public class Map {
 	 * Gets pixel in the position of the map
 	 * @param pos_x the x position in pixels
 	 * @param pos_y the y position in pixels
-	 * @return Returns the object in that pixel
+	 * @return Returns the object in that pixel or null if there is nothing there
 	 */
-	public Object getPixelMap(int pos_x,int pos_y)
+	public Actor getPixelMap(int pos_x,int pos_y)
 	{
-		ArrayList<Object> elements = this.getMap(pos_x, pos_y);
-		for(Object it:elements)
+		ArrayList<Actor> elements = this.getMap(pos_x, pos_y);
+		for(Actor it:elements)
 		{
 			if(it.getClass().equals(Person.class) || it.getClass().equals(Material.class) || it.getClass().equals(Conveyor.class))
 			{
@@ -183,7 +183,10 @@ public class Map {
 			}
 			else
 			{
-				((Actor) it).getX();
+				if(it.getX()<=pos_x && pos_x<=it.getX()+it.getWidth() && it.getY()<=pos_y && pos_y<=it.getY()+it.getHeight())
+				{
+					return it;
+				}
 			}
 		}
 		return null;

@@ -5,11 +5,19 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.groundup.game.GameStage;
 
 import logic.storage.Demand;
-
-public class IronMine extends Mine {
+import material.Material;
+import place.Place;
+/**
+ * Class that handle the IronMine logic
+ *
+ */
+public class IronMine extends Place {
 
 	public static int width=10;
 	public static int height=10;
+	
+	private int time_make_material=100;
+	private int time=0;
 
 	public Demand _demand = new Demand();
 
@@ -31,7 +39,18 @@ public class IronMine extends Mine {
 		this.setWidth(width);
 		this.setHeight(height);
 		this.createFactory();
-		this.setPosition(left, top);
+		this.setPosition(top, left);
+	}
+	
+	@Override
+	public void update(float delta) {
+		time++;
+		if(time>=this.time_make_material)
+		{
+			time=0;
+			this.addToStorage(this.game.removeUnusedMaterial());
+		}
+		
 	}
 	
 

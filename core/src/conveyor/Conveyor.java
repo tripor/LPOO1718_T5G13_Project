@@ -31,7 +31,7 @@ public class Conveyor extends ActorExtension{
 		//this.setDebug(true);
 	}
 
-	public Conveyor(GameStage game,int col, int row, int width, int height, int direction) {
+	public Conveyor(GameStage game,int row, int col, int width, int height, int direction) {
 		this.game=game;
 		this.setWidth(width);
 		this.setHeight(height);

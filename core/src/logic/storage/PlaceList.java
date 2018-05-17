@@ -1,14 +1,13 @@
 package logic.storage;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.groundup.game.GameStage;
 
-import logic.console.Console;
 import logic.map.Map;
 import place.Place;
 
@@ -19,20 +18,9 @@ public class PlaceList extends Group{
 	 */
 	protected GameStage game;
 	/**
-	 * split the full map into groups, the size should be = Map.getInstance().getbuildingMaxSize() * 15
-	 */
-	private static int GROUP_SIZE = 1500;
-	
-	/**
 	 * List containing all the place in the game
 	 */
 	public List<Place> placeSet = new ArrayList<Place>();
-	/**
-	 * Grouped place list,
-	 * for better performance on getting a building by coordinates.
-	 * @usage placeMap.get(index(ROW, COL));
-	 */
-	public HashMap<String, List<Place>> placeMap = new HashMap<String, List<Place>>();
 	/**
 	 * Constructor for the Class Place List
 	 */
@@ -47,47 +35,33 @@ public class PlaceList extends Group{
 	 */
 	public boolean addPlace(Place p) {
 		
-		int left = p.getBoundLeft()/GROUP_SIZE, right  = p.getBoundRight()/GROUP_SIZE,
-			top  = p.getBoundTop()/GROUP_SIZE,  bottom = p.getBoundBottom()/GROUP_SIZE;
+		int left = p.getBoundLeft()/Map.division, right  = p.getBoundRight()/Map.division,
+			top  = p.getBoundTop()/Map.division,  bottom = p.getBoundBottom()/Map.division;
 		
 		int col, row;
 		
 		for(col = left; col <= right; col++) {
 			for(row = top; row <= bottom; row++) {
 				
-				List<Place> place_list = placeMap.get(index(row, col));
+				ArrayList<Actor> element_list = this.game.map().getMap(row, col);
 				
-				if(place_list == null) {
-					// Console.log("> NULL LIST");
-					continue;
-				}
-
-				// Console.log("> LIST WITH " + place_list.size() + " ELEMENTS");
-				
-				for(Place pl : place_list) {
-					// Console.log("\n  > COMPARE PLACE " + pl.getUniqueId());
-					// Console.log("  THIS=  " + p.toString());
-					// Console.log("  " + pl.toString());
-					
-					if(pl.overlapWith(p)) {
-						// Console.log(">> Overlap.");
-						return false;
-					}
+				// todo: check point, but not check block.
+				if(element_list.size() > 0) {
+					return false;
 				}
 			}
 		}
 
-		for(col = left; col <= right; col++) {
-			for(row = top; row <= bottom; row++) {
-
-				List<Place> pl = getMap(row, col);
-				pl.add(p);
-				
-				placeMap.put(index(row, col), pl);
-			}
-		}
-		placeSet.add(p);
+		p.setUniqueId("R" + p.getBoundTop() + "C" + p.getBoundLeft());
+		this.game.map().addMap(
+				p,
+				p.getBoundTop(),
+				p.getBoundLeft(),
+				(p.getBoundRight() - p.getBoundLeft()),
+				(p.getBoundBottom() - p.getBoundTop())
+			);
 		
+		placeSet.add(p);
 		this.addActor(p);
 		
 		return true;
@@ -98,17 +72,14 @@ public class PlaceList extends Group{
 	 */
 	public void removePlace(Place p) {
 		
-		int left = p.getBoundLeft()/GROUP_SIZE, right  = p.getBoundRight()/GROUP_SIZE,
-			top  = p.getBoundTop()/GROUP_SIZE,  bottom = p.getBoundBottom()/GROUP_SIZE;
-		
-		int row, col;
-
-		for(col = left; col <= right; col++) {
-			for(row = top; row <= bottom; row++) {
-				placeMap.get(index(row, col)).remove(p);
-			}
-		}
 		placeSet.remove(p);
+		this.game.map().removeMap(
+				p,
+				p.getBoundTop(),
+				p.getBoundLeft(),
+				(p.getBoundRight() - p.getBoundLeft()),
+				(p.getBoundBottom() - p.getBoundTop())
+			);
 	}
 	/**
 	 * Get all the place in the map
@@ -124,41 +95,45 @@ public class PlaceList extends Group{
 		return placeSet.get((new Random()).nextInt(placeSet.size()));
 	}
 	/**
-	 * Get all the place nearby a given coordinate.
-	 * @param row
-	 * @param col
-	 * @return
+	 * Randomly return a building, but avoid the building `s`.
 	 */
-	public List<Place> getPlaceList(int row, int col) {
+	public int getRandomNumAvoid(int num, int max) {
 		
-		row = row / GROUP_SIZE;
-		col = col / GROUP_SIZE;
-		
-		return getMap(row, col);
-	}
-	/**
-	 * Missing Description
-	 * @param row
-	 * @param col
-	 * @return
-	 */
-	public String index(int row, int col) {
-		return row + "/" + col;
-	}
-	/**
-	 * Missing Description.this function has already implemented in latest Java.
-	 * @param row
-	 * @param col
-	 * @return
-	 */
-	public List<Place> getMap(int row, int col) {
-		
-		List<Place> p = placeMap.get(index(row, col));
-		
-		if(p == null) {
-			p = new ArrayList<Place>();
+		if(max <= 1) {
+			return -1;
 		}
-		return p;
+		int result = ((new Random()).nextInt(max-1));
+		
+		if(result >= num) {
+			result++;
+		}
+		return result;
+	}
+	public Place getRandomPlace(Place s) {
+
+		int index = -1,
+			places_size = placeSet.size();
+		Place result;
+		
+		while(true) {
+			
+			if(index >= 0) {
+				// that means, a repeat happened before.
+				index = getRandomNumAvoid(index, places_size);
+			}
+			else {
+				index = ((new Random()).nextInt(places_size));
+			}
+			
+			result = placeSet.get(index);
+			
+			if(!result.equals(s)) {
+				break;
+			}
+		}
+		
+		return result;
+		
 	}
 	/**
 	 * Missing Description
@@ -167,12 +142,19 @@ public class PlaceList extends Group{
 	 * @return
 	 */
 	public Place checkIfPointInBuilding(int row, int col) {
+
+		int top = row/Map.division,
+			left = col/Map.division;
 		
-		List<Place> map = getPlaceList(row, col);
+		ArrayList<Actor> map = this.game.map().getMap(top, left);
 		
-		for(Place p : map) {
-			if(p.including(row, col)) {
-				return p;
+		for(Object el : map) {
+			
+			if(el.getClass().equals(Place.class)) {
+				
+				if(((Place) el).including(row, col)) {
+					return ((Place) el);
+				}
 			}
 		}
 		return null;

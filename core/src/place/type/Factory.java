@@ -30,7 +30,7 @@ public class Factory extends Place {
 		this.setWidth(width);
 		this.setHeight(height);
 		this.createFactory();
-		this.setPosition(left, top);
+		this.setPosition(top, left);
 	}
 
 	@Override

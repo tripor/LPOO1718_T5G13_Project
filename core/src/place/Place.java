@@ -1,15 +1,23 @@
 package place;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import graphic.ActorExtension;
 import com.groundup.game.GameStage;
 import graphic.GroundUpGame;
 import logic.map.Map;
+import material.Material;
 import person.Person;
-
+/**
+ * Abstract Class for all the places of the game
+ *
+ */
 public abstract class Place extends ActorExtension {
+	
+	private HashMap<String,Integer> storage = new HashMap<String,Integer>();
 	
 	public List<Person> _people_here = new ArrayList<Person>();
 	public int	bound_top,
@@ -25,21 +33,13 @@ public abstract class Place extends ActorExtension {
 	
 	public String unique_id = "undefined";
 	
+	
+	
 	/**
+	 * Constructor of the class Place
 	 * @param game 
-	 * @param doorAtBorder
-	 *  1 = TOP
-	 *  2 = RIGHT
-	 *  3 = BOTTOM
-	 *  4 = LEFT
-	 *  
-	 * @param doorAtPx
-	 *  Clockwise - for easier object rotation.
-	 *  i.e.,
-	 *    for [TOP, 2] = 3rd pixel from left. (0, 1, {2}<=Third)
-	 *        [RIGHT, ...
-	 *        [LEFT, 5] = 6th pixel from bottom.
-	 *        [BOTTOM, ...
+	 * @param doorAtBorder 1 = TOP 2 = RIGHT 3 = BOTTOM 4 = LEFT
+	 * @param doorAtPx Clockwise - for easier object rotation. i.e., for [TOP, 2] = 3rd pixel from left. (0, 1, {2}<=Third) [RIGHT, ... [LEFT, 5] = 6th pixel from bottom. [BOTTOM, ...
 	 */
 	public Place(GameStage game, int top, int left, int width, int height, int doorAtBorder, int doorAtPx) {
 		this.game=game;
@@ -98,6 +98,52 @@ public abstract class Place extends ActorExtension {
 
 	public int getDoorCol() {
 		return door_col;
+	}
+	/**
+	 * Adds a material to the place storage
+	 * @param mat The material I want to add
+	 */
+	public void addToStorage(Material mat)
+	{
+		if(this.storage.containsKey(mat.type))
+			this.storage.put(mat.type, this.storage.get(mat.type).intValue()+1);
+		else 
+			this.storage.put(mat.type, 1);
+		mat.setVisible(false);
+		this.game.addUnusedMaterial(mat);
+	}
+	/**
+	 * Removes a material form the place
+	 * @param type String name of material or "any" for the any material
+	 * @return the material or null if non
+	 */
+	public Material removeMaterial(String type)
+	{
+		if(type.equals("any"))
+		{
+			if(this.storage.isEmpty())
+				return null;
+			Entry<String, Integer> entry = this.storage.entrySet().iterator().next();
+			int updated_value=this.storage.get(entry.getKey()).intValue() -1;
+			this.storage.put(entry.getKey(),updated_value);
+			if(updated_value==0)
+			{
+				this.storage.remove(entry.getKey());
+			}
+			return this.game.removeUnusedMaterial();
+		}
+		else
+		{
+			if(!this.storage.containsKey(type))
+				return null;
+			int updated_value=this.storage.get(type).intValue() -1;
+			this.storage.put(type,updated_value);
+			if(updated_value==0)
+			{
+				this.storage.remove(type);
+			}
+			return this.game.removeUnusedMaterial();
+		}
 	}
 
     @Override

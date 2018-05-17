@@ -1,5 +1,6 @@
 package com.groundup.game;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -23,8 +24,10 @@ import logic.storage.BackGroundList;
 import logic.storage.ConveyorList;
 import logic.storage.IconList;
 import logic.storage.InserterList;
+import logic.storage.MaterialList;
 import logic.storage.PersonList;
 import logic.storage.PlaceList;
+import material.Material;
 import person.type.Worker;
 import place.Place;
 import place.type.Factory;
@@ -76,6 +79,14 @@ public class GameStage extends Stage {
      */
     protected InserterList inserter_list;
     /**
+     * Class with all the materials of the game
+     */
+    protected MaterialList material_list;
+    /**
+     * List with materials that are not being used
+     */
+    protected ArrayList<Material> unused_material;
+    /**
      * Game mouse
      */
     protected Mouse mouse;
@@ -104,6 +115,8 @@ public class GameStage extends Stage {
 		this.addActor(place_list);
 		this.conveyor_list=new ConveyorList();
 		this.addActor(conveyor_list);
+		this.material_list=new MaterialList(this);
+		this.addActor(material_list);
 		this.inserter_list= new InserterList(this);
 		this.addActor(inserter_list);
 		this.person_list= new PersonList(this);
@@ -112,6 +125,7 @@ public class GameStage extends Stage {
 		this.addActor(mouse);
 		this.icon_list= new IconList();
 		this.addActor(icon_list);
+		this.unused_material=new ArrayList<Material>();
 		
 		// Set the viewport
 		camera= new OrthographicCamera();
@@ -137,6 +151,7 @@ public class GameStage extends Stage {
 	    
 	    initializeIcons();
 	    initializeMap();
+	    initializeMaterials();
 	    
 	    //Initialize the game
 	    //initGame();
@@ -163,6 +178,46 @@ public class GameStage extends Stage {
 				Background adicionar= new Background(this,i,j,Map.division,Map.division);
 				this.background_list.addBackground(adicionar);
 			}
+		}
+	}
+	/**
+	 * Creates a lot of materials classes for later reutilization
+	 */
+	private void initializeMaterials()
+	{
+		for(int i=0;i<300;i++)
+		{
+			Material novo= new Material(this,0,0);
+			novo.setVisible(false);
+			this.unused_material.add(novo);
+		}
+	}
+	/**
+	 * Adds an unused material to the list of unused materials
+	 * @param mat The material I want to add
+	 */
+	public void addUnusedMaterial(Material mat)
+	{
+		this.material_list.removeMaterial(mat);
+		this.material_list.removeMaterialFromMap(mat);
+		this.unused_material.add(mat);
+	}
+	/**
+	 * Returns an unused material or just creates a new Material
+	 * @return
+	 */
+	public Material removeUnusedMaterial()
+	{
+		if(this.unused_material.isEmpty())
+		{
+			Material novo= new Material(this,0,0);
+			return novo;
+		}
+		else
+		{
+			Material devolver= this.unused_material.get(0);
+			this.unused_material.remove(0);
+			return devolver;
 		}
 	}
 	
@@ -264,7 +319,7 @@ public class GameStage extends Stage {
 	public void generatePerson(int i) {
 		
 		Place s = this.places().getRandomPlace(),
-		      t = this.places().getRandomPlace(s);
+		      t = this.places().getRandomPlace();
 		
 		int s_row = s.getDoorRow(),
 		    s_col = s.getDoorCol(),
@@ -346,6 +401,14 @@ public class GameStage extends Stage {
 	public InserterList inserters()
 	{
 		return this.inserter_list;
+	}
+	/**
+	 * 
+	 * @return Returns the Materials visible of the game
+	 */
+	public MaterialList materials()
+	{
+		return this.material_list;
 	}
 	
 	

@@ -53,6 +53,9 @@ public abstract class ActorExtension extends Actor {
 		sprite.draw(batch);
 		this.update(Gdx.graphics.getDeltaTime());
 	}
-	
+	/**
+	 * Call this every frame 
+	 * @param delta Time since the last frame
+	 */
 	public abstract void update(float delta);
 }

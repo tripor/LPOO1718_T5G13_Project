@@ -6,31 +6,76 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Plane;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.groundup.game.GameStage;
 
 import graphic.ActorExtension;
-
+import logic.map.Map;
+import material.Material;
+import place.Place;
+/**
+ * Class that handle the inserter logic
+ *
+ */
 public class Inserter extends ActorExtension{
-	int row, col;
+	/**
+	 * Inserter width
+	 */
 	public static int width=4;
+	/**
+	 * Inserter height
+	 */
 	public static int height=4;
-	
+	/**
+	 * Inserter hand width
+	 */
 	public static int width_hand=8;
+	/**
+	 * Inserter hand height
+	 */
 	public static int height_hand=4;
+	/**
+	 * Direction the inserter is facing
+	 */
 	private int direction;
-	
+	/**
+	 * If the inserter is rotating
+	 */
 	private boolean isRotating = false;
+	/**
+	 * Clock or counterclock wise direction
+	 */
 	private boolean rotationDirection=true;
+	/**
+	 * The degree of how much it has rotated
+	 */
 	private int rotating_quantity=0;
+	/**
+	 * Rotating velocity
+	 */
 	private int rotating_velocity=7;
-	
-	private ArrayList<Object> pickUpFrom;
-	
-	
-	
+	/**
+	 * Sprite for the hand
+	 */
 	private Sprite sprite2;
+	/**
+	 * Material the inserter had picked up
+	 */
+	private Material pickup;
+	/**
+	 * If the inserter has been blocked from placing the block
+	 */
+	private boolean blocked;
 	
+	private int middle_x;
+	private int middle_y;
+	
+	/**
+	 * Creates the sprite for the class
+	 */
 	private void createInserter() {
+		
 		
 		Texture texture = this.game.getGame().getAssetManager().get("inserter_base.png");
 		Texture texture2 = this.game.getGame().getAssetManager().get("inserter_hand.png");
@@ -51,29 +96,32 @@ public class Inserter extends ActorExtension{
 		
 		this.setDebug(true);
 	}
-
-	public Inserter(GameStage game,int col, int row, int width, int height, int direction) {
+	/**
+	 * Constructor for the Class inserter
+	 * @param game The game it belongs to
+	 * @param col The colum or y position in pixels
+	 * @param row The row or x position in pixels
+	 * @param width The width in pixels
+	 * @param height The height in pixels
+	 * @param direction The direction it is facing
+	 */
+	public Inserter(GameStage game,int row, int col, int width, int height, int direction) {
 		this.game=game;
 		this.setWidth(width);
 		this.setHeight(height);
 		this.direction=direction;
 		this.createInserter();
 		this.setPosition(row, col);
-		this.pickUpFrom = this.game.map().getMap(col, row);
 		this.sprite2.setPosition(row-6, (float) (col));
-		this.row = row;
-		this.col = col;
-		System.out.println(this.pickUpFrom.size());
+		this.isRotating=false;
+		this.middle_x=row;
+		this.middle_y=col;
 	}
 
-	public int getRow() {
-		return row;
-	}
-	public int getCol() {
-		return col;
-	}
-	
-	public void rotateHand()
+	/**
+	 * Rotates de Hand of the inserter 180 degree clockwise and returns
+	 */
+	private void rotateHand()
 	{
 		this.isRotating=true;
 		this.rotating_quantity=0;
@@ -83,7 +131,58 @@ public class Inserter extends ActorExtension{
 		}
 		this.rotationDirection=true;
 	}
-
+	/**
+	 * See if there is something for the inserter to pick up
+	 */
+	public void tryPickUp()
+	{
+		ArrayList<Actor> elements = null;
+		this.pickup=null;
+		switch(this.direction)
+		{
+		case 1:
+			elements = this.game.map().getMap((int)this.getX(), (int)this.getY()+Map.division);
+			break;
+		case 2:
+			elements = this.game.map().getMap((int)this.getX()+Map.division, (int)this.getY());
+			break;
+		case 3:
+			elements = this.game.map().getMap((int)this.getX(), (int)this.getY()-Map.division);
+			break;
+		case 4:
+			elements = this.game.map().getMap((int)this.getX()-Map.division, (int)this.getY());
+			break;
+		}
+		if(elements.isEmpty())
+			return;
+		else
+		{
+			for(Actor it:elements)
+			{
+				
+				if(Place.class.isAssignableFrom(it.getClass()))
+				{
+					Material removed = ((Place)it).removeMaterial("any");
+					if(removed==null)
+						continue;
+					else
+					{
+						this.pickup=removed;
+						this.game.materials().addMaterial(this.pickup);
+						this.pickup.setVisible(true);
+						return;
+					}
+				}
+				else if(it.getClass().equals(Material.class))
+				{
+					this.pickup=(Material) it;
+					this.game.materials().removeMaterialFromMap(this.pickup);
+					return;
+				}
+			}
+		}
+	}
+	
 	@Override
 	public void update(float delta) {
 		if(this.isRotating)
@@ -95,6 +194,7 @@ public class Inserter extends ActorExtension{
 			}
 			if(this.rotationDirection)
 			{
+				this.pickup.setPosition((float) (this.middle_x-(this.sprite2.getWidth() * Math.cos(rotating_quantity*Math.PI/180))),(float)(this.middle_y-(this.sprite2.getWidth() * Math.sin(rotating_quantity*Math.PI/180))));
 				this.sprite2.rotate(-rotating_velocity);
 				this.rotating_quantity-=this.rotating_velocity;
 				if(this.rotating_quantity<=-(180+error))
@@ -102,6 +202,10 @@ public class Inserter extends ActorExtension{
 					this.rotationDirection=false;
 					this.sprite2.rotate(-(this.sprite2.getRotation()+180+error));
 					this.rotating_quantity=-(180+error);
+					
+					this.game.materials().addMaterialToMap(this.pickup);
+					this.pickup=null;
+					
 				}
 			}
 			else
@@ -114,6 +218,14 @@ public class Inserter extends ActorExtension{
 					this.sprite2.rotate(-(this.sprite2.getRotation()+error));
 					this.rotating_quantity=-error;
 				}
+			}
+		}
+		else
+		{
+			this.tryPickUp();
+			if(this.pickup!=null)
+			{
+				this.rotateHand();
 			}
 		}
 	}
