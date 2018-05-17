@@ -38,6 +38,8 @@ public class Map {
 	 */
 	private GameStage game;
 	
+	private ArrayList<ArrayList<ArrayList<Object>>> map;
+	
 	private String testingTrack = "";
 
 	/**
@@ -48,6 +50,9 @@ public class Map {
 		
 		this.mapHeight=1000;
 		this.mapWidth=1000;
+		ArrayList<Object> block= new ArrayList<Object>();
+		block.clear();
+		
 	}
 	/**
 	 * @return The map Width in pixels

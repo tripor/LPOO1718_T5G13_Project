@@ -67,6 +67,12 @@ public class BuildIcon extends Icon{
 		this.game.icons().addIcon(button3);
 		this.icon_build.add(button3);
 		pos_x+=8;
+		
+		InserterIcon button4= new InserterIcon(this.game,pos_x,pos_y,7,7);
+		button4.setVisible(false);
+		this.game.icons().addIcon(button4);
+		this.icon_build.add(button4);
+		pos_x+=8;
 	}
 	/**
 	 * Constructor for the class BuildIcon

@@ -22,6 +22,7 @@ import logic.map.Map;
 import logic.storage.BackGroundList;
 import logic.storage.ConveyorList;
 import logic.storage.IconList;
+import logic.storage.InserterList;
 import logic.storage.PersonList;
 import logic.storage.PlaceList;
 import person.type.Worker;
@@ -71,6 +72,10 @@ public class GameStage extends Stage {
      */
     protected IconList icon_list;
     /**
+     * Class with all the inserters in the game
+     */
+    protected InserterList inserter_list;
+    /**
      * Game mouse
      */
     protected Mouse mouse;
@@ -99,6 +104,8 @@ public class GameStage extends Stage {
 		this.addActor(place_list);
 		this.conveyor_list=new ConveyorList();
 		this.addActor(conveyor_list);
+		this.inserter_list= new InserterList();
+		this.addActor(inserter_list);
 		this.person_list= new PersonList();
 		this.addActor(person_list);
 		this.mouse= new Mouse(this);
@@ -117,11 +124,14 @@ public class GameStage extends Stage {
 	    game.getAssetManager().load("build_icon.png", Texture.class);
 	    game.getAssetManager().load("mine_icon.png", Texture.class);
 	    game.getAssetManager().load("conveyor_icon.png", Texture.class);
+	    game.getAssetManager().load("inserter_icon.png", Texture.class);
 	    game.getAssetManager().load("worker.png", Texture.class);
 	    game.getAssetManager().load("grass01.png", Texture.class);
 	    game.getAssetManager().load("nothing.png", Texture.class);
 	    game.getAssetManager().load("conveyor1.png", Texture.class);
 	    game.getAssetManager().load("iron_plate.png", Texture.class);
+	    game.getAssetManager().load("inserter_base.png", Texture.class);
+	    game.getAssetManager().load("inserter_hand.png", Texture.class);
 	    
 	    game.getAssetManager().finishLoading(); // should be replaced by something more efficiente
 	    
@@ -349,6 +359,14 @@ public class GameStage extends Stage {
 	 */
 	public PersonList people() {
 		return person_list;
+	}
+	/**
+	 * 
+	 * @return Returns the Inserter list of the game
+	 */
+	public InserterList inserters()
+	{
+		return this.inserter_list;
 	}
 	
 	

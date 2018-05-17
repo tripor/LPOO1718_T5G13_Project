@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
 
 import graphic.ActorExtension;
+import inserter.Inserter;
+
 import com.groundup.game.GameStage;
 
 import conveyor.Conveyor;
@@ -84,6 +86,11 @@ public class Mouse extends ActorExtension {
 			{
 				Conveyor c= new Conveyor(this.game,y,x,this.width,this.height,this.doorPosition);
 				this.game.conveyors().addConveyor(c);
+			}
+			if(this.type.equals("inserter_base.png"))
+			{
+				Inserter i= new Inserter(this.game,y,x,this.width,this.height,this.doorPosition);
+				this.game.inserters().addInserter(i);
 			}
 			
 			
