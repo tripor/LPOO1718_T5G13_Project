@@ -63,6 +63,7 @@ public class Inserter extends ActorExtension{
 		this.sprite2.setPosition(row-6, (float) (col));
 		this.row = row;
 		this.col = col;
+		System.out.println(this.pickUpFrom.size());
 	}
 
 	public int getRow() {

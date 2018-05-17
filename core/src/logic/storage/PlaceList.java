@@ -88,6 +88,8 @@ public class PlaceList extends Group{
 		}
 		placeSet.add(p);
 		p.setUniqueId("R" + p.getBoundTop() + "C" + p.getBoundLeft());
+		
+		//add to the map
 		int width=(int) p.getWidth();
 		int height = (int) p.getHeight();
 		this.game.getMap().addMap(p, p.bound_top, p.bound_left, width, height);

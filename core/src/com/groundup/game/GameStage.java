@@ -104,7 +104,7 @@ public class GameStage extends Stage {
 		this.addActor(place_list);
 		this.conveyor_list=new ConveyorList();
 		this.addActor(conveyor_list);
-		this.inserter_list= new InserterList();
+		this.inserter_list= new InserterList(this);
 		this.addActor(inserter_list);
 		this.person_list= new PersonList();
 		this.addActor(person_list);

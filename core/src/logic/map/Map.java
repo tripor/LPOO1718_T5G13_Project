@@ -112,9 +112,8 @@ public class Map {
 		int quantity_x = width / Map.division + error_w;
 		int quantity_y = height / Map.division + error_h;
 
-		for (int i = x; i <= x + quantity_x * Map.division; i ++) {
-			for (int j = y; j <= y + quantity_y * Map.division; j ++) {
-				
+		for (int i = x; i < x + quantity_x ; i ++) {
+			for (int j = y; j < y + quantity_y; j ++) {
 				this.map.get(i).get(j).add(obj);
 				
 			}
@@ -143,8 +142,8 @@ public class Map {
 		int quantity_x = width / Map.division + error_w;
 		int quantity_y = height / Map.division + error_h;
 
-		for (int i = x; i <= x + quantity_x * Map.division; i ++) {
-			for (int j = y; j <= y + quantity_y * Map.division; j ++) {
+		for (int i = x; i <= x + quantity_x; i ++) {
+			for (int j = y; j <= y + quantity_y; j ++) {
 				
 				this.map.get(i).get(j).remove(obj);
 				
@@ -160,6 +159,18 @@ public class Map {
 	public ArrayList<Object> getMap(int pos_x,int pos_y)
 	{
 		return this.map.get(pos_x/Map.division).get(pos_y/Map.division);
+	}
+	/**
+	 * Gets pixel in the position of the map
+	 * @param pos_x the x position in pixels
+	 * @param pos_y the y position in pixels
+	 * @return Returns the object in that pixel
+	 */
+	public Object getPixelMap(int pos_x,int pos_y)
+	{
+		ArrayList<Object> elements = this.getMap(pos_x, pos_y);
+		
+		return null;
 	}
 	
 	
