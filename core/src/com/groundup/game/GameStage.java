@@ -37,11 +37,11 @@ public class GameStage extends Stage {
 	/**
 	 * The viewport width
 	 */
-    public static final int VIEWPORT_WIDTH = 200;
+    public static final int VIEWPORT_WIDTH = 400;
     /**
      * The viewport height
      */
-    public static final int VIEWPORT_HEIGHT=100;
+    public static final int VIEWPORT_HEIGHT=200;
     /**
      * Conversion from pixel to meter
      */
@@ -113,7 +113,7 @@ public class GameStage extends Stage {
 	    this.map= new Map(this);
 		this.place_list=new PlaceList(this);
 		this.addActor(place_list);
-		this.conveyor_list=new ConveyorList();
+		this.conveyor_list=new ConveyorList(this);
 		this.addActor(conveyor_list);
 		this.material_list=new MaterialList(this);
 		this.addActor(material_list);
@@ -144,8 +144,10 @@ public class GameStage extends Stage {
 	    game.getAssetManager().load("nothing.png", Texture.class);
 	    game.getAssetManager().load("conveyor1.png", Texture.class);
 	    game.getAssetManager().load("iron_plate.png", Texture.class);
+	    game.getAssetManager().load("iron_mine.png", Texture.class);
 	    game.getAssetManager().load("inserter_base.png", Texture.class);
 	    game.getAssetManager().load("inserter_hand.png", Texture.class);
+	    game.getAssetManager().load("inserter_direction.png", Texture.class);
 	    
 	    game.getAssetManager().finishLoading(); // should be replaced by something more efficiente
 	    
@@ -198,6 +200,7 @@ public class GameStage extends Stage {
 	 */
 	public void addUnusedMaterial(Material mat)
 	{
+		mat.setVisible(false);
 		this.material_list.removeMaterial(mat);
 		this.material_list.removeMaterialFromMap(mat);
 		this.unused_material.add(mat);

@@ -6,10 +6,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Plane;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.groundup.game.GameStage;
 
+import conveyor.Conveyor;
 import graphic.ActorExtension;
 import logic.map.Map;
 import material.Material;
@@ -30,7 +30,7 @@ public class Inserter extends ActorExtension{
 	/**
 	 * Inserter hand width
 	 */
-	public static int width_hand=8;
+	public static int width_hand=7;
 	/**
 	 * Inserter hand height
 	 */
@@ -54,7 +54,7 @@ public class Inserter extends ActorExtension{
 	/**
 	 * Rotating velocity
 	 */
-	private int rotating_velocity=7;
+	private int rotating_velocity=1;
 	/**
 	 * Sprite for the hand
 	 */
@@ -112,10 +112,11 @@ public class Inserter extends ActorExtension{
 		this.direction=direction;
 		this.createInserter();
 		this.setPosition(row, col);
-		this.sprite2.setPosition(row-6, (float) (col));
+		this.sprite2.setPosition(row-(Inserter.width_hand-2), (float) (col));
 		this.isRotating=false;
 		this.middle_x=row;
 		this.middle_y=col;
+		
 	}
 
 	/**
@@ -183,9 +184,55 @@ public class Inserter extends ActorExtension{
 		}
 	}
 	
+	private void deliverMaterial()
+	{
+		ArrayList<Actor> element = this.game.map().getPixelMap((int)this.pickup.getX(),(int)this.pickup.getY());
+		if(element.isEmpty())
+		{
+			this.game.materials().addMaterialToMap(this.pickup);
+			this.pickup = null;
+			this.blocked = false;
+		} else {
+			for(Actor it:element)
+			{
+				if(Material.class.isAssignableFrom(it.getClass()))
+				{
+					this.blocked=true;
+					return;
+				}
+				else if(Inserter.class.isAssignableFrom(it.getClass()))
+				{
+					this.blocked=true;
+				}
+			}
+			for(Actor it:element)
+			{
+				if(Conveyor.class.isAssignableFrom(it.getClass()))
+				{
+					//this.pickup.setPosition(this.pickup.getX()-(this.pickup.getX()%10)+1, this.pickup.getY());
+					this.game.materials().addMaterialToMap(this.pickup);
+					this.pickup = null;
+					this.blocked = false;
+					return;
+				}
+				else if(Place.class.isAssignableFrom(it.getClass()))
+				{
+					((Place)it).addToStorage(this.pickup);
+					this.pickup=null;
+					this.blocked=false;
+					return;
+				}
+			}
+		}
+	}
+
 	@Override
 	public void update(float delta) {
-		if(this.isRotating)
+		if(this.blocked)
+		{
+			this.deliverMaterial();
+		}
+		else if(this.isRotating)
 		{
 			int error=0;
 			if(this.direction!=4)
@@ -202,10 +249,8 @@ public class Inserter extends ActorExtension{
 					this.rotationDirection=false;
 					this.sprite2.rotate(-(this.sprite2.getRotation()+180+error));
 					this.rotating_quantity=-(180+error);
-					
-					this.game.materials().addMaterialToMap(this.pickup);
-					this.pickup=null;
-					
+					this.pickup.setPosition((float) (this.middle_x-(this.sprite2.getWidth() * Math.cos(rotating_quantity*Math.PI/180))),(float)(this.middle_y-(this.sprite2.getWidth() * Math.sin(rotating_quantity*Math.PI/180))));
+					this.deliverMaterial();
 				}
 			}
 			else

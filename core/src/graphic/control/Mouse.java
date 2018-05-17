@@ -77,7 +77,7 @@ public class Mouse extends ActorExtension {
 				Factory fab= new Factory(this.game,x,y,this.width,this.height,this.doorPosition,10);
 				this.game.places().addPlace(fab);
 			}
-			if(this.type.equals("nothing.png"))
+			if(this.type.equals("iron_mine.png"))
 			{
 				IronMine im= new IronMine(this.game,x,y,this.width,this.height,this.doorPosition,5);
 				this.game.places().addPlace(im);
@@ -87,7 +87,7 @@ public class Mouse extends ActorExtension {
 				Conveyor c= new Conveyor(this.game,x,y,this.width,this.height,this.doorPosition);
 				this.game.conveyors().addConveyor(c);
 			}
-			if(this.type.equals("inserter_base.png"))
+			if(this.type.equals("inserter_direction.png"))
 			{
 				Inserter i= new Inserter(this.game,x,y,this.width,this.height,this.doorPosition);
 				this.game.inserters().addInserter(i);

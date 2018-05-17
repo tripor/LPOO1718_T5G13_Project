@@ -23,7 +23,7 @@ public class IronMine extends Place {
 
 	private void createFactory() {
 		
-		Texture texture = this.game.getGame().getAssetManager().get("nothing.png");
+		Texture texture = this.game.getGame().getAssetManager().get("iron_mine.png");
 		
 		sprite = new Sprite(texture);
 		sprite.setSize(this.getWidth(), this.getHeight());

@@ -168,28 +168,21 @@ public class Map {
 	}
 	/**
 	 * Gets pixel in the position of the map
-	 * @param pos_x the x position in pixels
-	 * @param pos_y the y position in pixels
-	 * @return Returns the object in that pixel or null if there is nothing there
+	 * @param pos_x the x/top position in pixels
+	 * @param pos_y the y/left position in pixels
+	 * @return Returns a list with all the actor on that pixel
 	 */
-	public Actor getPixelMap(int pos_x,int pos_y)
+	public ArrayList<Actor> getPixelMap(int pos_x,int pos_y)
 	{
 		ArrayList<Actor> elements = this.getMap(pos_x, pos_y);
-		for(Actor it:elements)
-		{
-			if(it.getClass().equals(Person.class) || it.getClass().equals(Material.class) || it.getClass().equals(Conveyor.class))
-			{
-				
-			}
-			else
-			{
-				if(it.getX()<=pos_x && pos_x<=it.getX()+it.getWidth() && it.getY()<=pos_y && pos_y<=it.getY()+it.getHeight())
-				{
-					return it;
-				}
+		ArrayList<Actor> devolver= new ArrayList<Actor>();
+		for (Actor it : elements) {
+			if (it.getX() <= pos_x && pos_x <= it.getX() + it.getWidth() && it.getY() <= pos_y
+					&& pos_y <= it.getY() + it.getHeight()) {
+				devolver.add(it);
 			}
 		}
-		return null;
+		return devolver;
 	}
 	
 	

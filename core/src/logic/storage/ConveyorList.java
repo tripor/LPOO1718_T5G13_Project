@@ -3,36 +3,25 @@ package logic.storage;
 import java.util.HashMap;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.groundup.game.GameStage;
 
 import conveyor.Conveyor;
 
 public class ConveyorList extends Group{
-	
-	public HashMap<String, Conveyor> conveyorMap = new HashMap<String, Conveyor>();
-	// Usage: conveyorMap.get(index(ROW, COL));
-	
-	public ConveyorList() {
-		// TODO Auto-generated constructor stub
+	/**
+	 * The game that this group is in
+	 */
+	protected GameStage game;
+	public ConveyorList(GameStage game) {
+		this.game=game;
 	}
 	
 	public boolean addConveyor(Conveyor c) {
 		
 		int row = c.getRow();
 		int col = c.getCol();
-		
-		if(getConveyor(row, col) == null) {
-			conveyorMap.put(index(row, col), c);
-			this.addActor(c);
-			return true;
-		}
+		this.addActor(c);
+		this.game.map().addMap(c,(int) c.getX(), (int)c.getY(), (int)c.getWidth(),(int) c.getHeight());
 		return false;
-	}
-	
-	public Conveyor getConveyor(int row, int col) {
-		return conveyorMap.get(index(row, col));
-	}
-	
-	public String index(int row, int col) {
-		return row + "/" + col;
 	}
 }

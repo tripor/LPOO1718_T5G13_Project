@@ -84,7 +84,7 @@ public class Conveyor extends ActorExtension{
 	}
 
 	
-	public int[] checkNextGrid(Conveyor thisObj, int row_delta, int col_delta) {
+	/*public int[] checkNextGrid(Conveyor thisObj, int row_delta, int col_delta) {
 
 		int row = thisObj.getRow() + row_delta,
 			col = thisObj.getCol() + col_delta;
@@ -120,7 +120,7 @@ public class Conveyor extends ActorExtension{
 		else {
 			return checkNextGrid(thisObj, thisObj.getRowMovement(), thisObj.getColMovement());
 		}	
-	}
+	}*/
 
 	@Override
 	public void update(float delta) {

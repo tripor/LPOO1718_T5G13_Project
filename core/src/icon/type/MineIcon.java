@@ -30,7 +30,7 @@ public class MineIcon extends Icon {
 		
 		this.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                game.getMouse().createMouse("nothing.png", IronMine.width, IronMine.height);
+                game.getMouse().createMouse("iron_mine.png", IronMine.width, IronMine.height);
             }
         });
 	}

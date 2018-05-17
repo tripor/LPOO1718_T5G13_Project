@@ -29,7 +29,7 @@ private void createFactoryIcon() {
 		
 		this.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                game.getMouse().createMouse("inserter_base.png", Inserter.width, Inserter.height);
+                game.getMouse().createMouse("inserter_direction.png", Inserter.width, Inserter.height);
             }
         });
 	}

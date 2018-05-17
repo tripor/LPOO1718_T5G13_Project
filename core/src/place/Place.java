@@ -109,7 +109,6 @@ public abstract class Place extends ActorExtension {
 			this.storage.put(mat.type, this.storage.get(mat.type).intValue()+1);
 		else 
 			this.storage.put(mat.type, 1);
-		mat.setVisible(false);
 		this.game.addUnusedMaterial(mat);
 	}
 	/**
