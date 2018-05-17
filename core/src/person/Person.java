@@ -133,7 +133,11 @@ public abstract class Person extends ActorExtension{
 			latestNode = path.remove(0);
 		}
 		
-		this.setCurrentPos(latestNode.getRow(), latestNode.getCol());
+		this.game.people().movePerson(
+				current_row, current_col,	// from
+				latestNode.getRow(), latestNode.getCol()	// to
+			);
+
 		// Console.log("POP > " + this.toString());
 
 		return latestNode;
