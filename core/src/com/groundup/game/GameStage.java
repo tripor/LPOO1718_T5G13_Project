@@ -106,7 +106,7 @@ public class GameStage extends Stage {
 		this.addActor(conveyor_list);
 		this.inserter_list= new InserterList(this);
 		this.addActor(inserter_list);
-		this.person_list= new PersonList();
+		this.person_list= new PersonList(this);
 		this.addActor(person_list);
 		this.mouse= new Mouse(this);
 		this.addActor(mouse);
@@ -178,7 +178,7 @@ public class GameStage extends Stage {
 				i++;
 			}
 			
-			for (i=0; i<1000; i++) {
+			for (i=0; i<5000; i++) {
 				generatePerson(i);
 			}
 
@@ -264,33 +264,12 @@ public class GameStage extends Stage {
 	public void generatePerson(int i) {
 		
 		Place s = this.places().getRandomPlace(),
-		      t = this.places().getRandomPlace();
+		      t = this.places().getRandomPlace(s);
 		
 		int s_row = s.getDoorRow(),
 		    s_col = s.getDoorCol(),
 		    t_row = t.getDoorRow(),
 		    t_col = t.getDoorCol();
-
-//		int s_row = map.randRow(),
-//			s_col = map.randCol(),
-//			t_row = map.randRow(),
-//			t_col = map.randCol();
-		
-		// Console.log("\nPerson " + i + " (" + s_row + "," + s_col + ") T (" + t_row + "," + t_col + ")");
-
-//		/**
-//		 *  TODO:
-//		 *  Can be replaced by "this.place_list.checkIfPointInBuilding(s_row, s_col)"
-//		 */
-//		// For Starting Point
-//		for(Place pl : this.place_list.getPlaceList(s_row, s_col)) {
-//			if(pl.including(s_row, s_col)) {
-//				// Move the person to the door.
-//				s_row = pl.getDoorRow();
-//				s_col = pl.getDoorCol();
-//				break;
-//			}
-//		}
 		
 		Worker p = new Worker(this, s_row, s_col);
 		p.setId("" + i);
@@ -322,7 +301,7 @@ public class GameStage extends Stage {
 	 * 
 	 * @return Return the Map of this game
 	 */
-	public Map getMap() {
+	public Map map() {
 		return map;
 	}
 	/**

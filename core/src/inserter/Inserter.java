@@ -59,7 +59,7 @@ public class Inserter extends ActorExtension{
 		this.direction=direction;
 		this.createInserter();
 		this.setPosition(row, col);
-		this.pickUpFrom = this.game.getMap().getMap(col, row);
+		this.pickUpFrom = this.game.map().getMap(col, row);
 		this.sprite2.setPosition(row-6, (float) (col));
 		this.row = row;
 		this.col = col;

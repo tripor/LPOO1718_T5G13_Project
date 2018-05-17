@@ -22,7 +22,7 @@ public class InserterList extends Group{
 
 		int width=(int) i.getWidth();
 		int height = (int) i.getHeight();
-		this.game.getMap().addMap(i, i.getRow(), i.getCol(), width, height);
+		this.game.map().addMap(i, i.getRow(), i.getCol(), width, height);
 		this.addActor(i);
 	}
 }

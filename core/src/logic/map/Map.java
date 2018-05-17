@@ -5,11 +5,17 @@ import java.util.List;
 import java.util.Random;
 
 import graphic.Background;
+
+import com.badlogic.gdx.graphics.g3d.Material;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.groundup.game.GameStage;
+
+import conveyor.Conveyor;
 import place.Place;
 import logic.console.Console;
 import logic.storage.ConveyorList;
 import logic.storage.PlaceList;
+import person.Person;
 
 public class Map {
 
@@ -169,7 +175,17 @@ public class Map {
 	public Object getPixelMap(int pos_x,int pos_y)
 	{
 		ArrayList<Object> elements = this.getMap(pos_x, pos_y);
-		
+		for(Object it:elements)
+		{
+			if(it.getClass().equals(Person.class) || it.getClass().equals(Material.class) || it.getClass().equals(Conveyor.class))
+			{
+				
+			}
+			else
+			{
+				((Actor) it).getX();
+			}
+		}
 		return null;
 	}
 	

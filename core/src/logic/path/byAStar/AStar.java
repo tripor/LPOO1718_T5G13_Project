@@ -148,7 +148,7 @@ public class AStar {
     		
     		this.mapRatio = Math.max(rowRatio, colRatio);
     		
-    		if(this.mapRatio < 1) {
+    		if(this.mapRatio <= 2) {
     			this.mapRatio = 1;
     		}
     		

@@ -99,6 +99,12 @@ public abstract class Place extends ActorExtension {
 	public int getDoorCol() {
 		return door_col;
 	}
+
+    @Override
+    public boolean equals(Object arg0) {
+        Place other = (Place) arg0;
+        return other.getBoundLeft() == this.getBoundLeft() && other.getBoundRight() == this.getBoundRight() && other.getBoundTop() == this.getBoundTop() && other.getBoundBottom() == this.getBoundBottom() && other.getDoorRow() == this.getDoorRow() && other.getDoorCol() == this.getDoorCol();
+    }
 	
 	public boolean overlapWith(Place p) {
 		
@@ -157,7 +163,7 @@ public abstract class Place extends ActorExtension {
 		this.unique_id = id;
 		
 		// for testing.
-		this.game.getMap().setTestingTrack(id);
+		this.game.map().setTestingTrack(id);
 	}
 	
 	public String getUniqueId() {

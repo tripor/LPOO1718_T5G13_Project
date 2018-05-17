@@ -60,20 +60,20 @@ public class UserControl implements InputProcessor  {
 			this.game.getCamera().position.set(new Vector3((GameStage.VIEWPORT_WIDTH/2),y,0));
 			x=(GameStage.VIEWPORT_WIDTH/2);
 		}
-		if(this.game.getMap().getMapWidth()-(GameStage.VIEWPORT_WIDTH/2)<=x)
+		if(this.game.map().getMapWidth()-(GameStage.VIEWPORT_WIDTH/2)<=x)
 		{
-			this.game.getCamera().position.set(new Vector3(this.game.getMap().getMapWidth()-(GameStage.VIEWPORT_WIDTH/2),y,0));
-			x=this.game.getMap().getMapWidth()-(GameStage.VIEWPORT_WIDTH/2);
+			this.game.getCamera().position.set(new Vector3(this.game.map().getMapWidth()-(GameStage.VIEWPORT_WIDTH/2),y,0));
+			x=this.game.map().getMapWidth()-(GameStage.VIEWPORT_WIDTH/2);
 		}
 		if((GameStage.VIEWPORT_HEIGHT/2)>=y)
 		{
 			this.game.getCamera().position.set(new Vector3(x,(GameStage.VIEWPORT_HEIGHT/2),0));
 			y=(GameStage.VIEWPORT_HEIGHT/2);
 		}
-		if(this.game.getMap().getMapHeight()-(GameStage.VIEWPORT_HEIGHT/2)<=y)
+		if(this.game.map().getMapHeight()-(GameStage.VIEWPORT_HEIGHT/2)<=y)
 		{
-			this.game.getCamera().position.set(new Vector3(x,this.game.getMap().getMapHeight()-(GameStage.VIEWPORT_HEIGHT/2),0));
-			y=this.game.getMap().getMapHeight()-(GameStage.VIEWPORT_HEIGHT/2);
+			this.game.getCamera().position.set(new Vector3(x,this.game.map().getMapHeight()-(GameStage.VIEWPORT_HEIGHT/2),0));
+			y=this.game.map().getMapHeight()-(GameStage.VIEWPORT_HEIGHT/2);
 		}
 	}
 	@Override

@@ -1,61 +1,86 @@
 package logic.storage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.async.AsyncExecutor;
 import com.badlogic.gdx.utils.async.AsyncTask;
+import com.groundup.game.GameStage;
 
+import logic.map.Map;
 import person.Person;
 /**
  * Class that saves and handles all the persons in the game
  *
  */
 public class PersonList extends Group{
-
+	
 	/**
      * For testing. For adding 100000 people into the map.
      */
-	private AsyncExecutor asyncExecutor = new AsyncExecutor(10);
+	// private AsyncExecutor asyncExecutor = new AsyncExecutor(10);
 	
-	public HashMap<String, Person> personMap = new HashMap<String, Person>();
-	// Usage: conveyorMap.get(index(ROW, COL));
+	public ArrayList<Person> persons = new ArrayList<Person>();
 	
-	public PersonList() {
-		// TODO Auto-generated constructor stub
+	private GameStage game;
+
+	public PersonList(GameStage game) {
+		this.game = game;
 	}
 	
 	public boolean addPerson(Person p) {
 		
+		int left = p.getCol()/Map.division,
+			top  = p.getRow()/Map.division;
+
+		ArrayList<Object> element_list = this.game.map().getMap(top, left);
+
+		// todo: check point, but not check block.
+		if(element_list.size() > 0) {
+			return false;
+		}
+
+		p.setId("P-R" + p.getRow() + "C" + p.getCol());
+		this.game.map().addMap(
+				p,
+				p.getRow(),
+				p.getCol(),
+				((int) p.getWidth()),
+				((int) p.getHeight())
+			);
 		
-		int row = p.getRow();
-		int col = p.getCol();
+		persons.add(p);
+		this.addActor(p);
 		
-		if(getPerson(row, col) == null) {
-			personMap.put(index(row, col), p);
-			this.addActor(p);
+		return true;
+	}
+	
+	public boolean movePerson(int s_row, int s_col, int t_row, int t_col) {
+		
+		// todo: check point, but not check block.
+		boolean target_point_occupied = this.game.map().getMap(
+				((int) t_row/Map.division),
+				((int) t_col/Map.division)
+			).size() > 0;
+		
+		if(!target_point_occupied) {
+			
+			// todo: finish it.
 			return true;
 		}
 		return false;
 	}
 	
-	public Person getPerson(int row, int col) {
-		return personMap.get(index(row, col));
-	}
-	
-	public String index(int row, int col) {
-		return row + "/" + col;
-	}
-	
 	public void popPaths() {
-		for (Entry<String, Person> p : personMap.entrySet()) {
+		// for (Entry<String, Person> p : personMap.entrySet()) {
 			// asyncExecutor.submit(new AsyncTask<Void>() {
 		    //    public Void call() {
-					p.getValue().popPath();
+					// p.getValue().popPath();
 			//    		return null;
 		    //    } 
 		    // });
-		}
+		// }
 	}
 }
