@@ -1,7 +1,10 @@
 package logic.storage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -20,7 +23,8 @@ public class PlaceList extends Group{
 	/**
 	 * List containing all the place in the game
 	 */
-	public List<Place> placeSet = new ArrayList<Place>();
+	public HashMap<String, Place> placeMap = new HashMap<String, Place>();
+	// public List<Place> placeSet = new ArrayList<Place>();
 	/**
 	 * Constructor for the Class Place List
 	 */
@@ -35,6 +39,13 @@ public class PlaceList extends Group{
 	 */
 	public boolean addPlace(Place p) {
 		
+		if(placeMap.get(p.getUniqueId()) != null) {
+			// unique Id repeated.
+			
+			return false;
+			// don't let it add.
+		}
+		
 		int left = p.getBoundLeft()/Map.division, right  = p.getBoundRight()/Map.division,
 			top  = p.getBoundTop()/Map.division,  bottom = p.getBoundBottom()/Map.division;
 		
@@ -43,16 +54,23 @@ public class PlaceList extends Group{
 		for(col = left; col <= right; col++) {
 			for(row = top; row <= bottom; row++) {
 				
+				// get map blocks.
 				ArrayList<Actor> element_list = this.game.map().getMap(row, col);
-				
-				// todo: check point, but not check block.
-				if(element_list.size() > 0) {
-					return false;
+
+				// loop through the block, find the place which overlaps with p.
+				for(Object el : element_list) {
+					if(Place.class.isAssignableFrom(el.getClass())) {
+						
+						// if found, return false (= addPlace not successful)
+						if(((Place) el).overlapWith(p)) {
+							return false;
+						}
+					}
 				}
 			}
 		}
 
-		p.setUniqueId("R" + p.getBoundTop() + "C" + p.getBoundLeft());
+		// else (= success)
 		this.game.map().addMap(
 				p,
 				p.getBoundTop(),
@@ -61,7 +79,8 @@ public class PlaceList extends Group{
 				(p.getBoundBottom() - p.getBoundTop())
 			);
 		
-		placeSet.add(p);
+		placeMap.put(p.getUniqueId(), p);
+		// placeSet.add(p);
 		this.addActor(p);
 		
 		return true;
@@ -71,8 +90,9 @@ public class PlaceList extends Group{
 	 * @param p
 	 */
 	public void removePlace(Place p) {
-		
-		placeSet.remove(p);
+
+		placeMap.remove(p.getUniqueId());
+		// placeSet.remove(p);
 		this.game.map().removeMap(
 				p,
 				p.getBoundTop(),
@@ -85,14 +105,33 @@ public class PlaceList extends Group{
 	 * Get all the place in the map
 	 * @return
 	 */
-	public List<Place> getPlaceList(){
-		return placeSet;
+	public HashMap<String, Place> getPlaceList(){
+		return this.placeMap;
 	}
 	/**
 	 * Randomly return a building on the map
 	 */
+	public Place getNthBuilding(int n) {
+		
+		Iterator<Entry<String, Place>> i = placeMap.entrySet().iterator();
+
+		while(n-- >= 1) {
+			if(i.hasNext()) {
+				i.next();
+			}
+		}
+		
+	    java.util.Map.Entry<String, Place> entry = (java.util.Map.Entry<String, Place>) i.next();
+		// index = 0.
+	    
+		return (Place) entry.getValue();
+		
+	}
+	
 	public Place getRandomPlace() {
-		return placeSet.get((new Random()).nextInt(placeSet.size()));
+		
+		int index = (new Random()).nextInt(placeMap.size());
+		return getNthBuilding(index);
 	}
 	/**
 	 * Randomly return a building, but avoid the building `s`.
@@ -112,7 +151,7 @@ public class PlaceList extends Group{
 	public Place getRandomPlace(Place s) {
 
 		int index = -1,
-			places_size = placeSet.size();
+			places_size = placeMap.size();
 		Place result;
 		
 		while(true) {
@@ -125,7 +164,7 @@ public class PlaceList extends Group{
 				index = ((new Random()).nextInt(places_size));
 			}
 			
-			result = placeSet.get(index);
+			result = getNthBuilding(index);
 			
 			if(!result.equals(s)) {
 				break;
@@ -150,7 +189,7 @@ public class PlaceList extends Group{
 		
 		for(Object el : map) {
 			
-			if(el.getClass().equals(Place.class)) {
+			if(Place.class.isAssignableFrom(el.getClass())) {
 				
 				if(((Place) el).including(row, col)) {
 					return ((Place) el);

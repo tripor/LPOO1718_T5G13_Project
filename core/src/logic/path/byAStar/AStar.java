@@ -2,7 +2,9 @@ package logic.path.byAStar;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 
 import com.groundup.game.GameStage;
@@ -195,7 +197,7 @@ public class AStar {
      * @remarks
      * grid = pixel, when ratio is 1.
      */
-    public void setBlocks(List<Place> places) {
+    public void setBlocks(HashMap<String, Place> places) {
     	
     		if(this.skip_calc == true) {
     			return;
@@ -203,8 +205,12 @@ public class AStar {
 
     		// for console log: time marker.
     		this.setblock_at = System.currentTimeMillis();
+    		
+    		Place p;
 
-    		for(Place p : places) {
+    		for(Map.Entry<String, Place> entry : places.entrySet()) {
+    			
+    			p = entry.getValue();
     			
     			int blockTop = convertPixelToGrid_row(p.getBoundTop()),
     			    blockLeft = convertPixelToGrid_col(p.getBoundLeft()),

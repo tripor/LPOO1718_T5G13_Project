@@ -3,6 +3,7 @@ package place;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 import java.util.Map.Entry;
 
 import graphic.ActorExtension;
@@ -31,9 +32,7 @@ public abstract class Place extends ActorExtension {
 				door_atBorder,
 				door_atPx;
 	
-	public String unique_id = "undefined";
-	
-	
+	public String unique_id;
 	
 	/**
 	 * Constructor of the class Place
@@ -43,6 +42,9 @@ public abstract class Place extends ActorExtension {
 	 */
 	public Place(GameStage game, int top, int left, int width, int height, int doorAtBorder, int doorAtPx) {
 		this.game=game;
+		
+		this.unique_id = UUID.randomUUID().toString();
+		// a duplication checking at placeList is already performed.
 		
 		// for rectangle place
 		this.bound_top    = top;
@@ -148,7 +150,8 @@ public abstract class Place extends ActorExtension {
     @Override
     public boolean equals(Object arg0) {
         Place other = (Place) arg0;
-        return other.getBoundLeft() == this.getBoundLeft() && other.getBoundRight() == this.getBoundRight() && other.getBoundTop() == this.getBoundTop() && other.getBoundBottom() == this.getBoundBottom() && other.getDoorRow() == this.getDoorRow() && other.getDoorCol() == this.getDoorCol();
+        return other.getUniqueId().equals(this.getUniqueId());
+        // return other.getBoundLeft() == this.getBoundLeft() && other.getBoundRight() == this.getBoundRight() && other.getBoundTop() == this.getBoundTop() && other.getBoundBottom() == this.getBoundBottom() && other.getDoorRow() == this.getDoorRow() && other.getDoorCol() == this.getDoorCol();
     }
 	
 	public boolean overlapWith(Place p) {
@@ -202,13 +205,6 @@ public abstract class Place extends ActorExtension {
 			min = bound2; max = bound1;
 		}
 		return (num <= max && num >= min);
-	}
-	
-	public void setUniqueId(String id) {
-		this.unique_id = id;
-		
-		// for testing.
-		this.game.map().setTestingTrack(id);
 	}
 	
 	public String getUniqueId() {

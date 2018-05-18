@@ -349,7 +349,6 @@ public class GameStage extends Stage {
 		    t_col = t.getDoorCol();
 		
 		Worker p = new Worker(this, s_row, s_col);
-		p.setId("" + i);
 		
 		if(this.person_list.addPerson(p)) {
 			// Console.log(p.toString());

@@ -23,7 +23,8 @@ public class PersonList extends Group{
      */
 	// private AsyncExecutor asyncExecutor = new AsyncExecutor(10);
 	
-	public ArrayList<Person> persons = new ArrayList<Person>();
+	public HashMap<String, Person> personMap = new HashMap<String, Person>();
+	// public ArrayList<Person> persons = new ArrayList<Person>();
 	
 	private GameStage game;
 
@@ -33,17 +34,18 @@ public class PersonList extends Group{
 	
 	public boolean addPerson(Person p) {
 		
-		int left = p.getCol()/Map.division,
-			top  = p.getRow()/Map.division;
-
-		ArrayList<Actor> element_list = this.game.map().getMap(top, left);
-
-		// todo: check point, but not check block.
-		if(element_list.size() > 0) {
+		if(personMap.get(p.getId()) != null) {
+			// unique Id repeated.
+			
+			return false;
+			// don't let it add.
+		}
+		
+		if(this.game.map().getPixelMap(p.getRow(), p.getCol()).size() > 0) {
+			// [the position where the person is going to stand] is already occupied.
 			return false;
 		}
 
-		p.setId("P-R" + p.getRow() + "C" + p.getCol());
 		this.game.map().addMap(
 				p,
 				p.getRow(),
@@ -52,23 +54,36 @@ public class PersonList extends Group{
 				((int) p.getHeight())
 			);
 		
-		persons.add(p);
+		personMap.put(p.getId(), p);
+
+		// persons.add(p);
 		this.addActor(p);
 		
 		return true;
 	}
 	
-	public boolean movePerson(int s_row, int s_col, int t_row, int t_col) {
+	public boolean movePersonTo(int t_row, int t_col, Person p) {
 		
-		// todo: check point, but not check block.
-		boolean target_point_occupied = this.game.map().getMap(
-				((int) t_row/Map.division),
-				((int) t_col/Map.division)
-			).size() > 0;
+		boolean target_point_occupied = this.game
+										.map().getPixelMap(t_row,t_col)
+										.size() > 0;
 		
 		if(!target_point_occupied) {
 			
-			// todo: finish it.
+			this.game.map().removeMap(
+					p,
+					p.getRow(), p.getCol(),
+					(int) p.getWidth(), (int) p.getHeight()
+				);
+			
+			p.setCurrentPos(t_row, t_col);
+			
+			this.game.map().addMap(
+					p,
+					t_row, t_col,
+					(int) p.getWidth(), (int) p.getHeight()
+				);
+
 			return true;
 		}
 		return false;

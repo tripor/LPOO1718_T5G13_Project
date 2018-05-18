@@ -2,6 +2,7 @@ package person;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import graphic.ActorExtension;
 import com.groundup.game.GameStage;
@@ -22,7 +23,7 @@ public abstract class Person extends ActorExtension{
 	public int target_row;
 	public int target_col;
 	
-	public String unique_id = "undefined";
+	public String unique_id;
 	
 	List<Node> path = new ArrayList<Node>();
 	
@@ -30,13 +31,13 @@ public abstract class Person extends ActorExtension{
 		this.game=game;
 		this.current_col = col;
 		this.current_row = row;
+		
+		this.unique_id = UUID.randomUUID().toString();
+		// a duplication checking at personList is already performed.
 	}
 	
 	public String getId() {
 		return this.unique_id;
-	}
-	public void setId(String id) {
-		this.unique_id = id;
 	}
 	
 	public List<Node> getPath(int _target_row, int _target_col, boolean should_replace_global) {
@@ -133,9 +134,9 @@ public abstract class Person extends ActorExtension{
 			latestNode = path.remove(0);
 		}
 		
-		this.game.people().movePerson(
-				current_row, current_col,	// from
-				latestNode.getRow(), latestNode.getCol()	// to
+		this.game.people().movePersonTo(
+				latestNode.getRow(), latestNode.getCol(),	// to
+				this
 			);
 
 		// Console.log("POP > " + this.toString());
