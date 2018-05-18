@@ -18,7 +18,7 @@ public class Conveyor extends ActorExtension{
 	private int movement_row = 0;
 	private int movement_col = 0;
 	public static int width=10;
-	public static int height=8;
+	public static int height=10;
 	private int direction;
 	
 	private void createConveyor() {
@@ -73,9 +73,12 @@ public class Conveyor extends ActorExtension{
 				to_move.add((Material) it);
 			}
 		}
-		for(Material it:to_move)
-		{
-			it.moveMaterial(movement_row, movement_col);
+		for (Material it : to_move) {
+			if (this.getX() <= it.getX() + it.getWidth() / 2
+					&& it.getX() + it.getWidth() / 2 <= this.getX() + this.getWidth()
+					&& this.getY() <= it.getY() + it.getHeight() / 2
+					&& it.getY() + it.getHeight() / 2 <= this.getY() + this.getHeight())
+				it.moveMaterial(movement_row, movement_col);
 		}
 		
 	}
