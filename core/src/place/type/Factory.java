@@ -9,8 +9,8 @@ import place.Place;
 
 public class Factory extends Place {
 	
-	public static int width=20;
-	public static int height=20;
+	public static int width=40;
+	public static int height=40;
 
 	private void createFactory() {
 		

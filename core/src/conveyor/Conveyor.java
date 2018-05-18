@@ -2,18 +2,21 @@ package conveyor;
 
 import graphic.ActorExtension;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.groundup.game.GameStage;
 import logic.storage.ConveyorList;
+import material.Material;
 import place.Place;
 
 public class Conveyor extends ActorExtension{
 	
-	// If a product passes through this pipe => add ? pixels to it's position.
-	int movement_row = 0;
-	int movement_col = 0;
-	int row, col;
+	private int velocity=1;
+	private int movement_row = 0;
+	private int movement_col = 0;
 	public static int width=10;
 	public static int height=8;
 	private int direction;
@@ -39,28 +42,18 @@ public class Conveyor extends ActorExtension{
 		this.createConveyor();
 		this.setPosition(row, col);
 		
-		this.row = row;
-		this.col = col;
-		
 		if(direction == 1) {	// Upwards
-			movement_row = -1;
+			movement_col = +this.velocity;
 		}
 		else if(direction == 2) {	// go right
-			movement_col = +1;
+			movement_row = +this.velocity;
 		}
 		else if(direction == 3) {	// Downwards
-			movement_row = +1;
+			movement_col = -this.velocity;
 		}
 		else if(direction == 4) {	// go left
-			movement_col = -1;
+			movement_row = -this.velocity;
 		}
-	}
-
-	public int getRow() {
-		return row;
-	}
-	public int getCol() {
-		return col;
 	}
 	public int getRowMovement() {
 		return movement_row;
@@ -69,7 +62,28 @@ public class Conveyor extends ActorExtension{
 		return movement_col;
 	}
 	
-	public boolean connectedFrom(Place p) {
+	public void moveMaterials()
+	{
+		ArrayList<Actor> elements= this.game.map().getMap((int)this.getX(),(int)this.getY());
+		ArrayList<Material> to_move = new ArrayList<Material>();
+		for(Actor it:elements)
+		{
+			if(Material.class.isAssignableFrom(it.getClass()))
+			{
+				to_move.add((Material) it);
+			}
+		}
+		for(Material it:to_move)
+		{
+			it.moveMaterial(movement_row, movement_col);
+		}
+		
+	}
+	
+	
+	
+	
+	/*public boolean connectedFrom(Place p) {
 		
 		// we need to get it's REVERSED direction
 		// in order to know whether this conveyor can get things from the building
@@ -84,7 +98,7 @@ public class Conveyor extends ActorExtension{
 	}
 
 	
-	/*public int[] checkNextGrid(Conveyor thisObj, int row_delta, int col_delta) {
+	public int[] checkNextGrid(Conveyor thisObj, int row_delta, int col_delta) {
 
 		int row = thisObj.getRow() + row_delta,
 			col = thisObj.getCol() + col_delta;
@@ -124,7 +138,7 @@ public class Conveyor extends ActorExtension{
 
 	@Override
 	public void update(float delta) {
-		// TODO Auto-generated method stub
+		this.moveMaterials();
 		
 	}
 }

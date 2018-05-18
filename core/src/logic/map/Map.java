@@ -4,18 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import graphic.Background;
-
-import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.groundup.game.GameStage;
 
-import conveyor.Conveyor;
-import place.Place;
-import logic.console.Console;
-import logic.storage.ConveyorList;
-import logic.storage.PlaceList;
-import person.Person;
+import material.Material;
 
 public class Map {
 
@@ -107,16 +99,18 @@ public class Map {
 	public void addMap(Actor obj, int pos_x, int pos_y, int width, int height) {
 		int x = pos_x / Map.division;
 		int y = pos_y / Map.division;
+		
+		int error_x=0;
+		if(width%Map.division!=0) {
+			error_x++;
+		}
+		int error_y=0;
+		if(height%Map.division!=0) {
+			error_y++;
+		}
 
-		int error_w = 0;
-		int error_h = 0;
-		if (width % Map.division > 0)
-			error_w = 1;
-		if (height % Map.division > 0)
-			error_h = 1;
-
-		int quantity_x = width / Map.division + error_w;
-		int quantity_y = height / Map.division + error_h;
+		int quantity_x = ((pos_x+width) / Map.division)-x + error_x;
+		int quantity_y = ((pos_y+height) / Map.division)-y +  error_y;
 
 		for (int i = x; i < x + quantity_x ; i ++) {
 			for (int j = y; j < y + quantity_y; j ++) {
@@ -137,22 +131,22 @@ public class Map {
 	{
 		int x = pos_x / Map.division;
 		int y = pos_y / Map.division;
+		
+		int error_x=0;
+		if(width%Map.division!=0) {
+			error_x++;
+		}
+		int error_y=0;
+		if(height%Map.division!=0) {
+			error_y++;
+		}
 
-		int error_w = 0;
-		int error_h = 0;
-		if (width % Map.division > 0)
-			error_w = 1;
-		if (height % Map.division > 0)
-			error_h = 1;
+		int quantity_x = ((pos_x+width) / Map.division)-x + error_x;
+		int quantity_y = ((pos_y+height) / Map.division)-y +  error_y;
 
-		int quantity_x = width / Map.division + error_w;
-		int quantity_y = height / Map.division + error_h;
-
-		for (int i = x; i <= x + quantity_x; i ++) {
-			for (int j = y; j <= y + quantity_y; j ++) {
-				
+		for (int i = x; i < x + quantity_x; i ++) {
+			for (int j = y; j < y + quantity_y; j ++) {
 				this.map.get(i).get(j).remove(obj);
-				
 			}
 		}
 	}
@@ -184,7 +178,6 @@ public class Map {
 		}
 		return devolver;
 	}
-	
 	
 	/**
 	 * Missing description

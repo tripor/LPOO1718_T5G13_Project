@@ -76,11 +76,13 @@ public class Mouse extends ActorExtension {
 			{
 				Factory fab= new Factory(this.game,x,y,this.width,this.height,this.doorPosition,10);
 				this.game.places().addPlace(fab);
+				this.isSelected=false;
 			}
 			if(this.type.equals("iron_mine.png"))
 			{
 				IronMine im= new IronMine(this.game,x,y,this.width,this.height,this.doorPosition,5);
 				this.game.places().addPlace(im);
+				this.isSelected=false;
 			}
 			if(this.type.equals("conveyor1.png"))
 			{
@@ -94,7 +96,6 @@ public class Mouse extends ActorExtension {
 			}
 			
 			
-			this.isSelected=false;
 		}
 	}
 	

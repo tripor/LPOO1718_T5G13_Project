@@ -54,7 +54,7 @@ public class Inserter extends ActorExtension{
 	/**
 	 * Rotating velocity
 	 */
-	private int rotating_velocity=1;
+	private int rotating_velocity=7;
 	/**
 	 * Sprite for the hand
 	 */
@@ -196,7 +196,7 @@ public class Inserter extends ActorExtension{
 			for(Actor it:element)
 			{
 				if(Material.class.isAssignableFrom(it.getClass()))
-				{
+				{ 
 					this.blocked=true;
 					return;
 				}

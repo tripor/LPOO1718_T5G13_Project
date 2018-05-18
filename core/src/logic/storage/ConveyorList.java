@@ -1,7 +1,5 @@
 package logic.storage;
 
-import java.util.HashMap;
-
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.groundup.game.GameStage;
 
@@ -17,9 +15,6 @@ public class ConveyorList extends Group{
 	}
 	
 	public boolean addConveyor(Conveyor c) {
-		
-		int row = c.getRow();
-		int col = c.getCol();
 		this.addActor(c);
 		this.game.map().addMap(c,(int) c.getX(), (int)c.getY(), (int)c.getWidth(),(int) c.getHeight());
 		return false;

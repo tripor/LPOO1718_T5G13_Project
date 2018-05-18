@@ -1,15 +1,14 @@
 package material;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.groundup.game.GameStage;
 
+import conveyor.Conveyor;
 import graphic.ActorExtension;
-import logic.path.byAStar.AStar;
-import logic.path.byAStar.Node;
 
 public class Material extends ActorExtension {
 	
@@ -56,7 +55,26 @@ public class Material extends ActorExtension {
 		return this.current_col;
 	}
 	
-	
+	private void moveTo(int new_row,int new_col)
+	{
+		this.game.materials().removeMaterialFromMap(this);
+		this.setPosition(new_row, new_col);
+		this.game.materials().addMaterialToMap(this);
+	}
+
+	public void moveMaterial(int row_movement, int col_movement) {
+		int new_row = (int) (this.getX() + row_movement);
+		int new_col = (int) (this.getY() + col_movement);
+		ArrayList<Actor> elements = this.game.map().getPixelMap(new_row+Material.width/2, new_col+Material.height/2);
+		for (Actor it : elements) {
+			if (Conveyor.class.isAssignableFrom(it.getClass()) || this==it) {
+
+			} else {
+				return;
+			}
+		}
+		this.moveTo(new_row, new_col);
+	}
 
 	@Override
 	public void update(float delta) {

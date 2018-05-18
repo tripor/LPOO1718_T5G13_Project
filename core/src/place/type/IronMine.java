@@ -13,8 +13,8 @@ import place.Place;
  */
 public class IronMine extends Place {
 
-	public static int width=10;
-	public static int height=10;
+	public static int width=20;
+	public static int height=20;
 	
 	private int time_make_material=100;
 	private int time=0;
