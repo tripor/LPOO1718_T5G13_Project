@@ -89,7 +89,7 @@ public class Map {
 	}
 	
 	/**
-	 * Adds a object to the map
+	 * Adds an object to the map
 	 * @param obj the object i want to add
 	 * @param pos_x the x position in pixels
 	 * @param pos_y the y position in pixels
@@ -120,8 +120,8 @@ public class Map {
 		}
 	}
 	/**
-	 * Adds a object to the map
-	 * @param obj the object i want to add
+	 * Remove an object from the map
+	 * @param obj the object i want to remove
 	 * @param pos_x the x position in pixels
 	 * @param pos_y the y position in pixels
 	 * @param width the width in pixels
@@ -180,14 +180,14 @@ public class Map {
 	}
 	
 	/**
-	 * Missing description
+	 * Generate a row-position
 	 * @return
 	 */
 	public int randRow() {
 		return (new Random()).nextInt(this.getMapHeight());
 	}
 	/**
-	 * Missing description
+	 * Generate a column-position
 	 * @return
 	 */
 	public int randCol() {
