@@ -28,8 +28,6 @@ public class Material extends ActorExtension {
 		sprite = new Sprite(texture);
 		sprite.setSize(this.getWidth(), this.getHeight());
 		sprite.setOrigin(width/2, height/2);
-		
-		this.setDebug(true);
 	}
 	
 	public Material(GameStage game,int row, int col) {
