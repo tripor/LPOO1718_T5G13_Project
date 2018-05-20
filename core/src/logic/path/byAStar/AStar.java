@@ -507,11 +507,11 @@ public class AStar {
 	}
 
     private int convertGridToPixel_row(int row) {
-    		return (row * this.mapRatio) + this.mapOrigin_top + (this.mapRatio / 2);
-    		// return the central pixel of the grid
+    		return (row * this.mapRatio) + this.mapOrigin_top + (this.finalNode_raw.getRow() % this.mapRatio);
+    		// return the pixel of the grid making the destination locate at left-top corner
     }
     private int convertGridToPixel_col(int col) {
-		return (col * this.mapRatio) + this.mapOrigin_left + (this.mapRatio / 2);
+		return (col * this.mapRatio) + this.mapOrigin_left + (this.finalNode_raw.getCol() % this.mapRatio);
     }
     private int convertPixelToGrid_row(int row) {
 		return (row - this.mapOrigin_top) / this.mapRatio;
