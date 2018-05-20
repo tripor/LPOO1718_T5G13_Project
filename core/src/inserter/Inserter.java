@@ -186,9 +186,10 @@ public class Inserter extends ActorExtension{
 	
 	private void deliverMaterial()
 	{
-		ArrayList<Actor> element = this.game.map().getPixelMap((int)this.pickup.getX(),(int)this.pickup.getY());
+		ArrayList<Actor> element = this.game.map().getPixelMap((int)(this.pickup.getX()+this.pickup.getWidth()/2),(int)(this.pickup.getY()+this.pickup.getHeight()/2));
 		if(element.isEmpty())
 		{
+			System.out.println("here");
 			this.game.materials().addMaterialToMap(this.pickup);
 			this.pickup = null;
 			this.blocked = false;

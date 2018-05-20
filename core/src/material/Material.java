@@ -68,6 +68,7 @@ public class Material extends ActorExtension {
 			if (Conveyor.class.isAssignableFrom(it.getClass()) || this==it) {
 
 			} else {
+				//System.out.println(it.getClass());
 				return;
 			}
 		}

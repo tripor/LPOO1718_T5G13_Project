@@ -76,7 +76,7 @@ public class Conveyor extends ActorExtension{
 					&& it.getX() + it.getWidth() / 2 <= this.getX() + this.getWidth()
 					&& this.getY() <= it.getY() + it.getHeight() / 2
 					&& it.getY() + it.getHeight() / 2 <= this.getY() + this.getHeight())
-				it.moveMaterial(movement_row, movement_col);
+			it.moveMaterial(movement_row, movement_col);
 		}
 		
 	}
