@@ -7,11 +7,15 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.groundup.game.GameStage;
 
+import conveyor.Conveyor;
+import graphic.ActorExtension;
 import logic.map.Map;
+import person.Person;
 import place.Place;
 
 public class PlaceList extends Group{
@@ -46,28 +50,10 @@ public class PlaceList extends Group{
 			// don't let it add.
 		}
 		
-		int left = p.getBoundLeft()/Map.division, right  = p.getBoundRight()/Map.division,
-			top  = p.getBoundTop()/Map.division,  bottom = p.getBoundBottom()/Map.division;
+		boolean success = Map.tryAdd(p, this.game);
 		
-		int col, row;
-		
-		for(col = left; col <= right; col++) {
-			for(row = top; row <= bottom; row++) {
-				
-				// get map blocks.
-				ArrayList<Actor> element_list = this.game.map().getMap(row, col);
-
-				// loop through the block, find the place which overlaps with p.
-				for(Object el : element_list) {
-					if(Place.class.isAssignableFrom(el.getClass())) {
-						
-						// if found, return false (= addPlace not successful)
-						if(((Place) el).overlapWith(p)) {
-							return false;
-						}
-					}
-				}
-			}
+		if(!success) {
+			return false;
 		}
 
 		// else (= success)
@@ -182,8 +168,8 @@ public class PlaceList extends Group{
 	 */
 	public Place checkIfPointInBuilding(int row, int col) {
 
-		int top = row/Map.division,
-			left = col/Map.division;
+		int top = Map.getBlockIndex(row),
+			left = Map.getBlockIndex(col);
 		
 		ArrayList<Actor> map = this.game.map().getMap(top, left);
 		

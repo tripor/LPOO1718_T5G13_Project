@@ -155,19 +155,32 @@ public abstract class Place extends ActorExtension {
     }
 	
 	public boolean overlapWith(Place p) {
-		
-		if(p.including(this.getDoorRow(), this.getDoorCol())) {
-			return true;
-			// We should not allow the door of a factory inside another building.
-		}
-		
-		boolean colOverlap = p.getBoundLeft() <= this.getBoundRight()
-						&& p.getBoundRight() >= this.getBoundLeft();
-		
-		boolean rowOverlap = p.getBoundTop() <= this.getBoundBottom()
-						&& p.getBoundBottom() >= this.getBoundTop();
+		return this.overlapWith(p.getBoundTop(), p.getBoundRight(), p.getBoundBottom(), p.getBoundLeft());
+	}
+	
+	public boolean overlapWith(int top, int right, int bottom, int left) {
 
-		return (colOverlap && rowOverlap);
+		boolean colOverlap = left <= this.getBoundRight()
+						&& right >= this.getBoundLeft();
+		
+		boolean rowOverlap = top <= this.getBoundBottom()
+						&& bottom >= this.getBoundTop();
+						
+		// We should not allow the door of a factory inside another building.
+		boolean colOverlapDoor = left <= this.getDoorCol()
+						&& right >= this.getDoorCol();
+						
+		boolean rowOverlapDoor = top <= this.getDoorRow()
+						&& bottom >= this.getDoorRow();
+
+		return (colOverlap && rowOverlap && colOverlapDoor && rowOverlapDoor);
+	}
+	
+	public boolean overlapWith(float top, float right, float bottom, float left) {
+		
+		return this.overlapWith(
+				((int) top), ((int) right), ((int) bottom), ((int) left)
+			);
 	}
 	
 	public boolean including(int row, int col) {

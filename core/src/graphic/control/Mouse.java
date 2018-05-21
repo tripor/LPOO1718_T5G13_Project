@@ -70,8 +70,8 @@ public class Mouse extends ActorExtension {
 				adicao_x = (10 - (this.width % 10)) / 2;
 			if(this.height % 10!=0)
 				adicao_y = (10 - (this.height % 10)) / 2;
-			int x = ((int) (mouse_pos.x / Map.division)) * 10 + adicao_x;
-			int y = ((int) (mouse_pos.y / Map.division)) * 10 + adicao_y;
+			int x = Map.getBlockIndex(mouse_pos.x) * 10 + adicao_x;
+			int y = Map.getBlockIndex(mouse_pos.y) * 10 + adicao_y;
 			if(this.type.equals("factory.png"))
 			{
 				Factory fab= new Factory(this.game,x,y,this.width,this.height,this.doorPosition,10);
@@ -110,8 +110,8 @@ public class Mouse extends ActorExtension {
 				adicao_x = (10 - (this.width % 10)) / 2;
 			if(this.height % 10!=0)
 				adicao_y = (10 - (this.height % 10)) / 2;
-			int x = ((int) (mouse_pos.x / Map.division)) * 10 + adicao_x;
-			int y = ((int) (mouse_pos.y / Map.division)) * 10 + adicao_y;
+			int x = Map.getBlockIndex(mouse_pos.x) * 10 + adicao_x;
+			int y = Map.getBlockIndex(mouse_pos.y) * 10 + adicao_y;
 			this.setPosition(x, y);
 			sprite.draw(batch);
 		}

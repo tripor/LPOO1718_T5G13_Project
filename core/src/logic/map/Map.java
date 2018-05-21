@@ -7,7 +7,10 @@ import java.util.Random;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.groundup.game.GameStage;
 
+import graphic.ActorExtension;
 import material.Material;
+import person.Person;
+import place.Place;
 
 public class Map {
 
@@ -53,15 +56,87 @@ public class Map {
 		this.mapHeight=1000;
 		this.mapWidth=1000;
 		map = new ArrayList<ArrayList<ArrayList<Actor>>>();
-		for(int i=0 ; i<this.mapWidth/Map.division;i++)
+		for(int i=0 ; i<Map.getBlockIndex(this.mapWidth);i++)
 		{
 			map.add(new ArrayList<ArrayList<Actor>>());
-			for(int j=0; j<this.mapHeight/Map.division;j++)
+			for(int j=0; j<Map.getBlockIndex(this.mapHeight);j++)
 			{
 				map.get(i).add(new ArrayList<Actor>());
 			}
 		}
 	}
+
+	public static int getBlockIndex(int num) {
+		return num / Map.division;
+	}
+	public static int getBlockIndex(float num) {
+		return Map.getBlockIndex((int) num);
+	}
+	
+	
+
+	public static boolean overlapWith(ActorExtension obj_to_be_add, ActorExtension obj_exist) {
+
+		boolean colOverlap = obj_to_be_add.getX() <= obj_exist.getRight()
+						&& obj_to_be_add.getRight() >= obj_exist.getX();
+		
+		boolean rowOverlap = obj_to_be_add.getTop() <= obj_exist.getY()
+						&& obj_to_be_add.getY() >= obj_exist.getTop();
+
+		return (colOverlap && rowOverlap);
+	}
+	
+	/**
+	 * Check Overlap
+	 * @param obj The object to be added.
+	 * @param game
+	 * @return
+	 */
+	public static boolean tryAdd(ActorExtension obj, GameStage game) {
+
+		int left   = Map.getBlockIndex(obj.getX()),
+			right  = Map.getBlockIndex(obj.getRight()),
+			top    = Map.getBlockIndex(obj.getTop()),
+			bottom = Map.getBlockIndex(obj.getY());
+		
+		int col, row;
+		
+		for(col = left; col <= right; col++) {
+			for(row = top; row <= bottom; row++) {
+
+				// get map blocks.
+				ArrayList<Actor> element_list = game.map().getMap(row, col);
+
+				// loop through the block.
+				for(Object el : element_list) {
+					
+					if(Place.class.isAssignableFrom(el.getClass())) {
+						// check place.
+
+						// if found, return false (= addPlace not successful)
+						if(((Place) el).overlapWith(obj.getTop(), obj.getRight(), obj.getY(), obj.getX())) {
+							return false;
+						}
+					}
+					else if(Person.class.isAssignableFrom(el.getClass())
+							|| Material.class.isAssignableFrom(el.getClass())) {
+						// skip person, material.
+					}
+					else { 
+						// check other (i.e., inserter, conveyor)
+						
+						ActorExtension castedEl = ((ActorExtension) el);
+						
+						if(overlapWith(obj, castedEl)) {
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
 	/**
 	 * @return The map Width in pixels
 	 */
@@ -97,8 +172,8 @@ public class Map {
 	 * @param height the height in pixels
 	 */
 	public void addMap(Actor obj, int pos_x, int pos_y, int width, int height) {
-		int x = pos_x / Map.division;
-		int y = pos_y / Map.division;
+		int x = Map.getBlockIndex(pos_x);
+		int y = Map.getBlockIndex(pos_y);
 		
 		int error_x=0;
 		if(width%Map.division!=0) {
@@ -109,8 +184,8 @@ public class Map {
 			error_y++;
 		}
 
-		int quantity_x = ((pos_x+width) / Map.division)-x + error_x;
-		int quantity_y = ((pos_y+height) / Map.division)-y +  error_y;
+		int quantity_x = Map.getBlockIndex(pos_x+width)-x + error_x;
+		int quantity_y = Map.getBlockIndex(pos_y+height)-y +  error_y;
 
 		for (int i = x; i < x + quantity_x ; i ++) {
 			for (int j = y; j < y + quantity_y; j ++) {
@@ -129,8 +204,8 @@ public class Map {
 	 */
 	public void removeMap(Actor obj, int pos_x, int pos_y, int width, int height) 
 	{
-		int x = pos_x / Map.division;
-		int y = pos_y / Map.division;
+		int x = Map.getBlockIndex(pos_x);
+		int y = Map.getBlockIndex(pos_y);
 		
 		int error_x=0;
 		if(width%Map.division!=0) {
@@ -141,8 +216,8 @@ public class Map {
 			error_y++;
 		}
 
-		int quantity_x = ((pos_x+width) / Map.division)-x + error_x;
-		int quantity_y = ((pos_y+height) / Map.division)-y +  error_y;
+		int quantity_x = Map.getBlockIndex(pos_x+width)-x + error_x;
+		int quantity_y = Map.getBlockIndex(pos_y+height)-y +  error_y;
 
 		for (int i = x; i < x + quantity_x; i ++) {
 			for (int j = y; j < y + quantity_y; j ++) {
@@ -158,7 +233,7 @@ public class Map {
 	 */
 	public ArrayList<Actor> getMap(int pos_x,int pos_y)
 	{
-		return this.map.get(pos_x/Map.division).get(pos_y/Map.division);
+		return this.map.get(Map.getBlockIndex(pos_x)).get(Map.getBlockIndex(pos_y));
 	}
 	/**
 	 * Gets pixel in the position of the map

@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.groundup.game.GameStage;
 
 import conveyor.Conveyor;
+import logic.map.Map;
 
 public class ConveyorList extends Group{
 	/**
@@ -15,8 +16,15 @@ public class ConveyorList extends Group{
 	}
 	
 	public boolean addConveyor(Conveyor c) {
+
+		boolean success = Map.tryAdd(c, this.game);
+		
+		if(!success) {
+			return false;
+		}
+		
 		this.addActor(c);
 		this.game.map().addMap(c,(int) c.getX(), (int)c.getY(), (int)c.getWidth(),(int) c.getHeight());
-		return false;
+		return true;
 	}
 }

@@ -12,11 +12,11 @@ import material.Material;
 
 public class Conveyor extends ActorExtension{
 	
-	private int velocity=1;
+	private int velocity = 1;
 	private int movement_row = 0;
 	private int movement_col = 0;
-	public static int width=10;
-	public static int height=10;
+	public static int width  = 10;
+	public static int height = 10;
 	private int direction;
 	
 	private void createConveyor() {
@@ -32,7 +32,7 @@ public class Conveyor extends ActorExtension{
 		//this.setDebug(true);
 	}
 
-	public Conveyor(GameStage game,int row, int col, int width, int height, int direction) {
+	public Conveyor(GameStage game, int row, int col, int width, int height, int direction) {
 		this.game=game;
 		this.setWidth(width);
 		this.setHeight(height);
@@ -53,6 +53,7 @@ public class Conveyor extends ActorExtension{
 			movement_row = -this.velocity;
 		}
 	}
+	
 	public int getRowMovement() {
 		return movement_row;
 	}
@@ -80,62 +81,6 @@ public class Conveyor extends ActorExtension{
 		}
 		
 	}
-	
-	
-	
-	
-	/*public boolean connectedFrom(Place p) {
-		
-		// we need to get it's REVERSED direction
-		// in order to know whether this conveyor can get things from the building
-		
-		int movement_row = 0 - this.movement_row;
-		int movement_col = 0 - this.movement_col;
-		
-		if(p.including(this.row - movement_row, this.col - movement_col)) {
-			return true;
-		}
-		return false;
-	}
-
-	
-	public int[] checkNextGrid(Conveyor thisObj, int row_delta, int col_delta) {
-
-		int row = thisObj.getRow() + row_delta,
-			col = thisObj.getCol() + col_delta;
-		
-		if(this.game.conveyors().getConveyor(row, col) != null) {
-			int[] result = {row, col};
-			return result;
-		}
-		return null;
-	}
-	
-	public int[] next(Conveyor thisObj) {
-		
-		boolean is_intersection = thisObj.getRowMovement() == 0
-									&& thisObj.getColMovement() == 0;
-		
-		if(is_intersection) {
-			
-			int[] tmp = null;
-			
-			for(int row = -1; row <=1; row++) {
-				for(int col = -1; col<=1; col++) {
-
-					// TODO: T-shape conveyors, need to make product self-balancing.
-					tmp = checkNextGrid(thisObj, row, col);
-					if(tmp != null) {
-						return tmp;
-					}
-				}
-			}
-			return null;
-		}
-		else {
-			return checkNextGrid(thisObj, thisObj.getRowMovement(), thisObj.getColMovement());
-		}	
-	}*/
 
 	@Override
 	public void update(float delta) {
