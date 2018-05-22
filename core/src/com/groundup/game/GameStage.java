@@ -37,11 +37,11 @@ public class GameStage extends Stage {
 	/**
 	 * The viewport width
 	 */
-    public static final int VIEWPORT_WIDTH = 400;
+    public int VIEWPORT_WIDTH = 256;
     /**
      * The viewport height
      */
-    public static final int VIEWPORT_HEIGHT=200;
+    public int VIEWPORT_HEIGHT=192;
     /**
      * Conversion from pixel to meter
      */
@@ -129,11 +129,20 @@ public class GameStage extends Stage {
 		
 		// Set the viewport
 		camera= new OrthographicCamera();
-		setViewport(new FitViewport(GameStage.VIEWPORT_WIDTH,GameStage.VIEWPORT_HEIGHT,camera));
+		setViewport(new FitViewport(this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT,camera));
 	
 	    // Load the textures
 	    game.getAssetManager().load("factory.png", Texture.class);
 	    game.getAssetManager().load("factory_icon.png", Texture.class);
+	    game.getAssetManager().load("place_button_mouse_over.png", Texture.class);
+	    game.getAssetManager().load("place_button_pressed.png", Texture.class);
+	    game.getAssetManager().load("place_button_unpressed.png", Texture.class);
+	    game.getAssetManager().load("conveyor_button_mouse_over.png", Texture.class);
+	    game.getAssetManager().load("conveyor_button_pressed.png", Texture.class);
+	    game.getAssetManager().load("conveyor_button_unpressed.png", Texture.class);
+	    game.getAssetManager().load("inserter_button_mouse_over.png", Texture.class);
+	    game.getAssetManager().load("inserter_button_pressed.png", Texture.class);
+	    game.getAssetManager().load("inserter_button_unpressed.png", Texture.class);
 	    game.getAssetManager().load("menu_icon.png", Texture.class);
 	    game.getAssetManager().load("build_icon.png", Texture.class);
 	    game.getAssetManager().load("mine_icon.png", Texture.class);
@@ -148,6 +157,13 @@ public class GameStage extends Stage {
 	    game.getAssetManager().load("inserter_base.png", Texture.class);
 	    game.getAssetManager().load("inserter_hand.png", Texture.class);
 	    game.getAssetManager().load("inserter_direction.png", Texture.class);
+	    game.getAssetManager().load("barra1.png", Texture.class);
+	    game.getAssetManager().load("barra2.png", Texture.class);
+	    game.getAssetManager().load("barra3.png", Texture.class);
+	    game.getAssetManager().load("barra4.png", Texture.class);
+	    game.getAssetManager().load("barra5.png", Texture.class);
+	    game.getAssetManager().load("barra6.png", Texture.class);
+	    game.getAssetManager().load("barra7.png", Texture.class);
 	    
 	    game.getAssetManager().finishLoading(); // should be replaced by something more efficiente
 	    
@@ -164,8 +180,10 @@ public class GameStage extends Stage {
 	 */
 	private void initializeIcons()
 	{
-		Icon build_icon= new BuildIcon(this,7,7,7,7);
+		Icon build_icon= new BuildIcon(this,0,0,this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT/3);
+		build_icon.setZIndex(0);
 		this.icon_list.addIcon(build_icon);
+		
 	}
     
 	/**
@@ -431,6 +449,8 @@ public class GameStage extends Stage {
 	{
 		return this.material_list;
 	}
+	
+	
 	
 	
 	

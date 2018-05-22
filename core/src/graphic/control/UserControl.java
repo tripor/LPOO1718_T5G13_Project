@@ -55,32 +55,32 @@ public class UserControl implements InputProcessor  {
 		Vector3 vector=game.getCamera().position;
 		float x=vector.x;
 		float y=vector.y;
-		if((GameStage.VIEWPORT_WIDTH/2)>x)
+		if((this.game.VIEWPORT_WIDTH/2)>x)
 		{
-			this.game.getCamera().position.set(new Vector3((GameStage.VIEWPORT_WIDTH/2),y,0));
-			x=(GameStage.VIEWPORT_WIDTH/2);
+			this.game.getCamera().position.set(new Vector3((this.game.VIEWPORT_WIDTH/2),y,0));
+			x=(this.game.VIEWPORT_WIDTH/2);
 		}
-		if(this.game.map().getMapWidth()-(GameStage.VIEWPORT_WIDTH/2)<=x)
+		if(this.game.map().getMapWidth()-(this.game.VIEWPORT_WIDTH/2)<=x)
 		{
-			this.game.getCamera().position.set(new Vector3(this.game.map().getMapWidth()-(GameStage.VIEWPORT_WIDTH/2),y,0));
-			x=this.game.map().getMapWidth()-(GameStage.VIEWPORT_WIDTH/2);
+			this.game.getCamera().position.set(new Vector3(this.game.map().getMapWidth()-(this.game.VIEWPORT_WIDTH/2),y,0));
+			x=this.game.map().getMapWidth()-(this.game.VIEWPORT_WIDTH/2);
 		}
-		if((GameStage.VIEWPORT_HEIGHT/2)>=y)
+		if((this.game.VIEWPORT_HEIGHT/2)>=y)
 		{
-			this.game.getCamera().position.set(new Vector3(x,(GameStage.VIEWPORT_HEIGHT/2),0));
-			y=(GameStage.VIEWPORT_HEIGHT/2);
+			this.game.getCamera().position.set(new Vector3(x,(this.game.VIEWPORT_HEIGHT/2),0));
+			y=(this.game.VIEWPORT_HEIGHT/2);
 		}
-		if(this.game.map().getMapHeight()-(GameStage.VIEWPORT_HEIGHT/2)<=y)
+		if(this.game.map().getMapHeight()-(this.game.VIEWPORT_HEIGHT/2)<=y)
 		{
-			this.game.getCamera().position.set(new Vector3(x,this.game.map().getMapHeight()-(GameStage.VIEWPORT_HEIGHT/2),0));
-			y=this.game.map().getMapHeight()-(GameStage.VIEWPORT_HEIGHT/2);
+			this.game.getCamera().position.set(new Vector3(x,this.game.map().getMapHeight()-(this.game.VIEWPORT_HEIGHT/2),0));
+			y=this.game.map().getMapHeight()-(this.game.VIEWPORT_HEIGHT/2);
 		}
 	}
 	@Override
 	public boolean keyDown(int keycode) {
         if(keycode==Input.Keys.ESCAPE)
         {
-        	System.exit(0);
+        	this.game.getMouse().isSelected=false;
         }
         if(keycode==Input.Keys.Q)
         {

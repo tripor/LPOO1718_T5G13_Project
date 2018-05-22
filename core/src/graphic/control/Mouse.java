@@ -20,8 +20,10 @@ import place.type.IronMine;
  *
  */
 public class Mouse extends ActorExtension {
-	
-	private boolean isSelected=false;
+	/**
+	 * If there is something selected to place
+	 */
+	public boolean isSelected=false;
 	private String type;
 	private int width;
 	private int height;

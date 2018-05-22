@@ -1,8 +1,11 @@
 package graphic;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.groundup.game.GameStage;
 
@@ -11,7 +14,7 @@ import com.groundup.game.GameStage;
  * Class that implements some overloaded funtion of actor
  *
  */
-public abstract class ActorExtension extends Actor {
+public abstract class ActorExtension extends Actor implements Comparable<ActorExtension> {
 	/**
 	 * Sprite for the design of the actor
 	 */
@@ -20,10 +23,46 @@ public abstract class ActorExtension extends Actor {
 	 * The game that this actor is in
 	 */
 	protected GameStage game;
-	
+	/**
+	 * Animation for the actor
+	 */
+	protected Animation<Texture> animation;
+	/**
+     * Time used to select the current animation frame.
+     */
+    protected float stateTime = 0;
+    /**
+     * For the drawing
+     */
+    protected Integer z=1;
+	/**
+	 * 
+	 * @return Returns the Z value
+	 */
+	public Integer getZ() {
+		return z;
+	}
+	/**
+	 * Sets the Z value
+	 * @param z The z value I want to change to
+	 */
+	public void setZ(Integer z) {
+		this.z = z;
+	}
+
+	/**
+	 * Transperancy of the sprite
+	 * @param alpha the amount i want
+	 */
 	protected void setTransparency(float alpha)
 	{
 		this.sprite.setAlpha(alpha);
+	}
+	
+	@Override
+	public int compareTo(ActorExtension a)
+	{
+		return this.z.compareTo(a.z) ;
 	}
 	
 	@Override

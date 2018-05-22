@@ -47,6 +47,7 @@ public class GroundUpScreen extends ScreenAdapter {
 		this.userControl.InputHandler(); 
 		
 		// Console.log("DELTA=" + delta + "s");
+		game.act();
 		game.draw();
 	}
 	/**

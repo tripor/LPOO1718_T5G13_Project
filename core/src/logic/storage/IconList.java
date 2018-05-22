@@ -25,5 +25,6 @@ public class IconList extends Group{
 	{
 		
 		this.addActor(icon);
+		this.getChildren().sort();
 	}
 }

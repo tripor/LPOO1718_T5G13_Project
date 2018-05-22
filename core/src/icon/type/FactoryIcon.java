@@ -3,6 +3,7 @@ package icon.type;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -14,9 +15,9 @@ public class FactoryIcon extends Icon {
 
 	private void createFactoryIcon() {
 		
-		Texture texture = this.game.getGame().getAssetManager().get("factory_icon.png");
+		Texture novo = this.game.getGame().getAssetManager().get("factory_icon.png");
 		
-		sprite = new Sprite(texture);
+		sprite = new Sprite(novo);
 		sprite.setSize(this.getWidth(), this.getHeight());
 		sprite.setOrigin(this.getWidth()/2, this.getHeight()/2);
 	}
@@ -28,7 +29,7 @@ public class FactoryIcon extends Icon {
 		this.createFactoryIcon();
 		this.setPosition(posX, posY);
 		
-		this.addListener(new ClickListener() {
+		this.addCaptureListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 game.getMouse().createMouse("factory.png", Factory.width, Factory.height);
             }
@@ -37,8 +38,7 @@ public class FactoryIcon extends Icon {
 
 	@Override
 	public void update(float delta) {
-		// TODO Auto-generated method stub
-		
+			
 	}
 	
 	
