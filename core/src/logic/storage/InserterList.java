@@ -21,7 +21,7 @@ public class InserterList extends Group{
 	
 	public boolean addInserter(Inserter i) {
 
-		boolean success = Map.tryAdd(i, this.game);
+		boolean success = this.game.map().tryAdd(i, this.game);
 		
 		if(!success) {
 			return false;

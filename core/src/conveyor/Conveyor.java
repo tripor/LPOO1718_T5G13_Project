@@ -28,8 +28,6 @@ public class Conveyor extends ActorExtension{
 		sprite.setOrigin(width/2, height/2);
 		if(this.direction!=4)
 			sprite.rotate(-90*direction);
-		
-		//this.setDebug(true);
 	}
 
 	public Conveyor(GameStage game, int row, int col, int width, int height, int direction) {

@@ -17,7 +17,7 @@ public class ConveyorList extends Group{
 	
 	public boolean addConveyor(Conveyor c) {
 
-		boolean success = Map.tryAdd(c, this.game);
+		boolean success = this.game.map().tryAdd(c, this.game);
 		
 		if(!success) {
 			return false;

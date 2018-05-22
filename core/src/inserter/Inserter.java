@@ -93,8 +93,6 @@ public class Inserter extends ActorExtension{
 			sprite.rotate(-90*direction);
 			sprite2.rotate(-90*direction);
 		}
-		
-		this.setDebug(true);
 	}
 	/**
 	 * Constructor for the Class inserter

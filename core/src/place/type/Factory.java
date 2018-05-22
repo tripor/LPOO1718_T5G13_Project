@@ -21,8 +21,6 @@ public class Factory extends Place {
 		sprite.setOrigin(width/2, height/2);
 		if(this.door_atBorder!=4)
 			sprite.rotate(-90*door_atBorder);
-		
-		this.setDebug(true);
 	}
 	
 	public Factory(GameStage game,int top, int left, int width, int height, int doorAtBorder, int doorAtPx) {

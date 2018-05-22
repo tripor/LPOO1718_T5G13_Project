@@ -75,13 +75,13 @@ public class Map {
 	
 	
 
-	public static boolean overlapWith(ActorExtension obj_to_be_add, ActorExtension obj_exist) {
+	private static boolean overlapWith(Actor obj, Actor castedEl) {
 
-		boolean colOverlap = obj_to_be_add.getX() <= obj_exist.getRight()
-						&& obj_to_be_add.getRight() >= obj_exist.getX();
+		boolean colOverlap = obj.getX() <= castedEl.getRight()
+						&& obj.getRight() >= castedEl.getX();
 		
-		boolean rowOverlap = obj_to_be_add.getTop() <= obj_exist.getY()
-						&& obj_to_be_add.getY() >= obj_exist.getTop();
+		boolean rowOverlap = obj.getTop() <= castedEl.getY()
+						&& obj.getY() >= castedEl.getTop();
 
 		return (colOverlap && rowOverlap);
 	}
@@ -92,7 +92,7 @@ public class Map {
 	 * @param game
 	 * @return
 	 */
-	public static boolean tryAdd(ActorExtension obj, GameStage game) {
+	public boolean tryAdd(Actor obj, GameStage game) {
 
 		int left   = Map.getBlockIndex(obj.getX()),
 			right  = Map.getBlockIndex(obj.getRight()),
@@ -125,7 +125,7 @@ public class Map {
 					else { 
 						// check other (i.e., inserter, conveyor)
 						
-						ActorExtension castedEl = ((ActorExtension) el);
+						Actor castedEl = ((Actor) el);
 						
 						if(overlapWith(obj, castedEl)) {
 							return false;

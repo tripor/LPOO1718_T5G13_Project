@@ -50,7 +50,7 @@ public class PlaceList extends Group{
 			// don't let it add.
 		}
 		
-		boolean success = Map.tryAdd(p, this.game);
+		boolean success = this.game.map().tryAdd(p, this.game);
 		
 		if(!success) {
 			return false;
