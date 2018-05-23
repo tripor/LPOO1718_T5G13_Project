@@ -1,16 +1,13 @@
 package logic.storage;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.badlogic.gdx.scenes.scene2d.Group;
 
 import graphic.Background;
+import graphic.GroupExtension;
 
 /**
  * Class that handles the ground background
  *
  */
-public class BackGroundList extends Group{
+public class BackGroundList extends GroupExtension{
 	/**
 	 * Constructor for the class BackGroundList
 	 */

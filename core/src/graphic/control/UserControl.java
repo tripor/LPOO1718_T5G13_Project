@@ -128,6 +128,14 @@ public class UserControl implements InputProcessor  {
         {
         	this.game.getMouse().rotateMouse();
         }
+        if(keycode==Input.Keys.P)
+        {
+        	this.game.saveGame("quero");
+        }
+        if(keycode==Input.Keys.O)
+        {
+        	this.game.loadGame("quero");
+        }
 		return false;
 	}
 	@Override

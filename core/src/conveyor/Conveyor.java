@@ -52,6 +52,8 @@ public class Conveyor extends ActorExtension{
 		}
 	}
 	
+	public Conveyor() {}
+	
 	public int getRowMovement() {
 		return movement_row;
 	}
@@ -79,10 +81,22 @@ public class Conveyor extends ActorExtension{
 		}
 		
 	}
+	
+	
+
+	public int getDirection() {
+		return direction;
+	}
 
 	@Override
 	public void update(float delta) {
 		this.moveMaterials();
 		
+	}
+	
+	public void reconstruct(GameStage game) {
+		this.game=game;
+		this.createConveyor();
+		this.positionChanged();
 	}
 }

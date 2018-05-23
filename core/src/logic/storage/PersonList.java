@@ -2,21 +2,16 @@ package logic.storage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map.Entry;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.utils.async.AsyncExecutor;
-import com.badlogic.gdx.utils.async.AsyncTask;
 import com.groundup.game.GameStage;
 
-import logic.map.Map;
+import graphic.GroupExtension;
 import person.Person;
 /**
  * Class that saves and handles all the persons in the game
  *
  */
-public class PersonList extends Group{
+public class PersonList extends GroupExtension{
 	
 	/**
      * For testing. For adding 100000 people into the map.
@@ -25,11 +20,16 @@ public class PersonList extends Group{
 	
 	public HashMap<String, Person> personMap = new HashMap<String, Person>();
 	// public ArrayList<Person> persons = new ArrayList<Person>();
+	/**
+	 * Saves all the Person in the game
+	 */
+	private ArrayList<Person> lista;
 	
 	private GameStage game;
 
 	public PersonList(GameStage game) {
 		this.game = game;
+		this.lista= new ArrayList<Person>();
 	}
 	
 	public boolean addPerson(Person p) {
@@ -58,6 +58,7 @@ public class PersonList extends Group{
 
 		// persons.add(p);
 		this.addActor(p);
+		this.lista.add(p);
 		
 		return true;
 	}
@@ -98,5 +99,22 @@ public class PersonList extends Group{
 		    //    } 
 		    // });
 		// }
+	}
+	/**
+	 * 
+	 * @return Return all the persons in the game
+	 */
+	public ArrayList<Person> getLista() {
+		return lista;
+	}
+	/**
+	 * Readds all the person to the group of actors
+	 */
+	public void reAdd()
+	{
+		for(Person it:this.lista)
+		{
+			this.addActor(it);
+		}
 	}
 }

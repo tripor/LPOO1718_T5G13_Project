@@ -1,15 +1,12 @@
 package logic.storage;
 
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-
+import graphic.GroupExtension;
 import icon.Icon;
 /**
  * Class that saves all the buttons of the game
  *
  */
-public class IconList extends Group{
+public class IconList extends GroupExtension{
 	/**
 	 * Constructor for the class IconList
 	 */

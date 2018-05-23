@@ -15,5 +15,13 @@ public class House extends Place {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void reconstruct(GameStage game) {
+		this.game=game;
+		//adicionar sprite contrutor
+		this.positionChanged();
+		
+	}
 	
 }

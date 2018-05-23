@@ -30,11 +30,21 @@ public class Factory extends Place {
 		this.createFactory();
 		this.setPosition(top, left);
 	}
+	
+	public Factory(){
+		
+	}
 
 	@Override
 	public void update(float delta) {
-		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void reconstruct(GameStage game) {
+		this.game=game;
+		this.createFactory();
+		this.positionChanged();
 	}
 
 }

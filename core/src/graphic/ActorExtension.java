@@ -14,27 +14,27 @@ import com.groundup.game.GameStage;
  * Class that implements some overloaded funtion of actor
  *
  */
-public abstract class ActorExtension extends Actor implements Comparable<ActorExtension> {
+public abstract class ActorExtension extends Actor implements Comparable<Object> {
 	/**
 	 * Sprite for the design of the actor
 	 */
-	protected Sprite sprite;
+	protected transient Sprite sprite;
 	/**
 	 * The game that this actor is in
 	 */
-	protected GameStage game;
+	protected transient GameStage game;
 	/**
 	 * Animation for the actor
 	 */
-	protected Animation<Texture> animation;
+	protected transient Animation<Texture> animation;
 	/**
      * Time used to select the current animation frame.
      */
-    protected float stateTime = 0;
+    protected transient float stateTime = 0;
     /**
      * For the drawing
      */
-    protected Integer z=1;
+    protected transient Integer z=1;
 	/**
 	 * 
 	 * @return Returns the Z value
@@ -60,9 +60,16 @@ public abstract class ActorExtension extends Actor implements Comparable<ActorEx
 	}
 	
 	@Override
-	public int compareTo(ActorExtension a)
-	{
-		return this.z.compareTo(a.z) ;
+	public int compareTo(Object arg0) {
+		if(GroupExtension.class.isAssignableFrom(arg0.getClass()))
+		{
+			return this.z.compareTo(((GroupExtension)arg0).z);
+		}
+		else if(ActorExtension.class.isAssignableFrom(arg0.getClass()))
+		{
+			return this.z.compareTo(((ActorExtension)arg0).z);
+		}
+		return 0;
 	}
 	
 	@Override

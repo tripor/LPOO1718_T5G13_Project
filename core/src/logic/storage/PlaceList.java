@@ -3,22 +3,17 @@ package logic.storage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.groundup.game.GameStage;
 
-import conveyor.Conveyor;
-import graphic.ActorExtension;
+import graphic.GroupExtension;
 import logic.map.Map;
-import person.Person;
 import place.Place;
 
-public class PlaceList extends Group{
+public class PlaceList extends GroupExtension{
 
 	/**
 	 * The game that this group is in
@@ -28,13 +23,15 @@ public class PlaceList extends Group{
 	 * List containing all the place in the game
 	 */
 	public HashMap<String, Place> placeMap = new HashMap<String, Place>();
+	
+	private ArrayList<Place> lista;
 	// public List<Place> placeSet = new ArrayList<Place>();
 	/**
 	 * Constructor for the Class Place List
 	 */
 	public PlaceList(GameStage game) {
 		this.game=game;
-		
+		this.lista= new ArrayList<Place>();
 	}
 	/**
 	 * Missing Description
@@ -68,7 +65,7 @@ public class PlaceList extends Group{
 		placeMap.put(p.getUniqueId(), p);
 		// placeSet.add(p);
 		this.addActor(p);
-		
+		this.lista.add(p);
 		return true;
 	}
 	/**
@@ -185,4 +182,24 @@ public class PlaceList extends Group{
 		}
 		return null;
 	}
+	/**
+	 * 
+	 * @return Returns all the places of the game
+	 */
+	public ArrayList<Place> getLista() {
+		return lista;
+	}
+	/**
+	 * Readds all the place to the group of actors
+	 */
+	public void reAdd()
+	{
+		for(Place it:this.lista)
+		{
+			this.addActor(it);
+		}
+	}
+	
+	
+	
 }

@@ -36,6 +36,10 @@ public abstract class Person extends ActorExtension{
 		// a duplication checking at personList is already performed.
 	}
 	
+	public Person() {}
+	
+	public abstract void reconstruct(GameStage game);
+	
 	public String getId() {
 		return this.unique_id;
 	}

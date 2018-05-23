@@ -26,10 +26,20 @@ public class Worker extends Person {
 		this.createWorker();
 		this.setPosition(col, row);
 	}
+	
+	public Worker() {}
 
 	@Override
 	public void update(float delta) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void reconstruct(GameStage game) {
+		this.game=game;
+		this.createWorker();
+		this.positionChanged();
 		
 	}
 

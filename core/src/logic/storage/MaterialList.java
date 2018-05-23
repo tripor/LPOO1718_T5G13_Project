@@ -1,26 +1,31 @@
 package logic.storage;
 
-import com.badlogic.gdx.scenes.scene2d.Group;
+import java.util.ArrayList;
+
 import com.groundup.game.GameStage;
 
+import graphic.GroupExtension;
 import material.Material;
 
-public class MaterialList extends Group {
+public class MaterialList extends GroupExtension {
 	/**
 	 * The game that this group is in
 	 */
 	protected GameStage game;
+	
+	private ArrayList<Material> lista;
 
 	/**
 	 * Constructor for the class MaterialList
 	 */
 	public MaterialList(GameStage game) {
 		this.game = game;
-
+		this.lista= new ArrayList<Material>();
 	}
 
 	public void addMaterial(Material back) {
 		this.addActor(back);
+		this.lista.add(back);
 	}
 
 	public void addMaterialToMap(Material back) {
@@ -35,7 +40,20 @@ public class MaterialList extends Group {
 
 	public void removeMaterial(Material mat) {
 		this.removeActor(mat);
+		this.lista.remove(mat);
 
+	}
+
+	public ArrayList<Material> getLista() {
+		return lista;
+	}
+	
+	public void reAdd()
+	{
+		for(Material it:this.lista)
+		{
+			this.addActor(it);
+		}
 	}
 
 }

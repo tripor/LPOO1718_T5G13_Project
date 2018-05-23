@@ -1,12 +1,19 @@
 package com.groundup.game;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import graphic.Background;
@@ -107,20 +114,30 @@ public class GameStage extends Stage {
 		this.addActor(this.background_list);
 	    this.map= new Map(this);
 		this.place_list=new PlaceList(this);
+		this.place_list.setZ(1);
 		this.addActor(place_list);
 		this.conveyor_list=new ConveyorList(this);
+		this.conveyor_list.setZ(1);
 		this.addActor(conveyor_list);
 		this.material_list=new MaterialList(this);
+		this.material_list.setZ(2);
 		this.addActor(material_list);
 		this.inserter_list= new InserterList(this);
+		this.inserter_list.setZ(3);
 		this.addActor(inserter_list);
 		this.person_list= new PersonList(this);
+		this.person_list.setZ(4);
 		this.addActor(person_list);
 		this.mouse= new Mouse(this);
+		this.mouse.setZ(6);
 		this.addActor(mouse);
 		this.icon_list= new IconList();
+		this.icon_list.setZ(5);
 		this.addActor(icon_list);
 		this.unused_material=new ArrayList<Material>();
+		this.getActors().sort();
+			
+		
 		
 		// Set the viewport
 		camera= new OrthographicCamera();
@@ -168,7 +185,97 @@ public class GameStage extends Stage {
 	    
 	}
 	
+	public void reCreate()
+	{
+	    this.map= new Map(this);
+	    this.place_list.remove();
+		this.place_list=new PlaceList(this);
+		this.place_list.setZ(1);
+		this.addActor(place_list);
+		this.conveyor_list.remove();
+		this.conveyor_list=new ConveyorList(this);
+		this.conveyor_list.setZ(1);
+		this.addActor(conveyor_list);
+		this.material_list.remove();
+		this.material_list=new MaterialList(this);
+		this.material_list.setZ(2);
+		this.addActor(material_list);
+		this.inserter_list.remove();
+		this.inserter_list= new InserterList(this);
+		this.inserter_list.setZ(3);
+		this.addActor(inserter_list);
+		this.person_list.remove();
+		this.person_list= new PersonList(this);
+		this.person_list.setZ(4);
+		this.addActor(person_list);
+		this.unused_material=new ArrayList<Material>();
+		this.getActors().sort();
+	    initializeMaterials();
+	}
 	
+
+	/**
+	 * Loads the game from the server with a name
+	 * @param name The name of the game I want
+	 */
+	public void loadGame(String name)
+	{	
+		String url="https://web.fe.up.pt/~up201605314/test/receive.php";
+	    String charset = "UTF-8";
+	    String param1=name;
+	    String param2="";
+	    try {
+			String query = String.format("name=%s&game=%s",URLEncoder.encode(param1, charset),URLEncoder.encode(param2, charset));
+            URLConnection connection= new URL(url+"?"+query).openConnection();
+            connection.setRequestProperty("Accept-Charset", charset);
+            InputStream response = connection.getInputStream();
+            String responseBody;
+            try (Scanner scanner = new Scanner(response)) {
+                responseBody = scanner.useDelimiter("\\A").next();
+            }
+            Json json=new Json();
+            SaveState load= new SaveState();
+            load=json.fromJson(SaveState.class, responseBody);
+            this.reCreate();
+            load.loadToGame(this);
+            
+		}  catch (IOException e) {
+            System.out.println("Error Message");
+            System.out.println(e.getClass().getSimpleName());
+            System.out.println(e.getMessage());
+		}
+	}
+
+	/**
+	 * Save the game to a server
+	 * @param name The name I want to save to
+	 */
+	public void saveGame(String name)
+	{
+		String url="https://web.fe.up.pt/~up201605314/test/receive.php";
+	    String charset = "UTF-8";
+	    String param1=name;
+	    
+	    SaveState save= new SaveState(this);
+	    
+	    Json json= new Json();
+	    try {
+	    	String param2 =json.toJson(save);
+			String query = String.format("name=%s&game=%s",URLEncoder.encode(param1, charset),URLEncoder.encode(param2, charset));
+            URLConnection connection= new URL(url+"?"+query).openConnection();
+            connection.setRequestProperty("Accept-Charset", charset);
+            InputStream response = connection.getInputStream();
+            try (Scanner scanner = new Scanner(response)) {
+                String responseBody = scanner.useDelimiter("\\A").next();
+                //System.out.println(responseBody);
+            }
+	    	save.reAdd(this);
+		}  catch (IOException e) {
+            System.out.println("Error Message");
+            System.out.println(e.getClass().getSimpleName());
+            System.out.println(e.getMessage());
+		}
+	}
 	
 	
 	/**

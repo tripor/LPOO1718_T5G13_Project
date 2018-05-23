@@ -40,6 +40,17 @@ public class Material extends ActorExtension {
 		this.setPosition(row, col);
 	}
 	
+	public Material() {
+		
+	}
+	public void reconstruct(GameStage game)
+	{
+		this.game=game;
+		this.createTexture(this.type);
+		this.positionChanged();
+	}
+	
+	
 	public void setCurrentPos(int row, int col) {
 		this.current_row=row;
 		this.current_col=col;

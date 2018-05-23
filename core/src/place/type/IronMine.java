@@ -40,6 +40,11 @@ public class IronMine extends Place {
 		this.setPosition(top, left);
 	}
 	
+	public IronMine()
+	{
+		
+	}
+	
 	@Override
 	public void update(float delta) {
 		time++;
@@ -48,6 +53,14 @@ public class IronMine extends Place {
 			time=0;
 			this.addToStorage(this.game.removeUnusedMaterial());
 		}
+		
+	}
+
+	@Override
+	public void reconstruct(GameStage game) {
+		this.game=game;
+		this.createFactory();
+		this.positionChanged();
 		
 	}
 	

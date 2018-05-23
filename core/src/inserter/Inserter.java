@@ -42,15 +42,15 @@ public class Inserter extends ActorExtension{
 	/**
 	 * If the inserter is rotating
 	 */
-	private boolean isRotating = false;
+	private transient boolean isRotating = false;
 	/**
 	 * Clock or counterclock wise direction
 	 */
-	private boolean rotationDirection=true;
+	private transient boolean rotationDirection=true;
 	/**
 	 * The degree of how much it has rotated
 	 */
-	private int rotating_quantity=0;
+	private transient int rotating_quantity=0;
 	/**
 	 * Rotating velocity
 	 */
@@ -58,11 +58,11 @@ public class Inserter extends ActorExtension{
 	/**
 	 * Sprite for the hand
 	 */
-	private Sprite sprite2;
+	private transient Sprite sprite2;
 	/**
 	 * Material the inserter had picked up
 	 */
-	private Material pickup;
+	private transient Material pickup;
 	/**
 	 * If the inserter has been blocked from placing the block
 	 */
@@ -116,6 +116,7 @@ public class Inserter extends ActorExtension{
 		this.middle_y=col;
 		
 	}
+	public Inserter() {}
 
 	/**
 	 * Rotates de Hand of the inserter 180 degree clockwise and returns
@@ -187,7 +188,6 @@ public class Inserter extends ActorExtension{
 		ArrayList<Actor> element = this.game.map().getPixelMap((int)(this.pickup.getX()+this.pickup.getWidth()/2),(int)(this.pickup.getY()+this.pickup.getHeight()/2));
 		if(element.isEmpty())
 		{
-			System.out.println("here");
 			this.game.materials().addMaterialToMap(this.pickup);
 			this.pickup = null;
 			this.blocked = false;
@@ -272,6 +272,21 @@ public class Inserter extends ActorExtension{
 				this.rotateHand();
 			}
 		}
+	}
+
+	public int getDirection() {
+		return this.direction;
+	}
+	
+	public void reconstruct(GameStage game) {
+		this.game=game;
+		this.createInserter();
+		this.positionChanged();
+		this.sprite2.setPosition(this.getX()-(Inserter.width_hand-2), (float) (this.getY()));
+		this.isRotating=false;
+		this.blocked=false;
+		this.rotating_quantity=0;
+		this.rotationDirection=true;
 	}
 	
 	@Override

@@ -1,13 +1,11 @@
 package graphic;
 
-import java.io.Serializable;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.math.Vector3;
 import com.groundup.game.GameStage;
 
 import graphic.control.UserControl;
@@ -16,12 +14,12 @@ import graphic.control.UserControl;
  * Class that deals with the Screen for the game
  *
  */
-public class GroundUpScreen extends ScreenAdapter implements Serializable {
+public class GroundUpScreen extends ScreenAdapter {
 	/**
 	 * The game it self
 	 */
-	private transient final GameStage game;
-	private transient final UserControl userControl;
+	private final GameStage game;
+	private final UserControl userControl;
     
 	
 	/**

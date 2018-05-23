@@ -77,6 +77,13 @@ public abstract class Place extends ActorExtension {
 			this.door_row = this.bound_bottom - doorAtPx;
 		}
 	}
+	
+	public abstract void reconstruct(GameStage game);
+	
+	public Place()
+	{
+		
+	}
 
 	public int getBoundTop() {
 		return bound_top;
