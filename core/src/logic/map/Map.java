@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.groundup.game.GameStage;
 
 import graphic.ActorExtension;
+import logic.console.Console;
 import material.Material;
 import person.Person;
 import place.Place;
@@ -93,11 +94,20 @@ public class Map {
 	 * @return
 	 */
 	public boolean tryAdd(Actor obj, GameStage game) {
+		
+		Console.log("tryAdd();");
 
 		int left   = Map.getBlockIndex(obj.getX()),
 			right  = Map.getBlockIndex(obj.getRight()),
-			top    = Map.getBlockIndex(obj.getTop()),
-			bottom = Map.getBlockIndex(obj.getY());
+			top    = Map.getBlockIndex(obj.getY()),
+			bottom = Map.getBlockIndex(obj.getTop());
+
+		Console.log(
+				"-> L" + obj.getX() + "=K" + left +
+				" / R" + obj.getRight() + "=K" + right +
+				" / T" + obj.getTop() + "=K" + top +
+				" / B" + obj.getY() + "=K" + bottom
+			);
 		
 		int col, row;
 		
@@ -106,6 +116,8 @@ public class Map {
 
 				// get map blocks.
 				ArrayList<Actor> element_list = game.map().getMap(row, col);
+				
+				System.out.print(" :: R" + row + " C" + col + " ListSize=" + element_list.size());
 
 				// loop through the block.
 				for(Object el : element_list) {
@@ -189,10 +201,15 @@ public class Map {
 
 		for (int i = x; i < x + quantity_x ; i ++) {
 			for (int j = y; j < y + quantity_y; j ++) {
-				this.map.get(i).get(j).add(obj);
 				
+				Console.log(" -> appending to " + i + "," + j);
+				
+				this.map.get(i).get(j).add(obj);
 			}
 		}
+	}
+	public void addMap(Actor obj, float x, float y, float w, float h) {
+		addMap(obj, ((int) x), ((int) y), ((int) w), ((int) h));
 	}
 	/**
 	 * Remove an object from the map
@@ -225,6 +242,9 @@ public class Map {
 			}
 		}
 	}
+	public void removeMap(Actor obj, float x, float y, float w, float h) {
+		removeMap(obj, ((int) x), ((int) y), ((int) w), ((int) h));
+	}
 	/**
 	 * Gets what in a position block of the map
 	 * @param pos_x the x position in pixels
@@ -233,7 +253,12 @@ public class Map {
 	 */
 	public ArrayList<Actor> getMap(int pos_x,int pos_y)
 	{
+		System.out.print(" -> get " + pos_x + "," + pos_y);
 		return this.map.get(Map.getBlockIndex(pos_x)).get(Map.getBlockIndex(pos_y));
+	}
+	public ArrayList<Actor> getMap(float pos_x,float pos_y)
+	{
+		return getMap((int) pos_x, (int) pos_y);
 	}
 	/**
 	 * Gets pixel in the position of the map
@@ -252,6 +277,10 @@ public class Map {
 			}
 		}
 		return devolver;
+	}
+	public ArrayList<Actor> getPixelMap(float pos_x,float pos_y)
+	{
+		return getPixelMap((int) pos_x, (int) pos_y);
 	}
 	
 	/**

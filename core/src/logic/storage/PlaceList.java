@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.groundup.game.GameStage;
 
 import graphic.GroupExtension;
+import logic.console.Console;
 import logic.map.Map;
 import place.Place;
 
@@ -40,9 +41,12 @@ public class PlaceList extends GroupExtension{
 	 */
 	public boolean addPlace(Place p) {
 		
+		Console.log("addPlace();");
+		
 		if(placeMap.get(p.getUniqueId()) != null) {
 			// unique Id repeated.
 			
+			Console.log("-> false. Unique ID repeated.");
 			return false;
 			// don't let it add.
 		}
@@ -50,16 +54,17 @@ public class PlaceList extends GroupExtension{
 		boolean success = this.game.map().tryAdd(p, this.game);
 		
 		if(!success) {
+			Console.log("-> false. tryAdd() not success.");
 			return false;
 		}
 
 		// else (= success)
 		this.game.map().addMap(
 				p,
-				p.getBoundTop(),
-				p.getBoundLeft(),
-				(p.getBoundRight() - p.getBoundLeft()),
-				(p.getBoundBottom() - p.getBoundTop())
+				p.getY(),
+				p.getX(),
+				p.getWidth(),
+				p.getHeight()
 			);
 		
 		placeMap.put(p.getUniqueId(), p);
