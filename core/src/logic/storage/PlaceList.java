@@ -72,8 +72,8 @@ public class PlaceList extends Group{
 		return true;
 	}
 	/**
-	 * Missing Description
-	 * @param p
+	 * Removes the Place from the game and the group of actors
+	 * @param p The place I want to remove
 	 */
 	public void removePlace(Place p) {
 
@@ -81,11 +81,12 @@ public class PlaceList extends Group{
 		// placeSet.remove(p);
 		this.game.map().removeMap(
 				p,
-				p.getBoundTop(),
-				p.getBoundLeft(),
-				(p.getBoundRight() - p.getBoundLeft()),
-				(p.getBoundBottom() - p.getBoundTop())
+				(int)p.getX(),
+				(int)p.getY(),
+				(int)p.getWidth(),
+				(int)p.getHeight()
 			);
+		this.removeActor(p);
 	}
 	/**
 	 * Get all the place in the map

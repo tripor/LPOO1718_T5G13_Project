@@ -7,18 +7,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.async.AsyncExecutor;
-import com.badlogic.gdx.utils.async.AsyncTask;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import graphic.Background;
 import graphic.GroundUpGame;
 import graphic.control.Mouse;
 import icon.Icon;
 import icon.type.BuildIcon;
-import icon.type.FactoryIcon;
-import logic.console.Console;
 import logic.map.Map;
 import logic.storage.BackGroundList;
 import logic.storage.ConveyorList;
@@ -171,10 +166,11 @@ public class GameStage extends Stage {
 	    initializeMap();
 	    initializeMaterials();
 	    
-	    //Initialize the game
-	    //initGame();
-
 	}
+	
+	
+	
+	
 	/**
 	 * Initializes all buttons of the game
 	 */

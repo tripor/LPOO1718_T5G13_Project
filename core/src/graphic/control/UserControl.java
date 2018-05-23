@@ -1,12 +1,19 @@
 package graphic.control;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.math.Vector3;
-
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.groundup.game.GameStage;
-import logic.storage.PersonList;
+
+import conveyor.Conveyor;
+import inserter.Inserter;
+import person.Person;
+import place.Place;
 /**
  * Class that handles the user input
  *
@@ -76,6 +83,37 @@ public class UserControl implements InputProcessor  {
 			y=this.game.map().getMapHeight()-(this.game.VIEWPORT_HEIGHT/2);
 		}
 	}
+	/**
+	 * Remove from the map the places/inserters/conveyor in the mouse position
+	 */
+	private void deleteFromMap()
+	{
+		Vector3 mouse_pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+		this.game.getViewport().unproject(mouse_pos);
+		ArrayList<Actor> elements=this.game.map().getPixelMap((int)mouse_pos.x,(int)mouse_pos.y);
+		ArrayList<Actor> remover=new ArrayList<Actor>();
+		for (Actor it : elements) {
+			if (Material.class.isAssignableFrom(it.getClass()) || Person.class.isAssignableFrom(it.getClass())) {
+			} else {
+				remover.add(it);
+			}
+		}
+		for(Actor it:remover)
+		{
+			if(Place.class.isAssignableFrom(it.getClass()))
+			{
+				this.game.places().removePlace((Place) it);
+			}
+			else if(Conveyor.class.isAssignableFrom(it.getClass()))
+			{
+				this.game.conveyors().removeConveyor((Conveyor) it);
+			}
+			else if(Inserter.class.isAssignableFrom(it.getClass()))
+			{
+				this.game.inserters().removeInserter((Inserter) it);
+			}
+		}
+	}
 	@Override
 	public boolean keyDown(int keycode) {
         if(keycode==Input.Keys.ESCAPE)
@@ -102,10 +140,10 @@ public class UserControl implements InputProcessor  {
 	}
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		
-		
-		
-		this.game.getMouse().addObject();
+		if(this.game.getMouse().isSelected && button==0)
+			this.game.getMouse().addObject();
+		if(button==1)
+			this.deleteFromMap();
 		
 		
 		return false;

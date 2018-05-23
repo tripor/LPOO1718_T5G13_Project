@@ -59,7 +59,9 @@ public class Mouse extends ActorExtension {
 		
 		this.isSelected=true;
 	}
-	
+	/**
+	 * Add object to the map on the position of the mouse
+	 */
 	public void addObject()
 	{
 		if(isSelected)
@@ -118,7 +120,9 @@ public class Mouse extends ActorExtension {
 			sprite.draw(batch);
 		}
 	}
-
+	/**
+	 * Rotates the sprite selected on the mouse
+	 */
 	public void rotateMouse()
 	{
 		if(this.isSelected)

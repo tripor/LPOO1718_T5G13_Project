@@ -18,7 +18,11 @@ public class InserterList extends Group{
 		this.game=game;
 
 	}
-	
+	/**
+	 * Adds actor to the group and to the map
+	 * @param i The inserter I want to add
+	 * @return True if it's possible to add, false otherwise
+	 */
 	public boolean addInserter(Inserter i) {
 
 		boolean success = this.game.map().tryAdd(i, this.game);
@@ -32,4 +36,10 @@ public class InserterList extends Group{
 		
 		return true;
 	}
+	public void removeInserter(Inserter i)
+	{
+		this.removeActor(i);
+		this.game.map().removeMap(i,(int) i.getX(),(int) i.getY(), (int) i.getWidth(), (int) i.getHeight());
+	}
+	
 }
