@@ -4,10 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.groundup.game.GameStage;
 
+import graphic.GameStage;
 import icon.Icon;
-import place.type.House;
 
 public class HouseIcon extends Icon {
 	
@@ -29,7 +28,7 @@ public class HouseIcon extends Icon {
 		
 		this.addCaptureListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                game.getMouse().createMouse("nothing.png", House.width, House.height);
+                game.getMouse().createMouse("nothing.png", 30, 30);
             }
         });
 	}

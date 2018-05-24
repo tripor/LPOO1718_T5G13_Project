@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 import graphic.ActorExtension;
-import com.groundup.game.GameStage;
+import graphic.GameStage;
 
 public abstract class Icon extends ActorExtension {
 

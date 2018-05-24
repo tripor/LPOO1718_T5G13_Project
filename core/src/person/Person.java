@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.UUID;
 
 import graphic.ActorExtension;
-import com.groundup.game.GameStage;
-import logic.console.Console;
-import logic.path.byAStar.AStar;
-import logic.path.byAStar.Node;
+import graphic.Console;
+import graphic.GameStage;
+import logic.AStar;
+import logic.Node;
 
 /**
  * Class that the top layer of all the persons in the game
@@ -44,7 +44,7 @@ public abstract class Person extends ActorExtension{
 		return this.unique_id;
 	}
 	
-	public List<Node> getPath(int _target_row, int _target_col, boolean should_replace_global) {
+	/*public List<Node> getPath(int _target_row, int _target_col, boolean should_replace_global) {
 
 		// Console.log(":: CALC_PATH " + current_row+","+current_col+ " - " + _target_row+","+_target_col);
 		
@@ -65,11 +65,11 @@ public abstract class Person extends ActorExtension{
         // Console.log(":: FINISH => Person " + this.getId() + " " + thisPath.size() + " steps.");
         
         return thisPath;
-	}
+	}*/
 	
-	public List<Node> getPath(int _target_row, int _target_col){
+	/*public List<Node> getPath(int _target_row, int _target_col){
 		return getPath(_target_row, _target_col, true);
-	}
+	}*/
 	
 	public void setCurrentRow(int row) {
 		this.current_row = row;
@@ -84,7 +84,7 @@ public abstract class Person extends ActorExtension{
 		this.setPosition(col, row);
 	}
 	
-	public Node popPath() {
+	/*public Node popPath() {
 		
 		// Console.log("Path Size = " + path.size());
 		
@@ -147,7 +147,7 @@ public abstract class Person extends ActorExtension{
 		// Console.log("POP > " + this.toString());
 
 		return latestNode;
-	}
+	}*/
 
 	public String toString() {
 		return "[Person " + unique_id + "]"

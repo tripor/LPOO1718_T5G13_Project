@@ -5,10 +5,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.groundup.game.GameStage;
 
+import graphic.GameStage;
 import icon.Icon;
-import inserter.Inserter;
 
 public class InserterIcon  extends Icon  { 
 	
@@ -40,7 +39,7 @@ public class InserterIcon  extends Icon  {
 		
 		this.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-            		game.getMouse().createMouse("inserter_direction.png", Inserter.width, Inserter.height);
+            		game.getMouse().createMouse("inserter_direction.png", 10, 10);
             }
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
             {

@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.groundup.game.GameStage;
+
+import logic.Entetie;
 
 
 /**
@@ -18,23 +18,25 @@ public abstract class ActorExtension extends Actor implements Comparable<Object>
 	/**
 	 * Sprite for the design of the actor
 	 */
-	protected transient Sprite sprite;
+	protected Sprite sprite;
 	/**
 	 * The game that this actor is in
 	 */
-	protected transient GameStage game;
+	protected GameStage game;
 	/**
 	 * Animation for the actor
 	 */
-	protected transient Animation<Texture> animation;
+	protected Animation<Texture> animation;
 	/**
      * Time used to select the current animation frame.
      */
-    protected transient float stateTime = 0;
+    protected float stateTime = 0;
     /**
      * For the drawing
      */
-    protected transient Integer z=1;
+    protected Integer z=1;
+    
+    protected Entetie instance;
 	/**
 	 * 
 	 * @return Returns the Z value

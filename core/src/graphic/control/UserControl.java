@@ -7,13 +7,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.groundup.game.GameStage;
 
-import conveyor.Conveyor;
-import inserter.Inserter;
+import graphic.GameStage;
+import logic.Entetie;
 import person.Person;
-import place.Place;
 /**
  * Class that handles the user input
  *
@@ -51,7 +48,7 @@ public class UserControl implements InputProcessor  {
             this.checkMapPosition();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-        		this.game.people().popPaths();
+        		//this.game.people().popPaths();
         }
 	}
 	/**
@@ -90,28 +87,17 @@ public class UserControl implements InputProcessor  {
 	{
 		Vector3 mouse_pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
 		this.game.getViewport().unproject(mouse_pos);
-		ArrayList<Actor> elements=this.game.map().getPixelMap((int)mouse_pos.x,(int)mouse_pos.y);
-		ArrayList<Actor> remover=new ArrayList<Actor>();
-		for (Actor it : elements) {
+		ArrayList<Entetie> elements=this.game.map().getMapBlock((int)mouse_pos.x,(int)mouse_pos.y);
+		ArrayList<Entetie> remover=new ArrayList<Entetie>();
+		for (Entetie it : elements) {
 			if (Material.class.isAssignableFrom(it.getClass()) || Person.class.isAssignableFrom(it.getClass())) {
 			} else {
 				remover.add(it);
 			}
 		}
-		for(Actor it:remover)
+		for(Entetie it:remover)
 		{
-			if(Place.class.isAssignableFrom(it.getClass()))
-			{
-				this.game.places().removePlace((Place) it);
-			}
-			else if(Conveyor.class.isAssignableFrom(it.getClass()))
-			{
-				this.game.conveyors().removeConveyor((Conveyor) it);
-			}
-			else if(Inserter.class.isAssignableFrom(it.getClass()))
-			{
-				this.game.inserters().removeInserter((Inserter) it);
-			}
+			this.game.map().removeMap(it);
 		}
 	}
 	@Override
@@ -122,7 +108,7 @@ public class UserControl implements InputProcessor  {
         }
         if(keycode==Input.Keys.Q)
         {
-        	this.game.generatePerson();
+        	//this.game.generatePerson();
         }
         if(keycode==Input.Keys.R)
         {
@@ -130,15 +116,11 @@ public class UserControl implements InputProcessor  {
         }
         if(keycode==Input.Keys.P)
         {
-        	this.game.saveGame("quero");
+        	//this.game.saveGame("quero");
         }
         if(keycode==Input.Keys.O)
         {
-        	this.game.loadGame("quero");
-        }
-        if(keycode==Input.Keys.I)
-        {
-    		this.game.generatePerson();
+        	//this.game.loadGame("quero");
         }
 
 		return false;

@@ -7,15 +7,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
 
 import graphic.ActorExtension;
-import inserter.Inserter;
-
-import com.groundup.game.GameStage;
-
-import conveyor.Conveyor;
-import logic.map.Map;
-import place.type.Factory;
-import place.type.House;
-import place.type.IronMine;
+import graphic.GameStage;
+import graphic.enteties.ConveyorG;
+import graphic.enteties.FactoryG;
+import graphic.enteties.InserterG;
+import graphic.enteties.MineG;
+import logic.Map;
 /**
  * Class that handles related mouse evets
  *
@@ -75,36 +72,36 @@ public class Mouse extends ActorExtension {
 				adicao_x = (10 - (this.width % 10)) / 2;
 			if(this.height % 10!=0)
 				adicao_y = (10 - (this.height % 10)) / 2;
-			int x = Map.getBlockIndex(mouse_pos.x) * 10 + adicao_x;
-			int y = Map.getBlockIndex(mouse_pos.y) * 10 + adicao_y;
+			int x = (int) (mouse_pos.x/Map.division) * 10 + adicao_x;
+			int y = (int) (mouse_pos.y/Map.division) * 10 + adicao_y;
 			if(this.type.equals("factory.png"))
 			{
-				Factory fab= new Factory(this.game,x,y,this.width,this.height,this.doorPosition,10);
+				FactoryG fab= new FactoryG(this.game,x,y,this.doorPosition);
 				if(this.game.places().addPlace(fab))
 					this.isSelected=false;
 			}
 			if(this.type.equals("iron_mine.png"))
 			{
-				IronMine im= new IronMine(this.game,x,y,this.width,this.height,this.doorPosition,5);
+				MineG im= new MineG(this.game,x,y,this.doorPosition);
 				if(this.game.places().addPlace(im))
 					this.isSelected=false;
 			}
 			if(this.type.equals("conveyor1.png"))
 			{
-				Conveyor c= new Conveyor(this.game,x,y,this.width,this.height,this.doorPosition);
+				ConveyorG c= new ConveyorG(this.game,x,y,this.doorPosition);
 				this.game.conveyors().addConveyor(c);
 			}
 			if(this.type.equals("inserter_direction.png"))
 			{
-				Inserter i= new Inserter(this.game,x,y,this.width,this.height,this.doorPosition);
+				InserterG i= new InserterG(this.game,x,y,this.doorPosition);
 				this.game.inserters().addInserter(i);
 			}
-			if(this.type.equals("nothing.png"))
+			/*if(this.type.equals("nothing.png"))
 			{
 				House h= new House(this.game,x,y,this.width,this.height,this.doorPosition,10);
 				if(this.game.places().addPlace(h))
 					this.isSelected=false;
-			}
+			}*/
 			
 			
 		}
@@ -121,8 +118,8 @@ public class Mouse extends ActorExtension {
 				adicao_x = (10 - (this.width % 10)) / 2;
 			if(this.height % 10!=0)
 				adicao_y = (10 - (this.height % 10)) / 2;
-			int x = Map.getBlockIndex(mouse_pos.x) * 10 + adicao_x;
-			int y = Map.getBlockIndex(mouse_pos.y) * 10 + adicao_y;
+			int x = (int) (mouse_pos.x/Map.division) * 10 + adicao_x;
+			int y = (int) (mouse_pos.y/Map.division) * 10 + adicao_y;
 			this.setPosition(x, y);
 			sprite.draw(batch);
 		}

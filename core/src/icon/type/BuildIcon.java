@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import com.groundup.game.GameStage;
+import graphic.GameStage;
 import icon.Icon;
 /**
  * Class Build Icon

@@ -5,9 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.groundup.game.GameStage;
 
-import conveyor.Conveyor;
+import graphic.GameStage;
 import icon.Icon;
 
 public class ConveyorIcon extends Icon {
@@ -49,10 +48,10 @@ public class ConveyorIcon extends Icon {
                 		game.getMouse().isSelected=false;
             		}
             		else
-            			game.getMouse().createMouse("conveyor1.png", Conveyor.width, Conveyor.height);
+            			game.getMouse().createMouse("conveyor1.png",10,10);
             	}
             	else
-            		game.getMouse().createMouse("conveyor1.png", Conveyor.width, Conveyor.height);
+            		game.getMouse().createMouse("conveyor1.png",10,10);
             }
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
             {

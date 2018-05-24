@@ -2,9 +2,9 @@ package person.type;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.groundup.game.GroundUpGame;
 
-import com.groundup.game.GameStage;
-import graphic.GroundUpGame;
+import graphic.GameStage;
 import person.Person;
 
 public class Worker extends Person {
