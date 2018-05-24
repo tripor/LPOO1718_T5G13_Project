@@ -46,14 +46,13 @@ public abstract class Person extends ActorExtension{
 	
 	public List<Node> getPath(int _target_row, int _target_col, boolean should_replace_global) {
 
-		// Console.log(":: CALC_PATH " + current_row+","+current_col
-		//				+ " - " + _target_row+","+_target_col);
+		// Console.log(":: CALC_PATH " + current_row+","+current_col+ " - " + _target_row+","+_target_col);
 		
 		Node initialNode = new Node(current_row, current_col);
         Node finalNode = new Node(_target_row, _target_col);
         
         AStar aStar = new AStar(this.game, initialNode, finalNode);
-        aStar.setBlocks(this.game.places().getPlaceList());
+        // aStar.setBlocks(this.game.places().getPlaceList());
         
         List<Node> thisPath = aStar.findPath();
         
@@ -86,6 +85,8 @@ public abstract class Person extends ActorExtension{
 	}
 	
 	public Node popPath() {
+		
+		// Console.log("Path Size = " + path.size());
 		
 		if(path.size() < 1) {
 			// Console.log(this.getId() + " path-end");

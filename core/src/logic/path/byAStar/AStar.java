@@ -7,8 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.groundup.game.GameStage;
 
+import conveyor.Conveyor;
+import inserter.Inserter;
 import logic.console.Console;
 import place.Place;
 
@@ -48,16 +51,20 @@ public class AStar {
     	             end_findpath_at;
     // for console log: time marker.
     
+    private GameStage game;
+    
     
     /**
      * Constructor
      */
     public AStar(GameStage game, Node initialNode, Node finalNode) {
+    	
+    		this.game = game;
 
 		// for console log: time marker.
     		this.start_at = System.currentTimeMillis();
     		
-    		System.out.print(";");
+    		System.out.print("A*(); ");
     	
     		this.hvCost = DEFAULT_HV_COST;
     		this.diagonalCost = DEFAULT_DIAGONAL_COST;
@@ -184,8 +191,18 @@ public class AStar {
         
         this.searchArea = new Node[searchAreaRowsCount + 1][searchAreaColsCount + 1];
 
+        int i, j;
+        for(i = 0; i <= searchAreaRowsCount; i++) {
+        		for(j = 0; j <= searchAreaColsCount; j++) {
+        			
+        			this.searchArea[i][j] = new Node(i, j);
+        		}
+        }
+
 		// for console log: time marker.
 		this.end_init_at = System.currentTimeMillis();
+		
+		this.setBlocks();
     }
     
     /**
@@ -197,7 +214,52 @@ public class AStar {
      * @remarks
      * grid = pixel, when ratio is 1.
      */
-    public void setBlocks(HashMap<String, Place> places) {
+    private void setBlock(Actor p) {
+    	
+    		// Note: getY returns top-bound; getTop returns bottom-bound;
+		
+		int blockTop = convertPixelToGrid_row((int) p.getY()),
+		    blockLeft = convertPixelToGrid_col((int) p.getX()),
+		    blockRight = convertPixelToGrid_col((int) p.getRight()),
+		    blockBottom = convertPixelToGrid_row((int) p.getTop());
+
+		// If there is a street at North
+		if(p.getY() % this.mapRatio > 0) {
+			blockTop++;
+		}
+		
+		// South
+		if((p.getTop() + 1) % this.mapRatio > 0) {
+			blockBottom--;
+		}
+		
+		// left (West)
+		if(p.getX() % this.mapRatio > 0) {
+			blockLeft++;
+		}
+		
+		// right (East)
+		if((p.getRight() + 1) % this.mapRatio > 0) {
+			blockRight--;
+		}
+		
+		if(blockTop > blockBottom) {
+			// factory didn't occupy the full height of a grid.
+		}
+		else if(blockLeft > blockRight) {
+			// factory didn't occupy the full width of a grid.
+		}
+		else {
+			Console.log("setBlock(T=" + blockTop
+					+ " R=" + blockRight
+					+ " B=" + blockBottom
+					+ " L=" + blockLeft + ");");
+			setBlock(blockTop, blockRight, blockBottom, blockLeft);
+		}
+    }
+    
+    
+    private void setBlocks() {
     	
     		if(this.skip_calc == true) {
     			return;
@@ -206,46 +268,18 @@ public class AStar {
     		// for console log: time marker.
     		this.setblock_at = System.currentTimeMillis();
     		
-    		Place p;
+    		ArrayList<Place>    Ps = this.game.places().getLista();
+    		ArrayList<Conveyor> Cs = this.game.conveyors().getLista();
+    		ArrayList<Inserter> Is = this.game.inserters().getLista();
 
-    		for(Map.Entry<String, Place> entry : places.entrySet()) {
-    			
-    			p = entry.getValue();
-    			
-    			int blockTop = convertPixelToGrid_row(p.getBoundTop()),
-    			    blockLeft = convertPixelToGrid_col(p.getBoundLeft()),
-    			    blockRight = convertPixelToGrid_col(p.getBoundRight()),
-    			    blockBottom = convertPixelToGrid_row(p.getBoundBottom());
-    			
-    			// If there is a street at North
-    			if(p.getBoundTop() % this.mapRatio > 0) {
-    				blockTop++;
-    			}
-    			
-    			// South
-    			if((p.getBoundBottom() + 1) % this.mapRatio > 0) {
-    				blockBottom--;
-    			}
-    			
-    			// left (West)
-    			if(p.getBoundLeft() % this.mapRatio > 0) {
-    				blockLeft++;
-    			}
-    			
-    			// right (East)
-    			if((p.getBoundRight() + 1) % this.mapRatio > 0) {
-    				blockRight--;
-    			}
-    			
-    			if(blockTop > blockBottom) {
-    				// factory didn't occupy the full height of a grid.
-    			}
-    			else if(blockLeft > blockRight) {
-    				// factory didn't occupy the full width of a grid.
-    			}
-    			else {
-        			setBlock(blockTop, blockRight, blockBottom, blockLeft);
-    			}
+    		for(Actor p : Ps) {
+    			setBlock(p);
+		}
+    		for(Actor c : Cs) {
+    			setBlock(c);
+		}
+    		for(Actor i : Is) {
+    			setBlock(i);
 		}
 
     		// for console log: time marker.
@@ -434,6 +468,8 @@ public class AStar {
     			// the factory has no relation to the person's path (i.e., too far from him)
     		}
     		else {
+        		Console.log("setBlock(); - R=" + row + " C=" + col + " VS Rs=" + this.getSearchAreaRowsCount() + " Cs=" + this.getSearchAreaColsCount());
+        		
         		if(!this.searchArea[row][col].isBlock()) {
                 	this.searchArea[row][col].setBlock(true);
         		}	
