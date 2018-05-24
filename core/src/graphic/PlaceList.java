@@ -1,12 +1,6 @@
 package graphic;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
-import java.util.Random;
-
-import com.badlogic.gdx.scenes.scene2d.Actor;
 
 
 
