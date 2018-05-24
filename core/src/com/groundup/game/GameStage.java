@@ -164,6 +164,17 @@ public class GameStage extends Stage {
 	    game.getAssetManager().load("grass01.png", Texture.class);
 	    game.getAssetManager().load("nothing.png", Texture.class);
 	    game.getAssetManager().load("conveyor1.png", Texture.class);
+	    game.getAssetManager().load("conveyor2.png", Texture.class);
+	    game.getAssetManager().load("conveyor3.png", Texture.class);
+	    game.getAssetManager().load("conveyor4.png", Texture.class);
+	    game.getAssetManager().load("conveyor5.png", Texture.class);
+	    game.getAssetManager().load("conveyor6.png", Texture.class);
+	    game.getAssetManager().load("conveyor7.png", Texture.class);
+	    game.getAssetManager().load("conveyor8.png", Texture.class);
+	    game.getAssetManager().load("conveyor9.png", Texture.class);
+	    game.getAssetManager().load("conveyor10.png", Texture.class);
+	    game.getAssetManager().load("conveyor11.png", Texture.class);
+	    game.getAssetManager().load("conveyor12.png", Texture.class);
 	    game.getAssetManager().load("iron_plate.png", Texture.class);
 	    game.getAssetManager().load("iron_mine.png", Texture.class);
 	    game.getAssetManager().load("inserter_base.png", Texture.class);

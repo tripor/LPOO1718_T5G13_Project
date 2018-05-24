@@ -5,6 +5,7 @@ import graphic.ActorExtension;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.groundup.game.GameStage;
@@ -21,9 +22,24 @@ public class Conveyor extends ActorExtension{
 	
 	private void createConveyor() {
 		
-		Texture texture = this.game.getGame().getAssetManager().get("conveyor1.png");
+		Texture[] frames=new Texture[12];
 		
-		sprite = new Sprite(texture);
+		frames[0] = this.game.getGame().getAssetManager().get("conveyor1.png");
+		frames[1] = this.game.getGame().getAssetManager().get("conveyor2.png");
+		frames[2] = this.game.getGame().getAssetManager().get("conveyor3.png");
+		frames[3] = this.game.getGame().getAssetManager().get("conveyor4.png");
+		frames[4] = this.game.getGame().getAssetManager().get("conveyor5.png");
+		frames[5] = this.game.getGame().getAssetManager().get("conveyor6.png");
+		frames[6] = this.game.getGame().getAssetManager().get("conveyor7.png");
+		frames[7] = this.game.getGame().getAssetManager().get("conveyor8.png");
+		frames[8] = this.game.getGame().getAssetManager().get("conveyor9.png");
+		frames[9] = this.game.getGame().getAssetManager().get("conveyor10.png");
+		frames[10] = this.game.getGame().getAssetManager().get("conveyor11.png");
+		frames[11] = this.game.getGame().getAssetManager().get("conveyor12.png");
+		
+		this.animation= new Animation<Texture>(.05f,frames);
+		
+		sprite = new Sprite(animation.getKeyFrame(0));
 		sprite.setSize(this.getWidth(), this.getHeight());
 		sprite.setOrigin(width/2, height/2);
 		if(this.direction!=4)
@@ -91,6 +107,7 @@ public class Conveyor extends ActorExtension{
 	@Override
 	public void update(float delta) {
 		this.moveMaterials();
+        sprite.setRegion(animation.getKeyFrame(this.game.game.getGameScreen().conveyorStateTime, true));
 		
 	}
 	

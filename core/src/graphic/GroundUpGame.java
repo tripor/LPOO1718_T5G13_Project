@@ -15,13 +15,13 @@ public class GroundUpGame extends Game {
 	/**
 	 * The screen of the game
 	 */
-	private GroundUpScreen screen;
+	private GroundUpScreen GameScreen;
 
 	@Override
 	public void create() {
 		this.assetManager = new AssetManager();
-		screen=new GroundUpScreen(this);
-		this.setScreen(screen);
+		GameScreen=new GroundUpScreen(this);
+		this.setScreen(GameScreen);
 	}
 
 	/**
@@ -39,5 +39,14 @@ public class GroundUpGame extends Game {
 	public void setAssetManager(AssetManager assetManager) {
 		this.assetManager = assetManager;
 	}
+	/**
+	 * 
+	 * @return Returns the game screen
+	 */
+	public GroundUpScreen getGameScreen() {
+		return GameScreen;
+	}
+	
+	
 
 }
