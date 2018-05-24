@@ -51,7 +51,7 @@ public class UserControl implements InputProcessor  {
             this.checkMapPosition();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-        	this.game.people().popPaths();
+        		this.game.people().popPaths();
         }
 	}
 	/**

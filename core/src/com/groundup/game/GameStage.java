@@ -380,74 +380,74 @@ public class GameStage extends Stage {
 	/**
 	 * Initializes the games creating all the places and people
 	 */
-    private void initGame() {
-
-			int i = 0;
-			while (i < 1500) {
-				generateFactory();	 // generateFactory will return i++.
-				i++;
-			}
-			
-			for (i=0; i<5000; i++) {
-				generatePerson();
-			}
-
-			//	asyncExecutor.submit(new AsyncTask<Void>() {
-			//        public Void call() {
-			//        		int	i = 0;
-			//        		
-			//        		for(i = 0; i < 1500; i++) {
-			//        			generateFactory();
-			//        		}
-			//        		for(i = 0; i < 1000; i++) {
-			//        			generatePerson(i);
-			//        		}
-			//            return null;
-			//        } 
-			//    });
-    }
+//    private void initGame() {
+//
+//			int i = 0;
+//			while (i < 1500) {
+//				generateFactory();	 // generateFactory will return i++.
+//				i++;
+//			}
+//			
+//			for (i=0; i<5000; i++) {
+//				generatePerson();
+//			}
+//
+//			//	asyncExecutor.submit(new AsyncTask<Void>() {
+//			//        public Void call() {
+//			//        		int	i = 0;
+//			//        		
+//			//        		for(i = 0; i < 1500; i++) {
+//			//        			generateFactory();
+//			//        		}
+//			//        		for(i = 0; i < 1000; i++) {
+//			//        			generatePerson(i);
+//			//        		}
+//			//            return null;
+//			//        } 
+//			//    });
+//    }
     
 	private int Random(int min, int max) {
 		return (new Random()).nextInt(max) + min;
 	}
 
-	private void generateFactory() {
-		
-		//	Factory p = null;
-		//
-		//	int min_size = map.getbuildingMinSize();
-		//	int max_size = map.getbuildingMaxSize();
-		//
-		//	// TODO: Move camera instead of moving buildings to negative quadrant.
-		//	int row = (map.randRow() - this.map.getMapWidth()  / 2),
-		//	    col = (map.randCol() - this.map.getMapHeight() / 2),
-		//	    
-		//	    w = Random(min_size, max_size),
-		//	    h = Random(min_size, max_size),
-		//	    side = Random(1,4),	// 1=Top, 2=Right, 3=Bottom, 4=Left
-		//	    door_px = 0;
-		//	
-		//	if(side == 1 || side == 3) {
-		//		door_px = Random(0, w);
-		//	}
-		//	else {
-		//		door_px = Random(0, h);
-		//	}
-		
-		// if(row+h < map.getMapHeight() && col+w < map.getMapWidth()) {
-			
-			Factory p = new Factory(this, this.Random(1, 1000), this.Random(1, 1000), this.Random(5, 30), this.Random(5, 30), Random(1,4), 2);
-			boolean success = this.place_list.addPlace(p);
-			
-			if(success) {
-				// this.addLabel(p.getUniqueId(), col, row);
-
-				// Console.log(p.toString());
-				// return p;
-			}
-		// }
-		//return null;
-	}
+//	private void generateFactory() {
+//		
+//		//	Factory p = null;
+//		//
+//		//	int min_size = map.getbuildingMinSize();
+//		//	int max_size = map.getbuildingMaxSize();
+//		//
+//		//	// TODO: Move camera instead of moving buildings to negative quadrant.
+//		//	int row = (map.randRow() - this.map.getMapWidth()  / 2),
+//		//	    col = (map.randCol() - this.map.getMapHeight() / 2),
+//		//	    
+//		//	    w = Random(min_size, max_size),
+//		//	    h = Random(min_size, max_size),
+//		//	    side = Random(1,4),	// 1=Top, 2=Right, 3=Bottom, 4=Left
+//		//	    door_px = 0;
+//		//	
+//		//	if(side == 1 || side == 3) {
+//		//		door_px = Random(0, w);
+//		//	}
+//		//	else {
+//		//		door_px = Random(0, h);
+//		//	}
+//		
+//		// if(row+h < map.getMapHeight() && col+w < map.getMapWidth()) {
+//			
+//			Factory p = new Factory(this, this.Random(1, 1000), this.Random(1, 1000), this.Random(5, 30), this.Random(5, 30), Random(1,4), 2);
+//			boolean success = this.place_list.addPlace(p);
+//			
+//			if(success) {
+//				// this.addLabel(p.getUniqueId(), col, row);
+//
+//				// Console.log(p.toString());
+//				// return p;
+//			}
+//		// }
+//		//return null;
+//	}
 	
 	
 
@@ -490,7 +490,7 @@ public class GameStage extends Stage {
 			//	Console.log(p.getId());
 			
 			// List<Node> path = 
-			p.getPath(t_row, t_col);
+			p.getPath(t_col, t_row);
 		}
 	}
 	

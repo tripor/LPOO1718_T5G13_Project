@@ -205,7 +205,7 @@ public class Map {
 		for (int i = x; i < x + quantity_x ; i ++) {
 			for (int j = y; j < y + quantity_y; j ++) {
 				
-				Console.log(" -> appending to " + i + "," + j);
+				// Console.log(" -> appending to " + i + "," + j);
 				
 				this.map.get(i).get(j).add(obj);
 			}
@@ -256,7 +256,7 @@ public class Map {
 	 */
 	public ArrayList<Actor> getMap(int pos_x,int pos_y)
 	{
-		System.out.print(" -> get " + pos_x + "," + pos_y);
+		// System.out.print(" -> get " + pos_x + "," + pos_y);
 		return this.map.get(Map.getBlockIndex(pos_x)).get(Map.getBlockIndex(pos_y));
 	}
 	public ArrayList<Actor> getMap(float pos_x,float pos_y)

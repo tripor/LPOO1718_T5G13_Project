@@ -3,9 +3,11 @@ package logic.storage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.groundup.game.GameStage;
 
 import graphic.GroupExtension;
+import logic.console.Console;
 import person.Person;
 /**
  * Class that saves and handles all the persons in the game
@@ -65,9 +67,25 @@ public class PersonList extends GroupExtension{
 	
 	public boolean movePersonTo(int t_row, int t_col, Person p) {
 		
-		boolean target_point_occupied = this.game
-										.map().getPixelMap(t_col,t_row)
-										.size() > 0;
+		ArrayList<Actor> list = this.game.map().getPixelMap(t_col,t_row);
+		int list_size = list.size();
+		
+		for(Actor a : list) {
+			if(Person.class.isAssignableFrom(a.getClass())) {
+				if(((Person) a).getId().equals(p.getId())) {
+					// if the block is himself, don't consider it as a block.
+					list_size--;
+				}
+			}
+		}
+		
+		boolean target_point_occupied = (list_size > 0);
+										
+		Console.log("To: " + t_row + "," + t_col);
+		
+		for(Actor a : this.game.map().getPixelMap(t_col,t_row)) {
+			Console.log(a.getClass().toString());
+		}
 		
 		if(!target_point_occupied) {
 			
