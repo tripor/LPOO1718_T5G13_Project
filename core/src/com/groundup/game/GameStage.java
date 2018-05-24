@@ -197,6 +197,10 @@ public class GameStage extends Stage {
 	    
 	}
 	
+	public GameStage() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void reCreate()
 	{
 	    this.map= new Map(this);
