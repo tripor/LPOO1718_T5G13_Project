@@ -43,8 +43,13 @@ public class ConveyorIcon extends Icon {
             public void clicked(InputEvent event, float x, float y) {
             	if(selected)
             	{
-            		selected=false;
-            		game.getMouse().isSelected=false;
+            		if(game.getMouse().getType().equals("conveyor1.png"))
+            		{
+                		selected=false;
+                		game.getMouse().isSelected=false;
+            		}
+            		else
+            			game.getMouse().createMouse("conveyor1.png", Conveyor.width, Conveyor.height);
             	}
             	else
             		game.getMouse().createMouse("conveyor1.png", Conveyor.width, Conveyor.height);

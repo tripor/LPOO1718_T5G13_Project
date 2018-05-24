@@ -73,6 +73,14 @@ public class PlaceIcon extends Icon {
 		this.icon_build.add(button2);
 		pos_x+=width_of_icons+1;
 		//pos_y-=height_of_icons+1;
+		
+		HouseIcon button3= new HouseIcon(this.game,pos_x,pos_y,width_of_icons,height_of_icons);
+		button3.setVisible(false);
+		button3.setZ(10);
+		this.game.icons().addIcon(button3);
+		this.icon_build.add(button3);
+		pos_x+=width_of_icons+1;
+		//pos_y-=height_of_icons+1;
 	}
 	
 	private void newSprite(int number)

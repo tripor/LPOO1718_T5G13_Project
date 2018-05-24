@@ -112,8 +112,8 @@ public class Map {
 		
 		int col, row;
 		
-		for(col = left; col <= right; col++) {
-			for(row = top; row <= bottom; row++) {
+		for(col = left; col < right; col++) {
+			for(row = top; row < bottom; row++) {
 
 				// get map blocks.
 				ArrayList<Actor> element_list = game.map().getMap(col * Map.division, row * Map.division);

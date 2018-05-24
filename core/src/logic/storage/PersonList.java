@@ -41,15 +41,15 @@ public class PersonList extends GroupExtension{
 			// don't let it add.
 		}
 		
-		if(this.game.map().getPixelMap(p.getRow(), p.getCol()).size() > 0) {
+		if(this.game.map().getPixelMap(p.getCol(), p.getRow()).size() > 0) {
 			// [the position where the person is going to stand] is already occupied.
 			return false;
 		}
 
 		this.game.map().addMap(
 				p,
-				p.getRow(),
 				p.getCol(),
+				p.getRow(),
 				((int) p.getWidth()),
 				((int) p.getHeight())
 			);
@@ -66,14 +66,14 @@ public class PersonList extends GroupExtension{
 	public boolean movePersonTo(int t_row, int t_col, Person p) {
 		
 		boolean target_point_occupied = this.game
-										.map().getPixelMap(t_row,t_col)
+										.map().getPixelMap(t_col,t_row)
 										.size() > 0;
 		
 		if(!target_point_occupied) {
 			
 			this.game.map().removeMap(
 					p,
-					p.getRow(), p.getCol(),
+					p.getCol(), p.getRow(),
 					(int) p.getWidth(), (int) p.getHeight()
 				);
 			
@@ -81,7 +81,7 @@ public class PersonList extends GroupExtension{
 			
 			this.game.map().addMap(
 					p,
-					t_row, t_col,
+					t_col, t_row,
 					(int) p.getWidth(), (int) p.getHeight()
 				);
 
@@ -99,6 +99,10 @@ public class PersonList extends GroupExtension{
 		    //    } 
 		    // });
 		// }
+		
+		for(Person p : lista) {
+			p.popPath();
+		}
 	}
 	/**
 	 * 

@@ -14,6 +14,7 @@ import com.groundup.game.GameStage;
 import conveyor.Conveyor;
 import logic.map.Map;
 import place.type.Factory;
+import place.type.House;
 import place.type.IronMine;
 /**
  * Class that handles related mouse evets
@@ -98,6 +99,12 @@ public class Mouse extends ActorExtension {
 				Inserter i= new Inserter(this.game,x,y,this.width,this.height,this.doorPosition);
 				this.game.inserters().addInserter(i);
 			}
+			if(this.type.equals("nothing.png"))
+			{
+				House h= new House(this.game,x,y,this.width,this.height,this.doorPosition,10);
+				if(this.game.places().addPlace(h))
+					this.isSelected=false;
+			}
 			
 			
 		}
@@ -138,5 +145,14 @@ public class Mouse extends ActorExtension {
 		// TODO Auto-generated method stub
 		
 	}
+	/**
+	 * 
+	 * @return Returns the type of object selected by mouse 
+	 */
+	public String getType() {
+		return type;
+	}
+	
+	
 
 }

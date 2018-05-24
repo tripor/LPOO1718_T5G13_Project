@@ -122,7 +122,7 @@ public class UserControl implements InputProcessor  {
         }
         if(keycode==Input.Keys.Q)
         {
-        	this.game.generatePerson(1);
+        	this.game.generatePerson();
         }
         if(keycode==Input.Keys.R)
         {
@@ -136,6 +136,11 @@ public class UserControl implements InputProcessor  {
         {
         	this.game.loadGame("quero");
         }
+        if(keycode==Input.Keys.I)
+        {
+    		this.game.generatePerson();
+        }
+
 		return false;
 	}
 	@Override

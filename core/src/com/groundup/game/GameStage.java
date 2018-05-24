@@ -21,6 +21,7 @@ import graphic.GroundUpGame;
 import graphic.control.Mouse;
 import icon.Icon;
 import icon.type.BuildIcon;
+import logic.console.Console;
 import logic.map.Map;
 import logic.storage.BackGroundList;
 import logic.storage.ConveyorList;
@@ -388,7 +389,7 @@ public class GameStage extends Stage {
 			}
 			
 			for (i=0; i<5000; i++) {
-				generatePerson(i);
+				generatePerson();
 			}
 
 			//	asyncExecutor.submit(new AsyncTask<Void>() {
@@ -470,17 +471,19 @@ public class GameStage extends Stage {
 	//    this.addActor(scoreLabel);
 	//}
 	
-	public void generatePerson(int i) {
+	public void generatePerson() {
 		
-		Place s = this.places().getRandomPlace(),
-		      t = this.places().getRandomPlace();
+		Place s = this.places().getNthBuilding(0),
+		      t = this.places().getNthBuilding(1);
 		
 		int s_row = s.getDoorRow(),
 		    s_col = s.getDoorCol(),
 		    t_row = t.getDoorRow(),
 		    t_col = t.getDoorCol();
 		
-		Worker p = new Worker(this, s_row, s_col);
+		Console.log(":::::::"+s_row + " " + s_col + " " +t_row+" " +t_col);
+		
+		Worker p = new Worker(this, s_col, s_row);
 		
 		if(this.person_list.addPerson(p)) {
 			// Console.log(p.toString());
