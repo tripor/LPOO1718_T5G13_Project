@@ -61,8 +61,8 @@ public class PlaceList extends GroupExtension{
 		// else (= success)
 		this.game.map().addMap(
 				p,
-				p.getY(),
 				p.getX(),
+				p.getY(),
 				p.getWidth(),
 				p.getHeight()
 			);
@@ -78,6 +78,8 @@ public class PlaceList extends GroupExtension{
 	 * @param p The place I want to remove
 	 */
 	public void removePlace(Place p) {
+		
+		Console.log(p.getX() + "," + p.getY());
 
 		placeMap.remove(p.getUniqueId());
 		// placeSet.remove(p);
@@ -170,11 +172,8 @@ public class PlaceList extends GroupExtension{
 	 * @return
 	 */
 	public Place checkIfPointInBuilding(int row, int col) {
-
-		int top = Map.getBlockIndex(row),
-			left = Map.getBlockIndex(col);
 		
-		ArrayList<Actor> map = this.game.map().getMap(top, left);
+		ArrayList<Actor> map = this.game.map().getMap(row, col);
 		
 		for(Object el : map) {
 			

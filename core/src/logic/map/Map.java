@@ -80,9 +80,10 @@ public class Map {
 
 		boolean colOverlap = obj.getX() <= castedEl.getRight()
 						&& obj.getRight() >= castedEl.getX();
-		
-		boolean rowOverlap = obj.getTop() <= castedEl.getY()
-						&& obj.getY() >= castedEl.getTop();
+
+					// getY=top; getTop=bottom.
+		boolean rowOverlap = obj.getY() <= castedEl.getTop()
+						&& obj.getTop() >= castedEl.getY();
 
 		return (colOverlap && rowOverlap);
 	}
@@ -115,7 +116,7 @@ public class Map {
 			for(row = top; row <= bottom; row++) {
 
 				// get map blocks.
-				ArrayList<Actor> element_list = game.map().getMap(row, col);
+				ArrayList<Actor> element_list = game.map().getMap(col * Map.division, row * Map.division);
 				
 				System.out.print(" :: R" + row + " C" + col + " ListSize=" + element_list.size());
 
@@ -126,7 +127,9 @@ public class Map {
 						// check place.
 
 						// if found, return false (= addPlace not successful)
-						if(((Place) el).overlapWith(obj.getTop(), obj.getRight(), obj.getY(), obj.getX())) {
+						
+						// getY=top; getTop=bottom.
+						if(((Place) el).overlapWith(obj.getY(), obj.getRight(), obj.getTop(), obj.getX())) {
 							return false;
 						}
 					}
