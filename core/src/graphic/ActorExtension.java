@@ -98,8 +98,8 @@ public abstract class ActorExtension extends Actor implements Comparable<Object>
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		sprite.draw(batch);
 		this.update(Gdx.graphics.getDeltaTime());
+		sprite.draw(batch);
 	}
 	/**
 	 * Call this every frame 

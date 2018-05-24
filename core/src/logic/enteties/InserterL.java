@@ -188,7 +188,7 @@ public class InserterL extends Entetie{
 			}
 			if(this.rotationDirection)
 			{
-				this.pickup.setPosition((int) ((this.posX+this.width/2)-(this.width_hand * Math.cos(rotating_quantity*Math.PI/180))),(int) ((this.posY+this.height/2)-(this.width_hand * Math.sin(rotating_quantity*Math.PI/180))));
+				this.pickup.setPosition((int) (this.posX-(this.width_hand * Math.cos(rotating_quantity*Math.PI/180))),(int) (this.posY-(this.width_hand * Math.sin(rotating_quantity*Math.PI/180))));
 				retornar-=this.rotating_velocity;
 				this.rotating_quantity-=this.rotating_velocity;
 				if(this.rotating_quantity<=-(180+error))
@@ -196,7 +196,8 @@ public class InserterL extends Entetie{
 					this.rotationDirection=false;
 					retornar-=this.rotating_quantity+180+error;
 					this.rotating_quantity=-(180+error);
-					this.pickup.setPosition((int) ((this.posX+this.width/2)-(this.width_hand * Math.cos(rotating_quantity*Math.PI/180))),(int) ((this.posY+this.height/2)-(this.width_hand * Math.sin(rotating_quantity*Math.PI/180))));
+					this.pickup.setPosition((int) (this.posX-(this.width_hand * Math.cos(rotating_quantity*Math.PI/180))),(int) (this.posY-(this.width_hand * Math.sin(rotating_quantity*Math.PI/180))));
+					System.out.println(this.pickup.getPosX()+ " "+this.pickup.getPosY());
 					this.deliverMaterial(map);
 				}
 			}
