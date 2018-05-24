@@ -173,15 +173,12 @@ public class PlaceList extends GroupExtension{
 	 */
 	public Place checkIfPointInBuilding(int row, int col) {
 		
-		ArrayList<Actor> map = this.game.map().getMap(row, col);
+		ArrayList<Actor> map = this.game.map().getPixelMap(col, row);
 		
 		for(Object el : map) {
 			
 			if(Place.class.isAssignableFrom(el.getClass())) {
-				
-				if(((Place) el).including(row, col)) {
-					return ((Place) el);
-				}
+				return ((Place) el);
 			}
 		}
 		return null;

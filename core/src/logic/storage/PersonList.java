@@ -87,7 +87,7 @@ public class PersonList extends GroupExtension{
 			Console.log(a.getClass().toString());
 		}
 		
-		if(!target_point_occupied) {
+		// if(!target_point_occupied) {
 			
 			this.game.map().removeMap(
 					p,
@@ -104,8 +104,8 @@ public class PersonList extends GroupExtension{
 				);
 
 			return true;
-		}
-		return false;
+		// }
+		// return false;
 	}
 	
 	public void popPaths() {

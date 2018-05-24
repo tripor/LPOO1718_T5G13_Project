@@ -30,7 +30,7 @@ public class AStar {
     private static int DEFAULT_HV_COST = 10;	    // Move Horizontally / Vertically
     private static int DEFAULT_DIAGONAL_COST = 14;	// Move Diagonally
     
-    private static int GAP = 5;
+    private static int GAP = 20;
     // leave some grids around the origin and destination
     
     private static int MAX_BLOCKS = 30;
@@ -80,16 +80,16 @@ public class AStar {
 	    		if(start_building != null) {
 	    			
 	    			// Console.log("Start in Building, DOOR(" + start_building.getDoorRow() + "," + start_building.getDoorCol() + ")");
-		    		initialNode.setRow(start_building.getDoorRow());
-		    		initialNode.setCol(start_building.getDoorCol());
+				// initialNode.setRow(start_building.getDoorCol());
+				// initialNode.setCol(start_building.getDoorRow());
 	    			
 	    			start_jump = true;
 	    		}
 	    		if(end_building != null) {
 	
 	    			// Console.log("End in Building, DOOR(" + end_building.getDoorRow() + "," + end_building.getDoorCol() + ")");
-	    			finalNode.setRow(end_building.getDoorRow());
-	    			finalNode.setCol(end_building.getDoorCol());
+	    			// finalNode.setRow(end_building.getDoorCol());
+	    			// finalNode.setCol(end_building.getDoorRow());
 	    			
 	    			// end_jump = true;
 	    		}
@@ -218,10 +218,12 @@ public class AStar {
     	
     		// Note: getY returns top-bound; getTop returns bottom-bound;
 		
-		int blockTop = convertPixelToGrid_row((int) p.getY()),
-		    blockLeft = convertPixelToGrid_col((int) p.getX()),
-		    blockRight = convertPixelToGrid_col((int) p.getRight()),
-		    blockBottom = convertPixelToGrid_row((int) p.getTop());
+    		// Note: Since logical mistake, top-bottom becomes left-right and vice-versa.
+    	
+		int blockLeft = convertPixelToGrid_row((int) p.getY()),
+		    blockTop = convertPixelToGrid_col((int) p.getX()),
+		    blockBottom = convertPixelToGrid_col((int) p.getRight()),
+		    blockRight = convertPixelToGrid_row((int) p.getTop());
 
 		// If there is a street at North
 		if(p.getY() % this.mapRatio > 0) {
