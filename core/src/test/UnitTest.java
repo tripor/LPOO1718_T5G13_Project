@@ -1,15 +1,16 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.*;
+
+import org.junit.Test;
 
 import logic.Map;
 import logic.entities.FactoryL;
 
-class UnitTest {
-	
+public class UnitTest {
+
 	@Test
-	void initMap() {	
+	public void initMap() {	
 		assertEquals(80, (new Map(80, 60)).getMapWidth());
 		assertEquals(60, (new Map(80, 60)).getMapHeight());
 		
@@ -18,7 +19,7 @@ class UnitTest {
 	}
 	
 	@Test
-	void tryFactory() {
+	public void tryFactory() {
 		Map map = new Map(800, 600);
 		FactoryL fac = new FactoryL(40, 40, 3);
 		assertEquals(0, map.getMapPercisionPixel(fac.getPosX(), fac.getPosY()).size);
