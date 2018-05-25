@@ -340,6 +340,7 @@ public class GameStage extends Stage {
 		this.inserter_list.loadFromMap();
 		this.conveyor_list.loadFromMap();
 		this.place_list.loadFromMap();
+		this.person_list.loadFromMap();
 		//this.material_list.loadFromMap();
 	}
 	

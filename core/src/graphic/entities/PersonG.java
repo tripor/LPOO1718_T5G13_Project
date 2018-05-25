@@ -29,7 +29,7 @@ public class PersonG extends ActorExtension{
 		this.setPosition(this.instance.getPosX(), this.instance.getPosY());
 	}
 	
-	public PersonG(GameStage game,InserterL in) {
+	public PersonG(GameStage game,PersonL in) {
 		this.instance=in;
 		this.game=game;
 		this.setWidth(this.instance.getWidth());

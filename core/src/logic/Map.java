@@ -267,7 +267,7 @@ public class Map {
 	 * Adds the entity to the correct lista
 	 * @param ent The entity I want to add
 	 */
-	private void addEntityLista(Entity ent)
+	public void addEntityLista(Entity ent)
 	{
 		if(ConveyorL.class.isAssignableFrom(ent.getClass()))
 		{

@@ -1,6 +1,7 @@
 package graphic;
 
-import java.util.HashMap;
+import graphic.entities.PersonG;
+import logic.entities.PersonL;
 
 /**
  * Class that saves and handles all the persons in the game
@@ -18,6 +19,23 @@ public class PersonList extends GroupExtension{
 		this.game = game;
 	}
 	
+	
+	public void addPerson(PersonG per)
+	{
+		this.addActor(per);
+	}
+	public void removePlace(PersonG p) {
+		this.removeActor(p);
+	}
+	
+	public void loadFromMap()
+	{
+		for(PersonL it:this.game.map.lista_person)
+		{
+			PersonG novo=new PersonG(this.game,it);
+			this.addPerson(novo);
+		}
+	}
 	/*public boolean addPerson(Person p) {
 		
 		if(personMap.get(p.getId()) != null) {
