@@ -22,7 +22,7 @@ public class HouseG extends PlaceGraphical{
 		sprite = new Sprite(texture);
 		sprite.setSize(this.getWidth(), this.getHeight());
 		sprite.setOrigin(this.getWidth()/2, this.getHeight()/2);
-		int door_atBorder=((FactoryL)this.instance).getDoorAtBorder();
+		int door_atBorder=((HouseL)this.instance).getDoorAtBorder();
 		if(door_atBorder!=4)
 			sprite.rotate(-90*door_atBorder);
 	}
