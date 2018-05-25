@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import logic.entities.ConveyorL;
 import logic.entities.InserterL;
 import logic.entities.MaterialL;
+import logic.entities.PersonL;
 
 
 /**
@@ -45,6 +46,10 @@ public class Map {
 	 * Array with all the Conveyors in the map
 	 */
 	public  Array<ConveyorL> lista_conveyor;
+	/**
+	 * Array with all the Persons in the map
+	 */
+	public Array<PersonL> lista_person;
 	
 	/**
 	 * Constructor for the class logic Map
@@ -68,6 +73,7 @@ public class Map {
 		this.lista_inserter= new Array<InserterL>();
 		this.lista_material=new Array<MaterialL>();
 		this.lista_place=new Array<Place>();
+		this.lista_person=new Array<PersonL>();
 	}
 	/**
 	 * Recreates the map
@@ -138,7 +144,7 @@ public class Map {
 		return this.map.get(posX).get(posY);
 	}
 	/**
-	 * Adds an entity to the map. If it's a Material, the material will be placed
+	 * Adds an entity to the map. If it's a Material or person, it will be placed
 	 * @param ent The entitie i want to add
 	 * @return Return true if added of false otherwise
 	 */
@@ -158,7 +164,7 @@ public class Map {
 		int quantity_x = this.transformToBlock(ent.getPosX()+ent.getWidth())-x + error_x;
 		int quantity_y = this.transformToBlock(ent.getPosY()+ent.getHeight())-y +  error_y;
 		
-		if(!MaterialL.class.isAssignableFrom(ent.getClass())) {
+		if(!MaterialL.class.isAssignableFrom(ent.getClass()) || !PersonL.class.isAssignableFrom(ent.getClass())) {
 			if(Place.class.isAssignableFrom(ent.getClass()) || ConveyorL.class.isAssignableFrom(ent.getClass()) || InserterL.class.isAssignableFrom(ent.getClass()))
 			{
 				if(this.checkPositions(ent.getPosX(), ent.getPosY(), ent.getWidth(), ent.getHeight(), true))
@@ -279,6 +285,10 @@ public class Map {
 		{
 			this.lista_material.add((MaterialL) ent);
 		}
+		else if(PersonL.class.isAssignableFrom(ent.getClass()))
+		{
+			this.lista_person.add((PersonL)ent);
+		}
 	}
 	
 	/**
@@ -302,6 +312,10 @@ public class Map {
 		else if(MaterialL.class.isAssignableFrom(ent.getClass()))
 		{
 			this.lista_material.removeValue((MaterialL) ent,false);
+		}
+		else if(PersonL.class.isAssignableFrom(ent.getClass()))
+		{
+			this.lista_person.removeValue((PersonL)ent,false);
 		}
 	}
 	/**

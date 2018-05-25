@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
 import graphic.GameStage;
 import logic.Entity;
-import person.Person;
+import logic.entities.MaterialL;
+import logic.entities.PersonL;
 /**
  * Class that handles the user input
  *
@@ -91,7 +91,7 @@ public class UserControl implements InputProcessor  {
 		Array<Entity> elements=this.game.map().getMapBlock((int)mouse_pos.x,(int)mouse_pos.y);
 		ArrayList<Entity> remover=new ArrayList<Entity>();
 		for (Entity it : elements) {
-			if (Material.class.isAssignableFrom(it.getClass()) || Person.class.isAssignableFrom(it.getClass())) {
+			if (MaterialL.class.isAssignableFrom(it.getClass()) || PersonL.class.isAssignableFrom(it.getClass())) {
 			} else {
 				remover.add(it);
 			}
