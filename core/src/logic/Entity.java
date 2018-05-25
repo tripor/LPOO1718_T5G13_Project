@@ -1,9 +1,9 @@
 package logic;
 /**
- * General class for enteties of the game
+ * General class for entities of the game
  *
  */
-public abstract class Entetie {
+public abstract class Entity {
 	/**
 	 * The X position in pixels
 	 */
@@ -27,7 +27,7 @@ public abstract class Entetie {
 	 * @param width The width in pixels
 	 * @param height The height in pixels
 	 */
-	protected Entetie(int posX,int posY,int width,int height)
+	protected Entity(int posX,int posY,int width,int height)
 	{
 		if(Map.division-width>0)
 			this.posX=posX+(Map.division-width)/2;
@@ -40,7 +40,7 @@ public abstract class Entetie {
 		this.width=width;
 		this.height=height;
 	}
-	protected Entetie()
+	protected Entity()
 	{
 		
 	}
@@ -73,7 +73,7 @@ public abstract class Entetie {
 		return height;
 	}
 	/**
-	 * Sets the position of this Entetie
+	 * Sets the position of this entity
 	 * @param posX The X position in pixels 
 	 * @param posY The Y position in pixels
 	 */

@@ -1,14 +1,14 @@
-package logic.enteties;
+package logic.entities;
 
 import com.badlogic.gdx.utils.Array;
 
-import logic.Entetie;
+import logic.Entity;
 import logic.Map;
 /**
  * Class that handles the logic of the Conveyor
  *
  */
-public class ConveyorL extends Entetie {
+public class ConveyorL extends Entity {
 	/**
 	 * The velocity of the Conveyor
 	 */
@@ -59,9 +59,9 @@ public class ConveyorL extends Entetie {
 	 */
 	public void moveMaterials(Map map)
 	{
-		Array<Entetie> elements= map.getMapPixel(this.getPosX(),this.getPosY());
+		Array<Entity> elements= map.getMapPixel(this.getPosX(),this.getPosY());
 		Array<MaterialL> to_move = new Array<MaterialL>();
-		for(Entetie it:elements)
+		for(Entity it:elements)
 		{
 			if(MaterialL.class.isAssignableFrom(it.getClass()))
 			{

@@ -19,13 +19,13 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.groundup.game.GroundUpGame;
 
 import graphic.control.Mouse;
-import graphic.enteties.Background;
-import graphic.enteties.MaterialG;
+import graphic.entities.Background;
+import graphic.entities.MaterialG;
 import icon.BuildIcon;
 import icon.Icon;
 import logic.Map;
 import logic.SaveState;
-import logic.enteties.MaterialL;
+import logic.entities.MaterialL;
 
 public class GameStage extends Stage {
 	
@@ -64,7 +64,7 @@ public class GameStage extends Stage {
     /**
      * Class with all the background in this game
      */
-    protected BackGroundList background_list;
+    protected BackgroundList background_list;
     /**
      * Class with all the buttons in this game
      */
@@ -99,7 +99,7 @@ public class GameStage extends Stage {
 	public GameStage(GroundUpGame game) {
 	    this.game=game;
 	    // I create a group of actor and I add it to the stage/GameStage
-		this.background_list=new BackGroundList();
+		this.background_list=new BackgroundList();
 		this.background_list.setZ(0);
 		this.addActor(this.background_list);
 	    this.map= new Map(1000,1000);

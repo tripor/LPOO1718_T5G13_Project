@@ -1,4 +1,4 @@
-package graphic.enteties;
+package graphic.entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import graphic.ActorExtension;
 import graphic.GameStage;
-import logic.enteties.ConveyorL;
+import logic.entities.ConveyorL;
 /**
  * Class that handle the graphical part of the Conveyor
  *

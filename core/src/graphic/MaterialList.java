@@ -2,10 +2,10 @@ package graphic;
 
 import java.util.ArrayList;
 
-import graphic.enteties.MaterialG;
-import logic.Entetie;
-import logic.enteties.ConveyorL;
-import logic.enteties.MaterialL;
+import graphic.entities.MaterialG;
+import logic.Entity;
+import logic.entities.ConveyorL;
+import logic.entities.MaterialL;
 
 
 public class MaterialList extends GroupExtension {
@@ -52,7 +52,7 @@ public class MaterialList extends GroupExtension {
 		ArrayList<MaterialG> add= new ArrayList<MaterialG>();
 		for(MaterialL it:this.game.map.lista_material)
 		{
-			for(Entetie et:this.game.map.getMapPixel(it.getPosX(), it.getPosY()))
+			for(Entity et:this.game.map.getMapPixel(it.getPosX(), it.getPosY()))
 			{
 				if(ConveyorL.class.isAssignableFrom(et.getClass()))
 				{					

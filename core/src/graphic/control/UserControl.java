@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
 import graphic.GameStage;
-import logic.Entetie;
+import logic.Entity;
 import person.Person;
 /**
  * Class that handles the user input
@@ -88,15 +88,15 @@ public class UserControl implements InputProcessor  {
 	{
 		Vector3 mouse_pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
 		this.game.getViewport().unproject(mouse_pos);
-		Array<Entetie> elements=this.game.map().getMapBlock((int)mouse_pos.x,(int)mouse_pos.y);
-		ArrayList<Entetie> remover=new ArrayList<Entetie>();
-		for (Entetie it : elements) {
+		Array<Entity> elements=this.game.map().getMapBlock((int)mouse_pos.x,(int)mouse_pos.y);
+		ArrayList<Entity> remover=new ArrayList<Entity>();
+		for (Entity it : elements) {
 			if (Material.class.isAssignableFrom(it.getClass()) || Person.class.isAssignableFrom(it.getClass())) {
 			} else {
 				remover.add(it);
 			}
 		}
-		for(Entetie it:remover)
+		for(Entity it:remover)
 		{
 			this.game.map().removeMap(it);
 		}

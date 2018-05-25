@@ -2,11 +2,11 @@ package graphic;
 
 import java.util.HashMap;
 
-import graphic.enteties.FactoryG;
-import graphic.enteties.MineG;
+import graphic.entities.FactoryG;
+import graphic.entities.MineG;
 import logic.Place;
-import logic.enteties.FactoryL;
-import logic.enteties.MineL;
+import logic.entities.FactoryL;
+import logic.entities.MineL;
 
 
 

@@ -1,4 +1,4 @@
-package graphic.enteties;
+package graphic.entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import graphic.GameStage;
 import graphic.PlaceGraphical;
 import logic.Place;
-import logic.enteties.MineL;
+import logic.entities.MineL;
 /**
  * Class that handle the graphical part of the Mines
  *

@@ -8,13 +8,13 @@ import com.badlogic.gdx.math.Vector3;
 
 import graphic.ActorExtension;
 import graphic.GameStage;
-import graphic.enteties.ConveyorG;
-import graphic.enteties.FactoryG;
-import graphic.enteties.InserterG;
-import graphic.enteties.MineG;
+import graphic.entities.ConveyorG;
+import graphic.entities.FactoryG;
+import graphic.entities.InserterG;
+import graphic.entities.MineG;
 import logic.Map;
 /**
- * Class that handles related mouse evets
+ * Class that handles related mouse events
  *
  */
 public class Mouse extends ActorExtension {

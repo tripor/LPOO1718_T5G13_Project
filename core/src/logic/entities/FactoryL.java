@@ -1,4 +1,4 @@
-package logic.enteties;
+package logic.entities;
 
 import logic.Place;
 /**

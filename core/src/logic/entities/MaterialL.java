@@ -1,16 +1,16 @@
-package logic.enteties;
+package logic.entities;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
 import com.badlogic.gdx.utils.Array;
 
-import logic.Entetie;
+import logic.Entity;
 import logic.Map;
 /**
  *	Class that handles the logic of the Material 
  */
-public class MaterialL extends Entetie {
+public class MaterialL extends Entity {
 	/**
 	 * The type of material
 	 */
@@ -58,8 +58,8 @@ public class MaterialL extends Entetie {
 	public void moveMaterial(int x_movement, int y_movement,Map map) {
 		int new_x = this.getPosX() + x_movement;
 		int new_y = this.getPosY() + y_movement;
-		Array<Entetie> elements = map.getMapPercisionPixel(new_x+this.getWidth()/2, new_y+this.getHeight()/2);
-		for (Entetie it : elements) {
+		Array<Entity> elements = map.getMapPercisionPixel(new_x+this.getWidth()/2, new_y+this.getHeight()/2);
+		for (Entity it : elements) {
 			if (ConveyorL.class.isAssignableFrom(it.getClass()) || this==it) {
 			} else {
 				return;

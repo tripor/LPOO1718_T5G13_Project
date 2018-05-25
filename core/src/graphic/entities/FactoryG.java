@@ -1,4 +1,4 @@
-package graphic.enteties;
+package graphic.entities;
 
 import graphic.PlaceGraphical;
 
@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import graphic.GameStage;
 import logic.Place;
-import logic.enteties.FactoryL;
+import logic.entities.FactoryL;
 /**
  * Class that handles the graphical part of the Factory
  *

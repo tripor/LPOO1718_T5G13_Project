@@ -3,9 +3,9 @@ package logic;
 
 import com.badlogic.gdx.utils.Array;
 
-import logic.enteties.ConveyorL;
-import logic.enteties.InserterL;
-import logic.enteties.MaterialL;
+import logic.entities.ConveyorL;
+import logic.entities.InserterL;
+import logic.entities.MaterialL;
 
 
 /**
@@ -26,9 +26,9 @@ public class Map {
 	 */
 	private int mapHeight;
 	/**
-	 * The blocks with all the enteties
+	 * The blocks with all the entities
 	 */
-	private transient Array<Array<Array<Entetie>>> map;
+	private transient Array<Array<Array<Entity>>> map;
 	/**
 	 * Array with all the materials in the map
 	 */
@@ -55,13 +55,13 @@ public class Map {
 	public Map(int width, int height) {
 		this.mapWidth = width;
 		this.mapHeight = height;
-		map= new Array<Array<Array<Entetie>>>();
+		map= new Array<Array<Array<Entity>>>();
 		for(int i=0 ; i<this.transformToBlock(mapWidth) ;i++)
 		{
-			map.add(new Array<Array<Entetie>>());
+			map.add(new Array<Array<Entity>>());
 			for(int j=0; j<this.transformToBlock(mapHeight);j++)
 			{
-				map.get(i).add(new Array<Entetie>());
+				map.get(i).add(new Array<Entity>());
 			}
 		}
 		this.lista_conveyor = new Array<ConveyorL>();
@@ -74,13 +74,13 @@ public class Map {
 	 */
 	public void recreateMap()
 	{
-		map= new Array<Array<Array<Entetie>>>();
+		map= new Array<Array<Array<Entity>>>();
 		for(int i=0 ; i<this.transformToBlock(mapWidth) ;i++)
 		{
-			map.add(new Array<Array<Entetie>>());
+			map.add(new Array<Array<Entity>>());
 			for(int j=0; j<this.transformToBlock(mapHeight);j++)
 			{
-				map.get(i).add(new Array<Entetie>());
+				map.get(i).add(new Array<Entity>());
 			}
 		}
 		this.lista_material.clear();
@@ -91,9 +91,9 @@ public class Map {
 		
 	}
 	/**
-	 * Transform a number to this map curresponding block
+	 * Transform a number to this map corresponding block
 	 * @param number The number I want to change, given in pixels
-	 * @return The number of the curresponding block
+	 * @return The number of the corresponding block
 	 */
 	public int transformToBlock(int number)
 	{
@@ -105,7 +105,7 @@ public class Map {
 	 * @param posY the y position in pixels
 	 * @return Return an Array of entities in that position
 	 */
-	public Array<Entetie> getMapPixel(int posX,int posY)
+	public Array<Entity> getMapPixel(int posX,int posY)
 	{
 		return this.map.get(this.transformToBlock(posX)).get(this.transformToBlock(posY));
 	}
@@ -115,11 +115,11 @@ public class Map {
 	 * @param pos_y the y position in pixels
 	 * @return Return an Array of entities in that position
 	 */
-	public Array<Entetie> getMapPercisionPixel(int posX,int posY)
+	public Array<Entity> getMapPercisionPixel(int posX,int posY)
 	{
-		Array<Entetie> elements = this.getMapPixel(posX, posY);
-		Array<Entetie> devolver = new Array<Entetie>();
-		for (Entetie it : elements) {
+		Array<Entity> elements = this.getMapPixel(posX, posY);
+		Array<Entity> devolver = new Array<Entity>();
+		for (Entity it : elements) {
 			if (it.getPosX() <= posX && posX <= it.getPosX() + it.getWidth() && it.getPosY() <= posY
 					&& posY <= it.getPosY() + it.getHeight()) {
 				devolver.add(it);
@@ -133,16 +133,16 @@ public class Map {
 	 * @param posY the y position in block index
 	 * @return Return an Array of entities in that position
 	 */
-	public Array<Entetie> getMapBlock(int posX,int posY)
+	public Array<Entity> getMapBlock(int posX,int posY)
 	{
 		return this.map.get(posX).get(posY);
 	}
 	/**
-	 * Adds an entetie to the map. If it's a Material, the material will be placed
+	 * Adds an entity to the map. If it's a Material, the material will be placed
 	 * @param ent The entitie i want to add
 	 * @return Return true if added of false otherwise
 	 */
-	public boolean addMap(Entetie ent) {
+	public boolean addMap(Entity ent) {
 		int x = this.transformToBlock(ent.getPosX());
 		int y = this.transformToBlock(ent.getPosY());
 		
@@ -181,14 +181,14 @@ public class Map {
 			}
 		}
 		
-		this.addEntetieLista(ent);
+		this.addEntityLista(ent);
 		return true;
 	}
 	/**
-	 * Remove an Entetie from the map
-	 * @param ent the entetie i want to remove
+	 * Remove an Entity from the map
+	 * @param ent the entity i want to remove
 	 */
-	public void removeMap(Entetie ent) 
+	public void removeMap(Entity ent) 
 	{
 		int x = this.transformToBlock(ent.getPosX());
 		int y = this.transformToBlock(ent.getPosY());
@@ -210,7 +210,7 @@ public class Map {
 				this.map.get(i).get(j).removeValue(ent, false);
 			}
 		}
-		this.removeEntetieLista(ent);
+		this.removeEntityLista(ent);
 	}
 
 	/**
@@ -238,10 +238,10 @@ public class Map {
 		int quantity_y = this.transformToBlock(posY+height)-y +  error_y;
 		for (int i = x; i < x + quantity_x ; i ++) {
 			for (int j = y; j < y + quantity_y; j ++) {
-				Array<Entetie> elements= this.getMapBlock(i, j);
+				Array<Entity> elements= this.getMapBlock(i, j);
 				if(ignoreMaterial)
 				{
-					for(Entetie it:elements)
+					for(Entity it:elements)
 					{
 						if(!MaterialL.class.isAssignableFrom(it.getClass()))
 						{
@@ -258,10 +258,10 @@ public class Map {
 		return false;
 	}
 	/**
-	 * Adds the entetie to the correct lista
-	 * @param ent The entetie I want to add
+	 * Adds the entity to the correct lista
+	 * @param ent The entity I want to add
 	 */
-	private void addEntetieLista(Entetie ent)
+	private void addEntityLista(Entity ent)
 	{
 		if(ConveyorL.class.isAssignableFrom(ent.getClass()))
 		{
@@ -282,10 +282,10 @@ public class Map {
 	}
 	
 	/**
-	 * Removes the entetie to the correct lista
-	 * @param ent The entetie I want to remove
+	 * Removes the entity to the correct lista
+	 * @param ent The entity I want to remove
 	 */
-	private void removeEntetieLista(Entetie ent)
+	private void removeEntityLista(Entity ent)
 	{
 		if(ConveyorL.class.isAssignableFrom(ent.getClass()))
 		{

@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-import logic.Entetie;
+import logic.Entity;
 
 
 /**
@@ -36,7 +36,7 @@ public abstract class ActorExtension extends Actor implements Comparable<Object>
      */
     protected Integer z=1;
     
-    protected Entetie instance;
+    protected Entity instance;
 	/**
 	 * 
 	 * @return Returns the Z value

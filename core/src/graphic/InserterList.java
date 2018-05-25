@@ -1,10 +1,9 @@
 package graphic;
 
-
 import java.util.ArrayList;
 
-import graphic.enteties.InserterG;
-import logic.enteties.InserterL;
+import graphic.entities.InserterG;
+import logic.entities.InserterL;
 
 
 public class InserterList extends GroupExtension{

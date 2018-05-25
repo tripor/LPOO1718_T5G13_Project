@@ -1,4 +1,4 @@
-package graphic.enteties;
+package graphic.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import graphic.ActorExtension;
 import graphic.GameStage;
-import logic.enteties.InserterL;
+import logic.entities.InserterL;
 /**
  * Class that handle the graphical part of the Inserter 
  *

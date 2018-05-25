@@ -1,11 +1,11 @@
-package graphic.enteties;
+package graphic.entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import graphic.ActorExtension;
 import graphic.GameStage;
-import logic.enteties.MaterialL;
+import logic.entities.MaterialL;
 /**
  * Class that handles the Graphical part of the material
  *

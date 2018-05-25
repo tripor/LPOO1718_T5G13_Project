@@ -1,17 +1,17 @@
-package logic.enteties;
+package logic.entities;
 
 import java.util.ArrayList;
 
 import com.badlogic.gdx.utils.Array;
 
-import logic.Entetie;
+import logic.Entity;
 import logic.Map;
 import logic.Place;
 /**
  * Class that takes care of the logic of the Inserters
  *
  */
-public class InserterL extends Entetie{
+public class InserterL extends Entity {
 	/**
 	 * Direction the inserter is facing
 	 */
@@ -75,14 +75,14 @@ public class InserterL extends Entetie{
 	 */
 	private void deliverMaterial(Map map)
 	{
-		Array<Entetie> element = map.getMapPercisionPixel(this.pickup.getPosX()+this.pickup.getWidth()/2,this.pickup.getPosY()+this.pickup.getHeight()/2);
+		Array<Entity> element = map.getMapPercisionPixel(this.pickup.getPosX()+this.pickup.getWidth()/2,this.pickup.getPosY()+this.pickup.getHeight()/2);
 		if(element.size==0)
 		{
 			map.addMap(pickup);
 			this.pickup = null;
 			this.blocked = false;
 		} else {
-			for(Entetie it:element)
+			for(Entity it:element)
 			{
 				if(MaterialL.class.isAssignableFrom(it.getClass()))
 				{ 
@@ -94,7 +94,7 @@ public class InserterL extends Entetie{
 					this.blocked=true;
 				}
 			}
-			for(Entetie it:element)
+			for(Entity it:element)
 			{
 				if(ConveyorL.class.isAssignableFrom(it.getClass()))
 				{
@@ -121,7 +121,7 @@ public class InserterL extends Entetie{
 	 */
 	public void tryPickUp(Map map)
 	{
-		Array<Entetie> elements = null;
+		Array<Entity> elements = null;
 		this.pickup=null;
 		switch(this.direction)
 		{
@@ -144,7 +144,7 @@ public class InserterL extends Entetie{
 		}
 		else
 		{
-			for(Entetie it:elements)
+			for(Entity it:elements)
 			{
 				
 				if(Place.class.isAssignableFrom(it.getClass()))

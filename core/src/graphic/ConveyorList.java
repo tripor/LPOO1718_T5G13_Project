@@ -1,7 +1,7 @@
 package graphic;
 
-import graphic.enteties.ConveyorG;
-import logic.enteties.ConveyorL;
+import graphic.entities.ConveyorG;
+import logic.entities.ConveyorL;
 
 /**
  * Saves the conveyor in map

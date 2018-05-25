@@ -2,13 +2,13 @@ package logic;
 
 import java.util.ArrayList;
 
-import logic.enteties.MaterialL;
+import logic.entities.MaterialL;
 
 /**
  * Class that represents the Places of the game
  *
  */
-public abstract class Place extends Entetie{
+public abstract class Place extends Entity {
 	/**
 	 * The storage inside the Place
 	 */
