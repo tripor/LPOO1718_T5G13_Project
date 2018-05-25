@@ -60,6 +60,20 @@ public abstract class Entity {
 	}
 	/**
 	 * 
+	 * @return Returns the right bound
+	 */
+	public int getRight() {
+		return (posX + width);
+	}
+	/**
+	 * 
+	 * @return Returns the top bound
+	 */
+	public int getTop() {
+		return (posY - height);
+	}
+	/**
+	 * 
 	 * @return Returns the width in pixels
 	 */
 	public int getWidth() {
