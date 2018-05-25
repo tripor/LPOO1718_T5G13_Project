@@ -1,4 +1,5 @@
-package icon.type;
+package icon;
+
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -7,15 +8,14 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import graphic.GameStage;
-import icon.Icon;
 
-public class InserterIcon  extends Icon  { 
+public class MenuIcon extends Icon{
 	
 	private Texture[] frames=new Texture[3];
 	private boolean mouse_over=false;
 	private boolean selected=false;
 
-	private void createFactoryIcon() {
+	private void createMenuIcon() {
 		
 		frames[0] = this.game.getGame().getAssetManager().get("inserter_button_unpressed.png");
 		frames[1] = this.game.getGame().getAssetManager().get("inserter_button_pressed.png");
@@ -30,16 +30,24 @@ public class InserterIcon  extends Icon  {
 		sprite.setTexture(frames[number]);
 	}
 	
-	public InserterIcon(final GameStage game,int posX,int posY,final int width,final int height) {
+	public MenuIcon(final GameStage game,int posX,int posY,final int width,final int height) {
 		super(game,posX,posY);
 		this.setWidth(width);
 		this.setHeight(height);
-		this.createFactoryIcon();
+		this.createMenuIcon();
 		this.setPosition(posX, posY);
 		
 		this.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-            		game.getMouse().createMouse("inserter_direction.png", 10, 10);
+            	if(selected)
+            	{
+            		selected=false;
+            		game.getMouse().isSelected=false;
+            	}
+            	else
+            	{
+            		
+            	}
             }
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
             {
@@ -64,5 +72,5 @@ public class InserterIcon  extends Icon  {
 		else if(!this.mouse_over)
     		newSprite(0);
 	}
-	
+
 }

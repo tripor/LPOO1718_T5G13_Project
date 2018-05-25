@@ -1,4 +1,4 @@
-package icon.type;
+package icon;
 
 
 import java.util.ArrayList;
@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import graphic.GameStage;
-import icon.Icon;
 
 public class PlaceIcon extends Icon {
 	

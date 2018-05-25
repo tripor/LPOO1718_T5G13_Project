@@ -1,4 +1,4 @@
-package icon.type;
+package icon;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import graphic.GameStage;
-import icon.Icon;
 /**
  * Class Build Icon
  *
@@ -100,16 +99,14 @@ public class BuildIcon extends Icon{
 		this.createBuildIcon();
 		this.setPosition(posX, posY);
 		
-		/*this.addListener(new ClickListener() {
+		this.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-            	clickHandler();
             }
-        });*/
+        });
 	}
 
 	@Override
 	public void update(float delta) {
-		//System.out.println(delta);
 		this.stateTime+=delta;
         sprite.setRegion(animation.getKeyFrame(stateTime, true));
 		

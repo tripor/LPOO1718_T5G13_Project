@@ -21,8 +21,8 @@ import com.groundup.game.GroundUpGame;
 import graphic.control.Mouse;
 import graphic.enteties.Background;
 import graphic.enteties.MaterialG;
+import icon.BuildIcon;
 import icon.Icon;
-import icon.type.BuildIcon;
 import logic.Map;
 import logic.SaveState;
 import logic.enteties.MaterialL;
@@ -182,43 +182,7 @@ public class GameStage extends Stage {
 	    initializeIcons();
 	    initializeMap();
 	    
-	}
-	
-	public GameStage() {
-		// TODO Auto-generated constructor stub
-	}
-
-	/*public void reCreate()
-	{
-	    this.map= new Map(this);
-	    this.place_list.remove();
-		this.place_list=new PlaceList(this);
-		this.place_list.setZ(1);
-		this.addActor(place_list);
-		this.conveyor_list.remove();
-		this.conveyor_list=new ConveyorList(this);
-		this.conveyor_list.setZ(1);
-		this.addActor(conveyor_list);
-		this.material_list.remove();
-		this.material_list=new MaterialList(this);
-		this.material_list.setZ(2);
-		this.addActor(material_list);
-		this.inserter_list.remove();
-		this.inserter_list= new InserterList(this);
-		this.inserter_list.setZ(3);
-		this.addActor(inserter_list);
-		this.person_list.remove();
-		this.person_list= new PersonList(this);
-		this.person_list.setZ(4);
-		this.addActor(person_list);
-		this.unused_material=new ArrayList<Material>();
-		this.getActors().sort();
-	    initializeMaterials();
-	}*(
-	
-
-	
-	
+	}	
 	/**
 	 * Initializes all buttons of the game
 	 */
@@ -346,7 +310,6 @@ public class GameStage extends Stage {
 		{
 			if(it.id==0)
 			{
-				System.out.println("here");
 				it.id=1;
 				MaterialG novo=new MaterialG(this,it);
 				this.material_list.addMaterial(novo);
@@ -369,6 +332,11 @@ public class GameStage extends Stage {
 		SaveState instancia=new SaveState();
 		this.map=instancia.loadGame("coisa");
 		this.map.recreateMap();
+		this.material_list.clear();
+		this.inserter_list.clear();
+		this.conveyor_list.clear();
+		this.place_list.clear();
+		this.person_list.clear();
 		this.inserter_list.loadFromMap();
 		this.conveyor_list.loadFromMap();
 		this.place_list.loadFromMap();

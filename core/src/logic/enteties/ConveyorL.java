@@ -1,7 +1,5 @@
 package logic.enteties;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.utils.Array;
 
 import logic.Entetie;
