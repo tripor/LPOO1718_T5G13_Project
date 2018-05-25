@@ -2,15 +2,14 @@ package logic;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.PriorityQueue;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Array;
 
 import graphic.Console;
-import graphic.GameStage;
+import logic.entities.ConveyorL;
+import logic.entities.InserterL;
 
 /**
  * A Star Algorithm
@@ -48,16 +47,14 @@ public class AStar {
     	             end_findpath_at;
     // for console log: time marker.
     
-    private GameStage game;
+    logic.Map map;
     
     
     /**
      * Constructor
      */
-    /*public AStar(GameStage game, Node initialNode, Node finalNode) {
+    public AStar(logic.Map map, Node initialNode, Node finalNode) {
     	
-    		this.game = game;
-
 		// for console log: time marker.
     		this.start_at = System.currentTimeMillis();
     		
@@ -71,25 +68,10 @@ public class AStar {
     		}
     		else {
 	    		// Move the origin and destination out of a building.
-	    		Place start_building = game.places().checkIfPointInBuilding(initialNode.getRow(), initialNode.getCol());
-	    		Place end_building   = game.places().checkIfPointInBuilding(finalNode.getRow(), finalNode.getCol());
-	    		
-	    		if(start_building != null) {
-	    			
-	    			// Console.log("Start in Building, DOOR(" + start_building.getDoorRow() + "," + start_building.getDoorCol() + ")");
-				// initialNode.setRow(start_building.getDoorCol());
-				// initialNode.setCol(start_building.getDoorRow());
-	    			
-	    			start_jump = true;
-	    		}
-	    		if(end_building != null) {
-	
-	    			// Console.log("End in Building, DOOR(" + end_building.getDoorRow() + "," + end_building.getDoorCol() + ")");
-	    			// finalNode.setRow(end_building.getDoorCol());
-	    			// finalNode.setCol(end_building.getDoorRow());
-	    			
-	    			// end_jump = true;
-	    		}
+    			
+    			if(map.pointIsOccupied(initialNode.getCol(), initialNode.getRow())) {
+    				start_jump = true;
+    			}
 	    		
 	    		this.initialNode = initialNode;
 	    		this.finalNode = finalNode;
@@ -104,7 +86,7 @@ public class AStar {
 	        setNodes();
 	        this.closedList = new ArrayList<Node>();
     		}
-    }*/
+    }
 
     /**
      * Variables
@@ -131,7 +113,7 @@ public class AStar {
      * @concept
      * Make the map smaller by cropping the original map and condense it.
      */
-    /*private void initSearchMap() {
+    private void initSearchMap() {
 
 		// for console log: time marker.
 		this.init_at = System.currentTimeMillis();
@@ -200,7 +182,7 @@ public class AStar {
 		this.end_init_at = System.currentTimeMillis();
 		
 		this.setBlocks();
-    }*/
+    }
     
     /**
      * Mark buildings
@@ -211,19 +193,19 @@ public class AStar {
      * @remarks
      * grid = pixel, when ratio is 1.
      */
-    private void setBlock(Actor p) {
+    private void setBlock(Entity p) {
     	
     		// Note: getY returns top-bound; getTop returns bottom-bound;
 		
     		// Note: Since logical mistake, top-bottom becomes left-right and vice-versa.
     	
-		int blockLeft = convertPixelToGrid_row((int) p.getY()),
-		    blockTop = convertPixelToGrid_col((int) p.getX()),
-		    blockBottom = convertPixelToGrid_col((int) p.getRight()),
-		    blockRight = convertPixelToGrid_row((int) p.getTop());
+		int blockLeft = convertPixelToGrid_row(p.getPosY()),
+		    blockTop = convertPixelToGrid_col(p.getPosX()),
+		    blockBottom = convertPixelToGrid_col(p.getRight()),
+		    blockRight = convertPixelToGrid_row(p.getTop());
 
 		// If there is a street at North
-		if(p.getY() % this.mapRatio > 0) {
+		if(p.getPosY() % this.mapRatio > 0) {
 			blockTop++;
 		}
 		
@@ -233,7 +215,7 @@ public class AStar {
 		}
 		
 		// left (West)
-		if(p.getX() % this.mapRatio > 0) {
+		if(p.getPosX() % this.mapRatio > 0) {
 			blockLeft++;
 		}
 		
@@ -258,7 +240,7 @@ public class AStar {
     }
     
     
-    /*private void setBlocks() {
+    private void setBlocks() {
     	
     		if(this.skip_calc == true) {
     			return;
@@ -267,23 +249,23 @@ public class AStar {
     		// for console log: time marker.
     		this.setblock_at = System.currentTimeMillis();
     		
-    		ArrayList<Place>    Ps = this.game.places().getLista();
-    		ArrayList<Conveyor> Cs = this.game.conveyors().getLista();
-    		ArrayList<Inserter> Is = this.game.inserters().getLista();
+    		Array<Place>     Ps = map.lista_place;
+    		Array<ConveyorL> Cs = map.lista_conveyor;
+    		Array<InserterL> Is = map.lista_inserter;
 
-    		for(Actor p : Ps) {
+    		for(Entity p : Ps) {
     			setBlock(p);
 		}
-    		for(Actor c : Cs) {
+    		for(Entity c : Cs) {
     			setBlock(c);
 		}
-    		for(Actor i : Is) {
+    		for(Entity i : Is) {
     			setBlock(i);
 		}
 
     		// for console log: time marker.
     		this.end_setblock_at = System.currentTimeMillis();
-    }*/
+    }
 
     /**
      * Main function being called by another files.

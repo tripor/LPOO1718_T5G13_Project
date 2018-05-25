@@ -318,5 +318,21 @@ public class Map {
 	public int getMapHeight() {
 		return mapHeight;
 	}
+
+	/**
+	 * Check if a point is in building.
+	 * 
+	 * Todo:
+	 * this function should implement in placeList,
+	 * but it's now using as graphic.
+	 * 
+	 * @param x
+	 * @param y
+	 * @return true|false
+	 */
+	public boolean pointIsOccupied(int x, int y) {
+		
+		return (this.getMapPercisionPixel(x, y).size > 0);
+	}
 	
 }
