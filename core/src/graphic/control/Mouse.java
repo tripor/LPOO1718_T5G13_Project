@@ -10,6 +10,7 @@ import graphic.ActorExtension;
 import graphic.GameStage;
 import graphic.entities.ConveyorG;
 import graphic.entities.FactoryG;
+import graphic.entities.HouseG;
 import graphic.entities.InserterG;
 import graphic.entities.MineG;
 import logic.Map;
@@ -96,12 +97,12 @@ public class Mouse extends ActorExtension {
 				InserterG i= new InserterG(this.game,x,y,this.doorPosition);
 				this.game.inserters().addInserter(i);
 			}
-			/*if(this.type.equals("nothing.png"))
+			if(this.type.equals("nothing.png"))
 			{
-				House h= new House(this.game,x,y,this.width,this.height,this.doorPosition,10);
+				HouseG h= new HouseG(this.game,x,y,this.doorPosition);
 				if(this.game.places().addPlace(h))
 					this.isSelected=false;
-			}*/
+			}
 			
 			
 		}

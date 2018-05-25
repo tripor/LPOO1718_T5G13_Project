@@ -3,9 +3,11 @@ package graphic;
 import java.util.HashMap;
 
 import graphic.entities.FactoryG;
+import graphic.entities.HouseG;
 import graphic.entities.MineG;
 import logic.Place;
 import logic.entities.FactoryL;
+import logic.entities.HouseL;
 import logic.entities.MineL;
 
 
@@ -151,6 +153,10 @@ public class PlaceList extends GroupExtension{
 			else if(MineL.class.isAssignableFrom(it.getClass()))
 			{
 				novo=new MineG(this.game,it);
+			}
+			else if(HouseL.class.isAssignableFrom(it.getClass()))
+			{
+				novo=new HouseG(this.game,it);
 			}
 			this.addPlace(novo);
 		}
