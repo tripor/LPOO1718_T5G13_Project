@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import graphic.GameStage;
+import logic.Place;
 import logic.enteties.FactoryL;
 /**
  * Class that handles the graphical part of the Factory
@@ -43,7 +44,19 @@ public class FactoryG extends PlaceGraphical{
 		this.setPosition(posX, posY);
 		
 	}
-
+	/**
+	 * Second constructor
+	 * @param game The game it belongs to
+	 * @param it The instance
+	 */
+	public FactoryG(GameStage game, Place it) {
+		instance =  it;
+		this.game=game;
+		this.setWidth(instance.getWidth());
+		this.setHeight(instance.getHeight());
+		this.createFactory();
+		this.setPosition(this.instance.getPosX(), this.instance.getPosY());
+	}
 	@Override
 	public void update(float delta) {
 		

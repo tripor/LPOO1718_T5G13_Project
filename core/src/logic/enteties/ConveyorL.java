@@ -2,6 +2,8 @@ package logic.enteties;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.utils.Array;
+
 import logic.Entetie;
 import logic.Map;
 /**
@@ -48,14 +50,19 @@ public class ConveyorL extends Entetie {
 			movement_x = -this.velocity;
 		}
 	}
+	
+	public ConveyorL()
+	{
+		super();
+	}
 	/**
 	 * Moves all the materials on top of the conveyor
 	 * @param map The map this conveyor belongs
 	 */
 	public void moveMaterials(Map map)
 	{
-		ArrayList<Entetie> elements= map.getMapPixel(this.getPosX(),this.getPosY());
-		ArrayList<MaterialL> to_move = new ArrayList<MaterialL>();
+		Array<Entetie> elements= map.getMapPixel(this.getPosX(),this.getPosY());
+		Array<MaterialL> to_move = new Array<MaterialL>();
 		for(Entetie it:elements)
 		{
 			if(MaterialL.class.isAssignableFrom(it.getClass()))
@@ -68,7 +75,9 @@ public class ConveyorL extends Entetie {
 					&& it.getPosX() + it.getWidth() / 2 <= this.getPosX() + this.getWidth()
 					&& this.getPosY() <= it.getPosY() + it.getHeight() / 2
 					&& it.getPosY() + it.getHeight() / 2 <= this.getPosY() + this.getHeight())
-			it.moveMaterial(this.movement_x,this.movement_y,map);
+			{	
+				it.moveMaterial(this.movement_x,this.movement_y,map);
+			}
 		}
 	}
 	/**

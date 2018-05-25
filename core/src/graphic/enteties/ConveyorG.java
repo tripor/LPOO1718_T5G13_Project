@@ -58,7 +58,19 @@ public class ConveyorG extends ActorExtension{
 		this.createConveyor();
 		this.setPosition(this.instance.getPosX(), this.instance.getPosY());
 	}
-
+	/**
+	 * Second constructor for the class
+	 * @param game The game it belongs
+	 * @param it The instance
+	 */
+	public ConveyorG(GameStage game, ConveyorL it) {
+		this.instance=it;
+		this.game=game;
+		this.setWidth(this.instance.getWidth());
+		this.setHeight(this.instance.getHeight());
+		this.createConveyor();
+		this.setPosition(this.instance.getPosX(), this.instance.getPosY());
+	}
 	@Override
 	public void update(float delta) {
 		((ConveyorL)this.instance).moveMaterials(this.game.map());

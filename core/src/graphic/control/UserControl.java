@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 
 import graphic.GameStage;
 import logic.Entetie;
@@ -87,7 +88,7 @@ public class UserControl implements InputProcessor  {
 	{
 		Vector3 mouse_pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
 		this.game.getViewport().unproject(mouse_pos);
-		ArrayList<Entetie> elements=this.game.map().getMapBlock((int)mouse_pos.x,(int)mouse_pos.y);
+		Array<Entetie> elements=this.game.map().getMapBlock((int)mouse_pos.x,(int)mouse_pos.y);
 		ArrayList<Entetie> remover=new ArrayList<Entetie>();
 		for (Entetie it : elements) {
 			if (Material.class.isAssignableFrom(it.getClass()) || Person.class.isAssignableFrom(it.getClass())) {
@@ -116,11 +117,11 @@ public class UserControl implements InputProcessor  {
         }
         if(keycode==Input.Keys.P)
         {
-        	//this.game.saveGame("quero");
+        	this.game.saveGame();
         }
         if(keycode==Input.Keys.O)
         {
-        	//this.game.loadGame("quero");
+        	this.game.loadGame();
         }
 
 		return false;

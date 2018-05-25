@@ -4,6 +4,7 @@ package graphic;
 import java.util.ArrayList;
 
 import graphic.enteties.InserterG;
+import logic.enteties.InserterL;
 
 
 public class InserterList extends GroupExtension{
@@ -41,6 +42,17 @@ public class InserterList extends GroupExtension{
 	{
 		this.removeActor(i);
 		this.game.map().removeMap(i.instance);
+	}
+	/**
+	 * Loads all the inserters to the screen
+	 */
+	public void loadFromMap()
+	{
+		for(InserterL it:this.game.map.lista_inserter)
+		{
+			InserterG novo=new InserterG(this.game,it);
+			this.addInserter(novo);
+		}
 	}
 	
 }

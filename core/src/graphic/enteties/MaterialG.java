@@ -43,6 +43,12 @@ public class MaterialG extends ActorExtension{
 	@Override
 	public void update(float delta) {
 		this.setPosition(this.instance.getPosX(),this.instance.getPosY());
+		if(((MaterialL)this.instance).id==2)
+			this.setVisible(false);
+		else if(((MaterialL)this.instance).id==1)
+		{
+			this.setVisible(true);
+		}
 		
 	}
 

@@ -2,6 +2,12 @@ package graphic;
 
 import java.util.HashMap;
 
+import graphic.enteties.FactoryG;
+import graphic.enteties.MineG;
+import logic.Place;
+import logic.enteties.FactoryL;
+import logic.enteties.MineL;
+
 
 
 public class PlaceList extends GroupExtension{
@@ -129,6 +135,26 @@ public class PlaceList extends GroupExtension{
 		}
 		return null;
 	}*/
+	
+	/**
+	 * Loads all the Places to the screen
+	 */
+	public void loadFromMap()
+	{
+		for(Place it:this.game.map.lista_place)
+		{
+			PlaceGraphical novo=null;
+			if(FactoryL.class.isAssignableFrom(it.getClass()))
+			{
+				novo=new FactoryG(this.game,it);
+			}
+			else if(MineL.class.isAssignableFrom(it.getClass()))
+			{
+				novo=new MineG(this.game,it);
+			}
+			this.addPlace(novo);
+		}
+	}
 	
 	
 	

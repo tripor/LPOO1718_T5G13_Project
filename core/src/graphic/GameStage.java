@@ -8,6 +8,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.UUID;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,6 +24,7 @@ import graphic.enteties.MaterialG;
 import icon.Icon;
 import icon.type.BuildIcon;
 import logic.Map;
+import logic.SaveState;
 import logic.enteties.MaterialL;
 
 public class GameStage extends Stage {
@@ -344,11 +346,33 @@ public class GameStage extends Stage {
 		{
 			if(it.id==0)
 			{
+				System.out.println("here");
 				it.id=1;
 				MaterialG novo=new MaterialG(this,it);
 				this.material_list.addMaterial(novo);
 			}
 		}
+	}
+	/**
+	 * Saves the game
+	 */
+	public void saveGame()
+	{
+		SaveState instancia=new SaveState();
+		instancia.saveGame("coisa", map);
+	}
+	/**
+	 * Load the game
+	 */
+	public void loadGame()
+	{
+		SaveState instancia=new SaveState();
+		this.map=instancia.loadGame("coisa");
+		this.map.recreateMap();
+		this.inserter_list.loadFromMap();
+		this.conveyor_list.loadFromMap();
+		this.place_list.loadFromMap();
+		//this.material_list.loadFromMap();
 	}
 	
 	

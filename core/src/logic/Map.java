@@ -1,6 +1,7 @@
 package logic;
 
-import java.util.ArrayList;
+
+import com.badlogic.gdx.utils.Array;
 
 import logic.enteties.ConveyorL;
 import logic.enteties.InserterL;
@@ -27,23 +28,23 @@ public class Map {
 	/**
 	 * The blocks with all the enteties
 	 */
-	private ArrayList<ArrayList<ArrayList<Entetie>>> map;
+	private transient Array<Array<Array<Entetie>>> map;
 	/**
-	 * ArrayList with all the materials in the map
+	 * Array with all the materials in the map
 	 */
-	public ArrayList<MaterialL> lista_material;
+	public Array<MaterialL> lista_material;
 	/**
-	 * ArrayList with all the inserter in the map
+	 * Array with all the inserter in the map
 	 */
-	public  ArrayList<InserterL> lista_inserter;
+	public  Array<InserterL> lista_inserter;
 	/**
-	 * ArrayList with all the Places in the map
+	 * Array with all the Places in the map
 	 */
-	public  ArrayList<Place> lista_place;
+	public  Array<Place> lista_place;
 	/**
-	 * ArrayList with all the Conveyors in the map
+	 * Array with all the Conveyors in the map
 	 */
-	public  ArrayList<ConveyorL> lista_conveyor;
+	public  Array<ConveyorL> lista_conveyor;
 	
 	/**
 	 * Constructor for the class logic Map
@@ -54,19 +55,40 @@ public class Map {
 	public Map(int width, int height) {
 		this.mapWidth = width;
 		this.mapHeight = height;
-		map= new ArrayList<ArrayList<ArrayList<Entetie>>>();
+		map= new Array<Array<Array<Entetie>>>();
 		for(int i=0 ; i<this.transformToBlock(mapWidth) ;i++)
 		{
-			map.add(new ArrayList<ArrayList<Entetie>>());
+			map.add(new Array<Array<Entetie>>());
 			for(int j=0; j<this.transformToBlock(mapHeight);j++)
 			{
-				map.get(i).add(new ArrayList<Entetie>());
+				map.get(i).add(new Array<Entetie>());
 			}
 		}
-		this.lista_conveyor = new ArrayList<ConveyorL>();
-		this.lista_inserter= new ArrayList<InserterL>();
-		this.lista_material=new ArrayList<MaterialL>();
-		this.lista_place=new ArrayList<Place>();
+		this.lista_conveyor = new Array<ConveyorL>();
+		this.lista_inserter= new Array<InserterL>();
+		this.lista_material=new Array<MaterialL>();
+		this.lista_place=new Array<Place>();
+	}
+	/**
+	 * Recreates the map
+	 */
+	public void recreateMap()
+	{
+		map= new Array<Array<Array<Entetie>>>();
+		for(int i=0 ; i<this.transformToBlock(mapWidth) ;i++)
+		{
+			map.add(new Array<Array<Entetie>>());
+			for(int j=0; j<this.transformToBlock(mapHeight);j++)
+			{
+				map.get(i).add(new Array<Entetie>());
+			}
+		}
+		this.lista_material.clear();
+	}
+	
+	public Map()
+	{
+		
 	}
 	/**
 	 * Transform a number to this map curresponding block
@@ -81,9 +103,9 @@ public class Map {
 	 * Gets what in a position block of the map
 	 * @param posX the x position in pixels
 	 * @param posY the y position in pixels
-	 * @return Return an arraylist of entities in that position
+	 * @return Return an Array of entities in that position
 	 */
-	public ArrayList<Entetie> getMapPixel(int posX,int posY)
+	public Array<Entetie> getMapPixel(int posX,int posY)
 	{
 		return this.map.get(this.transformToBlock(posX)).get(this.transformToBlock(posY));
 	}
@@ -91,12 +113,12 @@ public class Map {
 	 * Gets what in the pixel of the map
 	 * @param pos_x the x position in pixels
 	 * @param pos_y the y position in pixels
-	 * @return Return an arraylist of entities in that position
+	 * @return Return an Array of entities in that position
 	 */
-	public ArrayList<Entetie> getMapPercisionPixel(int posX,int posY)
+	public Array<Entetie> getMapPercisionPixel(int posX,int posY)
 	{
-		ArrayList<Entetie> elements = this.getMapPixel(posX, posY);
-		ArrayList<Entetie> devolver = new ArrayList<Entetie>();
+		Array<Entetie> elements = this.getMapPixel(posX, posY);
+		Array<Entetie> devolver = new Array<Entetie>();
 		for (Entetie it : elements) {
 			if (it.getPosX() <= posX && posX <= it.getPosX() + it.getWidth() && it.getPosY() <= posY
 					&& posY <= it.getPosY() + it.getHeight()) {
@@ -109,9 +131,9 @@ public class Map {
 	 * Gets what in a position block of the map
 	 * @param posX the x position in block index
 	 * @param posY the y position in block index
-	 * @return Return an arraylist of entities in that position
+	 * @return Return an Array of entities in that position
 	 */
-	public ArrayList<Entetie> getMapBlock(int posX,int posY)
+	public Array<Entetie> getMapBlock(int posX,int posY)
 	{
 		return this.map.get(posX).get(posY);
 	}
@@ -185,7 +207,7 @@ public class Map {
 
 		for (int i = x; i < x + quantity_x; i ++) {
 			for (int j = y; j < y + quantity_y; j ++) {
-				this.map.get(i).get(j).remove(ent);
+				this.map.get(i).get(j).removeValue(ent, false);
 			}
 		}
 		this.removeEntetieLista(ent);
@@ -216,7 +238,7 @@ public class Map {
 		int quantity_y = this.transformToBlock(posY+height)-y +  error_y;
 		for (int i = x; i < x + quantity_x ; i ++) {
 			for (int j = y; j < y + quantity_y; j ++) {
-				ArrayList<Entetie> elements= this.getMapBlock(i, j);
+				Array<Entetie> elements= this.getMapBlock(i, j);
 				if(ignoreMaterial)
 				{
 					for(Entetie it:elements)
@@ -229,7 +251,7 @@ public class Map {
 				}
 				else
 				{
-					if(elements.size()!=0) return true;
+					if(elements.size!=0) return true;
 				}
 			}
 		}
@@ -267,19 +289,19 @@ public class Map {
 	{
 		if(ConveyorL.class.isAssignableFrom(ent.getClass()))
 		{
-			this.lista_conveyor.remove((ConveyorL) ent);
+			this.lista_conveyor.removeValue((ConveyorL) ent,false);
 		}
 		else if(Place.class.isAssignableFrom(ent.getClass()))
 		{
-			this.lista_place.remove((Place) ent);
+			this.lista_place.removeValue((Place) ent,false);
 		}
 		else if(InserterL.class.isAssignableFrom(ent.getClass()))
 		{
-			this.lista_inserter.remove((InserterL) ent);
+			this.lista_inserter.removeValue((InserterL) ent,false);
 		}
 		else if(MaterialL.class.isAssignableFrom(ent.getClass()))
 		{
-			this.lista_material.remove((MaterialL) ent);
+			this.lista_material.removeValue((MaterialL) ent,false);
 		}
 	}
 	/**

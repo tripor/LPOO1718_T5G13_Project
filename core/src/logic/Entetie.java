@@ -40,7 +40,10 @@ public abstract class Entetie {
 		this.width=width;
 		this.height=height;
 	}
-	
+	protected Entetie()
+	{
+		
+	}
 	/**
 	 * 
 	 * @return Returns the X position in Pixels

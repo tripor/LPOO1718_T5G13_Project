@@ -30,13 +30,20 @@ public abstract class Place extends Entetie{
 		super(posX,posY,width,height);
 		this.doorAtBorder=doorAtBorder;
 	}
+	
+	protected Place()
+	{
+		super();
+	}
 	/**
 	 * Adds a material to the place storage
 	 * @param mat The material I want to add
 	 */
 	public void addToStorage(MaterialL mat)
 	{
-		mat.id=0;
+
+		mat.id=mat.id==0 ? 0:2;
+		
 		this.storage.add(mat);
 	}
 	/**
@@ -56,7 +63,7 @@ public abstract class Place extends Entetie{
 			{
 				MaterialL devolver=this.storage.get(0);
 				this.storage.remove(0);
-				devolver.id=0;
+				devolver.id=devolver.id==0 ? 0:1;
 				return devolver;
 			}
 		}
@@ -69,7 +76,7 @@ public abstract class Place extends Entetie{
 				{
 					devolver=this.storage.get(i);
 					this.storage.remove(i);
-					devolver.id=0;
+					devolver.id=devolver.id==0 ? 0:1;
 					return devolver;
 				}
 			}

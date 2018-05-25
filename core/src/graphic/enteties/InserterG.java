@@ -54,6 +54,17 @@ public class InserterG extends ActorExtension{
 		this.sprite2.setPosition(this.instance.getPosX()-(((InserterL)this.instance).width_hand-2), this.instance.getPosY());
 	}
 	
+	public InserterG(GameStage game,InserterL in)
+	{
+		this.instance=in;
+		this.game=game;
+		this.setWidth(this.instance.getWidth());
+		this.setHeight(this.instance.getHeight());
+		this.createInserter();
+		this.setPosition(this.instance.getPosX(), this.instance.getPosY());
+		this.sprite2.setPosition(this.instance.getPosX()-(((InserterL)this.instance).width_hand-2), this.instance.getPosY());
+	}
+	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		sprite.draw(batch);

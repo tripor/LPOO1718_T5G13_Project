@@ -2,6 +2,8 @@ package logic.enteties;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.utils.Array;
+
 import logic.Entetie;
 import logic.Map;
 import logic.Place;
@@ -17,15 +19,15 @@ public class InserterL extends Entetie{
 	/**
 	 * If the inserter is rotating
 	 */
-	private boolean isRotating = false;
+	private transient boolean isRotating = false;
 	/**
 	 * Clock or counterclock wise direction
 	 */
-	private boolean rotationDirection=true;
+	private transient boolean rotationDirection=true;
 	/**
 	 * The degree of how much it has rotated
 	 */
-	private int rotating_quantity=0;
+	private transient int rotating_quantity=0;
 	/**
 	 * Rotating velocity
 	 */
@@ -33,11 +35,11 @@ public class InserterL extends Entetie{
 	/**
 	 * Material the inserter had picked up
 	 */
-	private MaterialL pickup;
+	private transient MaterialL pickup;
 	/**
 	 * If the inserter has been blocked from placing the block
 	 */
-	private boolean blocked;
+	private transient boolean blocked;
 	/**
 	 * Inserter hand width
 	 */
@@ -57,6 +59,15 @@ public class InserterL extends Entetie{
 		this.direction=direction;
 	}
 	
+	public InserterL()
+	{
+		super();
+		this.isRotating=false;
+		this.rotationDirection=true;
+		this.rotating_quantity=0;
+		this.pickup=null;
+		this.blocked=false;
+	}
 	
 	/**
 	 * Delivers the material to the map
@@ -64,8 +75,8 @@ public class InserterL extends Entetie{
 	 */
 	private void deliverMaterial(Map map)
 	{
-		ArrayList<Entetie> element = map.getMapPercisionPixel(this.pickup.getPosX()+this.pickup.getWidth()/2,this.pickup.getPosY()+this.pickup.getHeight()/2);
-		if(element.isEmpty())
+		Array<Entetie> element = map.getMapPercisionPixel(this.pickup.getPosX()+this.pickup.getWidth()/2,this.pickup.getPosY()+this.pickup.getHeight()/2);
+		if(element.size==0)
 		{
 			map.addMap(pickup);
 			this.pickup = null;
@@ -96,6 +107,7 @@ public class InserterL extends Entetie{
 				else if(Place.class.isAssignableFrom(it.getClass()))
 				{
 					((Place)it).addToStorage(this.pickup);
+					map.removeMap(this.pickup);
 					this.pickup=null;
 					this.blocked=false;
 					return;
@@ -109,7 +121,7 @@ public class InserterL extends Entetie{
 	 */
 	public void tryPickUp(Map map)
 	{
-		ArrayList<Entetie> elements = null;
+		Array<Entetie> elements = null;
 		this.pickup=null;
 		switch(this.direction)
 		{
@@ -126,8 +138,10 @@ public class InserterL extends Entetie{
 			elements = map.getMapPixel(this.posX-Map.division,this.posY);
 			break;
 		}
-		if(elements.isEmpty())
+		if(elements.size==0)
+		{
 			return;
+		}
 		else
 		{
 			for(Entetie it:elements)
@@ -197,7 +211,6 @@ public class InserterL extends Entetie{
 					retornar-=this.rotating_quantity+180+error;
 					this.rotating_quantity=-(180+error);
 					this.pickup.setPosition((int) (this.posX-(this.width_hand * Math.cos(rotating_quantity*Math.PI/180))),(int) (this.posY-(this.width_hand * Math.sin(rotating_quantity*Math.PI/180))));
-					System.out.println(this.pickup.getPosX()+ " "+this.pickup.getPosY());
 					this.deliverMaterial(map);
 				}
 			}

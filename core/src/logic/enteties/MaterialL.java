@@ -1,6 +1,9 @@
 package logic.enteties;
 
 import java.util.ArrayList;
+import java.util.UUID;
+
+import com.badlogic.gdx.utils.Array;
 
 import logic.Entetie;
 import logic.Map;
@@ -13,9 +16,9 @@ public class MaterialL extends Entetie {
 	 */
 	private String type;
 	/**
-	 * ID
+	 * ID. 0=no actor,1-has actor,2-has actor but hidden
 	 */
-	public int id=0;
+	public transient int id=0;
 	/**
 	 * Constructor for the logic class Material
 	 * @param posX The X position in pixels
@@ -25,6 +28,12 @@ public class MaterialL extends Entetie {
 	public MaterialL(int posX, int posY,String type) {
 		super(posX, posY, 4, 4);
 		this.type=type;
+	}
+	
+	public MaterialL()
+	{
+		super();
+		this.id=0;
 	}
 	/**
 	 * 
@@ -49,10 +58,9 @@ public class MaterialL extends Entetie {
 	public void moveMaterial(int x_movement, int y_movement,Map map) {
 		int new_x = this.getPosX() + x_movement;
 		int new_y = this.getPosY() + y_movement;
-		ArrayList<Entetie> elements = map.getMapPercisionPixel(new_x+this.getWidth()/2, new_y+this.getHeight()/2);
+		Array<Entetie> elements = map.getMapPercisionPixel(new_x+this.getWidth()/2, new_y+this.getHeight()/2);
 		for (Entetie it : elements) {
 			if (ConveyorL.class.isAssignableFrom(it.getClass()) || this==it) {
-
 			} else {
 				return;
 			}

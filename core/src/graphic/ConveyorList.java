@@ -1,8 +1,7 @@
 package graphic;
 
-import java.util.ArrayList;
-
 import graphic.enteties.ConveyorG;
+import logic.enteties.ConveyorL;
 
 /**
  * Saves the conveyor in map
@@ -41,6 +40,17 @@ public class ConveyorList extends GroupExtension{
 	public void removeConveyor(ConveyorG c) {
 		this.removeActor(c);
 		this.game.map().removeMap(c.instance);
+	}
+	/**
+	 * Loads all the conveyors to the screen
+	 */
+	public void loadFromMap()
+	{
+		for(ConveyorL it:this.game.map.lista_conveyor)
+		{
+			ConveyorG novo=new ConveyorG(this.game,it);
+			this.addConveyor(novo);
+		}
 	}
 	
 }
