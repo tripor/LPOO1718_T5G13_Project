@@ -1,7 +1,5 @@
 package logic.entities;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.utils.Array;
 
 import logic.Entity;
@@ -99,6 +97,7 @@ public class InserterL extends Entity {
 				if(ConveyorL.class.isAssignableFrom(it.getClass()))
 				{
 					//this.pickup.setPosition(this.pickup.getX()-(this.pickup.getX()%10)+1, this.pickup.getY());
+					
 					map.addMap(pickup);
 					this.pickup = null;
 					this.blocked = false;

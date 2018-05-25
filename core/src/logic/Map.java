@@ -164,7 +164,7 @@ public class Map {
 		int quantity_x = this.transformToBlock(ent.getPosX()+ent.getWidth())-x + error_x;
 		int quantity_y = this.transformToBlock(ent.getPosY()+ent.getHeight())-y +  error_y;
 		
-		if(!MaterialL.class.isAssignableFrom(ent.getClass()) || !PersonL.class.isAssignableFrom(ent.getClass())) {
+		if(!(MaterialL.class.isAssignableFrom(ent.getClass()) || PersonL.class.isAssignableFrom(ent.getClass()))) {
 			if(Place.class.isAssignableFrom(ent.getClass()) || ConveyorL.class.isAssignableFrom(ent.getClass()) || InserterL.class.isAssignableFrom(ent.getClass()))
 			{
 				if(this.checkPositions(ent.getPosX(), ent.getPosY(), ent.getWidth(), ent.getHeight(), true))
