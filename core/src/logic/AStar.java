@@ -47,7 +47,7 @@ public class AStar {
     	             end_findpath_at;
     // for console log: time marker.
     
-    Map map;
+    public Map map;
     
     
     /**
@@ -57,6 +57,7 @@ public class AStar {
     	
 		// for console log: time marker.
     		this.start_at = System.currentTimeMillis();
+    		this.map=map;
     		
     		System.out.print("A*(); ");
     	
