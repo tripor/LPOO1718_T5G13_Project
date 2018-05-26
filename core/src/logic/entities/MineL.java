@@ -24,11 +24,6 @@ public class MineL extends Place{
 	public MineL(int posX, int posY, int doorAtBorder) {
 		super(posX, posY, 20,20, doorAtBorder);
 	}
-	
-	public MineL()
-	{
-		super();
-	}
 	/**
 	 * Goes one point in time
 	 */

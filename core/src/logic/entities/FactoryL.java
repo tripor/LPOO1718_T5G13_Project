@@ -16,10 +16,5 @@ public class FactoryL extends Place {
 	{
 		super(posX,posY,40,40,doorAtBorder);
 	}
-	
-	public FactoryL()
-	{
-		super();
-	}
 
 }

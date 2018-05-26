@@ -11,8 +11,8 @@ public class UnitTest {
 
 	@Test
 	public void initMap() {	
-		int mapWidth = 8,
-			mapHeight = 6;
+		int mapWidth = (Map.division * 2) + 2,
+			mapHeight = (Map.division * 2) + 2;
 		
 		Map map = new Map(mapWidth, mapHeight);
 		assertEquals(mapWidth, map.getMapWidth());
@@ -74,15 +74,14 @@ public class UnitTest {
 		map.addMap(fac);
 		
 		MaterialL mat = new MaterialL();
-		String stringOf_materialType = mat.getType();
 		
 		mat.setType(typeText);
 		assertEquals(typeText, mat.getType());
-		
-		mat.setType(stringOf_materialType);
+
 		fac.addToStorage(mat);
 
 		MaterialL mat2 = new MaterialL();
+		mat2.setType(typeText);
 		fac.addToStorage(mat2);
 		
 		int mX = mat2.getPosX(), mY = mat.getPosY();
@@ -90,13 +89,15 @@ public class UnitTest {
 		mat2.moveMaterial(moveX, moveY, map);
 		assertEquals((mX + moveX), mat2.getPosX());
 		assertEquals((mY + moveY), mat2.getPosY());
+
+		assertEquals(mat, fac.removeMaterial(typeText));
+		assertEquals(mat2, fac.removeMaterial("any"));
+		assertNull(fac.removeMaterial("any"));
 		
-		// not knowing why it's not running in PIT.
-//		assertEquals(mat2, fac.removeMaterial(mat2.getType()));
-//		assertEquals(mat, fac.removeMaterial("any"));
-//		
-//		assertEquals(null, fac.removeMaterial(stringOf_materialType));
-//		assertEquals(null, fac.removeMaterial("any"));
+		fac.addToStorage(mat);
+		fac.addToStorage(mat2);
+		
+		map.recreateMap();
 	}
 	
 	@Test
@@ -149,11 +150,20 @@ public class UnitTest {
 		
 		Map map = new Map(60, 60);
 		
-		PersonL ps = new PersonL(from_y, from_x, map);
+		PersonL ps = new PersonL(from_x, from_y, map);
 		map.addMap(ps);
+		assertEquals((from_x + ps.getWidth() / 2), ps.getPosX());
+		
+		map.removeMap(ps);
 		
 		assertTrue(ps.getPath(to_y, to_x).size() > 0);
-//		ps.popPath();
+		
+		Node n = ps.popPath();
+		assertNotNull(n);
+		
+		n.calculateHeuristic(new Node(to_y, to_x));
+		n.setNodeData(new Node(from_x, from_y), 5);
+		assertNotNull(n.checkBetterPath(new Node(from_x, from_y), 5));
 	}
 
 }

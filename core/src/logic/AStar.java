@@ -55,6 +55,8 @@ public class AStar {
      */
     public AStar(Map map, Node initialNode, Node finalNode) {
     	
+    		this.map = map;
+    	
 		// for console log: time marker.
     		this.start_at = System.currentTimeMillis();
     		this.map=map;

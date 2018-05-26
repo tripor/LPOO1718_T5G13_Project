@@ -2,6 +2,7 @@ package logic;
 
 import java.util.ArrayList;
 
+import graphic.Console;
 import logic.entities.MaterialL;
 
 /**
@@ -30,11 +31,6 @@ public abstract class Place extends Entity {
 		super(posX,posY,width,height);
 		this.doorAtBorder=doorAtBorder;
 	}
-	
-	protected Place()
-	{
-		super();
-	}
 	/**
 	 * Adds a material to the place storage
 	 * @param mat The material I want to add
@@ -53,6 +49,8 @@ public abstract class Place extends Entity {
 	 */
 	public MaterialL removeMaterial(String type)
 	{
+		// Console.log(type);
+		
 		if(type.equals("any"))
 		{
 			if(this.storage.isEmpty())
