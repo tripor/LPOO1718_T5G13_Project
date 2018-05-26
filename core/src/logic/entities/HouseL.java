@@ -13,5 +13,10 @@ public class HouseL extends Place {
 	{
 		super(posX,posY,30,30,doorAtBorder);
 	}
+	
+	public HouseL()
+	{
+		super();
+	}
 
 }

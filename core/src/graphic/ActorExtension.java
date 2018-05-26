@@ -82,7 +82,7 @@ public abstract class ActorExtension extends Actor implements Comparable<Object>
 	@Override
 	protected void positionChanged() {
 		super.positionChanged();
-		sprite.setPosition(getX(), getY());
+		sprite.setPosition(this.getX(), this.getY());
 	}
 
 	@Override

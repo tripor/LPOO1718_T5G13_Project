@@ -1,28 +1,19 @@
 package graphic;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.UUID;
-
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.groundup.game.GroundUpGame;
 
 import graphic.control.Mouse;
 import graphic.entities.Background;
 import graphic.entities.MaterialG;
-import icon.BuildIcon;
+import icon.BuildHolder;
 import icon.Icon;
+import icon.NormalHolder;
+import icon.type.BarraIcon;
 import logic.Map;
 import logic.SaveState;
 import logic.entities.MaterialL;
@@ -134,21 +125,22 @@ public class GameStage extends Stage {
 	
 	    // Load the textures
 	    game.getAssetManager().load("factory.png", Texture.class);
-	    game.getAssetManager().load("factory_icon.png", Texture.class);
-	    game.getAssetManager().load("place_button_mouse_over.png", Texture.class);
-	    game.getAssetManager().load("place_button_pressed.png", Texture.class);
-	    game.getAssetManager().load("place_button_unpressed.png", Texture.class);
-	    game.getAssetManager().load("conveyor_button_mouse_over.png", Texture.class);
-	    game.getAssetManager().load("conveyor_button_pressed.png", Texture.class);
-	    game.getAssetManager().load("conveyor_button_unpressed.png", Texture.class);
-	    game.getAssetManager().load("inserter_button_mouse_over.png", Texture.class);
-	    game.getAssetManager().load("inserter_button_pressed.png", Texture.class);
-	    game.getAssetManager().load("inserter_button_unpressed.png", Texture.class);
 	    game.getAssetManager().load("menu_icon.png", Texture.class);
-	    game.getAssetManager().load("build_icon.png", Texture.class);
-	    game.getAssetManager().load("mine_icon.png", Texture.class);
 	    game.getAssetManager().load("conveyor_icon.png", Texture.class);
 	    game.getAssetManager().load("inserter_icon.png", Texture.class);
+	    
+	    
+	    game.getAssetManager().load("build_icon.png", Texture.class);
+	    game.getAssetManager().load("build_icon_mouse.png", Texture.class);
+	    game.getAssetManager().load("remove_icon.png", Texture.class);
+	    game.getAssetManager().load("remove_icon_mouse.png", Texture.class);
+	    game.getAssetManager().load("menu_icon.png", Texture.class);
+	    game.getAssetManager().load("menu_icon_mouse.png", Texture.class);
+	    game.getAssetManager().load("cancel_icon.png", Texture.class);
+	    game.getAssetManager().load("cancel_icon_mouse.png", Texture.class);
+	    
+	    
+	    
 	    game.getAssetManager().load("worker.png", Texture.class);
 	    game.getAssetManager().load("grass01.png", Texture.class);
 	    game.getAssetManager().load("nothing.png", Texture.class);
@@ -188,10 +180,13 @@ public class GameStage extends Stage {
 	 */
 	private void initializeIcons()
 	{
-		Icon build_icon= new BuildIcon(this,0,0,this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT/3);
-		build_icon.setZIndex(0);
+		NormalHolder build_icon= new NormalHolder(this,this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT/3);
 		this.icon_list.addIcon(build_icon);
 		
+		BuildHolder icon2= new BuildHolder(this,this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT/3);
+		this.icon_list.addIcon(icon2);
+		
+		this.icon_list.setHolder(1);
 	}
     
 	/**

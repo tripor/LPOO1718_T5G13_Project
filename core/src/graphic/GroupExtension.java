@@ -25,7 +25,4 @@ public abstract class GroupExtension extends Group implements Comparable<Object>
 	public void setZ(Integer z) {
 		this.z = z;
 	}
-	
-	
-
 }

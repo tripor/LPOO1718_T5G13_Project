@@ -1,4 +1,4 @@
-package icon;
+package icon.type;
 
 
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import graphic.GameStage;
+import icon.Icon;
 
 public class PlaceIcon extends Icon {
 	
@@ -50,7 +51,7 @@ public class PlaceIcon extends Icon {
 		sprite.setSize(this.getWidth(), this.getHeight());
 		sprite.setOrigin(this.getWidth()/2, this.getHeight()/2);
 		
-		
+		/*
 		int width_of_icons=20*this.game.VIEWPORT_WIDTH/200;
 		int height_of_icons=16*this.game.VIEWPORT_HEIGHT/100;
 		
@@ -79,7 +80,7 @@ public class PlaceIcon extends Icon {
 		this.game.icons().addIcon(button3);
 		this.icon_build.add(button3);
 		pos_x+=width_of_icons+1;
-		//pos_y-=height_of_icons+1;
+		//pos_y-=height_of_icons+1;*/
 	}
 	
 	private void newSprite(int number)

@@ -1,4 +1,4 @@
-package icon;
+package icon.type;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -6,12 +6,13 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import graphic.GameStage;
+import icon.Icon;
 
 public class MineIcon extends Icon {
 	
 	private void createFactoryIcon() {
 
-		Texture texture = this.game.getGame().getAssetManager().get("mine_icon.png");
+		Texture texture = this.game.getGame().getAssetManager().get("iron_mine.png");
 
 		sprite = new Sprite(texture);
 		sprite.setSize(this.getWidth(), this.getHeight());

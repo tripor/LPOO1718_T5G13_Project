@@ -1,6 +1,7 @@
 package icon;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 import graphic.ActorExtension;
@@ -14,6 +15,7 @@ public abstract class Icon extends ActorExtension {
 	protected boolean visible;
 	
 	protected boolean isPressed=false;
+	protected Texture[] frames= new Texture[2];
 	
 	public Icon(GameStage game,int pos_x,int pos_y)
 	{
