@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import graphic.ActorExtension;
 import graphic.GameStage;
+import logic.Map;
 import logic.entities.InserterL;
 import logic.entities.PersonL;
 
@@ -20,8 +21,8 @@ public class PersonG extends ActorExtension{
 		this.setDebug(true);
 	}
 	
-	public PersonG(GameStage game,int posX, int posY) {
-		this.instance= new PersonL(posX,posY);
+	public PersonG(GameStage game, Map map, int posX, int posY) {
+		this.instance= new PersonL(posX, posY, map);
 		this.game=game;
 		this.setWidth(this.instance.getWidth());
 		this.setHeight(this.instance.getHeight());
@@ -29,7 +30,7 @@ public class PersonG extends ActorExtension{
 		this.setPosition(this.instance.getPosX(), this.instance.getPosY());
 	}
 	
-	public PersonG(GameStage game,PersonL in) {
+	public PersonG(GameStage game, PersonL in) {
 		this.instance=in;
 		this.game=game;
 		this.setWidth(this.instance.getWidth());

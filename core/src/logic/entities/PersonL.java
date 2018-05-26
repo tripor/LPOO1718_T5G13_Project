@@ -4,20 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import logic.AStar;
 import logic.Entity;
+import logic.Map;
 import logic.Node;
 
 public class PersonL extends Entity{
 	
-	public int target_row;
-	public int target_col;
+	public int current_row, current_col;
+	public int target_row, target_col;
 	
 	public String unique_id;
 	
 	List<Node> path = new ArrayList<Node>();
 	
-	public PersonL(int posX, int posY) {
+	private Map map;
+	
+	public PersonL(int posX, int posY, Map map) {
 		super(posX,posY,5,5);
+
+		this.map = map;
 		this.unique_id = UUID.randomUUID().toString();
 		// a duplication checking at personList is already performed.
 	}
@@ -28,14 +34,14 @@ public class PersonL extends Entity{
 		return this.unique_id;
 	}
 	
-	/*public List<Node> getPath(int _target_row, int _target_col, boolean should_replace_global) {
+	public List<Node> getPath(int _target_row, int _target_col, boolean should_replace_global) {
 
 		// Console.log(":: CALC_PATH " + current_row+","+current_col+ " - " + _target_row+","+_target_col);
 		
 		Node initialNode = new Node(current_row, current_col);
         Node finalNode = new Node(_target_row, _target_col);
         
-        AStar aStar = new AStar(this.game, initialNode, finalNode);
+        AStar aStar = new AStar(map, initialNode, finalNode);
         // aStar.setBlocks(this.game.places().getPlaceList());
         
         List<Node> thisPath = aStar.findPath();
@@ -49,13 +55,13 @@ public class PersonL extends Entity{
         // Console.log(":: FINISH => Person " + this.getId() + " " + thisPath.size() + " steps.");
         
         return thisPath;
-	}*/
+	}
 	
-	/*public List<Node> getPath(int _target_row, int _target_col){
+	public List<Node> getPath(int _target_row, int _target_col){
 		return getPath(_target_row, _target_col, true);
-	}*/
+	}
 	
-	/*public Node popPath() {
+	public Node popPath() {
 		
 		// Console.log("Path Size = " + path.size());
 		
@@ -109,16 +115,16 @@ public class PersonL extends Entity{
 			path = smallerPath;
 			latestNode = path.remove(0);
 		}
-		
-		this.game.people().movePersonTo(
-				latestNode.getRow(), latestNode.getCol(),	// to
-				this
-			);
+
+		map.removeMap(this);
+		this.posX = latestNode.getCol();
+		this.posY = latestNode.getRow();
+		map.addMap(this);
 
 		// Console.log("POP > " + this.toString());
 
 		return latestNode;
-	}*/
+	}
 
 	public String toString() {
 		return "[Person " + unique_id + "]"

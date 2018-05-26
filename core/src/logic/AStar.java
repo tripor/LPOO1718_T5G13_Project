@@ -47,13 +47,13 @@ public class AStar {
     	             end_findpath_at;
     // for console log: time marker.
     
-    logic.Map map;
+    Map map;
     
     
     /**
      * Constructor
      */
-    public AStar(logic.Map map, Node initialNode, Node finalNode) {
+    public AStar(Map map, Node initialNode, Node finalNode) {
     	
 		// for console log: time marker.
     		this.start_at = System.currentTimeMillis();
@@ -253,15 +253,21 @@ public class AStar {
     		Array<ConveyorL> Cs = map.lista_conveyor;
     		Array<InserterL> Is = map.lista_inserter;
 
-    		for(Entity p : Ps) {
-    			setBlock(p);
-		}
-    		for(Entity c : Cs) {
-    			setBlock(c);
-		}
-    		for(Entity i : Is) {
-    			setBlock(i);
-		}
+    		if(Ps.size > 0) {
+        		for(Entity p : Ps) {
+        			setBlock(p);
+        		}
+    		}
+    		if(Cs.size > 0) {
+	    		for(Entity c : Cs) {
+	    			setBlock(c);
+			}
+    		}
+    		if(Is.size > 0) {
+        		for(Entity i : Is) {
+        			setBlock(i);
+        		}
+    		}
 
     		// for console log: time marker.
     		this.end_setblock_at = System.currentTimeMillis();
