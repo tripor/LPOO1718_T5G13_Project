@@ -61,7 +61,7 @@ public class AStar {
     		this.start_at = System.currentTimeMillis();
     		this.map=map;
     		
-    		System.out.print("A*(); ");
+    		// System.out.print("A*(); ");
     	
     		this.hvCost = DEFAULT_HV_COST;
     		this.diagonalCost = DEFAULT_DIAGONAL_COST;
