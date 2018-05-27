@@ -49,6 +49,14 @@ public class ConveyorL extends Entity {
 		}
 	}
 	
+	public int getMovementX() {
+		return movement_x;
+	}
+	public int getMovementY() {
+		return movement_y;
+	}
+
+
 	public ConveyorL()
 	{
 		super();

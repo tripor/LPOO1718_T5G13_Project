@@ -2,6 +2,8 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import logic.*;
@@ -127,21 +129,42 @@ public class UnitTest {
 		
 		InserterL ist = new InserterL(x, y, direction);
 		ist.handler(map);
+		
+		new InserterL();
 	}
 	
 	@Test
 	public void tryConveyor() {
 		
-		int x = 3, y = 4, direction = 1;
-		// direction = 1|2|3|4
+		int x = 3, y = 4;
 		
 		FactoryL fac = new FactoryL(4, 8, 3);
 		
 		Map map = new Map(60, 60);
 		assertTrue(map.addMap(fac));
 		
+		int direction;
+		
+		direction = 1;
 		ConveyorL cvy = new ConveyorL(x, y, direction);
 		assertEquals(direction, cvy.getDirection());
+		assertEquals(1, cvy.getMovementY());
+		assertEquals(0, cvy.getMovementX());
+		
+		direction = 2;
+		cvy = new ConveyorL(x, y, direction);
+		assertEquals(0, cvy.getMovementY());
+		assertEquals(1, cvy.getMovementX());
+		
+		direction = 3;
+		cvy = new ConveyorL(x, y, direction);
+		assertEquals(-1, cvy.getMovementY());
+		assertEquals(0, cvy.getMovementX());
+		
+		direction = 4;
+		cvy = new ConveyorL(x, y, direction);
+		assertEquals(0, cvy.getMovementY());
+		assertEquals(-1, cvy.getMovementX());
 		
 		cvy.moveMaterials(map);
 	}
@@ -159,6 +182,9 @@ public class UnitTest {
 	
 	@Test
 	public void tryPerson() {
+
+		// Note: Since A* applies MAX_BLOCKS, if origin and destination too far, the test result may incorrect.
+		
 		int from_x = 4, from_y = 8,
 			to_x = 30, to_y = 20;
 		
@@ -167,16 +193,33 @@ public class UnitTest {
 		PersonL ps = new PersonL(from_x, from_y, map);
 		assertTrue(map.addMap(ps));
 		assertEquals((from_x + ps.getWidth() / 2), ps.getPosX());
+		assertEquals(ps.toString(), ps.toString());
 		
 		map.removeMap(ps);
 		
-		assertTrue(ps.getPath(to_y, to_x).size() > 0);
+		List<Node> path = ps.getPath(to_y, to_x);
+		assertEquals(path.size(), ps.getPath(to_y, to_x).size());
 		
 		Node n = ps.popPath();
-		assertNotNull(n);
+		assertEquals(path.get(0), n);
 		
 		n.calculateHeuristic(new Node(to_y, to_x));
 		assertEquals((Math.abs(to_y - n.getRow()) + Math.abs(to_x - n.getCol())), n.getH());
+	}
+	
+	@Test
+	public void tryLoadGame() {
+		String name = "test";
+		int width = 60, height = 80;
+		
+		SaveState s = new SaveState();
+		Map map = new Map(width, height);
+		
+		s.saveGame(name, map);
+		
+		Map m = s.loadGame(name);
+		assertEquals(width, m.getMapWidth());
+		assertEquals(height, m.getMapHeight());
 	}
 
 }

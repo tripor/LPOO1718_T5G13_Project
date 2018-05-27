@@ -234,10 +234,10 @@ public class AStar {
 			// factory didn't occupy the full width of a grid.
 		}
 		else {
-			Console.log("setBlock(T=" + blockTop
-					+ " R=" + blockRight
-					+ " B=" + blockBottom
-					+ " L=" + blockLeft + ");");
+		//	Console.log("setBlock(T=" + blockTop
+		//			+ " R=" + blockRight
+		//			+ " B=" + blockBottom
+		//			+ " L=" + blockLeft + ");");
 			setBlock(blockTop, blockRight, blockBottom, blockLeft);
 		}
     }
@@ -300,16 +300,16 @@ public class AStar {
 	    		// for console log: time marker.
 	    		this.end_findpath_at = System.currentTimeMillis();
 	    		
-	    		Console.log("A-Star Finished. "
-	    			+ "Total:" + ((int) (System.currentTimeMillis() - this.start_at)) + " ms (incl "
-	    			+ "Init:" + ((int) (this.end_init_at - this.init_at)) + " ms, "
-	    	    		+ "SetBlock:" + ((int) (this.end_setblock_at - this.setblock_at)) + " ms, "
-	    		    	+ "FindPath:" + ((int) (this.end_findpath_at - this.findpath_at)) + " ms"
-	    			+ ")"
-	    		);
+		//	Console.log("A-Star Finished. "
+		//		+ "Total:" + ((int) (System.currentTimeMillis() - this.start_at)) + " ms (incl "
+		//		+ "Init:" + ((int) (this.end_init_at - this.init_at)) + " ms, "
+		//    		+ "SetBlock:" + ((int) (this.end_setblock_at - this.setblock_at)) + " ms, "
+		//	    	+ "FindPath:" + ((int) (this.end_findpath_at - this.findpath_at)) + " ms"
+		//		+ ")"
+		//	);
     		}
     		else {
-    			Console.log("A-Star Skipped. Total:" + ((int) (System.currentTimeMillis() - this.start_at)) + "ms");
+    		//	Console.log("A-Star Skipped. Total:" + ((int) (System.currentTimeMillis() - this.start_at)) + "ms");
     		}
         return new ArrayList<Node>();
     }
@@ -458,7 +458,7 @@ public class AStar {
     			// the factory has no relation to the person's path (i.e., too far from him)
     		}
     		else {
-        		Console.log("setBlock(); - R=" + row + " C=" + col + " VS Rs=" + this.getSearchAreaRowsCount() + " Cs=" + this.getSearchAreaColsCount());
+        		// Console.log("setBlock(); - R=" + row + " C=" + col + " VS Rs=" + this.getSearchAreaRowsCount() + " Cs=" + this.getSearchAreaColsCount());
         		
         		if(!this.searchArea[row][col].isBlock()) {
                 	this.searchArea[row][col].setBlock(true);
