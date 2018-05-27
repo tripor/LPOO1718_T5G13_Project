@@ -17,10 +17,21 @@ public class UnitTest {
 		Map map = new Map(mapWidth, mapHeight);
 		assertEquals(mapWidth, map.getMapWidth());
 		assertEquals(mapHeight, map.getMapHeight());
+	}
+	
+	@Test
+	public void tryRecreateMap() {
+
+		Map map = new Map(60, 60);
+		assertTrue(map.addMap(new FactoryL(4,4,3)));
+		assertFalse(map.addMap(new FactoryL(4,4,3)));
 		
+		PersonL p = new PersonL();
+		map.addEntityLista(p);
+		map.removeMap(p);
+		
+		map.addEntityLista(new MaterialL());
 		map.recreateMap();
-		assertEquals(mapWidth, map.getMapWidth());
-		assertEquals(mapHeight, map.getMapHeight());
 	}
 	
 	@Test
@@ -54,11 +65,14 @@ public class UnitTest {
 		fac.setPosition(x, y);		
 		assertEquals(0, map.getMapPercisionPixel(fac.getPosX(), fac.getPosY()).size);
 
-		map.addMap(fac);
+		assertTrue(map.addMap(fac));
 		assertEquals(1, map.getMapPercisionPixel(fac.getPosX(), fac.getPosY()).size);
-		// assertTrue(map.pointIsOccupied(fac.getPosX(), fac.getPosY()));
+		assertTrue(map.pointIsOccupied(fac.getPosX(), fac.getPosY()));
 		assertEquals(fac, map.getMapPercisionPixel(fac.getPosX(), fac.getPosY()).get(0));
 
+		FactoryL fac2 = new FactoryL(x, y, doorAtBorder);
+		assertFalse(map.addMap(fac2));
+		
 		map.removeMap(fac);
 		assertEquals(0, map.getMapPercisionPixel(fac.getPosX(), fac.getPosY()).size);
 	}
@@ -71,7 +85,7 @@ public class UnitTest {
 		FactoryL fac = new FactoryL(4, 8, 3);
 		
 		Map map = new Map(60, 60);
-		map.addMap(fac);
+		assertTrue(map.addMap(fac));
 		
 		MaterialL mat = new MaterialL();
 		
@@ -109,7 +123,7 @@ public class UnitTest {
 		FactoryL fac = new FactoryL(4, 8, 3);
 		
 		Map map = new Map(60, 60);
-		map.addMap(fac);
+		assertTrue(map.addMap(fac));
 		
 		InserterL ist = new InserterL(x, y, direction);
 		ist.handler(map);
@@ -124,7 +138,7 @@ public class UnitTest {
 		FactoryL fac = new FactoryL(4, 8, 3);
 		
 		Map map = new Map(60, 60);
-		map.addMap(fac);
+		assertTrue(map.addMap(fac));
 		
 		ConveyorL cvy = new ConveyorL(x, y, direction);
 		assertEquals(direction, cvy.getDirection());
@@ -139,7 +153,7 @@ public class UnitTest {
 		Map map = new Map(60, 60);
 		
 		MineL mine = new MineL(x, y, doorAtBorder);
-		map.addMap(mine);
+		assertTrue(map.addMap(mine));
 		mine.handler();
 	}
 	
@@ -151,7 +165,7 @@ public class UnitTest {
 		Map map = new Map(60, 60);
 		
 		PersonL ps = new PersonL(from_x, from_y, map);
-		map.addMap(ps);
+		assertTrue(map.addMap(ps));
 		assertEquals((from_x + ps.getWidth() / 2), ps.getPosX());
 		
 		map.removeMap(ps);
@@ -162,8 +176,7 @@ public class UnitTest {
 		assertNotNull(n);
 		
 		n.calculateHeuristic(new Node(to_y, to_x));
-		n.setNodeData(new Node(from_x, from_y), 5);
-		assertNotNull(n.checkBetterPath(new Node(from_x, from_y), 5));
+		assertEquals((Math.abs(to_y - n.getRow()) + Math.abs(to_x - n.getCol())), n.getH());
 	}
 
 }
