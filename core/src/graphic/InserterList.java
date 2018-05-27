@@ -2,7 +2,10 @@ package graphic;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+
 import graphic.entities.InserterG;
+import logic.Place;
 import logic.entities.InserterL;
 
 
@@ -41,6 +44,15 @@ public class InserterList extends GroupExtension{
 	{
 		this.removeActor(i);
 		this.game.map().removeMap(i.instance);
+	}
+	public void removeInserter(InserterL p) {
+		for(Actor it:this.getChildren())
+		{
+			if(((ActorExtension) it).getInstance()==p)
+			{
+				this.removeInserter((InserterG) it);
+			}
+		}
 	}
 	/**
 	 * Loads all the inserters to the screen

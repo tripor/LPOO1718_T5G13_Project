@@ -2,6 +2,8 @@ package graphic;
 
 import java.util.HashMap;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+
 import graphic.entities.FactoryG;
 import graphic.entities.HouseG;
 import graphic.entities.MineG;
@@ -49,6 +51,16 @@ public class PlaceList extends GroupExtension{
 	public void removePlace(PlaceGraphical p) {
 		this.removeActor(p);
 		this.game.map.removeMap(p.instance);
+	}
+	
+	public void removePlace(Place p) {
+		for(Actor it:this.getChildren())
+		{
+			if(((ActorExtension) it).getInstance()==p)
+			{
+				this.removePlace((PlaceGraphical) it);
+			}
+		}
 	}
 	/**
 	 * Randomly return a building on the map

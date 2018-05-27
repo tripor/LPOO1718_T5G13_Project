@@ -20,7 +20,7 @@ public class MenuIcon extends Icon{
 		sprite.setOrigin(this.getWidth()/2, this.getHeight()/2);
 	}
 	
-	public MenuIcon(GameStage game,int posX,int posY,int width,int height) {
+	public MenuIcon(final GameStage game,int posX,int posY,int width,int height) {
 		super(game,posX,posY);
 		this.setWidth(width);
 		this.setHeight(height);
@@ -29,7 +29,9 @@ public class MenuIcon extends Icon{
 		
 		this.addCaptureListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-            	
+            	game.getMouse().remove=false;
+            	game.menuOpen=true;
+            	game.icons().setHolder(3);
             }
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
             {

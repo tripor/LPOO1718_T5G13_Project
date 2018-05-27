@@ -1,7 +1,11 @@
 package graphic;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+
 import graphic.entities.ConveyorG;
+import graphic.entities.InserterG;
 import logic.entities.ConveyorL;
+import logic.entities.InserterL;
 
 /**
  * Saves the conveyor in map
@@ -40,6 +44,15 @@ public class ConveyorList extends GroupExtension{
 	public void removeConveyor(ConveyorG c) {
 		this.removeActor(c);
 		this.game.map().removeMap(c.instance);
+	}
+	public void removeConveyor(ConveyorL p) {
+		for(Actor it:this.getChildren())
+		{
+			if(((ActorExtension) it).getInstance()==p)
+			{
+				this.removeConveyor((ConveyorG) it);
+			}
+		}
 	}
 	/**
 	 * Loads all the conveyors to the screen

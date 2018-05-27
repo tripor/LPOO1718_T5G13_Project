@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		config.width=1024;
 		config.height=768;
 		config.title="Ground Up";
+		config.forceExit=false;
 		//config.fullscreen=true;
 		new LwjglApplication(new GroundUpGame(), config);
 	}

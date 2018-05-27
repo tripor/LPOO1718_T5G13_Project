@@ -28,6 +28,10 @@ public class Mouse extends ActorExtension {
 	private int height;
 	private int doorPosition=4;
 	/**
+	 * If i want to remove things from map
+	 */
+	public boolean remove=false;
+	/**
 	 * Cosntructor for the class mouse
 	 * @param game the game the mouse belongs to 
 	 */

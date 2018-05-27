@@ -98,7 +98,8 @@ public abstract class ActorExtension extends Actor implements Comparable<Object>
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		this.update(Gdx.graphics.getDeltaTime());
+		if(!this.game.menuOpen)
+			this.update(Gdx.graphics.getDeltaTime());
 		sprite.draw(batch);
 	}
 	/**
@@ -106,4 +107,13 @@ public abstract class ActorExtension extends Actor implements Comparable<Object>
 	 * @param delta Time since the last frame
 	 */
 	public abstract void update(float delta);
+	/**
+	 * 
+	 * @return Returns the entity of this actor
+	 */
+	public Entity getInstance() {
+		return instance;
+	}
+	
+	
 }

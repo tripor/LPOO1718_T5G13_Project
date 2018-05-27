@@ -69,7 +69,8 @@ public class InserterG extends ActorExtension{
 	public void draw(Batch batch, float parentAlpha) {
 		sprite.draw(batch);
 		sprite2.draw(batch);
-		this.update(Gdx.graphics.getDeltaTime());
+		if(!game.menuOpen)
+			this.update(Gdx.graphics.getDeltaTime());
 	}
 	
 	

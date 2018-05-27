@@ -41,4 +41,34 @@ public class IconList extends GroupExtension{
 			}
 		}
 	}
+	/**
+	 * 
+	 * @return Returns the active menu number
+	 */
+	public int getHolder()
+	{
+		for(int i=0;i<this.holders.size();i++)
+		{
+			if(this.holders.get(i).isVisible())
+			{
+				return i+1;
+			}
+		}
+		return 0;
+	}
+	/**
+	 * 
+	 * @return Returns the active menu number
+	 */
+	public GroupExtension getCurrentHolder()
+	{
+		for(GroupExtension it:this.holders)
+		{
+			if(it.isVisible())
+			{
+				return it;
+			}
+		}
+		return null;
+	}
 }

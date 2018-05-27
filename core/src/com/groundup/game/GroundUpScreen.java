@@ -19,12 +19,15 @@ public class GroundUpScreen extends ScreenAdapter {
 	 * The game it self
 	 */
 	private final GameStage game;
-	private final UserControl userControl;
+	/**
+	 * Control for the user
+	 */
+	public final UserControl userControl;
 
     /**
      * Controls all the conveyor frames on the screen
      */
-    public transient float conveyorStateTime=0;
+    public float conveyorStateTime=0;
     
 	
 	/**
@@ -50,9 +53,11 @@ public class GroundUpScreen extends ScreenAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		
 		this.userControl.InputHandler(); 
+		
+		
 		this.conveyorStateTime+=Gdx.graphics.getDeltaTime();
 		this.game.updateMaterials();
-		// Console.log("DELTA=" + delta + "s");
+
 		game.act();
 		game.draw();
 	}

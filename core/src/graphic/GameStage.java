@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.groundup.game.GroundUpGame;
 
@@ -12,6 +13,9 @@ import graphic.entities.Background;
 import graphic.entities.MaterialG;
 import icon.BuildHolder;
 import icon.Icon;
+import icon.MenuHolder;
+import icon.MenuLoadHolder;
+import icon.MenuSaveHolder;
 import icon.NormalHolder;
 import icon.type.BarraIcon;
 import logic.Map;
@@ -76,6 +80,10 @@ public class GameStage extends Stage {
      * Game camera
      */
     private OrthographicCamera camera;
+    /**
+     * If the menu is openned
+     */
+    public boolean menuOpen=false;
 
 	/**
      * For testing. For adding 100000 people into the map.
@@ -134,12 +142,24 @@ public class GameStage extends Stage {
 	    game.getAssetManager().load("build_icon_mouse.png", Texture.class);
 	    game.getAssetManager().load("remove_icon.png", Texture.class);
 	    game.getAssetManager().load("remove_icon_mouse.png", Texture.class);
+	    game.getAssetManager().load("remove_icon_pressed.png", Texture.class);
 	    game.getAssetManager().load("menu_icon.png", Texture.class);
 	    game.getAssetManager().load("menu_icon_mouse.png", Texture.class);
 	    game.getAssetManager().load("cancel_icon.png", Texture.class);
 	    game.getAssetManager().load("cancel_icon_mouse.png", Texture.class);
 	    
-	    
+
+	    game.getAssetManager().load("menu_resume.png", Texture.class);
+	    game.getAssetManager().load("menu_resume_mouse.png", Texture.class);
+	    game.getAssetManager().load("menu_save.png", Texture.class);
+	    game.getAssetManager().load("menu_save_mouse.png", Texture.class);
+	    game.getAssetManager().load("menu_exit.png", Texture.class);
+	    game.getAssetManager().load("menu_exit_mouse.png", Texture.class);
+	    game.getAssetManager().load("menu_load.png", Texture.class);
+	    game.getAssetManager().load("menu_load_mouse.png", Texture.class);
+	    game.getAssetManager().load("menu_background.png", Texture.class);
+	    game.getAssetManager().load("menu_cancel.png", Texture.class);
+	    game.getAssetManager().load("menu_cancel_mouse.png", Texture.class);
 	    
 	    game.getAssetManager().load("worker.png", Texture.class);
 	    game.getAssetManager().load("grass01.png", Texture.class);
@@ -185,6 +205,15 @@ public class GameStage extends Stage {
 		
 		BuildHolder icon2= new BuildHolder(this,this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT/3);
 		this.icon_list.addIcon(icon2);
+		
+		MenuHolder icon3= new MenuHolder(this,this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT);
+		this.icon_list.addIcon(icon3);
+		
+		MenuSaveHolder icon4= new MenuSaveHolder(this,this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT);
+		this.icon_list.addIcon(icon4);
+		
+		MenuLoadHolder icon5= new MenuLoadHolder(this,this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT);
+		this.icon_list.addIcon(icon5);
 		
 		this.icon_list.setHolder(1);
 	}
@@ -314,18 +343,19 @@ public class GameStage extends Stage {
 	/**
 	 * Saves the game
 	 */
-	public void saveGame()
+	public void saveGame(String nome)
 	{
+		System.out.println(nome);
 		SaveState instancia=new SaveState();
-		instancia.saveGame("coisa", map);
+		instancia.saveGame(nome, map);
 	}
 	/**
 	 * Load the game
 	 */
-	public void loadGame()
+	public void loadGame(String nome)
 	{
 		SaveState instancia=new SaveState();
-		this.map=instancia.loadGame("coisa");
+		this.map=instancia.loadGame(nome);
 		this.map.recreateMap();
 		this.material_list.clear();
 		this.inserter_list.clear();
@@ -336,7 +366,6 @@ public class GameStage extends Stage {
 		this.conveyor_list.loadFromMap();
 		this.place_list.loadFromMap();
 		this.person_list.loadFromMap();
-		//this.material_list.loadFromMap();
 	}
 	
 	

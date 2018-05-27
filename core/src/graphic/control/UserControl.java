@@ -9,7 +9,11 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
 import graphic.GameStage;
+import graphic.PlaceGraphical;
 import logic.Entity;
+import logic.Place;
+import logic.entities.ConveyorL;
+import logic.entities.InserterL;
 import logic.entities.MaterialL;
 import logic.entities.PersonL;
 /**
@@ -21,6 +25,7 @@ public class UserControl implements InputProcessor  {
 	 * The game that the control belongs
 	 */
 	private GameStage game;
+	
 	/**
 	 * Constructor of the class UserControl
 	 * @param game The game that it belongs
@@ -32,25 +37,27 @@ public class UserControl implements InputProcessor  {
 	 * Takes care of the input of the user
 	 */
 	public void InputHandler() {
-		if (Gdx.input.isKeyPressed(Input.Keys.W)) {	// camera goes up.
-            game.getCamera().translate(new Vector3(0,5,0));
-            this.checkMapPosition();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {	// camera goes down
-            game.getCamera().translate(new Vector3(0,-5,0));
-            this.checkMapPosition();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {	// camera goes right
-            game.getCamera().translate(new Vector3(5,0,0));
-            this.checkMapPosition();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {	// camera goes left
-            game.getCamera().translate(new Vector3(-5,0,0));
-            this.checkMapPosition();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-        		//this.game.people().popPaths();
-        }
+		if (!this.game.menuOpen) {
+			if (Gdx.input.isKeyPressed(Input.Keys.W)) { // camera goes up.
+				game.getCamera().translate(new Vector3(0, 5, 0));
+				this.checkMapPosition();
+			}
+			if (Gdx.input.isKeyPressed(Input.Keys.S)) { // camera goes down
+				game.getCamera().translate(new Vector3(0, -5, 0));
+				this.checkMapPosition();
+			}
+			if (Gdx.input.isKeyPressed(Input.Keys.D)) { // camera goes right
+				game.getCamera().translate(new Vector3(5, 0, 0));
+				this.checkMapPosition();
+			}
+			if (Gdx.input.isKeyPressed(Input.Keys.A)) { // camera goes left
+				game.getCamera().translate(new Vector3(-5, 0, 0));
+				this.checkMapPosition();
+			}
+			if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+				// this.game.people().popPaths();
+			}
+		}
 	}
 	/**
 	 * Corrects if the translation of the camera went out of the map
@@ -88,7 +95,7 @@ public class UserControl implements InputProcessor  {
 	{
 		Vector3 mouse_pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
 		this.game.getViewport().unproject(mouse_pos);
-		Array<Entity> elements=this.game.map().getMapBlock((int)mouse_pos.x,(int)mouse_pos.y);
+		Array<Entity> elements=this.game.map().getMapPixel((int)mouse_pos.x,(int)mouse_pos.y);
 		ArrayList<Entity> remover=new ArrayList<Entity>();
 		for (Entity it : elements) {
 			if (MaterialL.class.isAssignableFrom(it.getClass()) || PersonL.class.isAssignableFrom(it.getClass())) {
@@ -98,31 +105,40 @@ public class UserControl implements InputProcessor  {
 		}
 		for(Entity it:remover)
 		{
-			this.game.map().removeMap(it);
+			if(Place.class.isAssignableFrom(it.getClass()))
+			{
+				this.game.places().removePlace((Place)it);
+			}
+			else if(ConveyorL.class.isAssignableFrom(it.getClass()))
+			{
+				this.game.conveyors().removeConveyor((ConveyorL)it);
+			}
+			else if(InserterL.class.isAssignableFrom(it.getClass()))
+			{
+				this.game.inserters().removeInserter((InserterL)it);
+			}
 		}
 	}
 	@Override
 	public boolean keyDown(int keycode) {
-        if(keycode==Input.Keys.ESCAPE)
-        {
-        	this.game.getMouse().isSelected=false;
-        }
-        if(keycode==Input.Keys.Q)
-        {
-        	//this.game.generatePerson();
-        }
-        if(keycode==Input.Keys.R)
-        {
-        	this.game.getMouse().rotateMouse();
-        }
-        if(keycode==Input.Keys.P)
-        {
-        	this.game.saveGame();
-        }
-        if(keycode==Input.Keys.O)
-        {
-        	this.game.loadGame();
-        }
+		if (!this.game.menuOpen) {
+			if (keycode == Input.Keys.ESCAPE) {
+				this.game.getMouse().isSelected = false;
+				this.game.getMouse().remove = false;
+			}
+			if (keycode == Input.Keys.Q) {
+				// this.game.generatePerson();
+			}
+			if (keycode == Input.Keys.R) {
+				this.game.getMouse().rotateMouse();
+			}
+			if (keycode == Input.Keys.P) {
+				//this.game.saveGame();
+			}
+			if (keycode == Input.Keys.O) {
+				//this.game.loadGame();
+			}
+		}
 
 		return false;
 	}
@@ -136,10 +152,12 @@ public class UserControl implements InputProcessor  {
 	}
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		if(this.game.getMouse().isSelected && button==0)
+		if(this.game.getMouse().isSelected )
 			this.game.getMouse().addObject();
-		if(button==1)
+		else if(this.game.getMouse().remove)
+		{
 			this.deleteFromMap();
+		}
 		
 		
 		return false;
@@ -160,4 +178,7 @@ public class UserControl implements InputProcessor  {
 	public boolean scrolled(int amount) {
 		return false;
 	}
+	
+	
+	
 }
