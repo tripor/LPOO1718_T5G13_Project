@@ -32,14 +32,16 @@ public class MineL extends Place{
 	/**
 	 * Goes one point in time
 	 */
-	public void handler()
+	public boolean handler()
 	{
 		time++;
 		if(time>=this.time_make_material)
 		{
 			time=0;
 			this.addToStorage(new MaterialL(0,0,"iron_plate"));
+			return true;
 		}
+		return false;
 	}
 
 }

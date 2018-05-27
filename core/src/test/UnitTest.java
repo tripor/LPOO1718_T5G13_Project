@@ -177,7 +177,13 @@ public class UnitTest {
 		
 		MineL mine = new MineL(x, y, doorAtBorder);
 		assertTrue(map.addMap(mine));
-		mine.handler();
+		
+		int i; 
+		
+		for(i = 0; i < 99; i++) {
+			assertFalse(mine.handler());
+		}
+		assertTrue(mine.handler());
 	}
 	
 	@Test
