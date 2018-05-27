@@ -230,6 +230,10 @@ public class Map {
 	 */
 	private boolean checkPositions(int posX,int posY,int width,int height,boolean ignoreMaterial)
 	{
+		if(posX>this.mapWidth || posX+width>this.mapWidth || posY>this.mapHeight || posY+height>this.mapHeight)
+		{
+			return true;
+		}
 		int x= this.transformToBlock(posX);
 		int y= this.transformToBlock(posY);
 		int error_x=0;

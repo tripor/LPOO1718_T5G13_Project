@@ -101,7 +101,7 @@ public class Mouse extends ActorExtension {
 				InserterG i= new InserterG(this.game,x,y,this.doorPosition);
 				this.game.inserters().addInserter(i);
 			}
-			if(this.type.equals("nothing.png"))
+			if(this.type.equals("house.png"))
 			{
 				HouseG h= new HouseG(this.game,x,y,this.doorPosition);
 				if(this.game.places().addPlace(h))

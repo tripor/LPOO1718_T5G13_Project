@@ -98,7 +98,7 @@ public class UserControl implements InputProcessor  {
 		Array<Entity> elements=this.game.map().getMapPixel((int)mouse_pos.x,(int)mouse_pos.y);
 		ArrayList<Entity> remover=new ArrayList<Entity>();
 		for (Entity it : elements) {
-			if (MaterialL.class.isAssignableFrom(it.getClass()) || PersonL.class.isAssignableFrom(it.getClass())) {
+			if (PersonL.class.isAssignableFrom(it.getClass())) {
 			} else {
 				remover.add(it);
 			}
@@ -116,6 +116,10 @@ public class UserControl implements InputProcessor  {
 			else if(InserterL.class.isAssignableFrom(it.getClass()))
 			{
 				this.game.inserters().removeInserter((InserterL)it);
+			}
+			else if(MaterialL.class.isAssignableFrom(it.getClass()))
+			{
+				this.game.materials().removeMaterial((MaterialL)it);
 			}
 		}
 	}

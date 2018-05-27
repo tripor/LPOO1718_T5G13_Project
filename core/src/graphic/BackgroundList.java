@@ -14,7 +14,10 @@ public class BackgroundList extends GroupExtension{
 	{
 		
 	}
-	
+	/**
+	 * Adds a actor to the background holder
+	 * @param back The background I want to add
+	 */
 	public void addBackground(Background back)
 	{
 		this.addActor(back);

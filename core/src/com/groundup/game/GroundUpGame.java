@@ -4,8 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 /**
- * 
- * @author figor
+ * Class wth the Game
  *
  */
 public class GroundUpGame extends Game {

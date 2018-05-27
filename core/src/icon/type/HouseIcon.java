@@ -12,7 +12,7 @@ public class HouseIcon extends Icon {
 	
 	private void createFactoryIcon() {
 		
-		Texture novo = this.game.getGame().getAssetManager().get("nothing.png");
+		Texture novo = this.game.getGame().getAssetManager().get("house.png");
 		
 		sprite = new Sprite(novo);
 		sprite.setSize(this.getWidth(), this.getHeight());
@@ -28,7 +28,7 @@ public class HouseIcon extends Icon {
 		
 		this.addCaptureListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                game.getMouse().createMouse("nothing.png", 30, 30);
+                game.getMouse().createMouse("house.png", 30, 30);
             }
         });
 	}

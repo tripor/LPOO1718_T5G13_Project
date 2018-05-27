@@ -71,7 +71,10 @@ public class GroundUpScreen extends ScreenAdapter {
     public void resize(int width, int height) {
         game.getViewport().update(width, height, true);
     }
-
+    /**
+     * 
+     * @return Returns the game stage
+     */
 	public GameStage getGame() {
 		return game;
 	}

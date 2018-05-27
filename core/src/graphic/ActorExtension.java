@@ -35,7 +35,9 @@ public abstract class ActorExtension extends Actor implements Comparable<Object>
      * For the drawing
      */
     protected Integer z=1;
-    
+    /**
+     * The Entity logic this graphical object is associated
+     */
     protected Entity instance;
 	/**
 	 * 

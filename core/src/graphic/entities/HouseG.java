@@ -17,7 +17,7 @@ public class HouseG extends PlaceGraphical{
 	 */
 	private void createHouse() {
 		
-		Texture texture = this.game.getGame().getAssetManager().get("nothing.png");
+		Texture texture = this.game.getGame().getAssetManager().get("house.png");
 		
 		sprite = new Sprite(texture);
 		sprite.setSize(this.getWidth(), this.getHeight());

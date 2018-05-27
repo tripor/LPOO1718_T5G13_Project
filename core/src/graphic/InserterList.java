@@ -45,6 +45,10 @@ public class InserterList extends GroupExtension{
 		this.removeActor(i);
 		this.game.map().removeMap(i.instance);
 	}
+	/**
+	 * Removes a inserter from the map and game
+	 * @param p the inserter I want to remove
+	 */
 	public void removeInserter(InserterL p) {
 		for(Actor it:this.getChildren())
 		{

@@ -7,15 +7,17 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 
 import graphic.MenuStage;
-
+/**
+ *Class that holds the Inicial screen
+ */
 public class MenuScreen extends ScreenAdapter {
 	/**
-	 * The game it self
+	 * The menu stage
 	 */
 	private final MenuStage game;
 
 	/**
-	 * Constructor for the Game Screen
+	 * Constructor for the Menu Screen
 	 * 
 	 * @param game
 	 *            The Game

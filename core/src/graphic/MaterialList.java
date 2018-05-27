@@ -2,6 +2,8 @@ package graphic;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+
 import graphic.entities.MaterialG;
 import logic.Entity;
 import logic.entities.ConveyorL;
@@ -43,6 +45,20 @@ public class MaterialList extends GroupExtension {
 	 */
 	public void removeMaterial(MaterialG mat) {
 		this.removeActor(mat);
+		this.game.map().removeMap(mat.instance);
+	}
+	/**
+	 * Removes a inserter from the map and game
+	 * @param p the inserter I want to remove
+	 */
+	public void removeMaterial(MaterialL p) {
+		for(Actor it:this.getChildren())
+		{
+			if(((ActorExtension) it).getInstance()==p)
+			{
+				this.removeMaterial((MaterialG) it);
+			}
+		}
 	}
 	/**
 	 * Loads all the Materials to the screen

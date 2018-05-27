@@ -145,6 +145,7 @@ public class GameStage extends Stage {
 	    game.getAssetManager().finishLoading();
 	    
 	    game.getAssetManager().load("factory.png", Texture.class);
+	    game.getAssetManager().load("house.png", Texture.class);
 	    game.getAssetManager().load("menu_icon.png", Texture.class);
 	    game.getAssetManager().load("conveyor_icon.png", Texture.class);
 	    game.getAssetManager().load("inserter_icon.png", Texture.class);
