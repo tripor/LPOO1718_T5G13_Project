@@ -35,7 +35,7 @@ public class GroundUpScreen extends ScreenAdapter {
 	 * @param game The Game
 	 */
 	public GroundUpScreen(GroundUpGame game) {
-		this.game=new GameStage(game);
+		this.game=new GameStage(game,this);
 		userControl = new UserControl(this.game);
 		InputProcessor inputProcessorOne = this.game;
 		InputProcessor inputProcessorTwo = this.userControl;
@@ -72,4 +72,9 @@ public class GroundUpScreen extends ScreenAdapter {
         game.getViewport().update(width, height, true);
     }
 
+	public GameStage getGame() {
+		return game;
+	}
+    
+    
 }

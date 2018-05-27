@@ -4,20 +4,19 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.groundup.game.GroundUpGame;
+import com.groundup.game.GroundUpScreen;
 
 import graphic.control.Mouse;
 import graphic.entities.Background;
 import graphic.entities.MaterialG;
 import icon.BuildHolder;
-import icon.Icon;
 import icon.MenuHolder;
 import icon.MenuLoadHolder;
 import icon.MenuSaveHolder;
 import icon.NormalHolder;
-import icon.type.BarraIcon;
+import icon.type.LoadingIcon;
 import logic.Map;
 import logic.SaveState;
 import logic.entities.MaterialL;
@@ -84,6 +83,10 @@ public class GameStage extends Stage {
      * If the menu is openned
      */
     public boolean menuOpen=false;
+    /**
+     * Loading screen
+     */
+    private LoadingIcon build_icon;
 
 	/**
      * For testing. For adding 100000 people into the map.
@@ -94,8 +97,9 @@ public class GameStage extends Stage {
 	 * Constructor of the class GameStage
 	 * It creates a viewport and loads all the texture of the game
 	 * @param game 
+	 * @param screen 
 	 */
-	public GameStage(GroundUpGame game) {
+	public GameStage(GroundUpGame game, GroundUpScreen screen) {
 	    this.game=game;
 	    // I create a group of actor and I add it to the stage/GameStage
 		this.background_list=new BackgroundList();
@@ -130,8 +134,16 @@ public class GameStage extends Stage {
 		// Set the viewport
 		camera= new OrthographicCamera();
 		setViewport(new FitViewport(this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT,camera));
-	
-	    // Load the textures
+		
+
+	    game.getAssetManager().load("loading1.png", Texture.class);
+	    game.getAssetManager().load("loading2.png", Texture.class);
+	    game.getAssetManager().load("loading3.png", Texture.class);
+	    game.getAssetManager().load("loading4.png", Texture.class);
+	    game.getAssetManager().load("loading5.png", Texture.class);
+	    game.getAssetManager().load("loading6.png", Texture.class);
+	    game.getAssetManager().finishLoading();
+	    
 	    game.getAssetManager().load("factory.png", Texture.class);
 	    game.getAssetManager().load("menu_icon.png", Texture.class);
 	    game.getAssetManager().load("conveyor_icon.png", Texture.class);
@@ -189,12 +201,24 @@ public class GameStage extends Stage {
 	    game.getAssetManager().load("barra6.png", Texture.class);
 	    game.getAssetManager().load("barra7.png", Texture.class);
 	    
-	    game.getAssetManager().finishLoading(); // should be replaced by something more efficiente
+	    build_icon= new LoadingIcon(this,0,0,this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT);
+		this.addActor(build_icon);
+	
 	    
-	    initializeIcons();
-	    initializeMap();
 	    
 	}	
+	/**
+	 * Check if all the assets are loaded
+	 */
+	public void loadGame()
+	{
+	    if(game.getAssetManager().update())
+	    {
+		    build_icon.remove();
+		    initializeIcons();
+		    initializeMap();
+	    }
+	}
 	/**
 	 * Initializes all buttons of the game
 	 */
