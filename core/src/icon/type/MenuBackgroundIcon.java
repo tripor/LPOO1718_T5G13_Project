@@ -1,9 +1,6 @@
 package icon.type;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import graphic.GameStage;
 import icon.Icon;
@@ -25,18 +22,6 @@ public class MenuBackgroundIcon extends Icon  {
 		this.setHeight(height);
 		this.createFactoryIcon();
 		this.setPosition(posX, posY);
-		
-		this.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-            	
-            }
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
-            {
-            }
-            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor)
-            {
-            }
-        });
 	}
 
 	@Override

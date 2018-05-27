@@ -1,5 +1,6 @@
 package icon.type;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -29,7 +30,7 @@ public class MenuExitIcon extends Icon  {
 		
 		this.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-            	System.exit(0);
+            	Gdx.app.exit();
             }
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
             {

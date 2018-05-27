@@ -3,6 +3,7 @@ package icon.type;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -20,7 +21,7 @@ public class FactoryIcon extends Icon {
 		sprite.setOrigin(this.getWidth()/2, this.getHeight()/2);
 	}
 	
-	public FactoryIcon(final GameStage game,int posX,int posY,final int width,final int height) {
+	public FactoryIcon(final GameStage game,int posX,int posY,final int width,final int height, final LabelIcon label) {
 		super(game,posX,posY);
 		this.setWidth(width);
 		this.setHeight(height);
@@ -30,6 +31,14 @@ public class FactoryIcon extends Icon {
 		this.addCaptureListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 game.getMouse().createMouse("factory.png", 40, 40);
+            }
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
+            {
+            	label.setVisible(true);
+            }
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor)
+            {
+            	label.setVisible(false);
             }
         });
 	}

@@ -1,5 +1,6 @@
 package icon.type;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -44,7 +45,7 @@ public class ExitIcon extends Actor{
 		
 		this.addCaptureListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-            	System.exit(0);
+            	Gdx.app.exit();
             }
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
             {

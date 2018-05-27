@@ -9,8 +9,8 @@ import graphic.GameStage;
 
 public abstract class Icon extends ActorExtension {
 
-	protected final float pos_x;
-	protected final float pos_y;
+	protected float pos_x;
+	protected float pos_y;
 	
 	protected boolean visible;
 	
@@ -20,6 +20,12 @@ public abstract class Icon extends ActorExtension {
 	public Icon(GameStage game,int pos_x,int pos_y)
 	{
 		this.game=game;
+		this.pos_x=pos_x;
+		this.pos_y=pos_y;
+	}
+	
+	public void setIconPosition(float pos_x,float pos_y)
+	{
 		this.pos_x=pos_x;
 		this.pos_y=pos_y;
 	}

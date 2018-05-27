@@ -19,7 +19,7 @@ public class ConveyorIcon extends Icon {
 		sprite.setOrigin(this.getWidth() / 2, this.getHeight() / 2);
 	}
 
-	public ConveyorIcon(final GameStage game,int posX,int posY,final int width,final int height) {
+	public ConveyorIcon(final GameStage game,int posX,int posY,final int width,final int height, final LabelIcon label) {
 		super(game,posX,posY);
 		this.setWidth(width);
 		this.setHeight(height);
@@ -32,9 +32,11 @@ public class ConveyorIcon extends Icon {
             }
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
             {
+            	label.setVisible(true);
             }
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor)
             {
+            	label.setVisible(false);
             }
         });
 	}
