@@ -1,6 +1,7 @@
 package com.groundup.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 /**
  * 
@@ -15,12 +16,12 @@ public class GroundUpGame extends Game {
 	/**
 	 * The screen of the game
 	 */
-	private GroundUpScreen GameScreen;
+	private ScreenAdapter GameScreen;
 
 	@Override
 	public void create() {
 		this.assetManager = new AssetManager();
-		GameScreen=new GroundUpScreen(this);
+		GameScreen= new MenuScreen(this);
 		this.setScreen(GameScreen);
 	}
 
@@ -43,10 +44,16 @@ public class GroundUpGame extends Game {
 	 * 
 	 * @return Returns the game screen
 	 */
-	public GroundUpScreen getGameScreen() {
+	public ScreenAdapter getGameScreen() {
 		return GameScreen;
 	}
-	
-	
+	/**
+	 * Sets the screen
+	 * @param screen The screen I want to change to 
+	 */
+	public void setGameScreen(ScreenAdapter screen) {
+		this.GameScreen=screen;
+		this.setScreen(screen);
+	}
 
 }

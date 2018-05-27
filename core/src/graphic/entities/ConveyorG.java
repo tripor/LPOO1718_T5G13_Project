@@ -3,6 +3,7 @@ package graphic.entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.groundup.game.GroundUpScreen;
 
 import graphic.ActorExtension;
 import graphic.GameStage;
@@ -74,7 +75,7 @@ public class ConveyorG extends ActorExtension{
 	@Override
 	public void update(float delta) {
 		((ConveyorL)this.instance).moveMaterials(this.game.map());
-        sprite.setRegion(animation.getKeyFrame(this.game.game.getGameScreen().conveyorStateTime, true));
+        sprite.setRegion(animation.getKeyFrame(((GroundUpScreen)this.game.game.getGameScreen()).conveyorStateTime, true));
 		
 	}
 
