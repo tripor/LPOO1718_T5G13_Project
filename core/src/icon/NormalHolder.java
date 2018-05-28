@@ -1,19 +1,29 @@
 package icon;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector3;
+
 import graphic.GameStage;
 import graphic.GroupExtension;
 import icon.type.BarraIcon;
 import icon.type.BuildIcon;
 import icon.type.ConveyorIcon;
 import icon.type.InserterIcon;
+import icon.type.LabelIcon;
 import icon.type.MenuIcon;
 import icon.type.PlaceIcon;
 import icon.type.RemoveIcon;
+import icon.type.StatIcon;
 
 public class NormalHolder extends GroupExtension {
 	
+	private StatIcon money;
+	private GameStage game;
+	
 	public NormalHolder(GameStage game,int width,int height)
 	{
+		this.game=game;
 		int width_of_icons=36*game.VIEWPORT_WIDTH/200;
 		int height_of_icons=5*game.VIEWPORT_HEIGHT/100;
 		
@@ -39,7 +49,23 @@ public class NormalHolder extends GroupExtension {
 		this.addActor(button1);
 		pos_y+=height_of_icons+1;
 		
+		pos_x=(int) (width/4.5);
+		pos_y=(int) (height/2.8);
+		
+		money= new StatIcon(200,10);
+		money.setZ(11);
+		money.setVisible(true);
+		money.setText("Money: 0");
+		money.setPosition(pos_x, pos_y);
+		this.addActor(money);
+		
 		this.getChildren().sort();
+	}
+	
+	@Override
+	public void draw(Batch batch, float parentAlpha) {
+		money.setText("Money: "+this.game.map().money);
+		super.draw(batch,parentAlpha);
 	}
 
 }

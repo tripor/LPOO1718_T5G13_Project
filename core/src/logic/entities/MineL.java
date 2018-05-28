@@ -7,6 +7,10 @@ import logic.Place;
  */
 public class MineL extends Place{
 	/**
+	 * Price of the mines
+	 */
+	public static int price=150;
+	/**
 	 * Time it takes to make a new material
 	 */
 	private int time_make_material=100;
@@ -14,6 +18,9 @@ public class MineL extends Place{
 	 * Time
 	 */
 	private int time=0;
+	/**
+	 * Type of the item this mine makes
+	 */
 	private String type;
 	/**
 	 * Constructor for the logic class mine

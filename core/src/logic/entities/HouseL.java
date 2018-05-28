@@ -4,6 +4,10 @@ import logic.Place;
 
 public class HouseL extends Place {
 	/**
+	 * Price of the house
+	 */
+	public static int price=100;
+	/**
 	 * Constructor of the class House Logic with width 30 and height 30
 	 * @param posX The X position in pixels
 	 * @param posY The Y position in pixels

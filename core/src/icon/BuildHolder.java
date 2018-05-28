@@ -10,6 +10,11 @@ import icon.type.HouseIcon;
 import icon.type.InserterIcon;
 import icon.type.LabelIcon;
 import icon.type.MineIcon;
+import logic.entities.ConveyorL;
+import logic.entities.FactoryL;
+import logic.entities.HouseL;
+import logic.entities.InserterL;
+import logic.entities.MineL;
 
 public class BuildHolder extends GroupExtension {
 	
@@ -38,7 +43,7 @@ public class BuildHolder extends GroupExtension {
 		LabelIcon label= new LabelIcon(game,60,50);
 		label.setZ(11);
 		label.setVisible(false);
-		label.setText("Factory\nA Factory accepts items from a inserter and produces new products to be delivered to the houses.");
+		label.setText("Factory\nA Factory accepts items from a inserter and produces new products to be delivered to the houses.Costs:"+FactoryL.price);
 		this.addActor(label);
 		
 		FactoryIcon button3= new FactoryIcon(game,pos_x,pos_y,width_of_icons,height_of_icons,label);
@@ -49,7 +54,7 @@ public class BuildHolder extends GroupExtension {
 		LabelIcon label2= new LabelIcon(game,60,50);
 		label2.setZ(11);
 		label2.setVisible(false);
-		label2.setText("Mine\nA mine produces materials periodicaly and are saved in a internal storage. Materials can be removed with inserters.");
+		label2.setText("Mine\nA mine produces materials periodicaly and are saved in a internal storage. Materials can be removed with inserters.Costs:"+MineL.price);
 		this.addActor(label2);
 		
 		MineIcon button4= new MineIcon(game,pos_x,pos_y,width_of_icons,height_of_icons,label2);
@@ -60,7 +65,7 @@ public class BuildHolder extends GroupExtension {
 		LabelIcon label3= new LabelIcon(game,60,50);
 		label3.setZ(11);
 		label3.setVisible(false);
-		label3.setText("House\nA house is here people live. People work in factories and places and increase productivity. The more house the more people.");
+		label3.setText("House\nA house is here people live. People work in factories and places and increase productivity. The more house the more people.Cost:"+HouseL.price);
 		this.addActor(label3);
 		
 		HouseIcon button5= new HouseIcon(game,pos_x,pos_y,width_of_icons,height_of_icons,label3);
@@ -71,7 +76,7 @@ public class BuildHolder extends GroupExtension {
 		LabelIcon label4= new LabelIcon(game,70,50);
 		label4.setZ(11);
 		label4.setVisible(false);
-		label4.setText("Inserter\nA inserter can pick up items from the ground or from buildings and can deliver them 180 degrees from the place they picked up the material.");
+		label4.setText("Inserter\nA inserter can pick up items from the ground or from buildings and can deliver them 180 degrees from the place they picked up the material.Cost:"+InserterL.price);
 		this.addActor(label4);
 		
 		InserterIcon button6= new InserterIcon(game,pos_x,pos_y,width_of_icons,height_of_icons,label4);
@@ -82,7 +87,7 @@ public class BuildHolder extends GroupExtension {
 		LabelIcon label5= new LabelIcon(game,60,50);
 		label5.setZ(11);
 		label5.setVisible(false);
-		label5.setText("Conveyor\nA conveyor transports all materials on top to the next block. Rotate the conveyor by pressing R.");
+		label5.setText("Conveyor\nA conveyor transports all materials on top to the next block. Rotate the conveyor by pressing R.Cost:"+ConveyorL.price);
 		this.addActor(label5);
 		
 		ConveyorIcon button7= new ConveyorIcon(game,pos_x,pos_y,width_of_icons,height_of_icons,label5);

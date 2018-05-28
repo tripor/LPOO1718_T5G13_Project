@@ -4,8 +4,11 @@ package logic;
 import com.badlogic.gdx.utils.Array;
 
 import logic.entities.ConveyorL;
+import logic.entities.FactoryL;
+import logic.entities.HouseL;
 import logic.entities.InserterL;
 import logic.entities.MaterialL;
+import logic.entities.MineL;
 import logic.entities.PersonL;
 
 
@@ -51,6 +54,8 @@ public class Map {
 	 */
 	public Array<PersonL> lista_person;
 	
+	public int money;
+	
 	/**
 	 * Constructor for the class logic Map
 	 * 
@@ -74,6 +79,7 @@ public class Map {
 		this.lista_material=new Array<MaterialL>();
 		this.lista_place=new Array<Place>();
 		this.lista_person=new Array<PersonL>();
+		this.money=500;
 	}
 	/**
 	 * Recreates the map
@@ -180,6 +186,10 @@ public class Map {
 				}
 			}
 		}
+		if(!this.addEntityLista(ent))
+		{
+			return false;
+		}
 		
 		for (int i = x; i < x + quantity_x ; i ++) {
 			for (int j = y; j < y + quantity_y; j ++) {
@@ -187,7 +197,6 @@ public class Map {
 			}
 		}
 		
-		this.addEntityLista(ent);
 		return true;
 	}
 	/**
@@ -270,20 +279,50 @@ public class Map {
 	/**
 	 * Adds the entity to the correct lista
 	 * @param ent The entity I want to add
+	 * @return true if possible to add or false otherwise
 	 */
-	public void addEntityLista(Entity ent)
+	public boolean addEntityLista(Entity ent)
 	{
 		if(ConveyorL.class.isAssignableFrom(ent.getClass()))
 		{
-			this.lista_conveyor.add((ConveyorL) ent);
+			if(this.money>=ConveyorL.price)
+			{
+				this.money-=ConveyorL.price;
+				this.lista_conveyor.add((ConveyorL) ent);
+			}
+			else
+				return false;
+			
 		}
 		else if(Place.class.isAssignableFrom(ent.getClass()))
 		{
-			this.lista_place.add((Place) ent);
+			if(FactoryL.class.isAssignableFrom(ent.getClass()) && this.money>=FactoryL.price)
+			{
+					this.money-=FactoryL.price;
+					this.lista_place.add((Place) ent);
+			}
+			else if(HouseL.class.isAssignableFrom(ent.getClass()) && this.money>=HouseL.price)
+			{
+				this.money-=HouseL.price;
+				this.lista_place.add((Place) ent);
+			}
+			else if(MineL.class.isAssignableFrom(ent.getClass()) && this.money>=MineL.price)
+			{
+				this.money-=MineL.price;
+				this.lista_place.add((Place) ent);
+			}
+			else 
+				return false;
 		}
 		else if(InserterL.class.isAssignableFrom(ent.getClass()))
 		{
-			this.lista_inserter.add((InserterL) ent);
+			if(this.money>=InserterL.price)
+			{
+				this.money-=InserterL.price;
+				this.lista_inserter.add((InserterL) ent);
+			}
+			else
+				return false;
 		}
 		else if(MaterialL.class.isAssignableFrom(ent.getClass()))
 		{
@@ -293,6 +332,7 @@ public class Map {
 		{
 			this.lista_person.add((PersonL)ent);
 		}
+		return true;
 	}
 	
 	/**

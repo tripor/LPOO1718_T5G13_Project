@@ -47,6 +47,10 @@ public class InserterL extends Entity {
 	 */
 	public int height_hand=4;
 	/**
+	 * Inserter price
+	 */
+	public static int price=20;
+	/**
 	 * Constructor for the logic class Inserter
 	 * @param posX
 	 * @param posY

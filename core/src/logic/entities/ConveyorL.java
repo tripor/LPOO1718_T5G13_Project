@@ -25,6 +25,10 @@ public class ConveyorL extends Entity {
 	 * The direction of the conveyor
 	 */
 	private int direction;
+	/**
+	 * Price of the conveyor
+	 */
+	public static int price=20;
 	
 	/**
 	 * Constructor for the logic class Conveyor

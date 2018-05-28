@@ -7,6 +7,10 @@ import logic.Place;
  */
 public class FactoryL extends Place {
 	/**
+	 * Price of the factory
+	 */
+	public static int price=200;
+	/**
 	 * Constructor of the class Factory Logic with width 40 and height 40
 	 * @param posX The X position in pixels
 	 * @param posY The Y position in pixels

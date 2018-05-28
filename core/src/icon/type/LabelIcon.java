@@ -22,7 +22,7 @@ public class LabelIcon extends GroupExtension  {
 		back= new MenuBackgroundIcon(game,0,0,width,height);
 		this.addActor(back);
 		
-		label = new Label("teessssssssssstar", new Label.LabelStyle(new BitmapFont(), null));
+		label = new Label("0", new Label.LabelStyle(new BitmapFont(), null));
 		label.setColor(Color.BLACK);
 		label.setWidth(width-4);
 		label.setHeight(height);
