@@ -1,8 +1,11 @@
 package logic;
 
 
+import java.util.Random;
+
 import com.badlogic.gdx.utils.Array;
 
+import logic.entities.BackGroundL;
 import logic.entities.ConveyorL;
 import logic.entities.FactoryL;
 import logic.entities.HouseL;
@@ -65,6 +68,22 @@ public class Map {
 	 * Money the player has wasted all game
 	 */
 	public int money_wasted;
+	/**
+	 * Array with all the background of the game
+	 */
+	public Array<Array<BackGroundL>> lista_background;
+	/**
+	 * Gets a random number
+	 * @param min The min number
+	 * @param max The max number
+	 * @return The random number created
+	 */
+	private int randomNumber(int min,int max)
+	{
+		Random rand = new Random();
+		int  n = rand.nextInt(max) + min;
+		return n;
+	}
 	
 	/**
 	 * Constructor for the class logic Map
@@ -84,6 +103,7 @@ public class Map {
 				map.get(i).add(new Array<Entity>());
 			}
 		}
+		this.createBackground();
 		this.lista_conveyor = new Array<ConveyorL>();
 		this.lista_inserter= new Array<InserterL>();
 		this.lista_material=new Array<MaterialL>();
@@ -92,6 +112,65 @@ public class Map {
 		this.lista_material_toActor= new Array<MaterialL>();
 		this.money=500;
 		this.money_wasted=0;
+	}
+	/**
+	 * Creates recursivily the ores in the map
+	 * @param quantidade Quantity to go out
+	 * @param posX The posX to create
+	 * @param posY The posY to create
+	 */
+	private void spawn(int quantidade,int posX,int posY,String type)
+	{
+		if (posX >= this.transformToBlock(this.mapWidth) || posY >= this.transformToBlock(this.mapHeight) || posX < 0
+				|| posY < 0 || quantidade <= 0) {
+			return;
+		}
+		else if (this.lista_background.get(posX).get(posY).getType().equals("grass")) {
+			BackGroundL novo = new BackGroundL(type, this.randomNumber(10000, 20000));
+			this.lista_background.get(posX).set(posY, novo);
+			boolean spam1 = true, spam2 = true, spam3 = true, spam4 = true;
+			while (spam1 || spam2 || spam3 || spam4) {
+				int numero = this.randomNumber(1, 4);
+				if (spam1 && numero == 1) {
+					this.spawn(quantidade - 1, posX + 1, posY, type);
+					spam1 = false;
+				} else if (spam2 && numero == 2) {
+					this.spawn(quantidade - 1, posX, posY + 1, type);
+					spam2 = false;
+				} else if (spam3 && numero == 3) {
+					this.spawn(quantidade - 1, posX - 1, posY, type);
+					spam3 = false;
+				} else if (spam4 && numero == 4) {
+					this.spawn(quantidade - 1, posX, posY - 1, type);
+					spam4 = false;
+				}
+			}
+		}
+		return;
+	}
+	/**
+	 * Creates the background map
+	 */
+	private void createBackground()
+	{
+		this.lista_background=new Array<Array<BackGroundL>>();
+		for(int i=0 ; i<this.transformToBlock(mapWidth) ;i++)
+		{
+			this.lista_background.add(new Array<BackGroundL>());
+			for(int j=0; j<this.transformToBlock(mapHeight);j++)
+			{
+				this.lista_background.get(i).add(new BackGroundL("grass",0));
+			}
+		}
+		for(int i=0;i<this.mapWidth/100;i++)
+		{
+			int placeX=this.randomNumber(1, this.transformToBlock(this.mapWidth));
+			int placeY=this.randomNumber(1, this.transformToBlock(this.mapHeight));
+			int quantidade=this.randomNumber(5,10);
+			String type="iron_ore";
+			this.spawn(quantidade, placeX, placeY, type);
+		}
+		
 	}
 	/**
 	 * Recreates the map

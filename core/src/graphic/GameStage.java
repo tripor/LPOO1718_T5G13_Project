@@ -11,7 +11,7 @@ import com.groundup.game.GroundUpGame;
 import com.groundup.game.GroundUpScreen;
 
 import graphic.control.Mouse;
-import graphic.entities.Background;
+import graphic.entities.BackgroundG;
 import graphic.entities.MaterialG;
 import icon.BuildHolder;
 import icon.MenuHolder;
@@ -28,15 +28,11 @@ public class GameStage extends Stage {
 	/**
 	 * The viewport width
 	 */
-    public int VIEWPORT_WIDTH = 256;
+    public int VIEWPORT_WIDTH = 1920;
     /**
      * The viewport height
      */
-    public int VIEWPORT_HEIGHT=192;
-    /**
-     * Conversion from pixel to meter
-     */
-    public static final float PIXEL_TO_METER = 1f / 500;
+    public int VIEWPORT_HEIGHT=1080;
     /**
      * Instance of the ground up game
      */
@@ -109,7 +105,7 @@ public class GameStage extends Stage {
 		this.background_list=new BackgroundList();
 		this.background_list.setZ(0);
 		this.addActor(this.background_list);
-	    this.map= new Map(1000,1000);
+	    this.map= new Map(2000,2000);
 		this.place_list=new PlaceList(this);
 		this.place_list.setZ(1);
 		this.addActor(place_list);
@@ -154,6 +150,8 @@ public class GameStage extends Stage {
 	    game.getAssetManager().load("menu_icon.png", Texture.class);
 	    game.getAssetManager().load("conveyor_icon.png", Texture.class);
 	    game.getAssetManager().load("inserter_icon.png", Texture.class);
+	    game.getAssetManager().load("grass.png", Texture.class);
+	    game.getAssetManager().load("land_iron.png", Texture.class);
 	    
 	    
 	    game.getAssetManager().load("build_icon.png", Texture.class);
@@ -253,12 +251,13 @@ public class GameStage extends Stage {
 	 */
 	private void initializeMap()
 	{
-		for(int i=0; i< this.map.getMapWidth();i+=Map.division)
+		for(int i=0; i< this.map.getMapWidth()*this.VIEWPORT_WIDTH/256;i+=Map.division*this.VIEWPORT_WIDTH/256)
 		{
-			for(int j=0; j < this.map.getMapHeight();j+=Map.division)
+			for(int j=0; j < this.map.getMapHeight()*this.VIEWPORT_WIDTH/256;j+=Map.division*this.VIEWPORT_WIDTH/256)
 			{
-				Background adicionar= new Background(this,i,j,Map.division,Map.division);
-				this.background_list.addBackground(adicionar);
+				BackgroundG novo = new BackgroundG(this, i, j,
+						this.map.lista_background.get(this.map.transformToBlock(i*256/this.VIEWPORT_WIDTH)).get(this.map.transformToBlock(j*256/this.VIEWPORT_WIDTH)));
+				this.background_list.addBackground(novo);
 			}
 		}
 		for(int i=0;i<400;i++)
@@ -397,18 +396,22 @@ public class GameStage extends Stage {
 	public void loadGame(String nome)
 	{
 		SaveState instancia=new SaveState();
-		this.map=instancia.loadGame(nome);
-		this.map.recreateMap();
-		this.map.money+=this.map.money_wasted;
-		this.material_list.clear();
-		this.inserter_list.clear();
-		this.conveyor_list.clear();
-		this.place_list.clear();
-		this.person_list.clear();
-		this.inserter_list.loadFromMap();
-		this.conveyor_list.loadFromMap();
-		this.place_list.loadFromMap();
-		this.person_list.loadFromMap();
+		Map subs=instancia.loadGame(nome);
+		if(subs!=null)
+		{
+			this.map=subs;
+			this.map.recreateMap();
+			this.map.money+=this.map.money_wasted;
+			this.material_list.clear();
+			this.inserter_list.clear();
+			this.conveyor_list.clear();
+			this.place_list.clear();
+			this.person_list.clear();
+			this.inserter_list.loadFromMap();
+			this.conveyor_list.loadFromMap();
+			this.place_list.loadFromMap();
+			this.person_list.loadFromMap();
+		}
 	}
 	
 	

@@ -35,12 +35,12 @@ public class MineG extends PlaceGraphical{
 	 */
 	public MineG(GameStage game,int posX,int posY,int doorAtBorder)
 	{
-		this.instance=new MineL(posX,posY,doorAtBorder);
+		this.instance=new MineL(posX*256/game.VIEWPORT_WIDTH,posY*256/game.VIEWPORT_WIDTH,doorAtBorder);
 		this.game=game;
-		this.setWidth(this.instance.getWidth());
-		this.setHeight(this.instance.getHeight());
+		this.setWidth(this.instance.getWidth()*game.VIEWPORT_WIDTH/256);
+		this.setHeight(this.instance.getHeight()*game.VIEWPORT_WIDTH/256);
 		this.createMine();
-		this.setPosition(this.instance.getPosX(), this.instance.getPosY());
+		this.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256, this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
 	}
 	/**
 	 * Second constructor for the class
@@ -50,10 +50,10 @@ public class MineG extends PlaceGraphical{
 	public MineG(GameStage game, Place it) {
 		this.instance=it;
 		this.game=game;
-		this.setWidth(this.instance.getWidth());
-		this.setHeight(this.instance.getHeight());
+		this.setWidth(this.instance.getWidth()*game.VIEWPORT_WIDTH/256);
+		this.setHeight(this.instance.getHeight()*game.VIEWPORT_WIDTH/256);
 		this.createMine();
-		this.setPosition(this.instance.getPosX(), this.instance.getPosY());
+		this.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256, this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
 	}
 	@Override
 	public void update(float delta) {

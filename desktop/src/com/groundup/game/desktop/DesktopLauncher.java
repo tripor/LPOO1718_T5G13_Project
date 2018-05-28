@@ -7,8 +7,8 @@ import com.groundup.game.GroundUpGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width=1024;
-		config.height=768;
+		config.width=1920/2;
+		config.height=1080/2;
 		config.title="Ground Up";
 		config.forceExit=false;
 		//config.fullscreen=true;

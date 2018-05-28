@@ -40,7 +40,7 @@ public class BuildHolder extends GroupExtension {
 		width_of_icons=20*game.VIEWPORT_WIDTH/200;
 		height_of_icons=15*game.VIEWPORT_HEIGHT/100;
 	
-		LabelIcon label= new LabelIcon(game,60,50);
+		LabelIcon label= new LabelIcon(game,40*game.VIEWPORT_WIDTH/200,25*game.VIEWPORT_HEIGHT/100);
 		label.setZ(11);
 		label.setVisible(false);
 		label.setText("Factory\nA Factory accepts items from a inserter and produces new products to be delivered to the houses.Costs:"+FactoryL.price);
@@ -51,7 +51,7 @@ public class BuildHolder extends GroupExtension {
 		this.addActor(button3);
 		pos_x+=width_of_icons+1;
 		
-		LabelIcon label2= new LabelIcon(game,60,50);
+		LabelIcon label2= new LabelIcon(game,40*game.VIEWPORT_WIDTH/200,25*game.VIEWPORT_HEIGHT/100);
 		label2.setZ(11);
 		label2.setVisible(false);
 		label2.setText("Mine\nA mine produces materials periodicaly and are saved in a internal storage. Materials can be removed with inserters.Costs:"+MineL.price);
@@ -62,7 +62,7 @@ public class BuildHolder extends GroupExtension {
 		this.addActor(button4);
 		pos_x+=width_of_icons+1;
 		
-		LabelIcon label3= new LabelIcon(game,60,50);
+		LabelIcon label3= new LabelIcon(game,40*game.VIEWPORT_WIDTH/200,25*game.VIEWPORT_HEIGHT/100);
 		label3.setZ(11);
 		label3.setVisible(false);
 		label3.setText("House\nA house is here people live. People work in factories and places and increase productivity. The more house the more people.Cost:"+HouseL.price);
@@ -73,7 +73,7 @@ public class BuildHolder extends GroupExtension {
 		this.addActor(button5);
 		pos_x+=width_of_icons+1;
 		
-		LabelIcon label4= new LabelIcon(game,70,50);
+		LabelIcon label4= new LabelIcon(game,40*game.VIEWPORT_WIDTH/200,30*game.VIEWPORT_HEIGHT/100);
 		label4.setZ(11);
 		label4.setVisible(false);
 		label4.setText("Inserter\nA inserter can pick up items from the ground or from buildings and can deliver them 180 degrees from the place they picked up the material.Cost:"+InserterL.price);
@@ -84,7 +84,7 @@ public class BuildHolder extends GroupExtension {
 		this.addActor(button6);
 		pos_x+=width_of_icons+1;
 		
-		LabelIcon label5= new LabelIcon(game,60,50);
+		LabelIcon label5= new LabelIcon(game,40*game.VIEWPORT_WIDTH/200,25*game.VIEWPORT_HEIGHT/100);
 		label5.setZ(11);
 		label5.setVisible(false);
 		label5.setText("Conveyor\nA conveyor transports all materials on top to the next block. Rotate the conveyor by pressing R.Cost:"+ConveyorL.price);

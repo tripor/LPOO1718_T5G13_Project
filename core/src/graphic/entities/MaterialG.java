@@ -31,17 +31,17 @@ public class MaterialG extends ActorExtension{
 	{
 		this.instance=mat;
 		this.game=game;
-		this.setWidth(this.instance.getWidth());
-		this.setHeight(this.instance.getHeight());
+		this.setWidth(this.instance.getWidth()*game.VIEWPORT_WIDTH/256);
+		this.setHeight(this.instance.getHeight()*game.VIEWPORT_WIDTH/256);
 		this.createTexture(((MaterialL)this.instance).getType());
-		this.setPosition(mat.getPosX(), mat.getPosY());
+		this.setPosition(mat.getPosX()*game.VIEWPORT_WIDTH/256, mat.getPosY()*game.VIEWPORT_WIDTH/256);
 	}
 	
 	@Override
 	public void update(float delta) {
 		if(this.instance!=null)
 		{
-			this.setPosition(this.instance.getPosX(),this.instance.getPosY());
+			this.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256,this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
 			if(((MaterialL)this.instance).id==1)
 			{
 				this.setVisible(false);
@@ -60,10 +60,10 @@ public class MaterialG extends ActorExtension{
 	public void setInstance(MaterialL mat)
 	{
 		this.instance=mat;
-		this.setWidth(this.instance.getWidth());
-		this.setHeight(this.instance.getHeight());
+		this.setWidth(this.instance.getWidth()*game.VIEWPORT_WIDTH/256);
+		this.setHeight(this.instance.getHeight()*game.VIEWPORT_WIDTH/256);
 		this.createTexture(((MaterialL)this.instance).getType());
-		this.setPosition(mat.getPosX(), mat.getPosY());
+		this.setPosition(mat.getPosX()*game.VIEWPORT_WIDTH/256, mat.getPosY()*game.VIEWPORT_WIDTH/256);
 	}
 
 }

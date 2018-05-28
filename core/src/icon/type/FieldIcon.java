@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 import graphic.GameStage;
 import graphic.GroupExtension;
-import icon.Icon;
 
 public class FieldIcon extends GroupExtension{
 	
@@ -24,6 +23,7 @@ public class FieldIcon extends GroupExtension{
 		Skin uiSkin = new Skin(Gdx.files.internal("glassy-ui.json"));
 		button3 = (new TextField("",uiSkin));
 		button3.setWidth(width);
+		button3.setHeight(height);
 		button3.setPosition(posX, posY);
 		this.addActor(button3);
 	}

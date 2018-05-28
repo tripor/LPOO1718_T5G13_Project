@@ -47,6 +47,8 @@ public class Mouse extends ActorExtension {
 	 */
 	public void createMouse(String type,int width, int height) {
 		this.type=type;
+		width=width*game.VIEWPORT_WIDTH/256;
+		height=height*game.VIEWPORT_WIDTH/256;
 		this.width=width;
 		this.height=height;
 		Texture texture = this.game.getGame().getAssetManager().get(type);
@@ -71,14 +73,15 @@ public class Mouse extends ActorExtension {
 		{
 			Vector3 mouse_pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
 			this.game.getViewport().unproject(mouse_pos);
+			int numero=Map.division*game.VIEWPORT_WIDTH/256;
 			int adicao_x=0;
 			int adicao_y=0;
-			if(this.width % 10!=0)
-				adicao_x = (10 - (this.width % 10)) / 2;
-			if(this.height % 10!=0)
-				adicao_y = (10 - (this.height % 10)) / 2;
-			int x = (int) (mouse_pos.x/Map.division) * 10 + adicao_x;
-			int y = (int) (mouse_pos.y/Map.division) * 10 + adicao_y;
+			if(this.width % numero!=0)
+				adicao_x = (numero - (this.width % numero)) / 2;
+			if(this.height % numero!=0)
+				adicao_y = (numero - (this.height % numero)) / 2;
+			int x = (int) (mouse_pos.x/numero) * numero + adicao_x;
+			int y = (int) (mouse_pos.y/numero) * numero + adicao_y;
 			if(this.type.equals("factory.png"))
 			{
 				FactoryG fab= new FactoryG(this.game,x,y,this.doorPosition);
@@ -117,14 +120,15 @@ public class Mouse extends ActorExtension {
 		if (this.isSelected) {
 			Vector3 mouse_pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
 			this.game.getViewport().unproject(mouse_pos);
+			int numero=Map.division*game.VIEWPORT_WIDTH/256;
 			int adicao_x=0;
 			int adicao_y=0;
-			if(this.width % 10!=0)
-				adicao_x = (10 - (this.width % 10)) / 2;
-			if(this.height % 10!=0)
-				adicao_y = (10 - (this.height % 10)) / 2;
-			int x = (int) (mouse_pos.x/Map.division) * 10 + adicao_x;
-			int y = (int) (mouse_pos.y/Map.division) * 10 + adicao_y;
+			if(this.width % numero!=0)
+				adicao_x = (numero - (this.width % numero)) / 2;
+			if(this.height % numero!=0)
+				adicao_y = (numero - (this.height % numero)) / 2;
+			int x = (int) (mouse_pos.x/numero) * numero + adicao_x;
+			int y = (int) (mouse_pos.y/numero) * numero + adicao_y;
 			this.setPosition(x, y);
 			sprite.draw(batch);
 		}

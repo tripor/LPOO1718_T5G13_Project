@@ -33,10 +33,10 @@ public class PersonG extends ActorExtension{
 	public PersonG(GameStage game, PersonL in) {
 		this.instance=in;
 		this.game=game;
-		this.setWidth(this.instance.getWidth());
-		this.setHeight(this.instance.getHeight());
+		this.setWidth(this.instance.getWidth()*game.VIEWPORT_WIDTH/256);
+		this.setHeight(this.instance.getHeight()*game.VIEWPORT_WIDTH/256);
 		this.createWorker();
-		this.setPosition(this.instance.getPosX(), this.instance.getPosY());
+		this.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256, this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
 	}
 
 	@Override

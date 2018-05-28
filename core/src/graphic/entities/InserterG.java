@@ -33,8 +33,8 @@ public class InserterG extends ActorExtension{
 		sprite.setOrigin(this.getWidth()/2, this.getHeight()/2);
 		
 		sprite2 =  new Sprite(texture2);
-		sprite2.setSize(((InserterL)this.instance).width_hand, ((InserterL)this.instance).height_hand);
-		sprite2.setOrigin(((InserterL)this.instance).width_hand, ((InserterL)this.instance).height_hand/2);
+		sprite2.setSize(((InserterL)this.instance).width_hand*game.VIEWPORT_WIDTH/256, ((InserterL)this.instance).height_hand*game.VIEWPORT_WIDTH/256);
+		sprite2.setOrigin(((InserterL)this.instance).width_hand*game.VIEWPORT_WIDTH/256, ((InserterL)this.instance).height_hand*game.VIEWPORT_WIDTH/256/2);
 		int direction=((InserterL)this.instance).getDirection();
 		if(direction!=4)
 		{
@@ -45,24 +45,24 @@ public class InserterG extends ActorExtension{
 	
 	public InserterG(GameStage game,int posX,int posY,int direction)
 	{
-		this.instance=new InserterL(posX,posY,direction);
+		this.instance=new InserterL(posX*256/game.VIEWPORT_WIDTH,posY*256/game.VIEWPORT_WIDTH,direction);
 		this.game=game;
-		this.setWidth(this.instance.getWidth());
-		this.setHeight(this.instance.getHeight());
+		this.setWidth(this.instance.getWidth()*game.VIEWPORT_WIDTH/256);
+		this.setHeight(this.instance.getHeight()*game.VIEWPORT_WIDTH/256);
 		this.createInserter();
-		this.setPosition(this.instance.getPosX(), this.instance.getPosY());
-		this.sprite2.setPosition(this.instance.getPosX()-(((InserterL)this.instance).width_hand-2), this.instance.getPosY());
+		this.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256, this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
+		this.sprite2.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256-(((InserterL)this.instance).width_hand*game.VIEWPORT_WIDTH/256-2*game.VIEWPORT_WIDTH/256), this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
 	}
 	
 	public InserterG(GameStage game,InserterL in)
 	{
 		this.instance=in;
 		this.game=game;
-		this.setWidth(this.instance.getWidth());
-		this.setHeight(this.instance.getHeight());
+		this.setWidth(this.instance.getWidth()*game.VIEWPORT_WIDTH/256);
+		this.setHeight(this.instance.getHeight()*game.VIEWPORT_WIDTH/256);
 		this.createInserter();
-		this.setPosition(this.instance.getPosX(), this.instance.getPosY());
-		this.sprite2.setPosition(this.instance.getPosX()-(((InserterL)this.instance).width_hand-2), this.instance.getPosY());
+		this.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256, this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
+		this.sprite2.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256-(((InserterL)this.instance).width_hand*game.VIEWPORT_WIDTH/256-2*game.VIEWPORT_WIDTH/256), this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
 	}
 	
 	@Override

@@ -35,12 +35,12 @@ public class HouseG extends PlaceGraphical{
 	 */
 	public HouseG(GameStage game,int posX,int posY,int doorAtBorder)
 	{
-		instance =  new HouseL(posX,posY,doorAtBorder);
+		instance =  new HouseL(posX*256/game.VIEWPORT_WIDTH,posY*256/game.VIEWPORT_WIDTH,doorAtBorder);
 		this.game=game;
-		this.setWidth(instance.getWidth());
-		this.setHeight(instance.getHeight());
+		this.setWidth(instance.getWidth()*game.VIEWPORT_WIDTH/256);
+		this.setHeight(instance.getHeight()*game.VIEWPORT_WIDTH/256);
 		this.createHouse();
-		this.setPosition(posX, posY);
+		this.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256, this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
 		
 	}
 	/**
@@ -51,10 +51,10 @@ public class HouseG extends PlaceGraphical{
 	public HouseG(GameStage game, Place it) {
 		instance =  it;
 		this.game=game;
-		this.setWidth(instance.getWidth());
-		this.setHeight(instance.getHeight());
+		this.setWidth(instance.getWidth()*game.VIEWPORT_WIDTH/256);
+		this.setHeight(instance.getHeight()*game.VIEWPORT_WIDTH/256);
 		this.createHouse();
-		this.setPosition(this.instance.getPosX(), this.instance.getPosY());
+		this.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256, this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
 	}
 	@Override
 	public void update(float delta) {

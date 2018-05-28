@@ -24,9 +24,9 @@ public class LabelIcon extends GroupExtension  {
 		
 		label = new Label("0", new Label.LabelStyle(new BitmapFont(), null));
 		label.setColor(Color.BLACK);
-		label.setWidth(width-4);
+		label.setWidth(width-4*this.game.VIEWPORT_WIDTH/256);
 		label.setHeight(height);
-		label.setFontScale(0.35f);
+		label.setFontScale((1f*this.game.VIEWPORT_WIDTH)/960);
 		label.setWrap(true);
 		label.setEllipsis(false);
 		
@@ -37,8 +37,9 @@ public class LabelIcon extends GroupExtension  {
 	public void draw(Batch batch, float parentAlpha) {
 		Vector3 mouse_pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
 		this.game.getViewport().unproject(mouse_pos);
-		label.setPosition(mouse_pos.x+6, mouse_pos.y+3);
-		back.setIconPosition(mouse_pos.x+3, mouse_pos.y+3);
+		label.setPosition(mouse_pos.x + 3*this.game.VIEWPORT_WIDTH/256, mouse_pos.y + 3);
+		back.setIconPosition(mouse_pos.x + 3 - this.game.getCamera().position.x + (this.game.VIEWPORT_WIDTH / 2),
+				mouse_pos.y + 3 - this.game.getCamera().position.y + (this.game.VIEWPORT_HEIGHT / 2));
 		super.draw(batch,parentAlpha);
 	}
 	

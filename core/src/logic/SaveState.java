@@ -36,8 +36,15 @@ public class SaveState {
             try (Scanner scanner = new Scanner(response)) {
                 responseBody = scanner.useDelimiter("\\A").next();
             }
-            Json json=new Json();
-            load=json.fromJson(Map.class, responseBody);
+            if(!responseBody.equals("Fail"))
+            {
+                Json json=new Json();
+                load=json.fromJson(Map.class, responseBody);
+            }
+            else
+            {
+            	load=null;
+            }
             
 		}  catch (IOException e) {
             System.out.println("Error Message");
