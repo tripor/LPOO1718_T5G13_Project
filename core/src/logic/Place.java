@@ -42,7 +42,7 @@ public abstract class Place extends Entity {
 	public void addToStorage(MaterialL mat)
 	{
 
-		mat.id=mat.id==0 ? 0:2;
+		mat.id=1;
 		
 		this.storage.add(mat);
 	}
@@ -65,7 +65,6 @@ public abstract class Place extends Entity {
 			{
 				MaterialL devolver=this.storage.get(0);
 				this.storage.remove(0);
-				devolver.id=devolver.id==0 ? 0:1;
 				return devolver;
 			}
 		}
@@ -78,7 +77,6 @@ public abstract class Place extends Entity {
 				{
 					devolver=this.storage.get(i);
 					this.storage.remove(i);
-					devolver.id=devolver.id==0 ? 0:1;
 					return devolver;
 				}
 			}

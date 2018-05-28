@@ -159,6 +159,8 @@ public class InserterL extends Entity {
 					{
 						this.pickup=removed;
 						map.lista_material.add(removed);
+						map.lista_material_toActor.add(removed);
+						removed.id=0;
 						return;
 					}
 				}

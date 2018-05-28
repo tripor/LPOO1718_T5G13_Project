@@ -18,7 +18,7 @@ public class MaterialL extends Entity {
 	/**
 	 * ID. 0=no actor,1-has actor,2-has actor but hidden
 	 */
-	public transient int id=0;
+	public transient int id=1;
 	/**
 	 * Constructor for the logic class Material
 	 * @param posX The X position in pixels
@@ -33,7 +33,7 @@ public class MaterialL extends Entity {
 	public MaterialL()
 	{
 		super();
-		this.id=0;
+		this.id=1;
 	}
 	/**
 	 * 

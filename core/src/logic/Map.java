@@ -53,8 +53,18 @@ public class Map {
 	 * Array with all the Persons in the map
 	 */
 	public Array<PersonL> lista_person;
-	
+	/**
+	 * Materials looking for an actor
+	 */
+	public transient Array<MaterialL> lista_material_toActor;
+	/**
+	 * Money the player has
+	 */
 	public int money;
+	/**
+	 * Money the player has wasted all game
+	 */
+	public int money_wasted;
 	
 	/**
 	 * Constructor for the class logic Map
@@ -79,7 +89,9 @@ public class Map {
 		this.lista_material=new Array<MaterialL>();
 		this.lista_place=new Array<Place>();
 		this.lista_person=new Array<PersonL>();
+		this.lista_material_toActor= new Array<MaterialL>();
 		this.money=500;
+		this.money_wasted=0;
 	}
 	/**
 	 * Recreates the map
@@ -96,6 +108,7 @@ public class Map {
 			}
 		}
 		this.lista_material.clear();
+		this.lista_material_toActor= new Array<MaterialL>();
 	}
 	
 	public Map()
@@ -288,6 +301,7 @@ public class Map {
 			if(this.money>=ConveyorL.price)
 			{
 				this.money-=ConveyorL.price;
+				this.money_wasted+=ConveyorL.price;
 				this.lista_conveyor.add((ConveyorL) ent);
 			}
 			else
@@ -299,16 +313,19 @@ public class Map {
 			if(FactoryL.class.isAssignableFrom(ent.getClass()) && this.money>=FactoryL.price)
 			{
 					this.money-=FactoryL.price;
+					this.money_wasted+=FactoryL.price;
 					this.lista_place.add((Place) ent);
 			}
 			else if(HouseL.class.isAssignableFrom(ent.getClass()) && this.money>=HouseL.price)
 			{
 				this.money-=HouseL.price;
+				this.money_wasted+=HouseL.price;
 				this.lista_place.add((Place) ent);
 			}
 			else if(MineL.class.isAssignableFrom(ent.getClass()) && this.money>=MineL.price)
 			{
 				this.money-=MineL.price;
+				this.money_wasted+=MineL.price;
 				this.lista_place.add((Place) ent);
 			}
 			else 
@@ -319,6 +336,7 @@ public class Map {
 			if(this.money>=InserterL.price)
 			{
 				this.money-=InserterL.price;
+				this.money_wasted+=InserterL.price;
 				this.lista_inserter.add((InserterL) ent);
 			}
 			else

@@ -45,7 +45,7 @@ public class MaterialList extends GroupExtension {
 	 */
 	public void removeMaterial(MaterialG mat) {
 		this.removeActor(mat);
-		this.game.map().removeMap(mat.instance);
+		//this.game.map().removeMap(mat.instance);
 	}
 	/**
 	 * Removes a inserter from the map and game

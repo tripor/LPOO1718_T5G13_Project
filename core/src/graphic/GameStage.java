@@ -1,5 +1,7 @@
 package graphic;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
@@ -87,6 +89,8 @@ public class GameStage extends Stage {
      * Loading screen
      */
     private LoadingIcon build_icon;
+    
+    public ArrayList<MaterialG> unused_material;
 
 	/**
      * For testing. For adding 100000 people into the map.
@@ -128,6 +132,7 @@ public class GameStage extends Stage {
 		this.icon_list.setZ(5);
 		this.addActor(icon_list);
 		this.getActors().sort();
+		this.unused_material= new ArrayList<MaterialG>();
 			
 		
 		
@@ -256,6 +261,11 @@ public class GameStage extends Stage {
 				this.background_list.addBackground(adicionar);
 			}
 		}
+		for(int i=0;i<400;i++)
+		{
+			MaterialG novo= new MaterialG(this);
+			this.unused_material.add(novo);
+		}
 	}
 	/**
 	 * Checks if a given pixel is on the camera
@@ -355,15 +365,22 @@ public class GameStage extends Stage {
 	 */
 	public void updateMaterials()
 	{
-		for(MaterialL it:this.map.lista_material)
+		for(MaterialL it:this.map.lista_material_toActor)
 		{
-			if(it.id==0)
+			if(this.unused_material.isEmpty())
 			{
-				it.id=1;
-				MaterialG novo=new MaterialG(this,it);
+				MaterialG novo= new MaterialG(this,it);
 				this.material_list.addMaterial(novo);
 			}
+			else
+			{
+				MaterialG adicionar=this.unused_material.get(0);
+				this.unused_material.remove(0);
+				adicionar.setInstance(it);
+				this.material_list.addMaterial(adicionar);
+			}
 		}
+		this.map.lista_material_toActor.clear();
 	}
 	/**
 	 * Saves the game
@@ -382,6 +399,7 @@ public class GameStage extends Stage {
 		SaveState instancia=new SaveState();
 		this.map=instancia.loadGame(nome);
 		this.map.recreateMap();
+		this.map.money+=this.map.money_wasted;
 		this.material_list.clear();
 		this.inserter_list.clear();
 		this.conveyor_list.clear();

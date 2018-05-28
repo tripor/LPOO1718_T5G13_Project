@@ -61,13 +61,11 @@ public class InserterList extends GroupExtension{
 	/**
 	 * Loads all the inserters to the screen
 	 */
-	public void loadFromMap()
-	{
-		for(InserterL it:this.game.map.lista_inserter)
-		{
-			InserterG novo=new InserterG(this.game,it);
+	public void loadFromMap() {
+		for (InserterL it : this.game.map.lista_inserter) {
+			InserterG novo = new InserterG(this.game, it);
 			this.addInserter(novo);
 		}
 	}
-	
+
 }
