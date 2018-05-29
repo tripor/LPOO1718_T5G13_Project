@@ -26,6 +26,10 @@ public class BackGroundL extends Entity {
 		this.quantity=quantity;
 	}
 	/**
+	 * Empty constructor for Json
+	 */
+	public BackGroundL() {}
+	/**
 	 * 
 	 * @return Returns the type of material there is in the land
 	 */

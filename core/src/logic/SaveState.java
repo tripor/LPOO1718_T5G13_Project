@@ -47,9 +47,6 @@ public class SaveState {
             }
             
 		}  catch (IOException e) {
-//            System.out.println("Error Message");
-//            System.out.println(e.getClass().getSimpleName());
-//            System.out.println(e.getMessage());
 		}
         return load;
 	}
@@ -75,16 +72,8 @@ public class SaveState {
 			String email = "game=" + URLEncoder.encode(guardar, "UTF-8");
 			out.println(name2 + "&" + email);
 			out.close();
-
-			// BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			// String line;
-			// while ((line = in.readLine()) != null) {
-			//	//System.out.println(line);
-			// }
-			// in.close();
+			connection.getInputStream();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
 		}
 
 	}

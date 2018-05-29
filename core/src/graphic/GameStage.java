@@ -414,10 +414,13 @@ public class GameStage extends Stage {
 			this.conveyor_list.clear();
 			this.place_list.clear();
 			this.person_list.clear();
+			this.background_list.clear();
+			this.unused_material.clear();
 			this.inserter_list.loadFromMap();
 			this.conveyor_list.loadFromMap();
 			this.place_list.loadFromMap();
 			this.person_list.loadFromMap();
+			this.initializeMap();
 		}
 	}
 	

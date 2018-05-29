@@ -35,7 +35,7 @@ public class MineG extends PlaceGraphical{
 	 */
 	public MineG(GameStage game,int posX,int posY,int doorAtBorder)
 	{
-		this.instance=new MineL(game.map(),posX*256/game.VIEWPORT_WIDTH,posY*256/game.VIEWPORT_WIDTH,doorAtBorder);
+		this.instance=new MineL(posX*256/game.VIEWPORT_WIDTH,posY*256/game.VIEWPORT_WIDTH,doorAtBorder);
 		this.game=game;
 		this.setWidth(this.instance.getWidth()*game.VIEWPORT_WIDTH/256);
 		this.setHeight(this.instance.getHeight()*game.VIEWPORT_WIDTH/256);
@@ -57,7 +57,7 @@ public class MineG extends PlaceGraphical{
 	}
 	@Override
 	public void update(float delta) {
-		((MineL)this.instance).handler();
+		((MineL)this.instance).handler(this.game.map());
 		
 	}
 
