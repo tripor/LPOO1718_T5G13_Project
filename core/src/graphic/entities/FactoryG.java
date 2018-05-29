@@ -36,12 +36,12 @@ public class FactoryG extends PlaceGraphical{
 	 */
 	public FactoryG(GameStage game,int posX,int posY,int doorAtBorder)
 	{
-		instance =  new FactoryL(posX*256/game.VIEWPORT_WIDTH,posY*256/game.VIEWPORT_WIDTH,doorAtBorder);
+		instance =  new FactoryL((int)(posX*game.reverseScale()),(int)(posY*game.reverseScale()),doorAtBorder);
 		this.game=game;
-		this.setWidth(instance.getWidth()*game.VIEWPORT_WIDTH/256);
-		this.setHeight(instance.getHeight()*game.VIEWPORT_WIDTH/256);
+		this.setWidth(instance.getWidth()*this.game.scale());
+		this.setHeight(instance.getHeight()*this.game.scale());
 		this.createFactory();
-		this.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256, this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
+		this.setPosition(this.instance.getPosX()*this.game.scale(), this.instance.getPosY()*this.game.scale());
 		
 	}
 	/**
@@ -52,10 +52,10 @@ public class FactoryG extends PlaceGraphical{
 	public FactoryG(GameStage game, Place it) {
 		instance =  it;
 		this.game=game;
-		this.setWidth(instance.getWidth()*game.VIEWPORT_WIDTH/256);
-		this.setHeight(instance.getHeight()*game.VIEWPORT_WIDTH/256);
+		this.setWidth(instance.getWidth()*this.game.scale());
+		this.setHeight(instance.getHeight()*this.game.scale());
 		this.createFactory();
-		this.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256, this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
+		this.setPosition(this.instance.getPosX()*this.game.scale(), this.instance.getPosY()*this.game.scale());
 	}
 	@Override
 	public void update(float delta) {

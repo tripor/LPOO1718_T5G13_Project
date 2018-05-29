@@ -50,8 +50,8 @@ public class BackgroundG extends ActorExtension {
 	public BackgroundG(GameStage game,int x, int y,BackGroundL inst) {
 		this.instance=inst;
 		this.game=game;
-		this.setWidth(Map.division*this.game.VIEWPORT_WIDTH/256);
-		this.setHeight(Map.division*this.game.VIEWPORT_WIDTH/256);
+		this.setWidth(Map.division*this.game.scale());
+		this.setHeight(Map.division*this.game.scale());
 		this.createBackground();
 		this.setPosition(x, y);
 	}

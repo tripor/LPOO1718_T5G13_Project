@@ -25,6 +25,7 @@ import logic.entities.MaterialL;
 
 public class GameStage extends Stage {
 	
+	private float mapScale=256.0f;
 	/**
 	 * The viewport width
 	 */
@@ -87,12 +88,20 @@ public class GameStage extends Stage {
     private LoadingIcon build_icon;
     
     public ArrayList<MaterialG> unused_material;
-
-	/**
-     * For testing. For adding 100000 people into the map.
+    /**
+     * Scale of the map
+     * @return float
      */
-//	private AsyncExecutor asyncExecutor = new AsyncExecutor(10);
-    
+	public float scale() {
+		return this.VIEWPORT_WIDTH / this.mapScale;
+	}
+	/**
+	 * Scale of the map
+	 * @return float
+	 */
+	public float reverseScale() {
+		return this.mapScale/this.VIEWPORT_WIDTH;
+	}
 	/**
 	 * Constructor of the class GameStage
 	 * It creates a viewport and loads all the texture of the game
@@ -256,12 +265,11 @@ public class GameStage extends Stage {
 	 */
 	private void initializeMap()
 	{
-		for(int i=0; i< this.map.getMapWidth()*this.VIEWPORT_WIDTH/256;i+=Map.division*this.VIEWPORT_WIDTH/256)
-		{
-			for(int j=0; j < this.map.getMapHeight()*this.VIEWPORT_WIDTH/256;j+=Map.division*this.VIEWPORT_WIDTH/256)
-			{
+		for (int i = 0; i < this.map.getMapWidth() * this.scale(); i += Map.division * this.scale()) {
+			for (int j = 0; j < this.map.getMapHeight() * this.scale(); j += Map.division * this.scale()) {
 				BackgroundG novo = new BackgroundG(this, i, j,
-						this.map.lista_background.get(this.map.transformToBlock(i*256/this.VIEWPORT_WIDTH)).get(this.map.transformToBlock(j*256/this.VIEWPORT_WIDTH)));
+						this.map.lista_background.get(this.map.transformToBlock((int) (i * this.reverseScale())))
+								.get(this.map.transformToBlock((int) (j * this.reverseScale()))));
 				this.background_list.addBackground(novo);
 			}
 		}

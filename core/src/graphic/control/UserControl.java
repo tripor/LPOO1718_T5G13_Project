@@ -38,19 +38,19 @@ public class UserControl implements InputProcessor  {
 	public void InputHandler() {
 		if (!this.game.menuOpen) {
 			if (Gdx.input.isKeyPressed(Input.Keys.W)) { // camera goes up.
-				game.getCamera().translate(new Vector3(0, 5*this.game.VIEWPORT_WIDTH/256, 0));
+				game.getCamera().translate(new Vector3(0, 5*this.game.scale(), 0));
 				this.checkMapPosition();
 			}
 			if (Gdx.input.isKeyPressed(Input.Keys.S)) { // camera goes down
-				game.getCamera().translate(new Vector3(0, -5*this.game.VIEWPORT_WIDTH/256, 0));
+				game.getCamera().translate(new Vector3(0, -5*this.game.scale(), 0));
 				this.checkMapPosition();
 			}
 			if (Gdx.input.isKeyPressed(Input.Keys.D)) { // camera goes right
-				game.getCamera().translate(new Vector3(5*this.game.VIEWPORT_WIDTH/256, 0, 0));
+				game.getCamera().translate(new Vector3(5*this.game.scale(), 0, 0));
 				this.checkMapPosition();
 			}
 			if (Gdx.input.isKeyPressed(Input.Keys.A)) { // camera goes left
-				game.getCamera().translate(new Vector3(-5*this.game.VIEWPORT_WIDTH/256, 0, 0));
+				game.getCamera().translate(new Vector3(-5*this.game.scale(), 0, 0));
 				this.checkMapPosition();
 			}
 			if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
@@ -63,7 +63,7 @@ public class UserControl implements InputProcessor  {
 	 */
 	public void checkMapPosition()
 	{
-		int width= this.game.map().getMapWidth()*this.game.VIEWPORT_WIDTH/256;
+		int width= (int) (this.game.map().getMapWidth()*this.game.scale());
 		int camera_width=this.game.VIEWPORT_WIDTH/2;
 		int camera_height=this.game.VIEWPORT_HEIGHT/2;
 		Vector3 vector=game.getCamera().position;
@@ -98,7 +98,7 @@ public class UserControl implements InputProcessor  {
 	{
 		Vector3 mouse_pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
 		this.game.getViewport().unproject(mouse_pos);
-		Array<Entity> elements=this.game.map().getMapPixel((int)mouse_pos.x*256/game.VIEWPORT_WIDTH,(int)mouse_pos.y*256/game.VIEWPORT_WIDTH);
+		Array<Entity> elements=this.game.map().getMapPixel((int)(mouse_pos.x*this.game.reverseScale()),(int)(mouse_pos.y*this.game.reverseScale()));
 		ArrayList<Entity> remover=new ArrayList<Entity>();
 		for (Entity it : elements) {
 			if (PersonL.class.isAssignableFrom(it.getClass())) {

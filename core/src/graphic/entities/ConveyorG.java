@@ -52,12 +52,12 @@ public class ConveyorG extends ActorExtension{
 	 */
 	public ConveyorG(GameStage game,int posX,int posY,int direction)
 	{
-		this.instance=new ConveyorL(posX*256/game.VIEWPORT_WIDTH,posY*256/game.VIEWPORT_WIDTH,direction);
+		this.instance=new ConveyorL((int)(posX*game.reverseScale()),(int)(posY*game.reverseScale()),direction);
 		this.game=game;
-		this.setWidth(this.instance.getWidth()*game.VIEWPORT_WIDTH/256);
-		this.setHeight(this.instance.getHeight()*game.VIEWPORT_WIDTH/256);
+		this.setWidth(this.instance.getWidth()*this.game.scale());
+		this.setHeight(this.instance.getHeight()*this.game.scale());
 		this.createConveyor();
-		this.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256, this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
+		this.setPosition(this.instance.getPosX()*this.game.scale(), this.instance.getPosY()*this.game.scale());
 	}
 	/**
 	 * Second constructor for the class
@@ -67,10 +67,10 @@ public class ConveyorG extends ActorExtension{
 	public ConveyorG(GameStage game, ConveyorL it) {
 		this.instance=it;
 		this.game=game;
-		this.setWidth(this.instance.getWidth()*game.VIEWPORT_WIDTH/256);
-		this.setHeight(this.instance.getHeight()*game.VIEWPORT_WIDTH/256);
+		this.setWidth(this.instance.getWidth()*this.game.scale());
+		this.setHeight(this.instance.getHeight()*this.game.scale());
 		this.createConveyor();
-		this.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256, this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
+		this.setPosition(this.instance.getPosX()*this.game.scale(), this.instance.getPosY()*this.game.scale());
 	}
 	@Override
 	public void update(float delta) {

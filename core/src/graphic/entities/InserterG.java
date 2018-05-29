@@ -33,8 +33,8 @@ public class InserterG extends ActorExtension{
 		sprite.setOrigin(this.getWidth()/2, this.getHeight()/2);
 		
 		sprite2 =  new Sprite(texture2);
-		sprite2.setSize(((InserterL)this.instance).width_hand*game.VIEWPORT_WIDTH/256, ((InserterL)this.instance).height_hand*game.VIEWPORT_WIDTH/256);
-		sprite2.setOrigin(((InserterL)this.instance).width_hand*game.VIEWPORT_WIDTH/256, ((InserterL)this.instance).height_hand*game.VIEWPORT_WIDTH/256/2);
+		sprite2.setSize(((InserterL)this.instance).width_hand*game.scale(), ((InserterL)this.instance).height_hand*game.scale());
+		sprite2.setOrigin(((InserterL)this.instance).width_hand*game.scale(), ((InserterL)this.instance).height_hand*game.scale()/2);
 		int direction=((InserterL)this.instance).getDirection();
 		if(direction!=4)
 		{
@@ -43,26 +43,30 @@ public class InserterG extends ActorExtension{
 		}
 	}
 	
-	public InserterG(GameStage game,int posX,int posY,int direction)
-	{
-		this.instance=new InserterL(posX*256/game.VIEWPORT_WIDTH,posY*256/game.VIEWPORT_WIDTH,direction);
-		this.game=game;
-		this.setWidth(this.instance.getWidth()*game.VIEWPORT_WIDTH/256);
-		this.setHeight(this.instance.getHeight()*game.VIEWPORT_WIDTH/256);
+	public InserterG(GameStage game, int posX, int posY, int direction) {
+		this.instance = new InserterL((int)(posX * game.reverseScale()),(int)( posY * game.reverseScale()), direction);
+		this.game = game;
+		this.setWidth(this.instance.getWidth() * game.scale());
+		this.setHeight(this.instance.getHeight() * game.scale());
 		this.createInserter();
-		this.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256, this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
-		this.sprite2.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256-(((InserterL)this.instance).width_hand*game.VIEWPORT_WIDTH/256-2*game.VIEWPORT_WIDTH/256), this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
+		this.setPosition(this.instance.getPosX() * game.scale(), this.instance.getPosY() * game.scale());
+		this.sprite2.setPosition(
+				this.instance.getPosX() * game.scale()
+						- (((InserterL) this.instance).width_hand * game.scale() - 2 * game.scale()),
+				this.instance.getPosY() * game.scale());
 	}
-	
-	public InserterG(GameStage game,InserterL in)
-	{
-		this.instance=in;
-		this.game=game;
-		this.setWidth(this.instance.getWidth()*game.VIEWPORT_WIDTH/256);
-		this.setHeight(this.instance.getHeight()*game.VIEWPORT_WIDTH/256);
+
+	public InserterG(GameStage game, InserterL in) {
+		this.instance = in;
+		this.game = game;
+		this.setWidth(this.instance.getWidth() * game.scale());
+		this.setHeight(this.instance.getHeight() * game.scale());
 		this.createInserter();
-		this.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256, this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
-		this.sprite2.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256-(((InserterL)this.instance).width_hand*game.VIEWPORT_WIDTH/256-2*game.VIEWPORT_WIDTH/256), this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
+		this.setPosition(this.instance.getPosX() * game.scale(), this.instance.getPosY() * game.scale());
+		this.sprite2.setPosition(
+				this.instance.getPosX() * game.scale()
+						- (((InserterL) this.instance).width_hand * game.scale() - 2 * game.scale()),
+				this.instance.getPosY() * game.scale());
 	}
 	
 	@Override

@@ -22,21 +22,21 @@ public class PersonG extends ActorExtension{
 	}
 	
 	public PersonG(GameStage game, Map map, int posX, int posY) {
-		this.instance= new PersonL(posX, posY, map);
+		this.instance= new PersonL((int)(posX*game.reverseScale()),(int)( posY*game.reverseScale()), map);
 		this.game=game;
-		this.setWidth(this.instance.getWidth());
-		this.setHeight(this.instance.getHeight());
+		this.setWidth(this.instance.getWidth()*game.scale());
+		this.setHeight(this.instance.getHeight()*game.scale());
 		this.createWorker();
-		this.setPosition(this.instance.getPosX(), this.instance.getPosY());
+		this.setPosition(this.instance.getPosX()*game.scale(), this.instance.getPosY()*game.scale());
 	}
 	
 	public PersonG(GameStage game, PersonL in) {
 		this.instance=in;
 		this.game=game;
-		this.setWidth(this.instance.getWidth()*game.VIEWPORT_WIDTH/256);
-		this.setHeight(this.instance.getHeight()*game.VIEWPORT_WIDTH/256);
+		this.setWidth(this.instance.getWidth()*game.scale());
+		this.setHeight(this.instance.getHeight()*game.scale());
 		this.createWorker();
-		this.setPosition(this.instance.getPosX()*game.VIEWPORT_WIDTH/256, this.instance.getPosY()*game.VIEWPORT_WIDTH/256);
+		this.setPosition(this.instance.getPosX()*game.scale(), this.instance.getPosY()*game.scale());
 	}
 
 	@Override

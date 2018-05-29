@@ -52,8 +52,8 @@ public class Mouse extends ActorExtension {
 		Texture texture = this.game.getGame().getAssetManager().get(type);
 		
 		sprite = new Sprite(texture);
-		sprite.setSize(width*game.VIEWPORT_WIDTH/256, height*game.VIEWPORT_WIDTH/256);
-		sprite.setOrigin(width*game.VIEWPORT_WIDTH/256/2, height*game.VIEWPORT_WIDTH/256/2);
+		sprite.setSize(width*this.game.scale(), height*this.game.scale());
+		sprite.setOrigin(width*this.game.scale()/2, height*this.game.scale()/2);
 
 		if(this.doorPosition!=4)
 			sprite.rotate(-90*doorPosition);
@@ -78,10 +78,10 @@ public class Mouse extends ActorExtension {
 				adicao_x = (numero - (this.width % numero)) / 2;
 			if(this.height % numero!=0)
 				adicao_y = (numero - (this.height % numero)) / 2;
-			int x = (int) (mouse_pos.x*256/game.VIEWPORT_WIDTH/numero) * numero + adicao_x;
-			int y = (int) (mouse_pos.y*256/game.VIEWPORT_WIDTH/numero) * numero + adicao_y;
-			x=x*game.VIEWPORT_WIDTH/256;
-			y=y*game.VIEWPORT_WIDTH/256;
+			int x = (int) (mouse_pos.x*this.game.reverseScale()/numero) * numero + adicao_x;
+			int y = (int) (mouse_pos.y*this.game.reverseScale()/numero) * numero + adicao_y;
+			x=(int) (x*this.game.scale());
+			y=(int) (y*this.game.scale());
 			if(this.type.equals("factory.png"))
 			{
 				FactoryG fab= new FactoryG(this.game,x,y,this.doorPosition);
@@ -127,9 +127,9 @@ public class Mouse extends ActorExtension {
 				adicao_x = (numero - (this.width % numero)) / 2;
 			if(this.height % numero!=0)
 				adicao_y = (numero - (this.height % numero)) / 2;
-			int x = (int) (mouse_pos.x*256/game.VIEWPORT_WIDTH/numero) * numero + adicao_x;
-			int y = (int) (mouse_pos.y*256/game.VIEWPORT_WIDTH/numero) * numero + adicao_y;
-			this.setPosition(x*game.VIEWPORT_WIDTH/256, y*game.VIEWPORT_WIDTH/256);
+			int x = (int) (mouse_pos.x*this.game.reverseScale()/numero) * numero + adicao_x;
+			int y = (int) (mouse_pos.y*this.game.reverseScale()/numero) * numero + adicao_y;
+			this.setPosition(x*this.game.scale(), y*this.game.scale());
 			sprite.draw(batch);
 		}
 	}
