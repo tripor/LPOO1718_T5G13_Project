@@ -105,7 +105,7 @@ public class GameStage extends Stage {
 		this.background_list=new BackgroundList();
 		this.background_list.setZ(0);
 		this.addActor(this.background_list);
-	    this.map= new Map(1000,1000);
+	    this.map= new Map(1000);
 		this.place_list=new PlaceList(this);
 		this.place_list.setZ(1);
 		this.addActor(place_list);

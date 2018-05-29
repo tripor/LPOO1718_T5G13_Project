@@ -16,7 +16,7 @@ public class UnitTest {
 		int mapWidth = (Map.division * 2) + 2,
 			mapHeight = (Map.division * 2) + 2;
 		
-		Map map = new Map(mapWidth, mapHeight);
+		Map map = new Map(mapWidth);
 		assertEquals(mapWidth, map.getMapWidth());
 		assertEquals(mapHeight, map.getMapHeight());
 	}
@@ -26,7 +26,7 @@ public class UnitTest {
 		
 		int width = 60, height = 60;
 
-		Map map = new Map(width, height);
+		Map map = new Map(width);
 		assertTrue(map.addMap(new FactoryL(4,4,3)));
 		assertFalse(map.addMap(new FactoryL(4,4,3)));
 		
@@ -42,7 +42,7 @@ public class UnitTest {
 	public void convertPixelToBlock() {
 		int pixel = 14;
 		
-		Map map = new Map(1, 1);
+		Map map = new Map(1);
 		assertEquals((pixel / Map.division), map.transformToBlock(pixel));
 	}
 	
@@ -51,7 +51,7 @@ public class UnitTest {
 		int x = 4, y = 8, doorAtBorder = 3;
 		int x2 = 2, y2 = 5;
 		
-		Map map = new Map(60, 60);
+		Map map = new Map(60);
 		
 		FactoryL fac = new FactoryL(x, y, doorAtBorder);
 		assertEquals(x, fac.getPosX());
@@ -88,7 +88,7 @@ public class UnitTest {
 		
 		FactoryL fac = new FactoryL(4, 8, 3);
 		
-		Map map = new Map(60, 60);
+		Map map = new Map(60);
 		assertTrue(map.addMap(fac));
 		
 		MaterialL mat = new MaterialL();
@@ -126,7 +126,7 @@ public class UnitTest {
 		
 		FactoryL fac = new FactoryL(4, 8, 3);
 		
-		Map map = new Map(60, 60);
+		Map map = new Map(60);
 		assertTrue(map.addMap(fac));
 		
 		InserterL ist = new InserterL(x, y, direction);
@@ -142,7 +142,7 @@ public class UnitTest {
 		
 		FactoryL fac = new FactoryL(4, 8, 3);
 		
-		Map map = new Map(60, 60);
+		Map map = new Map(60);
 		assertTrue(map.addMap(fac));
 		
 		int direction;
@@ -196,7 +196,7 @@ public class UnitTest {
 		int from_x = 4, from_y = 8,
 			to_x = 30, to_y = 20;
 		
-		Map map = new Map(60, 60);
+		Map map = new Map(60);
 		
 		PersonL ps = new PersonL(from_x, from_y, map);
 		assertTrue(map.addMap(ps));
@@ -220,7 +220,7 @@ public class UnitTest {
 	@Test
 	public void popPathWithMoreBlocks() {
 
-		Map map = new Map(200, 200);
+		Map map = new Map(200);
 		
 		InserterL ist = new InserterL(5, 5, 1);
 		map.addEntityLista(ist);
@@ -239,7 +239,7 @@ public class UnitTest {
 		int width = 60, height = 80;
 		
 		SaveState s = new SaveState();
-		Map map = new Map(width, height);
+		Map map = new Map(width);
 		
 		s.saveGame(name, map);
 		
