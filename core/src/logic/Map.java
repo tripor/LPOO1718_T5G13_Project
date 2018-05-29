@@ -191,19 +191,22 @@ public class Map {
 	/**
 	 * Recreates the map
 	 */
-	public void recreateMap()
+	public int recreateMap()
 	{
-		map= new Array<Array<Array<Entity>>>();
-		for(int i=0 ; i<this.transformToBlock(mapWidth) ;i++)
+		int i=0, j=0;
+		map = new Array<Array<Array<Entity>>>();
+		
+		for(i=0 ; i<this.transformToBlock(mapWidth) ;i++)
 		{
 			map.add(new Array<Array<Entity>>());
-			for(int j=0; j<this.transformToBlock(mapHeight);j++)
+			for(j=0; j<this.transformToBlock(mapHeight);j++)
 			{
 				map.get(i).add(new Array<Entity>());
 			}
 		}
 		this.lista_material.clear();
 		this.lista_material_toActor= new Array<MaterialL>();
+		return (i * j);
 	}
 	
 	public Map()
