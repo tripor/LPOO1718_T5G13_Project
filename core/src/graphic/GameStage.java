@@ -105,7 +105,7 @@ public class GameStage extends Stage {
 		this.background_list=new BackgroundList();
 		this.background_list.setZ(0);
 		this.addActor(this.background_list);
-	    this.map= new Map(2000,2000);
+	    this.map= new Map(1000,1000);
 		this.place_list=new PlaceList(this);
 		this.place_list.setZ(1);
 		this.addActor(place_list);
@@ -275,16 +275,18 @@ public class GameStage extends Stage {
 	public boolean pixelOnScreen(float top,float left)
 	{
 		Vector3 position=this.camera.position;
-		float x=position.x;
-		float y=position.y;
-		if(x<=top && top<=x+this.VIEWPORT_WIDTH)
+		int camera_width=this.VIEWPORT_WIDTH;
+		int camera_height=this.VIEWPORT_HEIGHT;
+		float x=position.x-camera_width/2;
+		float y=position.y-camera_height/2;
+		if(x<=top && top<=x+camera_width)
 		{
-			if(y<=left && left <=y+this.VIEWPORT_HEIGHT)
+			if(y<=left && left <=y+camera_height)
 			{
 				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 	
 	/**
