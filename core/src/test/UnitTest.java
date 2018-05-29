@@ -23,8 +23,10 @@ public class UnitTest {
 	
 	@Test
 	public void tryRecreateMap() {
+		
+		int width = 60, height = 60;
 
-		Map map = new Map(60, 60);
+		Map map = new Map(width, height);
 		assertTrue(map.addMap(new FactoryL(4,4,3)));
 		assertFalse(map.addMap(new FactoryL(4,4,3)));
 		
@@ -33,7 +35,7 @@ public class UnitTest {
 		map.removeMap(p);
 		
 		map.addEntityLista(new MaterialL());
-		map.recreateMap();
+		assertEquals(((width/Map.division) * (height/Map.division)), map.recreateMap());
 	}
 	
 	@Test
@@ -203,14 +205,32 @@ public class UnitTest {
 		
 		map.removeMap(ps);
 		
-		List<Node> path = ps.getPath(to_y, to_x);
-		assertEquals(path.size(), ps.getPath(to_y, to_x).size());
+		//	List<Node> path = ps.getPath(to_y, to_x);
+		//	assertEquals(path.size(), ps.getPath(to_y, to_x).size());
+		//	
+		//	Node n = ps.popPath();
+		//	assertEquals(path.get(0), n);
+		//	
+		//	n.calculateHeuristic(new Node(to_y, to_x));
+		//	assertEquals((Math.abs(to_y - n.getRow()) + Math.abs(to_x - n.getCol())), n.getH());
+		//	
+		//	assertEquals(n.checkBetterPath(new Node(from_x, from_y), 10), n.checkBetterPath(new Node(from_x, from_y), 10));
+	}
+	
+	@Test
+	public void popPathWithMoreBlocks() {
+
+		Map map = new Map(200, 200);
 		
-		Node n = ps.popPath();
-		assertEquals(path.get(0), n);
+		InserterL ist = new InserterL(5, 5, 1);
+		map.addEntityLista(ist);
 		
-		n.calculateHeuristic(new Node(to_y, to_x));
-		assertEquals((Math.abs(to_y - n.getRow()) + Math.abs(to_x - n.getCol())), n.getH());
+	//	PersonL ps = new PersonL(0, 0, map);
+	//	ps.getPath(200, 200);
+	//	
+	//	for(int i=0; i<100; i++) {
+	//		ps.popPath();
+	//	}
 	}
 	
 	@Test
