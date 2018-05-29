@@ -52,6 +52,7 @@ public class GroundUpScreen extends ScreenAdapter {
 		Gdx.gl.glClearColor(103 / 255f, 69 / 255f, 117 / 255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		
+		
 		this.userControl.InputHandler(); 
 		
 		

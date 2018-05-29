@@ -102,7 +102,13 @@ public abstract class ActorExtension extends Actor implements Comparable<Object>
 	public void draw(Batch batch, float parentAlpha) {
 		if(!this.game.menuOpen)
 			this.update(Gdx.graphics.getDeltaTime());
-		sprite.draw(batch);
+		if (this.game.pixelOnScreen(this.getX(),this.getY())
+				|| this.game.pixelOnScreen(this.getX()+this.getWidth(),this.getY())
+				|| this.game.pixelOnScreen(this.getX(),this.getY()+this.getHeight())
+				|| this.game.pixelOnScreen(this.getX()+this.getWidth(),this.getY()+this.getHeight())) {
+			sprite.draw(batch);
+
+		}
 	}
 	/**
 	 * Call this every frame 

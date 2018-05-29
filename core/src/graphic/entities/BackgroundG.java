@@ -31,6 +31,7 @@ public class BackgroundG extends ActorExtension {
 
 		sprite = new Sprite(texture);
 		sprite.setSize(this.getWidth(), this.getHeight());
+		this.setDebug(true);
 	}
 	/**
 	 * Constructor for the graphical part of Background

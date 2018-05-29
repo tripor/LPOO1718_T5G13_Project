@@ -272,19 +272,19 @@ public class GameStage extends Stage {
 	 * @param left The y/left Position in pixels
 	 * @return True is it is or false otherwise
 	 */
-	public boolean pixelOnScreen(int top,int left)
+	public boolean pixelOnScreen(float top,float left)
 	{
 		Vector3 position=this.camera.position;
 		float x=position.x;
 		float y=position.y;
-		if(x<=top && top<=x+this.camera.viewportWidth)
+		if(x<=top && top<=x+this.VIEWPORT_WIDTH)
 		{
-			if(y<=left && left <=y+this.camera.viewportHeight)
+			if(y<=left && left <=y+this.VIEWPORT_HEIGHT)
 			{
 				return true;
 			}
 		}
-		return false;
+		return true;
 	}
 	
 	/**
