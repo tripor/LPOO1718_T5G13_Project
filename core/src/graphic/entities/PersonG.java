@@ -5,9 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import graphic.ActorExtension;
 import graphic.GameStage;
-import logic.Map;
-import logic.entities.InserterL;
-import logic.entities.MaterialL;
 import logic.entities.PersonL;
 
 public class PersonG extends ActorExtension{
@@ -48,7 +45,7 @@ public class PersonG extends ActorExtension{
 				this.game.unused_person.add(this);
 				this.game.people().removePerson(this);;
 			}
-			else if(((MaterialL)this.instance).id==0)
+			else if(((PersonL)this.instance).id==0)
 			{
 				this.setVisible(true);
 			}

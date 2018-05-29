@@ -58,7 +58,7 @@ public class HouseG extends PlaceGraphical{
 	}
 	@Override
 	public void update(float delta) {
-		// TODO Auto-generated method stub
+		((HouseL)this.instance).handler(this.game.map());
 		
 	}
 
