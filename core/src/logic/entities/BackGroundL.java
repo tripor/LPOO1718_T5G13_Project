@@ -33,7 +33,7 @@ public class BackGroundL extends Entity {
 		return type;
 	}
 	/**
-	 * Removes one material form the land
+	 * Removes one material form the land if there is one available
 	 * @return True if there is a material or false otherwise
 	 */
 	public boolean getMaterial() {

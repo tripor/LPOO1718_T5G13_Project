@@ -3,8 +3,6 @@ package icon.type;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import graphic.GameStage;
 import icon.Icon;
@@ -46,11 +44,6 @@ public class BarraIcon extends Icon{
 		this.setHeight(height);
 		this.createBuildIcon();
 		this.setPosition(posX, posY);
-		
-		this.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-            }
-        });
 	}
 
 	@Override

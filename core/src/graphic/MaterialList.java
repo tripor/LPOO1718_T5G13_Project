@@ -40,7 +40,7 @@ public class MaterialList extends GroupExtension {
 		return false;
 	}
 	/**
-	 * Removes the material from the map and the group
+	 * Removes the material from the group
 	 * @param mat The material I want to remove
 	 */
 	public void removeMaterial(MaterialG mat) {
@@ -80,6 +80,20 @@ public class MaterialList extends GroupExtension {
 		for(MaterialG it:add)
 		{
 			this.addMaterialMap(it);
+		}
+	}
+	/**
+	 * Removes the material from the map and the group
+	 * @param it The material I want to remove
+	 */
+	public void removeMaterialAll(MaterialL p) {
+		for(Actor it:this.getChildren())
+		{
+			if(((ActorExtension) it).getInstance()==p)
+			{
+				this.removeMaterial((MaterialG) it);
+				this.game.map().removeMap(p);
+			}
 		}
 	}
 

@@ -23,15 +23,22 @@ public class BackgroundG extends ActorExtension {
 		{
 			texture = this.game.getGame().getAssetManager().get("land_iron.png");
 		}
-		else
+		else if(((BackGroundL)this.instance).getType().equals("grass"))
 		{
 			texture = this.game.getGame().getAssetManager().get("grass.png");
+		}
+		else if(((BackGroundL)this.instance).getType().equals("land"))
+		{
+			texture = this.game.getGame().getAssetManager().get("land.png");
+		}
+		else if(((BackGroundL)this.instance).getType().equals("copper_ore"))
+		{
+			texture = this.game.getGame().getAssetManager().get("land_copper.png");
 		}
 		
 
 		sprite = new Sprite(texture);
 		sprite.setSize(this.getWidth(), this.getHeight());
-		this.setDebug(true);
 	}
 	/**
 	 * Constructor for the graphical part of Background

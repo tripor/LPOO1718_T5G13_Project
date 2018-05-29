@@ -152,6 +152,12 @@ public class GameStage extends Stage {
 	    game.getAssetManager().load("inserter_icon.png", Texture.class);
 	    game.getAssetManager().load("grass.png", Texture.class);
 	    game.getAssetManager().load("land_iron.png", Texture.class);
+	    game.getAssetManager().load("land_copper.png", Texture.class);
+	    game.getAssetManager().load("land.png", Texture.class);
+	    game.getAssetManager().load("iron_ore.png", Texture.class);
+	    game.getAssetManager().load("copper_ore.png", Texture.class);
+	    game.getAssetManager().load("iron_plate.png", Texture.class);
+	    game.getAssetManager().load("copper_plate.png", Texture.class);
 	    
 	    
 	    game.getAssetManager().load("build_icon.png", Texture.class);
@@ -192,7 +198,6 @@ public class GameStage extends Stage {
 	    game.getAssetManager().load("conveyor10.png", Texture.class);
 	    game.getAssetManager().load("conveyor11.png", Texture.class);
 	    game.getAssetManager().load("conveyor12.png", Texture.class);
-	    game.getAssetManager().load("iron_plate.png", Texture.class);
 	    game.getAssetManager().load("iron_mine.png", Texture.class);
 	    game.getAssetManager().load("inserter_base.png", Texture.class);
 	    game.getAssetManager().load("inserter_hand.png", Texture.class);

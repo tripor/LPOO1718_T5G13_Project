@@ -122,7 +122,7 @@ public class UserControl implements InputProcessor  {
 			}
 			else if(MaterialL.class.isAssignableFrom(it.getClass()))
 			{
-				this.game.materials().removeMaterial((MaterialL)it);
+				this.game.materials().removeMaterialAll((MaterialL)it);
 			}
 		}
 	}

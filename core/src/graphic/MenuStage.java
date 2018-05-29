@@ -13,11 +13,11 @@ public class MenuStage extends Stage {
 	/**
 	 * The viewport width
 	 */
-    public int VIEWPORT_WIDTH = 256;
+    public int VIEWPORT_WIDTH = 1920;
     /**
      * The viewport height
      */
-    public int VIEWPORT_HEIGHT=192;
+    public int VIEWPORT_HEIGHT=1080;
     /**
      * Conversion from pixel to meter
      */

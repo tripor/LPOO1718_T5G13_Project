@@ -12,7 +12,7 @@ public abstract class Place extends Entity {
 	/**
 	 * The storage inside the Place
 	 */
-	private ArrayList<MaterialL> storage = new ArrayList<MaterialL>();
+	private ArrayList<MaterialL> internalStorage = new ArrayList<MaterialL>();
 	/**
 	 * Door at what border. 1-top,2-right,3-bottom,4-left
 	 */
@@ -44,7 +44,7 @@ public abstract class Place extends Entity {
 
 		mat.id=1;
 		
-		this.storage.add(mat);
+		this.internalStorage.add(mat);
 	}
 	/**
 	 * Removes a material form the place
@@ -57,26 +57,26 @@ public abstract class Place extends Entity {
 		
 		if(type.equals("any"))
 		{
-			if(this.storage.isEmpty())
+			if(this.internalStorage.isEmpty())
 			{
 				return null;
 			}
 			else
 			{
-				MaterialL devolver=this.storage.get(0);
-				this.storage.remove(0);
+				MaterialL devolver=this.internalStorage.get(0);
+				this.internalStorage.remove(0);
 				return devolver;
 			}
 		}
 		else
 		{
 			MaterialL devolver;
-			for(int i=0; i < this.storage.size();i++)
+			for(int i=0; i < this.internalStorage.size();i++)
 			{
-				if(this.storage.get(i).getType().equals(type))
+				if(this.internalStorage.get(i).getType().equals(type))
 				{
-					devolver=this.storage.get(i);
-					this.storage.remove(i);
+					devolver=this.internalStorage.get(i);
+					this.internalStorage.remove(i);
 					return devolver;
 				}
 			}

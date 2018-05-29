@@ -110,7 +110,7 @@ public class Map {
 		this.lista_place=new Array<Place>();
 		this.lista_person=new Array<PersonL>();
 		this.lista_material_toActor= new Array<MaterialL>();
-		this.money=500;
+		this.money=5000;
 		this.money_wasted=0;
 	}
 	/**
@@ -125,7 +125,7 @@ public class Map {
 				|| posY < 0 || quantidade <= 0) {
 			return;
 		}
-		else if (this.lista_background.get(posX).get(posY).getType().equals("grass")) {
+		else if (this.lista_background.get(posX).get(posY).getType().equals("land")) {
 			BackGroundL novo = new BackGroundL(type, this.randomNumber(10000, 20000));
 			this.lista_background.get(posX).set(posY, novo);
 			boolean spam1 = true, spam2 = true, spam3 = true, spam4 = true;
@@ -149,7 +149,7 @@ public class Map {
 		return;
 	}
 	/**
-	 * Creates the background map
+	 * Creates the background map with iron_ore , copper_ore and grass
 	 */
 	private void createBackground()
 	{
@@ -159,15 +159,31 @@ public class Map {
 			this.lista_background.add(new Array<BackGroundL>());
 			for(int j=0; j<this.transformToBlock(mapHeight);j++)
 			{
-				this.lista_background.get(i).add(new BackGroundL("grass",0));
+				this.lista_background.get(i).add(new BackGroundL("land",0));
 			}
 		}
-		for(int i=0;i<this.mapWidth/100;i++)
+		for(int i=0;i<this.mapWidth/100-3*this.mapWidth/1000;i++)
 		{
 			int placeX=this.randomNumber(1, this.transformToBlock(this.mapWidth));
 			int placeY=this.randomNumber(1, this.transformToBlock(this.mapHeight));
 			int quantidade=this.randomNumber(5,10);
 			String type="iron_ore";
+			this.spawn(quantidade, placeX, placeY, type);
+		}
+		for(int i=0;i<this.mapWidth/100-3*this.mapWidth/1000;i++)
+		{
+			int placeX=this.randomNumber(1, this.transformToBlock(this.mapWidth));
+			int placeY=this.randomNumber(1, this.transformToBlock(this.mapHeight));
+			int quantidade=this.randomNumber(5,10);
+			String type="copper_ore";
+			this.spawn(quantidade, placeX, placeY, type);
+		}
+		for(int i=0;i<this.mapWidth/100-5*this.mapWidth/1000;i++)
+		{
+			int placeX=this.randomNumber(1, this.transformToBlock(this.mapWidth));
+			int placeY=this.randomNumber(1, this.transformToBlock(this.mapHeight));
+			int quantidade=this.randomNumber(20,30);
+			String type="grass";
 			this.spawn(quantidade, placeX, placeY, type);
 		}
 		
@@ -489,5 +505,13 @@ public class Map {
 		
 		return (this.getMapPercisionPixel(x, y).size > 0);
 	}
-	
+	/**
+	 * Gets the backgound in a point of the map
+	 * @param x The X position in pixels
+	 * @param y The Y position in pixels
+	 * @return The background class
+	 */
+	public BackGroundL getBackGroundPoint(int x,int y) {
+		return this.lista_background.get(this.transformToBlock(x)).get(this.transformToBlock(y));
+	}
 }

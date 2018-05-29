@@ -29,7 +29,7 @@ public class MineIcon extends Icon {
 		
 		this.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                game.getMouse().createMouse("iron_mine.png",20, 20);
+                game.getMouse().createMouse("iron_mine.png",10, 10);
             }
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
             {
