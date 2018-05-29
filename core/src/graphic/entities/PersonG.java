@@ -43,11 +43,12 @@ public class PersonG extends ActorExtension{
 				this.setVisible(false);
 				this.instance=null;
 				this.game.unused_person.add(this);
-				this.game.people().removePerson(this);;
+				this.game.people().removePerson(this);
 			}
 			else if(((PersonL)this.instance).id==0)
 			{
 				this.setVisible(true);
+				((PersonL)this.instance).updatePersonPos();
 			}
 		}
 	}

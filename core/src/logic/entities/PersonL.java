@@ -1,20 +1,24 @@
 package logic.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import com.badlogic.gdx.utils.Array;
 
+//import java.util.ArrayList;
+//import java.util.List;
+//import java.util.UUID;
+
+import graphic.Console;
 //import logic.AStar;
 import logic.Entity;
 import logic.Map;
+import logic.Place;
 //import logic.Node;
 
 public class PersonL extends Entity{
 	
-	public int current_row, current_col;
-	public int target_row, target_col;
+	private int target_x, target_y,
+				prevX, prevY;
 	
-	public String unique_id;
+//	private String unique_id;
 	
 	/**
 	 * ID. 0=visivel 1-invisivel
@@ -25,18 +29,137 @@ public class PersonL extends Entity{
 	
 	private Map map;
 	
+	
 	public PersonL(int posX, int posY, Map map) {
 		super(posX,posY,5,5);
 
 		this.map = map;
-		this.unique_id = UUID.randomUUID().toString();
-		// a duplication checking at personList is already performed.
+		// this.unique_id = UUID.randomUUID().toString();
+		// (removed) a duplication checking at personList is already performed.
+
+		Console.log("new PersonL(" +posX + "," + posY+ ");");
+		
+		this.prevX = posX;
+		this.prevY = posY;
+		
+		this.target_x = posX;
+		this.target_y = posY;
 	}
 	
-	public PersonL() {super();this.id=1;}
+	public PersonL() {
+		super();
+		this.id=1;
+	}
 	
-	public String getId() {
-		return this.unique_id;
+//	public String getId() {
+//		return this.unique_id;
+//	}
+	
+	public void setTarget(Place p) {
+		this.target_x = p.getPosX();
+		this.target_y = p.getPosY();
+		Console.log("this.setTarget(" +target_x + "," + target_y+ ");");
+	}
+	
+	public void getPath() {
+		
+		if(target_x == this.posX && target_y == this.posY) {
+			return;
+		}
+		
+		Console.log("getPath(" +posX+ ","+posY+ " to "+target_x+ ","+target_y+");");
+		
+		/**
+		 * Booleans for programming style.
+		 */
+		boolean at_left    = target_x < this.posX,
+				at_right   = target_x > this.posX,
+				at_top     = target_y > this.posY,
+				at_bottom  = target_y < this.posY;
+		
+		/**
+		 * Perferred orders for different angles.
+		 */
+		int order[][] = {
+				{0, 1, 3, 2, 5, 6, 7, 8},	//   to left-top
+				{1, 0, 2, 3, 5, 6, 8, 7},	// 1 to top
+				{2, 1, 5, 0, 3, 8, 7, 6},	//   to right-top
+				{3, 0, 6, 1, 7, 2, 8, 5},	//   to left
+				{                      },	// 4 stay
+				{5, 2, 8, 1, 7, 6, 0, 3},	//   to right
+				{6, 3, 7, 8, 0, 5, 2, 1},	//   to left-bottom
+				{7, 8, 6, 5, 3, 0, 2, 1},	// 7 to bottom
+				{8, 5, 7, 6, 2, 1, 0, 3},	//   to right-bottom
+		};
+		
+		/**
+		 * determine which order should be taken.
+		 */
+		int take_order = 4;	// default, stay
+		
+		if(at_top) {
+			take_order = 1;
+		}
+		else if(at_bottom) {
+			take_order = 7;
+		}
+		
+		if(at_left) {
+			take_order--;
+		}
+		else if(at_right) {
+			take_order++;
+		}
+		
+		/**
+		 * check grid one-by-one in the selected order
+		 */
+		int tmpX = posX,
+			tmpY = posY;
+
+		Array<Entity> tmp_array;
+		int tmp_array_size;
+		
+		int selected_order[] = order[take_order];
+		
+		for(int i = 0; i < selected_order.length; i++) {
+
+			// Console.log(": check(" + ((selected_order[i]/3) - 1) + "," + ((selected_order[i] % 3) - 1) + ");");
+			
+			tmpY = posY - (selected_order[i]/3) + 1;	// posY - [-1 | 0 | 1]
+			tmpX = posX + (selected_order[i] % 3) - 1;	// posX + [-1 | 0 | 1]
+			
+			if(posX == prevX && posY == prevY) {
+				// skip.
+			}
+			else {
+				
+				tmp_array = map.getMapPercisionPixel(tmpX, tmpY);
+				tmp_array_size = tmp_array.size;
+				
+				Console.log(tmp_array_size);
+				
+				for(int k=0; k<tmp_array.size; k++) {
+					// Console.log(">>this.contains();");
+				}
+				
+				if(tmp_array.contains(this, false)){
+					tmp_array_size--;
+				}
+				
+				if(tmp_array_size < 1) {
+					this.prevX = posX;
+					this.prevY = posY;
+					this.posX = tmpX;
+					this.posY = tmpY;
+					break;
+				}
+			}
+		}
+	}
+	
+	public void updatePersonPos() {
+		getPath();
 	}
 	
 //	public List<Node> getPath(int _target_row, int _target_col, boolean should_replace_global) {
@@ -132,7 +255,7 @@ public class PersonL extends Entity{
 //	}
 
 	public String toString() {
-		return "[Person " + unique_id + "]"
+		return "[Person]"
 				+ " Row " + this.posX
 				+ " Col " + this.posY;
 	}

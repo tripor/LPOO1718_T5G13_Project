@@ -44,8 +44,9 @@ public class HouseL extends Place {
 					x-=this.width/1.2;
 					break;
 			}
-			PersonL novo= new PersonL(x,y,map);
-			novo.id=0;
+			PersonL novo = new PersonL(x,y,map);
+			novo.setTarget(map.lista_place.get(1));
+			novo.id = 0;
 			map.lista_person.add(novo);
 			map.lista_person_toActor.add(novo);
 		}

@@ -53,9 +53,9 @@ public class UserControl implements InputProcessor  {
 				game.getCamera().translate(new Vector3(-5*this.game.scale(), 0, 0));
 				this.checkMapPosition();
 			}
-			if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-				//this.game.people().popPaths();
-			}
+			//	if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+			//		//this.game.people().popPaths();
+			//	}
 		}
 	}
 	/**
