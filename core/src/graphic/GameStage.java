@@ -13,6 +13,7 @@ import com.groundup.game.GroundUpScreen;
 import graphic.control.Mouse;
 import graphic.entities.BackgroundG;
 import graphic.entities.MaterialG;
+import graphic.entities.PersonG;
 import icon.BuildHolder;
 import icon.MenuHolder;
 import icon.MenuLoadHolder;
@@ -22,6 +23,7 @@ import icon.type.LoadingIcon;
 import logic.Map;
 import logic.SaveState;
 import logic.entities.MaterialL;
+import logic.entities.PersonL;
 
 public class GameStage extends Stage {
 	
@@ -88,6 +90,8 @@ public class GameStage extends Stage {
     private LoadingIcon build_icon;
     
     public ArrayList<MaterialG> unused_material;
+    
+    public ArrayList<PersonG> unused_person;
     /**
      * Scale of the map
      * @return float
@@ -138,6 +142,7 @@ public class GameStage extends Stage {
 		this.addActor(icon_list);
 		this.getActors().sort();
 		this.unused_material= new ArrayList<MaterialG>();
+		this.unused_person= new ArrayList<PersonG>();
 			
 		
 		
@@ -278,6 +283,11 @@ public class GameStage extends Stage {
 			MaterialG novo= new MaterialG(this);
 			this.unused_material.add(novo);
 		}
+		for(int i=0;i<400;i++)
+		{
+			PersonG novo= new PersonG(this);
+			this.unused_person.add(novo);
+		}
 	}
 	/**
 	 * Checks if a given pixel is on the camera
@@ -395,6 +405,22 @@ public class GameStage extends Stage {
 			}
 		}
 		this.map.lista_material_toActor.clear();
+		for(PersonL it:this.map.lista_person_toActor)
+		{
+			if(this.unused_person.isEmpty())
+			{
+				PersonG novo= new PersonG(this,it);
+				this.person_list.addPerson(novo);
+			}
+			else
+			{
+				PersonG adicionar=this.unused_person.get(0);
+				this.unused_person.remove(0);
+				adicionar.setInstance(it);
+				this.person_list.addPerson(adicionar);
+			}
+		}
+		this.map.lista_person_toActor.clear();
 	}
 	/**
 	 * Saves the game
@@ -424,6 +450,7 @@ public class GameStage extends Stage {
 			this.person_list.clear();
 			this.background_list.clear();
 			this.unused_material.clear();
+			this.unused_person.clear();
 			this.inserter_list.loadFromMap();
 			this.conveyor_list.loadFromMap();
 			this.place_list.loadFromMap();

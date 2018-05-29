@@ -16,6 +16,11 @@ public class PersonL extends Entity{
 	
 	public String unique_id;
 	
+	/**
+	 * ID. 0=visivel 1-invisivel
+	 */
+	public transient int id=1;
+	
 //	List<Node> path = new ArrayList<Node>();
 	
 	private Map map;
@@ -28,7 +33,7 @@ public class PersonL extends Entity{
 		// a duplication checking at personList is already performed.
 	}
 	
-	public PersonL() {super();}
+	public PersonL() {super();this.id=1;}
 	
 	public String getId() {
 		return this.unique_id;

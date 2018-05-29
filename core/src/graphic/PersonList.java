@@ -24,7 +24,7 @@ public class PersonList extends GroupExtension{
 	{
 		this.addActor(per);
 	}
-	public void removePlace(PersonG p) {
+	public void removePerson(PersonG p) {
 		this.removeActor(p);
 	}
 	

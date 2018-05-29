@@ -61,6 +61,10 @@ public class Map {
 	 */
 	public transient Array<MaterialL> lista_material_toActor;
 	/**
+	 * Persons looking for an actor
+	 */
+	public transient Array<PersonL> lista_person_toActor;
+	/**
 	 * Money the player has
 	 */
 	public int money;

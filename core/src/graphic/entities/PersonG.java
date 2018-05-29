@@ -7,6 +7,7 @@ import graphic.ActorExtension;
 import graphic.GameStage;
 import logic.Map;
 import logic.entities.InserterL;
+import logic.entities.MaterialL;
 import logic.entities.PersonL;
 
 public class PersonG extends ActorExtension{
@@ -21,13 +22,9 @@ public class PersonG extends ActorExtension{
 		this.setDebug(true);
 	}
 	
-	public PersonG(GameStage game, Map map, int posX, int posY) {
-		this.instance= new PersonL((int)(posX*game.reverseScale()),(int)( posY*game.reverseScale()), map);
+	public PersonG(GameStage game) {
+		this.instance= null;
 		this.game=game;
-		this.setWidth(this.instance.getWidth()*game.scale());
-		this.setHeight(this.instance.getHeight()*game.scale());
-		this.createWorker();
-		this.setPosition(this.instance.getPosX()*game.scale(), this.instance.getPosY()*game.scale());
 	}
 	
 	public PersonG(GameStage game, PersonL in) {
@@ -41,8 +38,30 @@ public class PersonG extends ActorExtension{
 
 	@Override
 	public void update(float delta) {
-		// TODO Auto-generated method stub
-		
+		if(this.instance!=null)
+		{
+			this.setPosition(this.instance.getPosX()*game.scale(),this.instance.getPosY()*game.scale());
+			if(((PersonL)this.instance).id==1)
+			{
+				this.setVisible(false);
+				this.instance=null;
+				this.game.unused_person.add(this);
+				this.game.people().removePerson(this);;
+			}
+			else if(((MaterialL)this.instance).id==0)
+			{
+				this.setVisible(true);
+			}
+		}
+	}
+	
+	public void setInstance(PersonL mat)
+	{
+		this.instance=mat;
+		this.setWidth(this.instance.getWidth()*game.scale());
+		this.setHeight(this.instance.getHeight()*game.scale());
+		this.createWorker();
+		this.setPosition(mat.getPosX()*game.scale(), mat.getPosY()*game.scale());
 	}
 	
 }
