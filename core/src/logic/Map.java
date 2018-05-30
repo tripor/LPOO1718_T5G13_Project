@@ -92,11 +92,11 @@ public class Map {
 	/**
 	 * Constructor for the class logic Map
 	 * 
-	 * @param width
+	 * @param size
 	 */
-	public Map(int width) {
-		this.mapWidth = width;
-		this.mapHeight = width;
+	public Map(int size) {
+		this.mapWidth = size;
+		this.mapHeight = size;
 		map= new Array<Array<Array<Entity>>>();
 		for(int i=0 ; i<this.transformToBlock(mapWidth) ;i++)
 		{

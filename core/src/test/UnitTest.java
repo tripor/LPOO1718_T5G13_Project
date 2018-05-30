@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import graphic.Console;
 import logic.*;
 import logic.entities.*;
 
@@ -13,8 +14,8 @@ public class UnitTest {
 
 	@Test
 	public void initMap() {	
-		int mapWidth = (Map.division * 2) + 2,
-			mapHeight = (Map.division * 2) + 2;
+		int mapWidth = (Map.division * 200) + 2,
+			mapHeight = (Map.division * 200) + 2;
 		
 		Map map = new Map(mapWidth);
 		assertEquals(mapWidth, map.getMapWidth());
@@ -136,6 +137,17 @@ public class UnitTest {
 	}
 	
 	@Test
+	public void tryBudget() {
+		Map map = new Map(700);
+		
+		for(int i=0; i<10; i+=50) {
+			for(int j=0; j<10; j+=50) {
+				assertTrue(map.addEntityLista(new FactoryL(i, j, 2)));
+			}
+		}
+	}
+	
+	@Test
 	public void tryConveyor() {
 		
 		int x = 3, y = 4;
@@ -168,7 +180,10 @@ public class UnitTest {
 		assertEquals(0, cvy.getMovementY());
 		assertEquals(-1, cvy.getMovementX());
 		
+		map.addMap(new MaterialL());
+		
 		cvy.moveMaterials(map);
+		assertFalse(map.lista_background.first().first().getMaterial());
 	}
 	
 	@Test
@@ -189,63 +204,41 @@ public class UnitTest {
 	}
 	
 	@Test
-	public void tryPerson() {
+	public void tryHouseAndPerson() {
 
-		// Note: Since A* applies MAX_BLOCKS, if origin and destination too far, the test result may incorrect.
-		
 		int from_x = 4, from_y = 8,
 			to_x = 30, to_y = 20;
 		
-		Map map = new Map(60);
+		Map map = new Map(80);
 		
-		PersonL ps = new PersonL(from_x, from_y, map);
-		assertTrue(map.addMap(ps));
-		assertEquals((from_x + ps.getWidth() / 2), ps.getPosX());
-		assertEquals(ps.toString(), ps.toString());
+		HouseL h = new HouseL(from_x, from_y, 2);
+		FactoryL f = new FactoryL(to_x, to_y, 3);
 		
-		map.removeMap(ps);
+		map.addMap(h);
+		map.addMap(f);
 		
-		//	List<Node> path = ps.getPath(to_y, to_x);
-		//	assertEquals(path.size(), ps.getPath(to_y, to_x).size());
-		//	
-		//	Node n = ps.popPath();
-		//	assertEquals(path.get(0), n);
-		//	
-		//	n.calculateHeuristic(new Node(to_y, to_x));
-		//	assertEquals((Math.abs(to_y - n.getRow()) + Math.abs(to_x - n.getCol())), n.getH());
-		//	
-		//	assertEquals(n.checkBetterPath(new Node(from_x, from_y), 10), n.checkBetterPath(new Node(from_x, from_y), 10));
+		h.handler(map);
+		// including add person
+		
+		for(int i=0; i<100; i++) {
+			map.lista_person.first().getPath();
+		}
 	}
 	
-	@Test
-	public void popPathWithMoreBlocks() {
-
-		Map map = new Map(200);
-		
-		InserterL ist = new InserterL(5, 5, 1);
-		map.addEntityLista(ist);
-		
-	//	PersonL ps = new PersonL(0, 0, map);
-	//	ps.getPath(200, 200);
-	//	
-	//	for(int i=0; i<100; i++) {
-	//		ps.popPath();
-	//	}
-	}
 	
 	@Test
 	public void tryLoadGame() {
 		String name = "test";
-		int width = 60, height = 80;
+		int size = 60;
 		
 		SaveState s = new SaveState();
-		Map map = new Map(width);
+		Map map = new Map(size);
 		
 		s.saveGame(name, map);
 		
-		//	Map m = s.loadGame(name);
-		//	assertEquals(width, m.getMapWidth());
-		//	assertEquals(height, m.getMapHeight());
+		Map m = s.loadGame(name);
+		assertEquals(size, m.getMapWidth());
+		assertEquals(size, m.getMapHeight());
 	}
 
 }
