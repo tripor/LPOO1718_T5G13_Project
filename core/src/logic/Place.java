@@ -21,7 +21,7 @@ public abstract class Place extends Entity {
 	/**
 	 * Time it takes to make a new material
 	 */
-	protected int work_time=100;
+	protected int work_time=10;
 	/**
 	 * Time
 	 */

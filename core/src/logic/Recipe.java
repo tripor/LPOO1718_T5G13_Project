@@ -12,6 +12,10 @@ public class Recipe {
 	 */
 	private transient ArrayList<ArrayList<String>> recipe;
 	/**
+	 * Time to make each recipe
+	 */
+	private transient ArrayList<Integer> time;
+	/**
 	 * The selected Recipe
 	 */
 	private int selectedRecipie;
@@ -21,14 +25,70 @@ public class Recipe {
 	public Recipe()
 	{
 		recipe= new ArrayList<ArrayList<String>>();
+		time=new ArrayList<Integer>();
 		recipe.add(new ArrayList<String>());
 		recipe.get(0).add("copper_plate");
 		recipe.get(0).add("copper_cable");
+		time.add(10);
 		recipe.add(new ArrayList<String>());
 		recipe.get(1).add("iron_plate");
 		recipe.get(1).add("copper_cable");
 		recipe.get(1).add("copper_cable");
 		recipe.get(1).add("electronic_circuit");
+		time.add(20);
+		recipe.add(new ArrayList<String>());
+		recipe.get(2).add("iron_plate");
+		recipe.get(2).add("iron_plate");
+		recipe.get(2).add("gear");
+		time.add(10);
+		recipe.add(new ArrayList<String>());
+		recipe.get(3).add("copper_cable");
+		recipe.get(3).add("copper_cable");
+		recipe.get(3).add("copper_cable");
+		recipe.get(3).add("copper_cable");
+		recipe.get(3).add("copper_cable");
+		recipe.get(3).add("electronic_circuit");
+		recipe.get(3).add("electronic_circuit");
+		recipe.get(3).add("electronic_circuit");
+		recipe.get(3).add("advanced_circuit");
+		time.add(50);
+		recipe.add(new ArrayList<String>());
+		recipe.get(4).add("advanced_circuit");
+		recipe.get(4).add("advanced_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("electronic_circuit");
+		recipe.get(4).add("processing_unit");
+		time.add(100);
+		recipe.add(new ArrayList<String>());
+		recipe.get(5).add("iron_plate");
+		recipe.get(5).add("pipe");
+		time.add(10);
+		recipe.add(new ArrayList<String>());
+		recipe.get(6).add("gear");
+		recipe.get(6).add("gear");
+		recipe.get(6).add("pipe");
+		recipe.get(6).add("pipe");
+		recipe.get(6).add("pipe");
+		recipe.get(6).add("engine_unit");
+		time.add(50);
 		
 	}
 	/**
@@ -104,5 +164,11 @@ public class Recipe {
 	public String getProduct() {
 		return this.recipe.get(selectedRecipie).get(this.recipe.get(selectedRecipie).size()-1);
 	}
-
+	/**
+	 * 
+	 * @return Returns the time taken to build this recipe
+	 */
+	public int timeToBuild() {
+		return this.time.get(selectedRecipie).intValue();
+	}
 }

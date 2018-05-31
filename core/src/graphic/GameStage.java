@@ -181,6 +181,11 @@ public class GameStage extends Stage {
 	    game.getAssetManager().load("copper_plate.png", Texture.class);
 	    game.getAssetManager().load("copper_cable.png", Texture.class);
 	    game.getAssetManager().load("electronic_circuit.png", Texture.class);
+	    game.getAssetManager().load("gear.png", Texture.class);
+	    game.getAssetManager().load("advanced_circuit.png", Texture.class);
+	    game.getAssetManager().load("processing_unit.png", Texture.class);
+	    game.getAssetManager().load("pipe.png", Texture.class);
+	    game.getAssetManager().load("engine_unit.png", Texture.class);
 	    
 	    
 	    game.getAssetManager().load("build_icon.png", Texture.class);

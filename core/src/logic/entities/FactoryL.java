@@ -55,6 +55,7 @@ public class FactoryL extends Place {
 	 * @param index The index of the recipe
 	 */
 	public void selectRecipe(int index) {
+		this.getInternalStorage().clear();
 		this.receita.selectRecipie(index);
 	}
 	/**
@@ -90,11 +91,11 @@ public class FactoryL extends Place {
 	@Override
 	public float handler() {
 		time++;
-		if(time>=this.work_time)
+		if(time>=this.receita.timeToBuild())
 		{
 			time=0;
 			if(this.getInternalStorage().isEmpty())
-				time=this.work_time;
+				time=this.receita.timeToBuild();
 			else
 			{
 				MaterialL adicionar=this.transform();
