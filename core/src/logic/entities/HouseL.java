@@ -1,5 +1,7 @@
 package logic.entities;
 
+import java.util.ArrayList;
+
 import logic.Map;
 import logic.Place;
 import logic.Recipe;
@@ -21,6 +23,14 @@ public class HouseL extends Place {
 	 */
 	public static int height=30;
 	/**
+	 * People inside the building
+	 */
+	private ArrayList<PersonL> inside;
+	/**
+	 * Max number of people inside
+	 */
+	private int maxNumber=10;
+	/**
 	 * Constructor of the class House Logic with width 30 and height 30
 	 * @param posX The X position in pixels
 	 * @param posY The Y position in pixels
@@ -29,6 +39,11 @@ public class HouseL extends Place {
 	public HouseL(int posX,int posY,int doorAtBorder)
 	{
 		super(posX,posY,HouseL.width,HouseL.height,doorAtBorder);
+		inside=new ArrayList<PersonL>();
+		for(int i=0;i<this.maxNumber;i++)
+		{
+			this.inside.add(new PersonL(this.doorXposition(),this.doorYposition()));
+		}
 	}
 	
 	public HouseL()
@@ -69,29 +84,22 @@ public class HouseL extends Place {
 
 	@Override
 	public float handler() {
-		if(Map.singleton.getLista_person().size==0 && Map.singleton.getLista().size>=2)
-		{
-			int x=this.posX+HouseL.width/2,y=this.posY+HouseL.height/2;
-			switch(this.direction)
+		if(!this.inside.isEmpty()) {
+			ArrayList<Place> remove= new ArrayList<Place>();
+			for(Place it:Map.singleton.getLooking_for_worker())
 			{
-				case 1:
-					y+=HouseL.height/1.2;
-					break;
-				case 2:
-					x+=HouseL.width/1.2;
-					break;
-				case 3:
-					y-=HouseL.height/1.2;
-					break;
-				case 4:
-					x-=HouseL.width/1.2;
+				remove.add(it);
+				PersonL ir=this.inside.remove(0);
+				ir.setTarget(it);
+				ir.setId(0);
+				Map.singleton.getLista_person_toActor().add(ir);
+				if(this.inside.isEmpty())
 					break;
 			}
-			PersonL novo = new PersonL(x,y);
-			novo.setTarget((Place) Map.singleton.getLista().get(1));
-			novo.id = 0;
-			Map.singleton.getLista_person().add(novo);
-			Map.singleton.getLista_person_toActor().add(novo);
+			for(Place it:remove)
+			{
+				Map.singleton.getLooking_for_worker().removeValue(it, true);
+			}
 		}
 		if(!this.getInternalStorage().isEmpty())
 		{

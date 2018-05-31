@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import graphic.ActorExtension;
 import graphic.GameStage;
 import logic.Entity;
+import logic.Place;
 import logic.entities.SmelterL;
 /**
  * Class that handles the graphical part of the smelter

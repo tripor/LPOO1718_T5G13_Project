@@ -15,6 +15,7 @@ import graphic.entities.InserterG;
 import graphic.entities.MineG;
 import graphic.entities.SmelterG;
 import logic.Map;
+import logic.Place;
 import logic.entities.FactoryL;
 /**
  * Class that handles related mouse events
@@ -85,13 +86,19 @@ public class Mouse extends ActorExtension {
 			{
 				FactoryG fab= new FactoryG(x,y,this.doorPosition);
 				if(GameStage.singleton.places().addPlace(fab))
+				{
 					this.isSelected=false;
+					((Place)fab.getInstance()).lookForWorker();
+				}
 			}
 			if(this.type.equals("iron_mine.png"))
 			{
 				MineG im= new MineG(x,y,this.doorPosition);
 				if(GameStage.singleton.places().addPlace(im))
+				{
 					this.isSelected=false;
+					((Place)im.getInstance()).lookForWorker();
+				}
 			}
 			if(this.type.equals("conveyor1.png"))
 			{
@@ -113,7 +120,10 @@ public class Mouse extends ActorExtension {
 			{
 				SmelterG h= new SmelterG(x,y,this.doorPosition);
 				if(GameStage.singleton.places().addPlace(h))
+				{
 					this.isSelected=false;
+					((Place)h.getInstance()).lookForWorker();
+				}
 			}
 			
 			

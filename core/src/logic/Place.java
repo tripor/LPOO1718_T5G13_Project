@@ -3,6 +3,7 @@ package logic;
 import java.util.ArrayList;
 
 import logic.entities.MaterialL;
+import logic.entities.PersonL;
 
 /**
  * Class that represents the Places of the game
@@ -17,6 +18,10 @@ public abstract class Place extends Entity {
 	 * Storage that can be picked up
 	 */
 	private ArrayList<MaterialL> externalStorage = new ArrayList<MaterialL>();
+	/**
+	 * Person that workes in this place
+	 */
+	protected PersonL worker;
 
 	/**
 	 * Time it takes to make a new material
@@ -131,6 +136,20 @@ public abstract class Place extends Entity {
 	 */
 	public ArrayList<MaterialL> getExternalStorage() {
 		return externalStorage;
+	}
+	/**
+	 * Puts the worker inside the place
+	 * @param per The worker
+	 */
+	public void acceptWorker(PersonL per) {
+		this.worker=per;
+		per.setId(1);
+	}
+	/**
+	 * Makes a place look for a actor
+	 */
+	public void lookForWorker() {
+		Map.singleton.getLooking_for_worker().add(this);
 	}
 	
 	

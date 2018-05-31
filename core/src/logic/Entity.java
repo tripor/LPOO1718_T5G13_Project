@@ -1,6 +1,7 @@
 package logic;
 
 import logic.entities.MaterialL;
+import logic.entities.PersonL;
 
 /**
  * General class for entities of the game
@@ -161,25 +162,31 @@ public abstract class Entity {
 	public int getDirection() {
 		return this.direction;
 	}
-
+	/**
+	 * Door X position
+	 * @return The X position
+	 */
 	public int doorXposition() {
 		if(this.direction==1 || this.direction==3) {
-			return this.posX+this.width/2;
+			return (int) (this.posX+this.width/2);
 		}
 		else if(this.direction==4){
-			return this.posX;
+			return this.posX-PersonL.width;
 		}
 		else {
 			return this.posX+this.width;
 		}
 	}
-	
+	/**
+	 * Door Y position
+	 * @return The Y position
+	 */
 	public int doorYposition() {
 		if(this.direction==2 || this.direction==4) {
-			return this.posY+this.height/2;
+			return (int) (this.posY+this.height/2);
 		}
 		else if(this.direction==3){
-			return this.posY;
+			return this.posY-PersonL.height;
 		}
 		else {
 			return this.posY+this.height;

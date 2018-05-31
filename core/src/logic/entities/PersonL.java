@@ -15,6 +15,9 @@ import logic.Place;
 
 public class PersonL extends Entity{
 	
+	public static int width=5;
+	public static int height=5;
+	
 	private int target_x, target_y;
 	
 	private int save_step = 7;
@@ -22,6 +25,10 @@ public class PersonL extends Entity{
 	
 	private int[] prevX = new int[save_step];
 	private int[] prevY = new int[save_step];
+	/**
+	 * Target of this person
+	 */
+	private Place target;
 	
 	
 //	private String unique_id;
@@ -29,14 +36,14 @@ public class PersonL extends Entity{
 	/**
 	 * ID. 0=visivel 1-invisivel
 	 */
-	public transient int id=1;
+	private transient int id=1;
 	
 //	List<Node> path = new ArrayList<Node>();
 	
 	
 	
 	public PersonL(int posX, int posY) {
-		super(posX,posY,5,5);
+		super(posX,posY,PersonL.width,PersonL.height);
 
 		// this.unique_id = UUID.randomUUID().toString();
 		// (removed) a duplication checking at personList is already performed.
@@ -49,6 +56,7 @@ public class PersonL extends Entity{
 		}		
 		this.target_x = posX;
 		this.target_y = posY;
+		this.id=1;
 	}
 	
 	public PersonL() {
@@ -63,6 +71,7 @@ public class PersonL extends Entity{
 	public void setTarget(Place p) {
 		this.target_x = p.doorXposition();
 		this.target_y = p.doorYposition();
+		this.target=p;
 		Console.log("this.setTarget(" +target_x + "," + target_y+ ");");
 	}
 	
@@ -180,16 +189,6 @@ public class PersonL extends Entity{
 	
 	int step = 0;
 	
-	public void updatePersonPos() {
-		if(step < 10) {
-			step++;
-		}
-		else {
-			step = 0;
-			this.getPath();
-		}
-	}
-	
 //	public List<Node> getPath(int _target_row, int _target_col, boolean should_replace_global) {
 //
 //		// Console.log(":: CALC_PATH " + current_row+","+current_col+ " - " + _target_row+","+_target_col);
@@ -290,6 +289,20 @@ public class PersonL extends Entity{
 
 	@Override
 	public float handler() {
+
+		if(step < 10) {
+			step++;
+		}
+		else {
+			step = 0;
+			this.getPath();
+		}
+		if (this.getPosX() >= this.target.doorXposition() - 1 && this.getPosX() <= this.target.doorXposition() + 1
+				&& this.getPosY() >= this.target.doorYposition() - 1
+				&& this.getPosY() <= this.target.doorYposition() + 1) {
+			target.acceptWorker(this);
+		}
+		
 		return 0;
 	}
 
@@ -315,6 +328,22 @@ public class PersonL extends Entity{
 		Map.singleton.getLista_person().removeValue(this, true);
 		
 	}
+	/**
+	 * 
+	 * @return Return this person visibility
+	 */
+	public int getId() {
+		return id;
+	}
+	/**
+	 * Sets this person visibility
+	 * @param id 0-visible 1-invisible
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 	
 //	public void sizePlace(float amountX,float amountY)
 //	{

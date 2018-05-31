@@ -58,6 +58,10 @@ public class Map {
 	 */
 	private transient Array<PersonL> lista_person_toActor;
 	/**
+	 * Places looking for workers
+	 */
+	private Array<Place> looking_for_worker;
+	/**
 	 * Money the player has
 	 */
 	private int money;
@@ -105,6 +109,7 @@ public class Map {
 		this.lista_person=new Array<PersonL>();
 		this.lista_material_toActor= new Array<MaterialL>();
 		this.lista_person_toActor= new Array<PersonL>();
+		this.looking_for_worker=new Array<Place>();
 		this.money=500;
 		this.money_wasted=0;
 	}
@@ -295,6 +300,7 @@ public class Map {
 		}
 		if(!ent.addEntity())
 		{
+			System.out.println("here");
 			return false;
 		}
 		
@@ -491,6 +497,14 @@ public class Map {
 	public void setMoney_wasted(int money_wasted) {
 		this.money_wasted = money_wasted;
 	}
+	/**
+	 * 
+	 * @return Retuns the places looking for worker
+	 */
+	public Array<Place> getLooking_for_worker() {
+		return looking_for_worker;
+	}
+	
 	
 	
 }
