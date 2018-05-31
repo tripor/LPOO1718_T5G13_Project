@@ -15,7 +15,7 @@ public class MaterialL extends Entity {
 	/**
 	 * ID. 0=no actor,1-has actor,2-has actor but hidden
 	 */
-	public transient int id=1;
+	private transient int id=1;
 	/**
 	 * Constructor for the logic class Material
 	 * @param posX The X position in pixels
@@ -91,26 +91,41 @@ public class MaterialL extends Entity {
 	}
 
 	@Override
+	public int getPrice() {
+		return 0;
+	}
+	
+	@Override
 	public boolean addEntity() {
-		if (Map.singleton.money >= this.getPrice()) {
-			Map.singleton.money -= this.getPrice();
-			Map.singleton.money_wasted += this.getPrice();
-			Map.singleton.lista_material.add(this);
-			this.id=0;
+		int money=Map.singleton.getMoney(),money_wasted=Map.singleton.getMoney_wasted();
+		if (money >= this.getPrice()) {
+			Map.singleton.setMoney(money- this.getPrice()); 
+			Map.singleton.setMoney_wasted(money_wasted+ this.getPrice());
+			Map.singleton.getLista_material().add(this);
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public int getPrice() {
-		return 0;
-	}
-
-	@Override
 	public void removeEntity() {
-		Map.singleton.lista_material.removeValue(this, true);
+		Map.singleton.getLista_material().removeValue(this, true);
 	}
+	/**
+	 * 
+	 * @return 0 if visible or 1 if invisible
+	 */
+	public int getId() {
+		return id;
+	}
+	/**
+	 * Sets the id
+	 * @param id 0 if visible of 1 if invisible
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	
 	
 

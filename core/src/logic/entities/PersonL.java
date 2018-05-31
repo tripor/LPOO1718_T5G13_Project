@@ -167,11 +167,11 @@ public class PersonL extends Entity{
 					if(cur_step >= save_step) {
 						cur_step = 0;
 					}
-					
+
+					Map.singleton.removeMap(this);
 					this.posX = tmpX;
 					this.posY = tmpY;
-					this.map.removeMap(this);
-					this.map.addMap(this);
+					Map.singleton.addMap(this);
 					break;
 				}
 			}
@@ -295,10 +295,11 @@ public class PersonL extends Entity{
 
 	@Override
 	public boolean addEntity() {
-		if (Map.singleton.money >= this.getPrice()) {
-			Map.singleton.money -= this.getPrice();
-			Map.singleton.money_wasted += this.getPrice();
-			Map.singleton.lista_person.add(this);
+		int money=Map.singleton.getMoney(),money_wasted=Map.singleton.getMoney_wasted();
+		if (money >= this.getPrice()) {
+			Map.singleton.setMoney(money- this.getPrice()); 
+			Map.singleton.setMoney_wasted(money_wasted+ this.getPrice());
+			Map.singleton.getLista_person().add(this);
 			return true;
 		}
 		return false;
@@ -311,7 +312,7 @@ public class PersonL extends Entity{
 
 	@Override
 	public void removeEntity() {
-		Map.singleton.lista_person.removeValue(this, true);
+		Map.singleton.getLista_person().removeValue(this, true);
 		
 	}
 	

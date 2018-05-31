@@ -30,7 +30,9 @@ public abstract class Place extends Entity {
 		super(posX,posY,width,height);
 		this.direction=doorAtBorder;
 	}
-	
+	/**
+	 * Empty constructor for place
+	 */
 	protected Place()
 	{
 		super();
@@ -42,9 +44,9 @@ public abstract class Place extends Entity {
 	public void addToStorage(MaterialL mat)
 	{
 
-		mat.id=1;
+		mat.setId(1);
 		
-		this.externalStorage.add(mat);
+		this.internalStorage.add(mat);
 	}
 	
 	/**
@@ -71,8 +73,8 @@ public abstract class Place extends Entity {
 			else
 			{
 				MaterialL devolver=this.externalStorage.get(0);
-				Map.singleton.lista_material_toActor.add(devolver);
-				devolver.id=0;
+				Map.singleton.getLista_material_toActor().add(devolver);
+				devolver.setId(0);
 				this.externalStorage.remove(0);
 				return devolver;
 			}
@@ -85,8 +87,8 @@ public abstract class Place extends Entity {
 				if(this.externalStorage.get(i).getType().equals(type))
 				{
 					devolver=this.externalStorage.get(i);
-					Map.singleton.lista_material_toActor.add(devolver);
-					devolver.id=0;
+					Map.singleton.getLista_material_toActor().add(devolver);
+					devolver.setId(0);
 					this.externalStorage.remove(i);
 					return devolver;
 				}
@@ -94,5 +96,21 @@ public abstract class Place extends Entity {
 		}
 		return null;
 	}
+	/**
+	 * 
+	 * @return Array with all the internal storage
+	 */
+	public ArrayList<MaterialL> getInternalStorage() {
+		return internalStorage;
+	}
+	/**
+	 * 
+	 * @return Array with all the external storage
+	 */
+	public ArrayList<MaterialL> getExternalStorage() {
+		return externalStorage;
+	}
+	
+	
 	
 }

@@ -1,6 +1,5 @@
 package logic;
 
-import logic.entities.ConveyorL;
 import logic.entities.MaterialL;
 
 /**
@@ -117,7 +116,7 @@ public abstract class Entity {
 	public boolean receiveMaterial(MaterialL mat)
 	{
 		Map.singleton.addMap(mat);
-		mat.id=0;
+		mat.setId(0);
 		return true;
 	}
 	/**
@@ -133,21 +132,27 @@ public abstract class Entity {
 	 * @return True if it's possible or false otherwise
 	 */
 	public boolean addEntity() {
-		if(Map.singleton.money>=ConveyorL.price)
+		if(Map.singleton.getMoney()>=this.getPrice())
 		{
-			Map.singleton.money-=ConveyorL.price;
-			Map.singleton.money_wasted+=ConveyorL.price;
-			Map.singleton.lista.add(this);
+			int money=Map.singleton.getMoney(),money_wasted=Map.singleton.getMoney_wasted();
+			Map.singleton.setMoney(money-this.getPrice());
+			Map.singleton.setMoney_wasted(money_wasted+this.getPrice());
+			Map.singleton.getLista().add(this);
 			return true;
 		}
 		return false;
 	}
-	
+	/**
+	 * Removes this entity from the list in the map
+	 */
 	public void removeEntity()
 	{
-		Map.singleton.lista.removeValue(this, true);
+		Map.singleton.getLista().removeValue(this, true);
 	}
-	
+	/**
+	 * Gets the cost of the entity
+	 * @return The cost in int
+	 */
 	public abstract int getPrice();
 	/**
 	 * 

@@ -48,7 +48,7 @@ public class StatIcon extends GroupExtension  {
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		this.setText("Money: " + GameStage.singleton.map().money);
+		this.setText("Money: " + GameStage.singleton.map().getMoney());
 		this.setPosition(GameStage.singleton.getCamera().position.x + this.posX - (GameStage.singleton.VIEWPORT_WIDTH / 2),
 				GameStage.singleton.getCamera().position.y + this.posY - (GameStage.singleton.VIEWPORT_HEIGHT / 2));
 		super.draw(batch, parentAlpha);

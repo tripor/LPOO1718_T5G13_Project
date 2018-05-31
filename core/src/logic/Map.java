@@ -36,36 +36,38 @@ public class Map {
 	/**
 	 * Array with all the background of the game
 	 */
-	public Array<Array<BackGroundL>> lista_background;
+	private Array<Array<BackGroundL>> lista_background;
 	/**
 	 * Array with all the static entities
 	 */
-	public Array<Entity> lista;
+	private Array<Entity> lista;
 	/**
 	 * Array with all the materials in the map
 	 */
-	public Array<MaterialL> lista_material;
+	private Array<MaterialL> lista_material;
 	/**
 	 * Array with all the Persons in the map
 	 */
-	public Array<PersonL> lista_person;
+	private Array<PersonL> lista_person;
 	/**
 	 * Materials looking for an actor
 	 */
-	public transient Array<MaterialL> lista_material_toActor;
+	private transient Array<MaterialL> lista_material_toActor;
 	/**
 	 * Persons looking for an actor
 	 */
-	public transient Array<PersonL> lista_person_toActor;
+	private transient Array<PersonL> lista_person_toActor;
 	/**
 	 * Money the player has
 	 */
-	public int money;
+	private int money;
 	/**
 	 * Money the player has wasted all game
 	 */
-	public int money_wasted;
-	
+	private int money_wasted;
+	/**
+	 * Singleton of the map
+	 */
 	public static Map singleton;
 	/**
 	 * Gets a random number
@@ -73,7 +75,7 @@ public class Map {
 	 * @param max The max number
 	 * @return The random number created
 	 */
-	private int randomNumber(int min,int max)
+	public int randomNumber(int min,int max)
 	{
 		Random rand = new Random();
 		int  n = rand.nextInt(max) + min;
@@ -81,9 +83,8 @@ public class Map {
 	}
 	
 	/**
-	 * Constructor for the class logic Map
-	 * 
-	 * @param size
+	 * Constructor of the map
+	 * @param width The width and height of the map
 	 */
 	public Map(int width) {
 		Map.singleton=this;
@@ -109,11 +110,11 @@ public class Map {
 	}
 	/**
 	 * Checks if the point is on the map
-	 * @param posX
-	 * @param posY
-	 * @return
+	 * @param posX Position X in pixels
+	 * @param posY Position Y in pixels
+	 * @return true if it is or false otherwise
 	 */
-	private boolean isInsideMap(int posX, int posY) {
+	public boolean isInsideMap(int posX, int posY) {
 		if (posX >= this.transformToBlock(this.mapWidth) || posY >= this.transformToBlock(this.mapHeight) || posX < 0
 				|| posY < 0) {
 			return false;
@@ -127,9 +128,9 @@ public class Map {
 	 * @param posX The posX to create
 	 * @param posY The posY to create
 	 */
-	private void spawn(int quantidade,int posX,int posY,String type)
+	public void spawn(int quantidade,int posX,int posY,String type)
 	{
-		if (!this.isInsideMap(posX, posY) || quantidade <= 0) {
+		if (!this.isInsideMap(posX, posY) || quantidade < 1) {
 			return;
 		}
 		else if (this.lista_background.get(posX).get(posY).getType().equals("land")) {
@@ -159,7 +160,7 @@ public class Map {
 	/**
 	 * Creates the background map with iron_ore , copper_ore and grass
 	 */
-	private void createBackground()
+	public void createBackground()
 	{
 		this.lista_background=new Array<Array<BackGroundL>>();
 		for(int i=0 ; i<this.transformToBlock(mapWidth) ;i++)
@@ -343,7 +344,7 @@ public class Map {
 	 * @param ignoreMaterial True if I want to ignore the materials that are there of false otherwise
 	 * @return false if there is something there or true if it's empty
 	 */
-	private boolean checkPositions(int posX,int posY,int width,int height)
+	public boolean checkPositions(int posX,int posY,int width,int height)
 	{
 		if(posX>this.mapWidth || posX+width>this.mapWidth || posY>this.mapHeight || posY+height>this.mapHeight)
 		{
@@ -414,4 +415,83 @@ public class Map {
 	public BackGroundL getBackGroundPoint(int x,int y) {
 		return this.lista_background.get(this.transformToBlock(x)).get(this.transformToBlock(y));
 	}
+	/**
+	 * 
+	 * @return Retuns the map of the game
+	 */
+	public Array<Array<Array<Entity>>> getMap() {
+		return map;
+	}
+	/**
+	 * 
+	 * @return Retuns the background list 
+	 */
+	public Array<Array<BackGroundL>> getLista_background() {
+		return lista_background;
+	}
+	/**
+	 * 
+	 * @return Returns the list of entities
+	 */
+	public Array<Entity> getLista() {
+		return lista;
+	}
+	/**
+	 * 
+	 * @return Returns the list of materials
+	 */
+	public Array<MaterialL> getLista_material() {
+		return lista_material;
+	}
+	/**
+	 * 
+	 * @return Retuns the list of persons
+	 */
+	public Array<PersonL> getLista_person() {
+		return lista_person;
+	}
+	/**
+	 * 
+	 * @return Retuns the list of materials looking for actor
+	 */
+	public Array<MaterialL> getLista_material_toActor() {
+		return lista_material_toActor;
+	}
+	/**
+	 * 
+	 * @return Retuns the list of people looking for actor
+	 */
+	public Array<PersonL> getLista_person_toActor() {
+		return lista_person_toActor;
+	}
+	/**
+	 * 
+	 * @return Returns the money the player has
+	 */
+	public int getMoney() {
+		return money;
+	}
+	/**
+	 * Sets the money the player has
+	 * @param money
+	 */
+	public void setMoney(int money) {
+		this.money = money;
+	}
+	/**
+	 * 
+	 * @return Returns the money wasted by the player
+	 */
+	public int getMoney_wasted() {
+		return money_wasted;
+	}
+	/**
+	 * Sets the money wasted by the player
+	 * @param money_wasted
+	 */
+	public void setMoney_wasted(int money_wasted) {
+		this.money_wasted = money_wasted;
+	}
+	
+	
 }

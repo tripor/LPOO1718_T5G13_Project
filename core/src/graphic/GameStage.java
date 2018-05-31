@@ -277,7 +277,7 @@ public class GameStage extends Stage {
 		for (int i = 0; i < this.map.getMapWidth() * this.scale(); i += Map.division * this.scale()) {
 			for (int j = 0; j < this.map.getMapHeight() * this.scale(); j += Map.division * this.scale()) {
 				BackgroundG novo = new BackgroundG(
-						this.map.lista_background.get(this.map.transformToBlock((int) (i * this.reverseScale())))
+						this.map.getLista_background().get(this.map.transformToBlock((int) (i * this.reverseScale())))
 								.get(this.map.transformToBlock((int) (j * this.reverseScale()))));
 				this.background_list.addBackground(novo);
 			}
@@ -393,7 +393,7 @@ public class GameStage extends Stage {
 	 */
 	public void updateMaterials()
 	{
-		for(MaterialL it:this.map.lista_material_toActor)
+		for(MaterialL it:this.map.getLista_material_toActor())
 		{
 			if(this.unused_material.isEmpty())
 			{
@@ -408,8 +408,8 @@ public class GameStage extends Stage {
 				this.material_list.addMaterial(adicionar);
 			}
 		}
-		this.map.lista_material_toActor.clear();
-		for(PersonL it:this.map.lista_person_toActor)
+		this.map.getLista_material_toActor().clear();
+		for(PersonL it:this.map.getLista_person_toActor())
 		{
 			if(this.unused_person.isEmpty())
 			{
@@ -424,7 +424,7 @@ public class GameStage extends Stage {
 				this.person_list.addPerson(adicionar);
 			}
 		}
-		this.map.lista_person_toActor.clear();
+		this.map.getLista_person_toActor().clear();
 	}
 	/**
 	 * Saves the game
@@ -445,7 +445,7 @@ public class GameStage extends Stage {
 		if(subs!=null)
 		{
 			this.map=subs;
-			this.map.money+=this.map.money_wasted;
+			this.map.setMoney(this.map.getMoney()+this.map.getMoney_wasted());
 			this.map.recreateMap();
 			this.material_list.clear();
 			this.inserter_list.clear();

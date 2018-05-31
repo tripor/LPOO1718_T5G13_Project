@@ -27,14 +27,14 @@ public class MaterialG extends ActorExtension{
 		if(this.instance!=null)
 		{
 			this.setPosition(this.instance.getPosX()*GameStage.singleton.scale(),this.instance.getPosY()*GameStage.singleton.scale());
-			if(((MaterialL)this.instance).id==1)
+			if(((MaterialL)this.instance).getId()==1)
 			{
 				this.setVisible(false);
 				this.instance=null;
 				GameStage.singleton.unused_material.add(this);
 				GameStage.singleton.materials().removeMaterial(this);
 			}
-			else if(((MaterialL)this.instance).id==0)
+			else if(((MaterialL)this.instance).getId()==0)
 			{
 				this.setVisible(true);
 			}

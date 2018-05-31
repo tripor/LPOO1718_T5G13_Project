@@ -42,7 +42,7 @@ public class HouseL extends Place {
 
 	@Override
 	public float handler() {
-		if(Map.singleton.lista_person.size==0 && Map.singleton.lista.size>=2)
+		if(Map.singleton.getLista_person().size==0 && Map.singleton.getLista().size>=2)
 		{
 			int x=this.posX+HouseL.width/2,y=this.posY+HouseL.height/2;
 			switch(this.direction)
@@ -61,10 +61,10 @@ public class HouseL extends Place {
 					break;
 			}
 			PersonL novo = new PersonL(x,y);
-			novo.setTarget((Place) Map.singleton.lista.get(1));
+			novo.setTarget((Place) Map.singleton.getLista().get(1));
 			novo.id = 0;
-			Map.singleton.lista_person.add(novo);
-			Map.singleton.lista_person_toActor.add(novo);
+			Map.singleton.getLista_person().add(novo);
+			Map.singleton.getLista_person_toActor().add(novo);
 		}
 		return 0;
 	}

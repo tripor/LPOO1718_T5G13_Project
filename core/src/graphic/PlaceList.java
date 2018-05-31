@@ -152,7 +152,7 @@ public class PlaceList extends GroupExtension{
 	@Override
 	public void loadFromMap()
 	{
-		for(Entity it:GameStage.singleton.map.lista)
+		for(Entity it:GameStage.singleton.map.getLista())
 		{
 			ActorExtension novo=null;
 			if(FactoryL.class.isAssignableFrom(it.getClass()))

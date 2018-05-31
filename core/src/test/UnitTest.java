@@ -12,40 +12,484 @@ import logic.entities.*;
 
 public class UnitTest {
 
-	/*@Test
+	@Test
 	public void initMap() {	
-		int mapWidth = (Map.division * 200) + 2,
-			mapHeight = (Map.division * 200) + 2;
+		Map map = new Map(50);
+		assertTrue(map==Map.singleton);
+		assertEquals(50, map.getMapWidth());
+		assertEquals(50, map.getMapHeight());
+		assertEquals(0,map.getLista().size);
+		assertEquals(0,map.getLista_material().size);
+		assertEquals(0,map.getLista_material_toActor().size);
+		assertEquals(0,map.getLista_person().size);
+		assertEquals(0,map.getLista_person_toActor().size);
+		assertEquals(5,map.getMap().size);
+		assertEquals(5,map.getMap().get(0).size);
+		assertEquals(0,map.getMap().get(0).get(0).size);
+		assertEquals(5000,map.getMoney());
+		assertEquals(0,map.getMoney_wasted());
 		
-		Map map = new Map(mapWidth);
-		assertEquals(mapWidth, map.getMapWidth());
-		assertEquals(mapHeight, map.getMapHeight());
+	}
+	@Test
+	public void mapIsInsideMap() {	
+		Map map = new Map(50);
+		assertTrue(map.isInsideMap(0, 0));
+		assertTrue(map.isInsideMap(4, 4));
+		assertTrue(map.isInsideMap(2, 2));
+		assertFalse(map.isInsideMap(-1, 0));
+		assertFalse(map.isInsideMap(0, -1));
+		assertFalse(map.isInsideMap(6, 2));
+		assertFalse(map.isInsideMap(2, 6));
+		assertFalse(map.isInsideMap(2, 5));
+		assertFalse(map.isInsideMap(5, 2));
 	}
 	
 	@Test
-	public void tryRecreateMap() {
+	public void mapSpawn() {	
+		Map map = new Map(50);
+		map.getLista_background().get(0).set(0,new BackGroundL(0,0,"land",0));
+		map.getLista_background().get(0).set(1,new BackGroundL(0,0,"land",0));
+		map.getLista_background().get(1).set(0,new BackGroundL(0,0,"land",0));
+		map.getLista_background().get(1).set(1,new BackGroundL(0,0,"land",0));
+		map.getLista_background().get(0).set(2,new BackGroundL(0,0,"land",0));
+		map.getLista_background().get(2).set(0,new BackGroundL(0,0,"land",0));
+		map.spawn(2, 0, 0, "iron_ore");
+		assertEquals("iron_ore",map.getLista_background().get(0).get(0).getType());
+		assertEquals("land_iron.png",map.getLista_background().get(0).get(0).getTypeLand());
+		assertEquals(0*Map.division,map.getLista_background().get(0).get(0).getPosX());
+		assertEquals(0*Map.division,map.getLista_background().get(0).get(0).getPosY());
+		assertEquals("iron_ore",map.getLista_background().get(0).get(1).getType());
+		assertEquals("land_iron.png",map.getLista_background().get(0).get(1).getTypeLand());
+		assertEquals(0*Map.division,map.getLista_background().get(0).get(1).getPosX());
+		assertEquals(1*Map.division,map.getLista_background().get(0).get(1).getPosY());
+		assertEquals("iron_ore",map.getLista_background().get(1).get(0).getType());
+		assertEquals("land_iron.png",map.getLista_background().get(1).get(0).getTypeLand());
+		assertEquals(1*Map.division,map.getLista_background().get(1).get(0).getPosX());
+		assertEquals(0*Map.division,map.getLista_background().get(1).get(0).getPosY());
 		
-		int width = 60, height = 60;
 
-		Map map = new Map(width);
-		assertTrue(map.addMap(new FactoryL(4,4,3)));
-		assertFalse(map.addMap(new FactoryL(4,4,3)));
+		assertEquals("land",map.getLista_background().get(1).get(1).getType());
+		assertEquals("land.png",map.getLista_background().get(1).get(1).getTypeLand());
+		assertEquals("land",map.getLista_background().get(2).get(0).getType());
+		assertEquals("land.png",map.getLista_background().get(2).get(0).getTypeLand());
+		assertEquals("land",map.getLista_background().get(0).get(2).getType());
+		assertEquals("land.png",map.getLista_background().get(0).get(2).getTypeLand());
 		
-		PersonL p = new PersonL();
-		map.addEntityLista(p);
-		map.removeMap(p);
+	}
+	@Test
+	public void mapSpawn2() {	
+		Map map = new Map(50);
+		for(int i=0;i<5;i++)
+		{
+			for(int j=0;j<5;j++)
+			{
+				map.getLista_background().get(i).set(j,new BackGroundL(0,0,"land",0));
+			}
+		}
+		map.spawn(2, 2, 2, "iron_ore");
+		assertEquals("iron_ore",map.getLista_background().get(2).get(2).getType());
+		assertEquals("land_iron.png",map.getLista_background().get(2).get(2).getTypeLand());
+		assertEquals(2*Map.division,map.getLista_background().get(2).get(2).getPosX());
+		assertEquals(2*Map.division,map.getLista_background().get(2).get(2).getPosY());
+		assertEquals("iron_ore",map.getLista_background().get(1).get(2).getType());
+		assertEquals("land_iron.png",map.getLista_background().get(1).get(2).getTypeLand());
+		assertEquals(1*Map.division,map.getLista_background().get(1).get(2).getPosX());
+		assertEquals(2*Map.division,map.getLista_background().get(1).get(2).getPosY());
+		assertEquals("iron_ore",map.getLista_background().get(3).get(2).getType());
+		assertEquals("land_iron.png",map.getLista_background().get(3).get(2).getTypeLand());
+		assertEquals(3*Map.division,map.getLista_background().get(3).get(2).getPosX());
+		assertEquals(2*Map.division,map.getLista_background().get(3).get(2).getPosY());
+		assertEquals("iron_ore",map.getLista_background().get(2).get(1).getType());
+		assertEquals("land_iron.png",map.getLista_background().get(2).get(1).getTypeLand());
+		assertEquals(2*Map.division,map.getLista_background().get(2).get(1).getPosX());
+		assertEquals(1*Map.division,map.getLista_background().get(2).get(1).getPosY());
+		assertEquals("iron_ore",map.getLista_background().get(2).get(3).getType());
+		assertEquals("land_iron.png",map.getLista_background().get(2).get(3).getTypeLand());
+		assertEquals(2*Map.division,map.getLista_background().get(2).get(3).getPosX());
+		assertEquals(3*Map.division,map.getLista_background().get(2).get(3).getPosY());
 		
-		map.addEntityLista(new MaterialL());
-		assertEquals(((width/Map.division) * (height/Map.division)), map.recreateMap());
+		assertEquals("land",map.getLista_background().get(1).get(1).getType());
+		assertEquals("land.png",map.getLista_background().get(1).get(1).getTypeLand());
+		assertEquals("land",map.getLista_background().get(2).get(0).getType());
+		assertEquals("land.png",map.getLista_background().get(2).get(0).getTypeLand());
+		assertEquals("land",map.getLista_background().get(0).get(2).getType());
+		assertEquals("land.png",map.getLista_background().get(0).get(2).getTypeLand());
+		assertEquals("land",map.getLista_background().get(1).get(3).getType());
+		assertEquals("land.png",map.getLista_background().get(1).get(3).getTypeLand());
+		assertEquals("land",map.getLista_background().get(2).get(4).getType());
+		assertEquals("land.png",map.getLista_background().get(2).get(4).getTypeLand());
+		assertEquals("land",map.getLista_background().get(3).get(3).getType());
+		assertEquals("land.png",map.getLista_background().get(3).get(3).getTypeLand());
+		assertEquals("land",map.getLista_background().get(4).get(2).getType());
+		assertEquals("land.png",map.getLista_background().get(4).get(2).getTypeLand());
+		assertEquals("land",map.getLista_background().get(3).get(1).getType());
+		assertEquals("land.png",map.getLista_background().get(3).get(1).getTypeLand());
+		
+	}
+	@Test
+	public void mapCreateBackground() {	
+		Map map=new Map(50);
+		assertEquals(50/Map.division,map.getLista_background().size);
+		assertEquals(50/Map.division,map.getLista_background().get(0).size);
+		map.getLista_background().clear();
+		map.createBackground();
+		for(int i=0;i<5;i++)
+		{
+			for(int j=0;j<5;j++)
+			{
+				assertEquals("land",map.getLista_background().get(i).get(j).getType());
+				assertEquals(i*Map.division,map.getLista_background().get(i).get(j).getPosX());
+			}
+		}
 	}
 	
 	@Test
-	public void convertPixelToBlock() {
+	public void mapCreateBackground2() {	
+		Map map=new Map(1000);
+		int grass=0,iron=0,copper=0;
+		for(int i=0;i<1000/Map.division;i++)
+		{
+			for(int j=0;j<1000/Map.division;j++)
+			{
+				if(map.getLista_background().get(i).get(j).getType().equals("iron_ore"))
+				{
+					iron++;
+				}
+				if(map.getLista_background().get(i).get(j).getType().equals("copper_ore"))
+				{
+					copper++;
+				}
+				if(map.getLista_background().get(i).get(j).getType().equals("grass"))
+				{
+					grass++;
+				}
+			}
+		}
+		assertTrue(grass!=0);
+		assertTrue(iron!=0);
+		assertTrue(copper!=0);
+		
+	}
+	@Test
+	public void mapRecreateMap() {	
+		Map map=new Map(50);
+		MaterialL mat=new MaterialL(0,0,"iron_ore");
+		PersonL per=new PersonL(0,0);
+		map.getLista_material().add(mat);
+		map.getLista_material().add(mat);
+		map.getLista_material().add(mat);
+		map.getLista_material_toActor().add(mat);
+		map.getLista_material_toActor().add(mat);
+		assertEquals(2,map.getLista_material_toActor().size);
+		map.getLista_person().add(per);
+		map.getLista_person().add(per);
+		map.getLista_person().add(per);
+		map.getLista_person_toActor().add(per);
+		map.getLista_person_toActor().add(per);
+		assertEquals(2,map.getLista_person_toActor().size);
+		map.recreateMap();
+		assertEquals(50/Map.division,map.getMap().size);
+		assertEquals(50/Map.division,map.getMap().get(0).size);
+		assertEquals(3,map.getLista_material_toActor().size);
+		assertEquals(3,map.getLista_material().size);
+		assertEquals(3,map.getLista_person().size);
+		assertEquals(3,map.getLista_person_toActor().size);
+		
+		
+	}
+	@Test
+	public void mapEmptyConstructor() {	
+		Map map=new Map();
+		assertTrue(Map.singleton==map);
+	}
+	@Test
+	public void mapTransform() {
 		int pixel = 14;
 		
 		Map map = new Map(1);
 		assertEquals((pixel / Map.division), map.transformToBlock(pixel));
 	}
+	@Test
+	public void mapGetMapPixel() {	
+		Map map=new Map(50);
+		MineL mine=new MineL(0,0,1);
+		map.addMap(mine);
+		assertEquals(0,map.getMapPixel(30, 30).size);
+		assertEquals(1,map.getMapPixel(0, 0).size);
+	}
+	@Test
+	public void mapGetMapPercisionPixel() {	
+		Map map=new Map(50);
+		ConveyorL conv=new ConveyorL(0,0,1);
+		MaterialL mat=new MaterialL(0,0,"iron_ore");
+		assertTrue(map.addMap(conv));
+		assertTrue(map.addMap(mat));
+		assertEquals(2,map.getMapPixel(0, 0).size);
+		assertEquals(2,map.getMapPercisionPixel(3, 4).size);
+		assertEquals(2,map.getMapPercisionPixel(4, 3).size);
+		assertEquals(2,map.getMapPercisionPixel(7, 4).size);
+		assertEquals(2,map.getMapPercisionPixel(4, 7).size);
+		assertEquals(1,map.getMapPercisionPixel(0, 0).size);
+		assertEquals(0,map.getMapPercisionPixel(15, 15).size);
+	}
+	@Test
+	public void mapGetMapBlock() {	
+		Map map=new Map(50);
+		ConveyorL conv=new ConveyorL(0,0,1);
+		MaterialL mat=new MaterialL(0,0,"iron_ore");
+		assertTrue(map.addMap(conv));
+		assertTrue(map.addMap(mat));
+		assertEquals(2,map.getMapBlock(0, 0).size);
+	}
+	@Test
+	public void mapAddMap() {	
+		Map map=new Map(1000);
+		FactoryL fac=new FactoryL(0,0,1);
+		FactoryL fac2=new FactoryL(44,44,1);
+		assertTrue(map.addMap(fac));
+		for(int i=0;i<4;i++)
+		{
+			for(int j=0;j<4;j++)
+			{
+				assertEquals(1,map.getMapBlock(i, j).size);
+			}
+		}
+		for(int i=4;i<8;i++)
+		{
+			for(int j=0;j<4;j++)
+			{
+				assertEquals(0,map.getMapBlock(i, j).size);
+			}
+		}
+		for(int i=0;i<4;i++)
+		{
+			for(int j=4;j<8;j++)
+			{
+				assertEquals(0,map.getMapBlock(i, j).size);
+			}
+		}
+		assertFalse(map.addMap(fac));
+		assertTrue(map.addMap(fac2));
+		for(int i=4;i<8;i++)
+		{
+			for(int j=4;j<8;j++)
+			{
+				assertEquals(1,map.getMapBlock(i, j).size);
+			}
+		}
+	}
+	@Test
+	public void mapAddMap2() {	
+		Map map=new Map(1000);
+		map.setMoney(0);
+		FactoryL fac=new FactoryL(0,0,1);
+		assertFalse(map.addMap(fac));
+	}
+	@Test
+	public void mapRemoveMap() {	
+		Map map=new Map(1000);
+		FactoryL fac=new FactoryL(0,0,1);
+		FactoryL fac2=new FactoryL(40,0,1);
+		FactoryL fac3=new FactoryL(0,40,1);
+		assertTrue(map.addMap(fac));
+		assertTrue(map.addMap(fac2));
+		assertTrue(map.addMap(fac3));
+		for(int i=0;i<4;i++)
+		{
+			for(int j=0;j<4;j++)
+			{
+				assertEquals(1,map.getMapBlock(i, j).size);
+			}
+		}
+		assertEquals(3,map.getLista().size);
+		map.removeMap(fac);
+		for(int i=0;i<4;i++)
+		{
+			for(int j=0;j<4;j++)
+			{
+				assertEquals(0,map.getMapBlock(i, j).size);
+			}
+		}
+		for(int i=4;i<8;i++)
+		{
+			for(int j=0;j<4;j++)
+			{
+				assertEquals(1,map.getMapBlock(i, j).size);
+			}
+		}
+		for(int i=0;i<4;i++)
+		{
+			for(int j=4;j<8;j++)
+			{
+				assertEquals(1,map.getMapBlock(i, j).size);
+			}
+		}
+		assertEquals(2,map.getLista().size);
+	}
+	@Test
+	public void mapCheckPositions() {	
+		Map map=new Map(1000);
+		assertFalse(map.checkPositions(1001, 0, 0, 0));
+		assertTrue(map.checkPositions(1000, 0, 0, 0));
+		assertFalse(map.checkPositions(0, 1001, 0, 0));
+		assertTrue(map.checkPositions(0, 1000, 0, 0));
+		assertFalse(map.checkPositions(1000, 0, 1, 0));
+		assertTrue(map.checkPositions(1000, 0, 0, 1));
+		assertFalse(map.checkPositions(0, 1000, 0, 1));
+		assertTrue(map.checkPositions(0, 1000, 1, 0));
+		
+	}
+	@Test
+	public void mapPointIsOccupied() {	
+		Map map=new Map(1000);
+		ConveyorL conv=new ConveyorL(0,0,1);
+		assertTrue(map.addMap(conv));
+		assertFalse(map.pointIsOccupied(10, 10));
+		assertTrue(map.pointIsOccupied(0, 0));
+		
+	}
+	@Test
+	public void mapGetBackgorund() {	
+		Map map=new Map(50);
+		map.getLista_background().get(0).set(0,new BackGroundL(0,0,"land",0));
+		assertEquals("land",map.getBackGroundPoint(0, 0).getType());
+		
+	}
+	
+	@Test
+	public void tryMapRandom() {
+		Map map=new Map(50);
+		int one=0,two=0;
+		for(int i=0;i<100000;i++)
+		{
+			int numero=map.randomNumber(1, 2);
+			if(numero==1)
+				one++;
+			else
+				two++;
+		}
+		assertEquals(50,one*100/100000,3);
+		assertEquals(50,two*100/100000,3);
+	}
+
+	@Test
+	public void tryEntityConstructor() {
+		Map map=new Map(50);
+		InserterL insert= new InserterL(0,0,1);
+		assertEquals((Map.division-InserterL.width)/2,insert.getPosX());
+		assertEquals((Map.division-InserterL.height)/2,insert.getPosY());
+		assertEquals(1,insert.getDirection());
+		FactoryL fac=new FactoryL(10,10,1);
+		assertEquals(10,fac.getPosX());
+		assertEquals(10,fac.getPosY());
+		assertEquals(1,fac.getDirection());
+		MineL mine=new MineL(0,10,1);
+		assertEquals(0,mine.getPosX());
+		assertEquals(10,mine.getPosY());
+		assertEquals(1,mine.getDirection());
+		
+	}
+
+	@Test
+	public void tryEntityReceive() {
+		Map map=new Map(50);
+		ConveyorL conv=new ConveyorL(0,0,1);
+		MaterialL mat= new MaterialL(1,1,"iron_ore");
+		assertEquals("iron_ore",mat.getType());
+		assertTrue(conv.receiveMaterial(mat));
+		assertEquals(1,map.getLista_material().size);
+		assertEquals(0,mat.getId());
+	}
+	
+	@Test
+	public void tryEntityPickUp() {
+		ConveyorL conv=new ConveyorL(0,0,1);
+		assertNull(conv.pickUp("any"));
+	}
+	
+	@Test
+	public void tryAddEntity() {
+		Map map=new Map(50);
+		ConveyorL conv=new ConveyorL(0,0,1);
+		assertEquals(5000,map.getMoney());
+		assertEquals(0,map.getMoney_wasted());
+		assertTrue(conv.addEntity());
+		assertEquals(1,map.getLista().size);
+		assertEquals(5000-ConveyorL.price,map.getMoney());
+		assertEquals(ConveyorL.price,map.getMoney_wasted());
+		map.setMoney(0);
+		assertEquals(0,map.getMoney());
+		assertFalse(conv.addEntity());
+		assertEquals(0,map.getMoney());
+		assertEquals(ConveyorL.price,map.getMoney_wasted());
+		assertEquals(1,map.getLista().size);
+	}
+
+	@Test
+	public void tryRemoveEntity() {
+		Map map=new Map(50);
+		ConveyorL conv=new ConveyorL(0,0,1);
+		conv.addEntity();
+		conv.removeEntity();
+		assertEquals(0,map.getLista().size);
+	}
+	
+	@Test
+	public void tryLoadGame() {
+		Map map=new Map(50);
+		ConveyorL conv=new ConveyorL(0,0,1);
+		ConveyorL conv2=new ConveyorL(30,30,1);
+		MaterialL mat=new MaterialL(0,0,"iron_ore");
+		assertTrue(map.addMap(conv));
+		assertTrue(map.addMap(conv2));
+		assertTrue(map.addMap(mat));
+		SaveState save= new SaveState();
+		save.saveGame("test", map);
+		Map map2=save.loadGame("test");
+		assertTrue(map.getLista().size==map2.getLista().size);
+		assertTrue(map.getLista_material().size==map2.getLista_material().size);
+		Map map3=save.loadGame("LLLLLLLLLLLLLLL");
+		assertNull(map3);
+	}
+	
+	@Test
+	public void createPlace() {
+		FactoryL fac=new FactoryL(0,100,2);
+		assertEquals(0,fac.getPosX());
+		assertEquals(100,fac.getPosY());
+		assertEquals(FactoryL.width,fac.getWidth());
+		assertEquals(FactoryL.height,fac.getHeight());
+		assertEquals(2,fac.getDirection());
+		assertEquals(2,fac.getDoorAtBorder());
+		FactoryL fac2=new FactoryL();
+	}
+	@Test
+	public void placeAddToStorage() {
+		FactoryL fac=new FactoryL(0,100,2);
+		MaterialL mat=new MaterialL(0,0,"iron_ore");
+		mat.setId(0);
+		fac.addToStorage(mat);
+		assertEquals(1,mat.getId());
+		assertEquals(1,fac.getInternalStorage().size());
+	}
+	@Test
+	public void placePickUp() {
+		Map map=new Map(50);
+		FactoryL fac=new FactoryL(0,100,2);
+		MaterialL mat=new MaterialL(0,0,"iron_ore");
+		fac.addToStorage(mat);
+		assertNull(fac.pickUp("any"));
+		assertNull(fac.pickUp("a"));
+		//TODO
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	@Test
 	public void tryFactory() {
@@ -105,13 +549,13 @@ public class UnitTest {
 		
 		int mX = mat2.getPosX(), mY = mat.getPosY();
 		
-		mat2.moveMaterial(moveX, moveY, map);
+		mat2.moveMaterial(moveX, moveY);
 		assertEquals((mX + moveX), mat2.getPosX());
 		assertEquals((mY + moveY), mat2.getPosY());
 
-		assertEquals(mat, fac.removeMaterial(typeText));
+		/*assertEquals(mat, fac.removeMaterial(typeText));
 		assertEquals(mat2, fac.removeMaterial("any"));
-		assertNull(fac.removeMaterial("any"));
+		assertNull(fac.removeMaterial("any"));*/
 		
 		fac.addToStorage(mat);
 		fac.addToStorage(mat2);
@@ -131,7 +575,7 @@ public class UnitTest {
 		assertTrue(map.addMap(fac));
 		
 		InserterL ist = new InserterL(x, y, direction);
-		ist.handler(map);
+		//ist.handler(map);
 		
 		new InserterL();
 	}
@@ -142,7 +586,7 @@ public class UnitTest {
 		
 		for(int i=0; i<10; i+=50) {
 			for(int j=0; j<10; j+=50) {
-				assertTrue(map.addEntityLista(new FactoryL(i, j, 2)));
+				//assertTrue(map.addEntityLista(new FactoryL(i, j, 2)));
 			}
 		}
 	}
@@ -182,31 +626,31 @@ public class UnitTest {
 		
 		map.addMap(new MaterialL());
 		
-		cvy.moveMaterials(map);
-		assertFalse(map.lista_background.first().first().getMaterial());
+		cvy.handler();
+		assertFalse(map.getLista_background().first().first().getMaterial());
 	}
 	
 	@Test
 	public void tryMine() {
-		/*int x = 4, y = 8, doorAtBorder = 3;
+		int x = 4, y = 8, doorAtBorder = 3;
 		
-		Map map = new Map(60, 60);
+		Map map = new Map(60);
 		
 		MineL mine = new MineL(x, y, doorAtBorder);
 		assertTrue(map.addMap(mine));
 		
 		int i; 
 		
-		for(i = 0; i < 99; i++) {
-			assertFalse(mine.handler());
+		/*for(i = 0; i < 99; i++) {
+			assertEquals(0,(int)mine.handler());
 		}
-		assertTrue(mine.handler());*/
-	/*}
+		assertEquals(1,(int)mine.handler());*/
+	}
 	
 	@Test
 	public void tryHouseAndPerson() {
 
-		int from_x = 4, from_y = 8,
+		/*int from_x = 4, from_y = 8,
 			to_x = 30, to_y = 20;
 		
 		Map map = new Map(80);
@@ -222,23 +666,7 @@ public class UnitTest {
 		
 		for(int i=0; i<100; i++) {
 			map.lista_person.first().getPath();
-		}
+		}*/
 	}
-	
-	
-	@Test
-	public void tryLoadGame() {
-		String name = "test";
-		int size = 60;
-		
-		SaveState s = new SaveState();
-		Map map = new Map(size);
-		
-		s.saveGame(name, map);
-	
-		Map m = s.loadGame(name);
-		assertEquals(size, m.getMapWidth());
-		assertEquals(size, m.getMapHeight());
-	}*/
 
 }

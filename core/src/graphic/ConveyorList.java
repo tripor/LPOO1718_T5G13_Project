@@ -53,7 +53,7 @@ public class ConveyorList extends GroupExtension{
 	 */
 	public void loadFromMap()
 	{
-		for(Entity it:GameStage.singleton.map.lista)
+		for(Entity it:GameStage.singleton.map.getLista())
 		{
 			if (ConveyorL.class.isAssignableFrom(it.getClass())) {
 				ConveyorG novo = new ConveyorG(it);
