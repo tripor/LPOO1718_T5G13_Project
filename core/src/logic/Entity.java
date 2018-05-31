@@ -161,6 +161,28 @@ public abstract class Entity {
 	public int getDirection() {
 		return this.direction;
 	}
+
+	public int doorXposition() {
+		if(this.direction==1 || this.direction==3) {
+			return this.posX+this.width/2;
+		}
+		else if(this.direction==4){
+			return this.posX;
+		}
+		else {
+			return this.posX+this.width;
+		}
+	}
 	
-	
+	public int doorYposition() {
+		if(this.direction==2 || this.direction==4) {
+			return this.posY+this.height/2;
+		}
+		else if(this.direction==3){
+			return this.posY;
+		}
+		else {
+			return this.posY+this.height;
+		}
+	}
 }
