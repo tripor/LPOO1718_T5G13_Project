@@ -105,7 +105,7 @@ public class Map {
 		this.lista_person=new Array<PersonL>();
 		this.lista_material_toActor= new Array<MaterialL>();
 		this.lista_person_toActor= new Array<PersonL>();
-		this.money=5000;
+		this.money=500;
 		this.money_wasted=0;
 	}
 	/**

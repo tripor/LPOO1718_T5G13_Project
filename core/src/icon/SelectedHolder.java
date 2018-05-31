@@ -2,7 +2,6 @@ package icon;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 import graphic.GameStage;
@@ -43,7 +42,7 @@ public class SelectedHolder extends GroupExtension {
 		
 		Recipe receitas= new Recipe();
 		for(int i=0;i<receitas.totalNumber();i++) {
-			LabelIcon label= new LabelIcon(40*GameStage.singleton.VIEWPORT_WIDTH/200,25*GameStage.singleton.VIEWPORT_HEIGHT/100);
+			LabelIcon label= new LabelIcon(100*GameStage.singleton.VIEWPORT_WIDTH/200,25*GameStage.singleton.VIEWPORT_HEIGHT/100);
 			label.setZ(11);
 			label.setVisible(false);
 			label.setText(receitas.getRecipeString(i));

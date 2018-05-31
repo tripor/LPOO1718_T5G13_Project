@@ -412,6 +412,7 @@ public class GameStage extends Stage {
 			if(this.unused_material.isEmpty())
 			{
 				MaterialG novo= new MaterialG(it);
+				novo.setVisible(true);
 				this.material_list.addMaterial(novo);
 			}
 			else
@@ -419,6 +420,7 @@ public class GameStage extends Stage {
 				MaterialG adicionar=this.unused_material.get(0);
 				this.unused_material.remove(0);
 				adicionar.setInstance(it);
+				adicionar.setVisible(true);
 				this.material_list.addMaterial(adicionar);
 			}
 		}
@@ -428,6 +430,7 @@ public class GameStage extends Stage {
 			if(this.unused_person.isEmpty())
 			{
 				PersonG novo= new PersonG(it);
+				novo.setVisible(true);
 				this.person_list.addPerson(novo);
 			}
 			else
@@ -435,6 +438,7 @@ public class GameStage extends Stage {
 				PersonG adicionar=this.unused_person.get(0);
 				this.unused_person.remove(0);
 				adicionar.setInstance(it);
+				adicionar.setVisible(true);
 				this.person_list.addPerson(adicionar);
 			}
 		}
