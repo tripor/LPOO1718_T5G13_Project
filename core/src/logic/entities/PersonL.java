@@ -15,8 +15,14 @@ import logic.Place;
 
 public class PersonL extends Entity{
 	
-	private int target_x, target_y,
-				prevX, prevY;
+	private int target_x, target_y;
+	
+	private int save_step = 7;
+	private int cur_step = 0;
+	
+	private int[] prevX = new int[save_step];
+	private int[] prevY = new int[save_step];
+	
 	
 //	private String unique_id;
 	
@@ -37,9 +43,10 @@ public class PersonL extends Entity{
 
 		Console.log("new PersonL(" +posX + "," + posY+ ");");
 		
-		this.prevX = posX;
-		this.prevY = posY;
-		
+		for(int i=0; i<save_step; i++) {
+			prevX[i] = posX;
+			prevY[i] = posY;
+		}		
 		this.target_x = posX;
 		this.target_y = posY;
 	}
@@ -122,13 +129,23 @@ public class PersonL extends Entity{
 		
 		for(int i = 0; i < selected_order.length; i++) {
 
-			// Console.log(": check(" + ((selected_order[i]/3) - 1) + "," + ((selected_order[i] % 3) - 1) + ");");
-			
+			// Console.log(": Checking " + ((selected_order[i] % 3) - 1)  + "," + ((selected_order[i]/3) - 1));
+
 			tmpY = posY - (selected_order[i]/3) + 1;	// posY - [-1 | 0 | 1]
 			tmpX = posX + (selected_order[i] % 3) - 1;	// posX + [-1 | 0 | 1]
 			
-			if(posX == prevX && posY == prevY) {
+			boolean should_skip = false;
+			
+			for(int s=0; s<save_step; s++) {
+				if(prevX[s]==posX && prevY[s]==posY) {
+					should_skip = true;
+					break;
+				}
+			}
+			
+			if(should_skip) {
 				// skip.
+				// Console.log("Skipped.");
 			}
 			else {
 				
@@ -137,27 +154,40 @@ public class PersonL extends Entity{
 				
 				Console.log(tmp_array_size);
 				
-				for(int k=0; k<tmp_array.size; k++) {
-					// Console.log(">>this.contains();");
-				}
-				
 				if(tmp_array.contains(this, false)){
 					tmp_array_size--;
 				}
 				
 				if(tmp_array_size < 1) {
-					this.prevX = posX;
-					this.prevY = posY;
+
+					prevX[cur_step] = posX;
+					prevY[cur_step] = posY;
+					cur_step++;
+					
+					if(cur_step >= save_step) {
+						cur_step = 0;
+					}
+					
 					this.posX = tmpX;
 					this.posY = tmpY;
+					this.map.removeMap(this);
+					this.map.addMap(this);
 					break;
 				}
 			}
 		}
 	}
 	
+	int step = 0;
+	
 	public void updatePersonPos() {
-		getPath();
+		if(step < 10) {
+			step++;
+		}
+		else {
+			step = 0;
+			this.getPath();
+		}
 	}
 	
 //	public List<Node> getPath(int _target_row, int _target_col, boolean should_replace_global) {

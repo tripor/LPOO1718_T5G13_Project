@@ -83,7 +83,7 @@ public class Map {
 	/**
 	 * Constructor for the class logic Map
 	 * 
-	 * @param width
+	 * @param size
 	 */
 	public Map(int width) {
 		Map.singleton=this;
