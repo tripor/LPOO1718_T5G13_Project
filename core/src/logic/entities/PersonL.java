@@ -61,8 +61,8 @@ public class PersonL extends Entity{
 //	}
 	
 	public void setTarget(Place p) {
-		this.target_x = p.getPosX();
-		this.target_y = p.getPosY();
+		this.target_x = p.doorXposition();
+		this.target_y = p.doorYposition();
 		Console.log("this.setTarget(" +target_x + "," + target_y+ ");");
 	}
 	
