@@ -89,9 +89,13 @@ public class GameStage extends Stage {
      */
     private LoadingIcon build_icon;
     
+    public static GameStage singleton;
+    
     public ArrayList<MaterialG> unused_material;
     
     public ArrayList<PersonG> unused_person;
+    
+    public float stateTime=0;
     /**
      * Scale of the map
      * @return float
@@ -114,27 +118,28 @@ public class GameStage extends Stage {
 	 */
 	public GameStage(GroundUpGame game, GroundUpScreen screen) {
 	    this.game=game;
+	    GameStage.singleton=this;
 	    // I create a group of actor and I add it to the stage/GameStage
 		this.background_list=new BackgroundList();
 		this.background_list.setZ(0);
 		this.addActor(this.background_list);
 	    this.map= new Map(1000);
-		this.place_list=new PlaceList(this);
+		this.place_list=new PlaceList();
 		this.place_list.setZ(1);
 		this.addActor(place_list);
-		this.conveyor_list=new ConveyorList(this);
+		this.conveyor_list=new ConveyorList();
 		this.conveyor_list.setZ(1);
 		this.addActor(conveyor_list);
-		this.material_list=new MaterialList(this);
+		this.material_list=new MaterialList();
 		this.material_list.setZ(2);
 		this.addActor(material_list);
-		this.inserter_list= new InserterList(this);
+		this.inserter_list= new InserterList();
 		this.inserter_list.setZ(3);
 		this.addActor(inserter_list);
-		this.person_list= new PersonList(this);
+		this.person_list= new PersonList();
 		this.person_list.setZ(4);
 		this.addActor(person_list);
-		this.mouse= new Mouse(this);
+		this.mouse= new Mouse();
 		this.mouse.setZ(6);
 		this.addActor(mouse);
 		this.icon_list= new IconList();
@@ -224,7 +229,7 @@ public class GameStage extends Stage {
 	    game.getAssetManager().load("barra6.png", Texture.class);
 	    game.getAssetManager().load("barra7.png", Texture.class);
 	    
-	    build_icon= new LoadingIcon(this,0,0,this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT);
+	    build_icon= new LoadingIcon(0,0,this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT);
 		this.addActor(build_icon);
 	
 	    
@@ -247,21 +252,20 @@ public class GameStage extends Stage {
 	 */
 	private void initializeIcons()
 	{
-		NormalHolder build_icon= new NormalHolder(this,this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT/3);
+		NormalHolder build_icon= new NormalHolder(this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT/3);
 		this.icon_list.addIcon(build_icon);
 		
-		BuildHolder icon2= new BuildHolder(this,this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT/3);
+		BuildHolder icon2= new BuildHolder(this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT/3);
 		this.icon_list.addIcon(icon2);
 		
-		MenuHolder icon3= new MenuHolder(this,this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT);
+		MenuHolder icon3= new MenuHolder(this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT);
 		this.icon_list.addIcon(icon3);
 		
-		MenuSaveHolder icon4= new MenuSaveHolder(this,this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT);
+		MenuSaveHolder icon4= new MenuSaveHolder(this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT);
 		this.icon_list.addIcon(icon4);
 		
-		MenuLoadHolder icon5= new MenuLoadHolder(this,this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT);
+		MenuLoadHolder icon5= new MenuLoadHolder(this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT);
 		this.icon_list.addIcon(icon5);
-		
 		this.icon_list.setHolder(1);
 	}
     
@@ -272,7 +276,7 @@ public class GameStage extends Stage {
 	{
 		for (int i = 0; i < this.map.getMapWidth() * this.scale(); i += Map.division * this.scale()) {
 			for (int j = 0; j < this.map.getMapHeight() * this.scale(); j += Map.division * this.scale()) {
-				BackgroundG novo = new BackgroundG(this, i, j,
+				BackgroundG novo = new BackgroundG(
 						this.map.lista_background.get(this.map.transformToBlock((int) (i * this.reverseScale())))
 								.get(this.map.transformToBlock((int) (j * this.reverseScale()))));
 				this.background_list.addBackground(novo);
@@ -280,12 +284,12 @@ public class GameStage extends Stage {
 		}
 		for(int i=0;i<400;i++)
 		{
-			MaterialG novo= new MaterialG(this);
+			MaterialG novo= new MaterialG();
 			this.unused_material.add(novo);
 		}
 		for(int i=0;i<400;i++)
 		{
-			PersonG novo= new PersonG(this);
+			PersonG novo= new PersonG();
 			this.unused_person.add(novo);
 		}
 	}
@@ -393,7 +397,7 @@ public class GameStage extends Stage {
 		{
 			if(this.unused_material.isEmpty())
 			{
-				MaterialG novo= new MaterialG(this,it);
+				MaterialG novo= new MaterialG(it);
 				this.material_list.addMaterial(novo);
 			}
 			else
@@ -409,7 +413,7 @@ public class GameStage extends Stage {
 		{
 			if(this.unused_person.isEmpty())
 			{
-				PersonG novo= new PersonG(this,it);
+				PersonG novo= new PersonG(it);
 				this.person_list.addPerson(novo);
 			}
 			else
@@ -441,8 +445,8 @@ public class GameStage extends Stage {
 		if(subs!=null)
 		{
 			this.map=subs;
-			this.map.recreateMap();
 			this.map.money+=this.map.money_wasted;
+			this.map.recreateMap();
 			this.material_list.clear();
 			this.inserter_list.clear();
 			this.conveyor_list.clear();
@@ -455,6 +459,7 @@ public class GameStage extends Stage {
 			this.conveyor_list.loadFromMap();
 			this.place_list.loadFromMap();
 			this.person_list.loadFromMap();
+			this.material_list.loadFromMap();
 			this.initializeMap();
 		}
 	}

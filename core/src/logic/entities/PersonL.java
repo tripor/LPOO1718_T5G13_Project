@@ -27,13 +27,11 @@ public class PersonL extends Entity{
 	
 //	List<Node> path = new ArrayList<Node>();
 	
-	private Map map;
 	
 	
-	public PersonL(int posX, int posY, Map map) {
+	public PersonL(int posX, int posY) {
 		super(posX,posY,5,5);
 
-		this.map = map;
 		// this.unique_id = UUID.randomUUID().toString();
 		// (removed) a duplication checking at personList is already performed.
 
@@ -48,7 +46,7 @@ public class PersonL extends Entity{
 	
 	public PersonL() {
 		super();
-		this.id=1;
+		this.id=0;
 	}
 	
 //	public String getId() {
@@ -134,7 +132,7 @@ public class PersonL extends Entity{
 			}
 			else {
 				
-				tmp_array = map.getMapPercisionPixel(tmpX, tmpY);
+				tmp_array = Map.singleton.getMapPercisionPixel(tmpX, tmpY);
 				tmp_array_size = tmp_array.size;
 				
 				Console.log(tmp_array_size);
@@ -258,6 +256,33 @@ public class PersonL extends Entity{
 		return "[Person]"
 				+ " Row " + this.posX
 				+ " Col " + this.posY;
+	}
+
+	@Override
+	public float handler() {
+		return 0;
+	}
+
+	@Override
+	public boolean addEntity() {
+		if (Map.singleton.money >= this.getPrice()) {
+			Map.singleton.money -= this.getPrice();
+			Map.singleton.money_wasted += this.getPrice();
+			Map.singleton.lista_person.add(this);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public int getPrice() {
+		return 0;
+	}
+
+	@Override
+	public void removeEntity() {
+		Map.singleton.lista_person.removeValue(this, true);
+		
 	}
 	
 //	public void sizePlace(float amountX,float amountY)

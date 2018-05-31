@@ -33,11 +33,9 @@ public class Mouse extends ActorExtension {
 	public boolean remove=false;
 	/**
 	 * Cosntructor for the class mouse
-	 * @param game the game the mouse belongs to 
 	 */
-	public Mouse(GameStage game)
+	public Mouse()
 	{
-		this.game=game;
 	}
 	/**
 	 * Creates a image in the mouse
@@ -49,11 +47,11 @@ public class Mouse extends ActorExtension {
 		this.type=type;
 		this.width=width;
 		this.height=height;
-		Texture texture = this.game.getGame().getAssetManager().get(type);
+		Texture texture = GameStage.singleton.getGame().getAssetManager().get(type);
 		
 		sprite = new Sprite(texture);
-		sprite.setSize(width*this.game.scale(), height*this.game.scale());
-		sprite.setOrigin(width*this.game.scale()/2, height*this.game.scale()/2);
+		sprite.setSize(width*GameStage.singleton.scale(), height*GameStage.singleton.scale());
+		sprite.setOrigin(width*GameStage.singleton.scale()/2, height*GameStage.singleton.scale()/2);
 
 		if(this.doorPosition!=4)
 			sprite.rotate(-90*doorPosition);
@@ -70,7 +68,7 @@ public class Mouse extends ActorExtension {
 		if(isSelected)
 		{
 			Vector3 mouse_pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-			this.game.getViewport().unproject(mouse_pos);
+			GameStage.singleton.getViewport().unproject(mouse_pos);
 			int numero=Map.division;
 			int adicao_x=0;
 			int adicao_y=0;
@@ -78,36 +76,36 @@ public class Mouse extends ActorExtension {
 				adicao_x = (numero - (this.width % numero)) / 2;
 			if(this.height % numero!=0)
 				adicao_y = (numero - (this.height % numero)) / 2;
-			int x = (int) (mouse_pos.x*this.game.reverseScale()/numero) * numero + adicao_x;
-			int y = (int) (mouse_pos.y*this.game.reverseScale()/numero) * numero + adicao_y;
-			x=(int) (x*this.game.scale());
-			y=(int) (y*this.game.scale());
+			int x = (int) (mouse_pos.x*GameStage.singleton.reverseScale()/numero) * numero + adicao_x;
+			int y = (int) (mouse_pos.y*GameStage.singleton.reverseScale()/numero) * numero + adicao_y;
+			x=(int) (x*GameStage.singleton.scale());
+			y=(int) (y*GameStage.singleton.scale());
 			if(this.type.equals("factory.png"))
 			{
-				FactoryG fab= new FactoryG(this.game,x,y,this.doorPosition);
-				if(this.game.places().addPlace(fab))
+				FactoryG fab= new FactoryG(x,y,this.doorPosition);
+				if(GameStage.singleton.places().addPlace(fab))
 					this.isSelected=false;
 			}
 			if(this.type.equals("iron_mine.png"))
 			{
-				MineG im= new MineG(this.game,x,y,this.doorPosition);
-				if(this.game.places().addPlace(im))
+				MineG im= new MineG(x,y,this.doorPosition);
+				if(GameStage.singleton.places().addPlace(im))
 					this.isSelected=false;
 			}
 			if(this.type.equals("conveyor1.png"))
 			{
-				ConveyorG c= new ConveyorG(this.game,x,y,this.doorPosition);
-				this.game.conveyors().addConveyor(c);
+				ConveyorG c= new ConveyorG(x,y,this.doorPosition);
+				GameStage.singleton.conveyors().addConveyor(c);
 			}
 			if(this.type.equals("inserter_direction.png"))
 			{
-				InserterG i= new InserterG(this.game,x,y,this.doorPosition);
-				this.game.inserters().addInserter(i);
+				InserterG i= new InserterG(x,y,this.doorPosition);
+				GameStage.singleton.inserters().addInserter(i);
 			}
 			if(this.type.equals("house.png"))
 			{
-				HouseG h= new HouseG(this.game,x,y,this.doorPosition);
-				if(this.game.places().addPlace(h))
+				HouseG h= new HouseG(x,y,this.doorPosition);
+				if(GameStage.singleton.places().addPlace(h))
 					this.isSelected=false;
 			}
 			
@@ -119,7 +117,7 @@ public class Mouse extends ActorExtension {
 	public void draw(Batch batch, float parentAlpha) {
 		if (this.isSelected) {
 			Vector3 mouse_pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-			this.game.getViewport().unproject(mouse_pos);
+			GameStage.singleton.getViewport().unproject(mouse_pos);
 			int numero=Map.division;
 			int adicao_x=0;
 			int adicao_y=0;
@@ -127,9 +125,9 @@ public class Mouse extends ActorExtension {
 				adicao_x = (numero - (this.width % numero)) / 2;
 			if(this.height % numero!=0)
 				adicao_y = (numero - (this.height % numero)) / 2;
-			int x = (int) (mouse_pos.x*this.game.reverseScale()/numero) * numero + adicao_x;
-			int y = (int) (mouse_pos.y*this.game.reverseScale()/numero) * numero + adicao_y;
-			this.setPosition(x*this.game.scale(), y*this.game.scale());
+			int x = (int) (mouse_pos.x*GameStage.singleton.reverseScale()/numero) * numero + adicao_x;
+			int y = (int) (mouse_pos.y*GameStage.singleton.reverseScale()/numero) * numero + adicao_y;
+			this.setPosition(x*GameStage.singleton.scale(), y*GameStage.singleton.scale());
 			sprite.draw(batch);
 		}
 	}
@@ -157,6 +155,11 @@ public class Mouse extends ActorExtension {
 	 */
 	public String getType() {
 		return type;
+	}
+	@Override
+	protected Texture[] createTexture() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

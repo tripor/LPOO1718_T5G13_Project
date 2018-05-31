@@ -1,17 +1,13 @@
 package logic;
 
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.utils.Array;
 
 import logic.entities.BackGroundL;
-import logic.entities.ConveyorL;
-import logic.entities.FactoryL;
-import logic.entities.HouseL;
-import logic.entities.InserterL;
 import logic.entities.MaterialL;
-import logic.entities.MineL;
 import logic.entities.PersonL;
 
 
@@ -20,6 +16,7 @@ import logic.entities.PersonL;
  *
  */
 public class Map {
+	
 	/**
 	 * Amount of pixel the map is divided. Squares 10 by 10
 	 */
@@ -37,21 +34,17 @@ public class Map {
 	 */
 	private transient Array<Array<Array<Entity>>> map;
 	/**
+	 * Array with all the background of the game
+	 */
+	public Array<Array<BackGroundL>> lista_background;
+	/**
+	 * Array with all the static entities
+	 */
+	public Array<Entity> lista;
+	/**
 	 * Array with all the materials in the map
 	 */
 	public Array<MaterialL> lista_material;
-	/**
-	 * Array with all the inserter in the map
-	 */
-	public  Array<InserterL> lista_inserter;
-	/**
-	 * Array with all the Places in the map
-	 */
-	public  Array<Place> lista_place;
-	/**
-	 * Array with all the Conveyors in the map
-	 */
-	public  Array<ConveyorL> lista_conveyor;
 	/**
 	 * Array with all the Persons in the map
 	 */
@@ -72,10 +65,8 @@ public class Map {
 	 * Money the player has wasted all game
 	 */
 	public int money_wasted;
-	/**
-	 * Array with all the background of the game
-	 */
-	public Array<Array<BackGroundL>> lista_background;
+	
+	public static Map singleton;
 	/**
 	 * Gets a random number
 	 * @param min The min number
@@ -95,6 +86,7 @@ public class Map {
 	 * @param width
 	 */
 	public Map(int width) {
+		Map.singleton=this;
 		this.mapWidth = width;
 		this.mapHeight = width;
 		map= new Array<Array<Array<Entity>>>();
@@ -107,16 +99,28 @@ public class Map {
 			}
 		}
 		this.createBackground();
-		this.lista_conveyor = new Array<ConveyorL>();
-		this.lista_inserter= new Array<InserterL>();
 		this.lista_material=new Array<MaterialL>();
-		this.lista_place=new Array<Place>();
+		this.lista=new Array<Entity>();
 		this.lista_person=new Array<PersonL>();
 		this.lista_material_toActor= new Array<MaterialL>();
 		this.lista_person_toActor= new Array<PersonL>();
 		this.money=5000;
 		this.money_wasted=0;
 	}
+	/**
+	 * Checks if the point is on the map
+	 * @param posX
+	 * @param posY
+	 * @return
+	 */
+	private boolean isInsideMap(int posX, int posY) {
+		if (posX >= this.transformToBlock(this.mapWidth) || posY >= this.transformToBlock(this.mapHeight) || posX < 0
+				|| posY < 0) {
+			return false;
+		}
+		return true;
+	}
+	
 	/**
 	 * Creates recursivily the ores in the map
 	 * @param quantidade Quantity to go out
@@ -125,13 +129,13 @@ public class Map {
 	 */
 	private void spawn(int quantidade,int posX,int posY,String type)
 	{
-		if (posX >= this.transformToBlock(this.mapWidth) || posY >= this.transformToBlock(this.mapHeight) || posX < 0
-				|| posY < 0 || quantidade <= 0) {
+		if (!this.isInsideMap(posX, posY) || quantidade <= 0) {
 			return;
 		}
 		else if (this.lista_background.get(posX).get(posY).getType().equals("land")) {
-			BackGroundL novo = new BackGroundL(type, this.randomNumber(10000, 20000));
+			BackGroundL novo = new BackGroundL(posX*Map.division,posY*Map.division,type, this.randomNumber(10000, 20000));
 			this.lista_background.get(posX).set(posY, novo);
+			
 			boolean spam1 = true, spam2 = true, spam3 = true, spam4 = true;
 			while (spam1 || spam2 || spam3 || spam4) {
 				int numero = this.randomNumber(1, 4);
@@ -163,59 +167,56 @@ public class Map {
 			this.lista_background.add(new Array<BackGroundL>());
 			for(int j=0; j<this.transformToBlock(mapHeight);j++)
 			{
-				this.lista_background.get(i).add(new BackGroundL("land",0));
+				this.lista_background.get(i).add(new BackGroundL(i*Map.division,j*Map.division,"land",0));
 			}
 		}
-		for(int i=0;i<this.mapWidth/100-3*this.mapWidth/1000;i++)
+		ArrayList<String> tipos=new ArrayList<String>();
+		tipos.add("iron_ore");
+		tipos.add("copper_ore");
+		tipos.add("grass");
+		for(String it:tipos)
 		{
-			int placeX=this.randomNumber(1, this.transformToBlock(this.mapWidth));
-			int placeY=this.randomNumber(1, this.transformToBlock(this.mapHeight));
-			int quantidade=this.randomNumber(5,10);
-			String type="iron_ore";
-			this.spawn(quantidade, placeX, placeY, type);
-		}
-		for(int i=0;i<this.mapWidth/100-3*this.mapWidth/1000;i++)
-		{
-			int placeX=this.randomNumber(1, this.transformToBlock(this.mapWidth));
-			int placeY=this.randomNumber(1, this.transformToBlock(this.mapHeight));
-			int quantidade=this.randomNumber(5,10);
-			String type="copper_ore";
-			this.spawn(quantidade, placeX, placeY, type);
-		}
-		for(int i=0;i<this.mapWidth/100-5*this.mapWidth/1000;i++)
-		{
-			int placeX=this.randomNumber(1, this.transformToBlock(this.mapWidth));
-			int placeY=this.randomNumber(1, this.transformToBlock(this.mapHeight));
-			int quantidade=this.randomNumber(20,30);
-			String type="grass";
-			this.spawn(quantidade, placeX, placeY, type);
+			for(int i=0;i<this.mapWidth/100-3*this.mapWidth/1000;i++)
+			{
+				int placeX=this.randomNumber(1, this.transformToBlock(this.mapWidth));
+				int placeY=this.randomNumber(1, this.transformToBlock(this.mapHeight));
+				int quantidade=this.randomNumber(5,10);
+				this.spawn(quantidade, placeX, placeY, it);
+			}
 		}
 		
 	}
 	/**
-	 * Recreates the map
+	 * Makes all the material and person look for actors
 	 */
-	public int recreateMap()
+	public void recreateMap()
 	{
-		int i=0, j=0;
-		map = new Array<Array<Array<Entity>>>();
-		
-		for(i=0 ; i<this.transformToBlock(mapWidth) ;i++)
+		map= new Array<Array<Array<Entity>>>();
+		for(int i=0 ; i<this.transformToBlock(mapWidth) ;i++)
 		{
 			map.add(new Array<Array<Entity>>());
-			for(j=0; j<this.transformToBlock(mapHeight);j++)
+			for(int j=0; j<this.transformToBlock(mapHeight);j++)
 			{
 				map.get(i).add(new Array<Entity>());
 			}
 		}
-		this.lista_material.clear();
 		this.lista_material_toActor= new Array<MaterialL>();
-		return (i * j);
+		this.lista_person_toActor=new Array<PersonL>();
+		for(MaterialL it:this.lista_material)
+		{
+			this.lista_material_toActor.add(it);
+		}
+		for(PersonL it:this.lista_person)
+		{
+			this.lista_person_toActor.add(it);
+		}
 	}
-	
+	/**
+	 * Empty constructor
+	 */
 	public Map()
 	{
-		
+		Map.singleton=this;
 	}
 	/**
 	 * Transform a number to this map corresponding block
@@ -284,24 +285,14 @@ public class Map {
 
 		int quantity_x = this.transformToBlock(ent.getPosX()+ent.getWidth())-x + error_x;
 		int quantity_y = this.transformToBlock(ent.getPosY()+ent.getHeight())-y +  error_y;
-		
-		if(!(MaterialL.class.isAssignableFrom(ent.getClass()) || PersonL.class.isAssignableFrom(ent.getClass()))) {
-			if(Place.class.isAssignableFrom(ent.getClass()) || ConveyorL.class.isAssignableFrom(ent.getClass()) || InserterL.class.isAssignableFrom(ent.getClass()))
+		if(!MaterialL.class.isAssignableFrom(ent.getClass()))
+		{
+			if(!this.checkPositions(ent.getPosX(), ent.getPosY(), ent.getWidth(), ent.getHeight()))
 			{
-				if(this.checkPositions(ent.getPosX(), ent.getPosY(), ent.getWidth(), ent.getHeight(), true))
-				{
-					return false;
-				}
-			}
-			else
-			{
-				if(this.checkPositions(ent.getPosX(), ent.getPosY(), ent.getWidth(), ent.getHeight(), false))
-				{
-					return false;
-				}
+				return false;
 			}
 		}
-		if(!this.addEntityLista(ent))
+		if(!ent.addEntity())
 		{
 			return false;
 		}
@@ -340,7 +331,7 @@ public class Map {
 				this.map.get(i).get(j).removeValue(ent, false);
 			}
 		}
-		this.removeEntityLista(ent);
+		ent.removeEntity();
 	}
 
 	/**
@@ -350,13 +341,13 @@ public class Map {
 	 * @param width The width in pixels
 	 * @param height The height in pixels
 	 * @param ignoreMaterial True if I want to ignore the materials that are there of false otherwise
-	 * @return True if there is something there of false if it's empty
+	 * @return false if there is something there or true if it's empty
 	 */
-	private boolean checkPositions(int posX,int posY,int width,int height,boolean ignoreMaterial)
+	private boolean checkPositions(int posX,int posY,int width,int height)
 	{
 		if(posX>this.mapWidth || posX+width>this.mapWidth || posY>this.mapHeight || posY+height>this.mapHeight)
 		{
-			return true;
+			return false;
 		}
 		int x= this.transformToBlock(posX);
 		int y= this.transformToBlock(posY);
@@ -368,120 +359,22 @@ public class Map {
 		if(height%Map.division!=0) {
 			error_y++;
 		}
-		int quantity_x = this.transformToBlock(posX+width)-x + error_x;
-		int quantity_y = this.transformToBlock(posY+height)-y +  error_y;
-		for (int i = x; i < x + quantity_x ; i ++) {
-			for (int j = y; j < y + quantity_y; j ++) {
-				Array<Entity> elements= this.getMapBlock(i, j);
-				if(ignoreMaterial)
-				{
-					for(Entity it:elements)
-					{
-						if(!MaterialL.class.isAssignableFrom(it.getClass()))
-						{
-							return true;
-						}
+		int quantity_x = this.transformToBlock(posX + width) - x + error_x;
+		int quantity_y = this.transformToBlock(posY + height) - y + error_y;
+		
+		for (int i = x; i < x + quantity_x; i++) {
+			for (int j = y; j < y + quantity_y; j++) {
+				Array<Entity> elements = this.getMapBlock(i, j);
+				for (Entity it : elements) {
+					if (!MaterialL.class.isAssignableFrom(it.getClass())) {
+						return false;
 					}
 				}
-				else
-				{
-					if(elements.size!=0) return true;
-				}
 			}
-		}
-		return false;
-	}
-	/**
-	 * Adds the entity to the correct lista
-	 * @param ent The entity I want to add
-	 * @return true if possible to add or false otherwise
-	 */
-	public boolean addEntityLista(Entity ent)
-	{
-		if(ConveyorL.class.isAssignableFrom(ent.getClass()))
-		{
-			if(this.money>=ConveyorL.price)
-			{
-				this.money-=ConveyorL.price;
-				this.money_wasted+=ConveyorL.price;
-				this.lista_conveyor.add((ConveyorL) ent);
-			}
-			else
-				return false;
-			
-		}
-		else if(Place.class.isAssignableFrom(ent.getClass()))
-		{
-			if(FactoryL.class.isAssignableFrom(ent.getClass()) && this.money>=FactoryL.price)
-			{
-					this.money-=FactoryL.price;
-					this.money_wasted+=FactoryL.price;
-					this.lista_place.add((Place) ent);
-			}
-			else if(HouseL.class.isAssignableFrom(ent.getClass()) && this.money>=HouseL.price)
-			{
-				this.money-=HouseL.price;
-				this.money_wasted+=HouseL.price;
-				this.lista_place.add((Place) ent);
-			}
-			else if(MineL.class.isAssignableFrom(ent.getClass()) && this.money>=MineL.price)
-			{
-				this.money-=MineL.price;
-				this.money_wasted+=MineL.price;
-				this.lista_place.add((Place) ent);
-			}
-			else 
-				return false;
-		}
-		else if(InserterL.class.isAssignableFrom(ent.getClass()))
-		{
-			if(this.money>=InserterL.price)
-			{
-				this.money-=InserterL.price;
-				this.money_wasted+=InserterL.price;
-				this.lista_inserter.add((InserterL) ent);
-			}
-			else
-				return false;
-		}
-		else if(MaterialL.class.isAssignableFrom(ent.getClass()))
-		{
-			this.lista_material.add((MaterialL) ent);
-		}
-		else if(PersonL.class.isAssignableFrom(ent.getClass()))
-		{
-			this.lista_person.add((PersonL)ent);
 		}
 		return true;
 	}
 	
-	/**
-	 * Removes the entity to the correct lista
-	 * @param ent The entity I want to remove
-	 */
-	private void removeEntityLista(Entity ent)
-	{
-		if(ConveyorL.class.isAssignableFrom(ent.getClass()))
-		{
-			this.lista_conveyor.removeValue((ConveyorL) ent,false);
-		}
-		else if(Place.class.isAssignableFrom(ent.getClass()))
-		{
-			this.lista_place.removeValue((Place) ent,false);
-		}
-		else if(InserterL.class.isAssignableFrom(ent.getClass()))
-		{
-			this.lista_inserter.removeValue((InserterL) ent,false);
-		}
-		else if(MaterialL.class.isAssignableFrom(ent.getClass()))
-		{
-			this.lista_material.removeValue((MaterialL) ent,false);
-		}
-		else if(PersonL.class.isAssignableFrom(ent.getClass()))
-		{
-			this.lista_person.removeValue((PersonL)ent,false);
-		}
-	}
 	/**
 	 * 
 	 * @return Returns the map width

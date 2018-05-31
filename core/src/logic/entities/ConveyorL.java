@@ -10,6 +10,14 @@ import logic.Map;
  */
 public class ConveyorL extends Entity {
 	/**
+	 * Width of the conveyor
+	 */
+	public static int width=10;
+	/**
+	 * Height of the conveyor
+	 */
+	public static int height=10;
+	/**
 	 * The velocity of the Conveyor
 	 */
 	private int velocity=1;
@@ -22,10 +30,6 @@ public class ConveyorL extends Entity {
 	 */
 	private int movement_y = 0;
 	/**
-	 * The direction of the conveyor
-	 */
-	private int direction;
-	/**
 	 * Price of the conveyor
 	 */
 	public static int price=20;
@@ -37,7 +41,7 @@ public class ConveyorL extends Entity {
 	 * @param direction The direction he is going to push the materials. 1-top,2-right,3-bottom,4-left
 	 */
 	public ConveyorL(int posX, int posY,int direction) {
-		super(posX, posY, 10,10);
+		super(posX, posY, ConveyorL.width,ConveyorL.height);
 		this.direction=direction;
 		if(direction == 1) {	// Upwards
 			movement_y = +this.velocity;
@@ -52,26 +56,39 @@ public class ConveyorL extends Entity {
 			movement_x = -this.velocity;
 		}
 	}
-	
+	/**
+	 * 
+	 * @return Returns the x movement of the conveyor
+	 */
 	public int getMovementX() {
 		return movement_x;
 	}
+	/**
+	 * 
+	 * @return Returns the y movement of the conveyor
+	 */
 	public int getMovementY() {
 		return movement_y;
 	}
 
-
+	/**
+	 * Empty constructor
+	 */
 	public ConveyorL()
 	{
 		super();
 	}
 	/**
-	 * Moves all the materials on top of the conveyor
-	 * @param map The map this conveyor belongs
+	 * 
+	 * @return Returns the direction of the conveyor
 	 */
-	public void moveMaterials(Map map)
-	{
-		Array<Entity> elements= map.getMapPixel(this.getPosX(),this.getPosY());
+	public int getDirection() {
+		return direction;
+	}
+
+	@Override
+	public float handler() {
+		Array<Entity> elements= Map.singleton.getMapPixel(this.getPosX(),this.getPosY());
 		Array<MaterialL> to_move = new Array<MaterialL>();
 		for(Entity it:elements)
 		{
@@ -86,16 +103,15 @@ public class ConveyorL extends Entity {
 					&& this.getPosY() <= it.getPosY() + it.getHeight() / 2
 					&& it.getPosY() + it.getHeight() / 2 <= this.getPosY() + this.getHeight())
 			{	
-				it.moveMaterial(this.movement_x,this.movement_y,map);
+				it.moveMaterial(this.movement_x,this.movement_y);
 			}
 		}
+		return 0;
 	}
-	/**
-	 * 
-	 * @return Returns the direction of the conveyor
-	 */
-	public int getDirection() {
-		return direction;
+	@Override
+	public int getPrice() {
+		return ConveyorL.price;
 	}
+	
 	
 }

@@ -13,10 +13,8 @@ public class PersonList extends GroupExtension{
 	//public HashMap<String, Person> personMap = new HashMap<String, Person>();
 	// public ArrayList<Person> persons = new ArrayList<Person>();
 	
-	private GameStage game;
 
-	public PersonList(GameStage game) {
-		this.game = game;
+	public PersonList() {
 	}
 	
 	
@@ -30,9 +28,9 @@ public class PersonList extends GroupExtension{
 	
 	public void loadFromMap()
 	{
-		for(PersonL it:this.game.map.lista_person)
+		for(PersonL it:GameStage.singleton.map.lista_person)
 		{
-			PersonG novo=new PersonG(this.game,it);
+			PersonG novo=new PersonG(it);
 			this.addPerson(novo);
 		}
 	}

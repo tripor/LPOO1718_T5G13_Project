@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import graphic.entities.FactoryG;
 import graphic.entities.HouseG;
 import graphic.entities.MineG;
+import logic.Entity;
 import logic.Place;
 import logic.entities.FactoryL;
 import logic.entities.HouseL;
@@ -15,29 +16,23 @@ import logic.entities.MineL;
 
 
 public class PlaceList extends GroupExtension{
-
-	/**
-	 * The game that this group is in
-	 */
-	protected GameStage game;
 	/**
 	 * List containing all the place in the game
 	 */
-	public HashMap<String, PlaceGraphical> placeMap = new HashMap<String, PlaceGraphical>();
+	public HashMap<String, ActorExtension> placeMap = new HashMap<String, ActorExtension>();
 	
 	/**
 	 * Constructor for the Class Place List
 	 */
-	public PlaceList(GameStage game) {
-		this.game=game;
+	public PlaceList() {
 	}
 	/**
 	 * Missing Description
 	 * @param p
 	 * @return
 	 */
-	public boolean addPlace(PlaceGraphical p) {
-		if(this.game.map.addMap(p.instance))
+	public boolean addPlace(ActorExtension p) {
+		if(GameStage.singleton.map.addMap(p.instance))
 		{
 			this.addActor(p);
 			return true;
@@ -48,9 +43,9 @@ public class PlaceList extends GroupExtension{
 	 * Removes the Place from the game and the group of actors
 	 * @param p The place I want to remove
 	 */
-	public void removePlace(PlaceGraphical p) {
+	public void removePlace(ActorExtension p) {
 		this.removeActor(p);
-		this.game.map.removeMap(p.instance);
+		GameStage.singleton.map.removeMap(p.instance);
 	}
 	
 	public void removePlace(Place p) {
@@ -58,7 +53,7 @@ public class PlaceList extends GroupExtension{
 		{
 			if(((ActorExtension) it).getInstance()==p)
 			{
-				this.removePlace((PlaceGraphical) it);
+				this.removePlace((ActorExtension) it);
 			}
 		}
 	}
@@ -153,24 +148,27 @@ public class PlaceList extends GroupExtension{
 	/**
 	 * Loads all the Places to the screen
 	 */
+	
+	@Override
 	public void loadFromMap()
 	{
-		for(Place it:this.game.map.lista_place)
+		for(Entity it:GameStage.singleton.map.lista)
 		{
-			PlaceGraphical novo=null;
+			ActorExtension novo=null;
 			if(FactoryL.class.isAssignableFrom(it.getClass()))
 			{
-				novo=new FactoryG(this.game,it);
+				novo=new FactoryG(it);
 			}
 			else if(MineL.class.isAssignableFrom(it.getClass()))
 			{
-				novo=new MineG(this.game,it);
+				novo=new MineG(it);
 			}
 			else if(HouseL.class.isAssignableFrom(it.getClass()))
 			{
-				novo=new HouseG(this.game,it);
+				novo=new HouseG(it);
 			}
-			this.addPlace(novo);
+			if(novo!=null)
+				this.addPlace(novo);
 		}
 	}
 	

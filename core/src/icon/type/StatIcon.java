@@ -11,17 +11,15 @@ import graphic.GroupExtension;
 public class StatIcon extends GroupExtension  { 
 
 	private Label label;
-	private GameStage game;
 	private int posX;
 	private int posY;
 	
-	public StatIcon(GameStage game,int pos_x,int pos_y, final int width,final int height) {
-		this.game=game;
+	public StatIcon(int pos_x,int pos_y, final int width,final int height) {
 		label = new Label("0", new Label.LabelStyle(new BitmapFont(), null));
 		label.setColor(Color.GOLD);
 		label.setWidth(width-4);
 		label.setHeight(height);
-		label.setFontScale((1f*this.game.VIEWPORT_WIDTH)/960);
+		label.setFontScale((1f*GameStage.singleton.VIEWPORT_WIDTH)/960);
 		label.setWrap(true);
 		label.setEllipsis(false);
 		this.setPosition(pos_x, pos_y);
@@ -50,9 +48,15 @@ public class StatIcon extends GroupExtension  {
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		this.setText("Money: " + this.game.map().money);
-		this.setPosition(this.game.getCamera().position.x + this.posX - (this.game.VIEWPORT_WIDTH / 2),
-				this.game.getCamera().position.y + this.posY - (this.game.VIEWPORT_HEIGHT / 2));
+		this.setText("Money: " + GameStage.singleton.map().money);
+		this.setPosition(GameStage.singleton.getCamera().position.x + this.posX - (GameStage.singleton.VIEWPORT_WIDTH / 2),
+				GameStage.singleton.getCamera().position.y + this.posY - (GameStage.singleton.VIEWPORT_HEIGHT / 2));
 		super.draw(batch, parentAlpha);
+	}
+
+	@Override
+	public void loadFromMap() {
+		// TODO Auto-generated method stub
+		
 	}
 }

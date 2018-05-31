@@ -35,6 +35,7 @@ public class SaveState {
             String responseBody;
             try (Scanner scanner = new Scanner(response)) {
                 responseBody = scanner.useDelimiter("\\A").next();
+                scanner.close();
             }
             if(!responseBody.equals("Fail"))
             {
@@ -45,6 +46,7 @@ public class SaveState {
             {
             	load=null;
             }
+            response.close();
             
 		}  catch (IOException e) {
 		}
@@ -65,8 +67,6 @@ public class SaveState {
 			connection.setDoOutput(true);
 			connection.setRequestMethod("PUT");
 			connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-			// connection.setRequestProperty("Content-Length",
-			// String.valueOf(postData.length()));
 			PrintWriter out = new PrintWriter(connection.getOutputStream());
 			String name2 = "name=" + URLEncoder.encode(name, "UTF-8");
 			String email = "game=" + URLEncoder.encode(guardar, "UTF-8");

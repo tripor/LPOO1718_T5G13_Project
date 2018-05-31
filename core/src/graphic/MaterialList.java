@@ -5,22 +5,15 @@ import java.util.ArrayList;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import graphic.entities.MaterialG;
-import logic.Entity;
-import logic.entities.ConveyorL;
 import logic.entities.MaterialL;
 
 
 public class MaterialList extends GroupExtension {
-	/**
-	 * The game that this group is in
-	 */
-	protected GameStage game;
 
 	/**
 	 * Constructor for the class MaterialList
 	 */
-	public MaterialList(GameStage game) {
-		this.game = game;
+	public MaterialList() {
 	}
 	/**
 	 * Adds the material to the group and to the map
@@ -32,7 +25,7 @@ public class MaterialList extends GroupExtension {
 		return true;
 	}
 	public boolean addMaterialMap(MaterialG back) {
-		if(this.game.map.addMap(back.instance))
+		if(GameStage.singleton.map.addMap(back.instance))
 		{	
 			this.addActor(back);
 			return true;
@@ -65,21 +58,16 @@ public class MaterialList extends GroupExtension {
 	 */
 	public void loadFromMap()
 	{
-		ArrayList<MaterialG> add= new ArrayList<MaterialG>();
-		for(MaterialL it:this.game.map.lista_material)
+		ArrayList<MaterialL> elements= new ArrayList<MaterialL>();
+		for(MaterialL it:GameStage.singleton.map.lista_material)
 		{
-			for(Entity et:this.game.map.getMapPixel(it.getPosX(), it.getPosY()))
-			{
-				if(ConveyorL.class.isAssignableFrom(et.getClass()))
-				{					
-					MaterialG novo=new MaterialG(this.game,it);
-					add.add(novo);
-				}
-			}
+			elements.add(it);
 		}
-		for(MaterialG it:add)
+		GameStage.singleton.map.lista_material.clear();
+		for(MaterialL it:elements)
 		{
-			this.addMaterialMap(it);
+			MaterialG novo= new MaterialG(it);
+			this.addMaterialMap(novo);
 		}
 	}
 	/**
@@ -92,7 +80,7 @@ public class MaterialList extends GroupExtension {
 			if(((ActorExtension) it).getInstance()==p)
 			{
 				this.removeMaterial((MaterialG) it);
-				this.game.map().removeMap(p);
+				GameStage.singleton.map.removeMap(p);
 			}
 		}
 	}

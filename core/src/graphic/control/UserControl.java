@@ -53,9 +53,13 @@ public class UserControl implements InputProcessor  {
 				game.getCamera().translate(new Vector3(-5*this.game.scale(), 0, 0));
 				this.checkMapPosition();
 			}
-			//	if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-			//		//this.game.people().popPaths();
-			//	}
+			if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+				this.game.getMouse().isSelected = false;
+				this.game.getMouse().remove = false;
+			}
+			if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+				this.game.getMouse().rotateMouse();
+			}
 		}
 	}
 	/**
@@ -128,25 +132,6 @@ public class UserControl implements InputProcessor  {
 	}
 	@Override
 	public boolean keyDown(int keycode) {
-		if (!this.game.menuOpen) {
-			if (keycode == Input.Keys.ESCAPE) {
-				this.game.getMouse().isSelected = false;
-				this.game.getMouse().remove = false;
-			}
-			if (keycode == Input.Keys.Q) {
-				// this.game.generatePerson();
-			}
-			if (keycode == Input.Keys.R) {
-				this.game.getMouse().rotateMouse();
-			}
-			if (keycode == Input.Keys.P) {
-				//this.game.saveGame();
-			}
-			if (keycode == Input.Keys.O) {
-				//this.game.loadGame();
-			}
-		}
-
 		return false;
 	}
 	@Override

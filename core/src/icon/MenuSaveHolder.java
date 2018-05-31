@@ -11,29 +11,29 @@ public class MenuSaveHolder extends GroupExtension {
 	
 	private FieldIcon button4;
 	
-	public MenuSaveHolder(GameStage game,int width,int height)
+	public MenuSaveHolder(int width,int height)
 	{
-		int width_of_icons=57*game.VIEWPORT_WIDTH/200;
-		int height_of_icons=10*game.VIEWPORT_HEIGHT/100;
+		int width_of_icons=57*GameStage.singleton.VIEWPORT_WIDTH/200;
+		int height_of_icons=10*GameStage.singleton.VIEWPORT_HEIGHT/100;
 		
 		int pos_x=(int) (width/2.8);
 		int pos_y=(int) (height/3.2);
 		
-		MenuBackgroundIcon base=new MenuBackgroundIcon(game,width/3,(int) (height/3.5),width/3,height/2);
+		MenuBackgroundIcon base=new MenuBackgroundIcon(width/3,(int) (height/3.5),width/3,height/2);
 		base.setZ(9);
 		this.addActor(base);
 		
-		MenuCancelIcon button2= new MenuCancelIcon(game,pos_x,pos_y,width_of_icons,height_of_icons);
+		MenuCancelIcon button2= new MenuCancelIcon(pos_x,pos_y,width_of_icons,height_of_icons);
 		button2.setZ(10);
 		this.addActor(button2);
 		pos_y+=height_of_icons+1;
 		
-		MenuSaveIcon button3= new MenuSaveIcon(game,pos_x,pos_y,width_of_icons,height_of_icons);
+		MenuSaveIcon button3= new MenuSaveIcon(pos_x,pos_y,width_of_icons,height_of_icons);
 		button3.setZ(10);
 		this.addActor(button3);
 		pos_y+=height_of_icons+2;
 		
-		this.button4= new FieldIcon(game,pos_x,pos_y,width_of_icons,height_of_icons);
+		this.button4= new FieldIcon(pos_x,pos_y,width_of_icons,height_of_icons);
 		this.addActor(button4);
 		pos_y+=height_of_icons+1;
 		
@@ -44,5 +44,15 @@ public class MenuSaveHolder extends GroupExtension {
 	public String getText()
 	{
 		return this.button4.getText();
+	}
+	
+	public void setText(String text) {
+		this.button4.setText(text);
+	}
+
+	@Override
+	public void loadFromMap() {
+		// TODO Auto-generated method stub
+		
 	}
 }

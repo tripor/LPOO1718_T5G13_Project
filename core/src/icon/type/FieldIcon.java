@@ -14,10 +14,8 @@ public class FieldIcon extends GroupExtension{
 	private TextField button3;
 	protected final float pos_x;
 	protected final float pos_y;
-	private GameStage game;
 	
-	public FieldIcon(final GameStage game,int posX,int posY,int width,int height) {
-		this.game=game;
+	public FieldIcon(int posX,int posY,int width,int height) {
 		this.pos_x=posX;
 		this.pos_y=posY;
 		Skin uiSkin = new Skin(Gdx.files.internal("glassy-ui.json"));
@@ -28,17 +26,28 @@ public class FieldIcon extends GroupExtension{
 		this.addActor(button3);
 	}
 	
-	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		button3.setPosition(this.game.getCamera().position.x + this.pos_x - (this.game.VIEWPORT_WIDTH/2), this.game.getCamera().position.y + this.pos_y -(this.game.VIEWPORT_HEIGHT/2));
+		button3.setPosition(
+				GameStage.singleton.getCamera().position.x + this.pos_x - (GameStage.singleton.VIEWPORT_WIDTH / 2),
+				GameStage.singleton.getCamera().position.y + this.pos_y - (GameStage.singleton.VIEWPORT_HEIGHT / 2));
 		button3.draw(batch, parentAlpha);
 	}
-	
-	public String getText()
-	{
-		String devolver=this.button3.getText();
+
+	public String getText() {
+		String devolver = this.button3.getText();
 		this.button3.setText("");
 		return devolver;
+	}
+	
+	public void setText(String text) {
+		this.button3.setText(text);
+	}
+
+
+	@Override
+	public void loadFromMap() {
+		// TODO Auto-generated method stub
+		
 	}
 }

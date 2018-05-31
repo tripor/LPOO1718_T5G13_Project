@@ -11,7 +11,7 @@ import logic.entities.*;
 
 public class UnitTest {
 
-	@Test
+	/*@Test
 	public void initMap() {	
 		int mapWidth = (Map.division * 2) + 2,
 			mapHeight = (Map.division * 2) + 2;
@@ -186,7 +186,7 @@ public class UnitTest {
 			assertFalse(mine.handler());
 		}
 		assertTrue(mine.handler());*/
-	}
+	/*}
 	
 	@Test
 	public void tryPerson() {
@@ -246,6 +246,6 @@ public class UnitTest {
 		//	Map m = s.loadGame(name);
 		//	assertEquals(width, m.getMapWidth());
 		//	assertEquals(height, m.getMapHeight());
-	}
+	}*/
 
 }

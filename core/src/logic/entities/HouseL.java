@@ -2,12 +2,23 @@ package logic.entities;
 
 import logic.Map;
 import logic.Place;
-
+/**
+ * Handles the logic of the house
+ *
+ */
 public class HouseL extends Place {
 	/**
 	 * Price of the house
 	 */
 	public static int price=100;
+	/**
+	 * Width of the house
+	 */
+	public static int width=30;
+	/**
+	 * Height of the house
+	 */
+	public static int height=30;
 	/**
 	 * Constructor of the class House Logic with width 30 and height 30
 	 * @param posX The X position in pixels
@@ -16,7 +27,7 @@ public class HouseL extends Place {
 	 */
 	public HouseL(int posX,int posY,int doorAtBorder)
 	{
-		super(posX,posY,30,30,doorAtBorder);
+		super(posX,posY,HouseL.width,HouseL.height,doorAtBorder);
 	}
 	
 	public HouseL()
@@ -26,30 +37,43 @@ public class HouseL extends Place {
 	
 	public void handler(Map map)
 	{
-		if(map.lista_person.size==0 && map.lista_place.size>=2)
+		
+	}
+
+	@Override
+	public float handler() {
+		if(Map.singleton.lista_person.size==0 && Map.singleton.lista.size>=2)
 		{
-			int x=this.posX+this.width/2,y=this.posY+this.height/2;
-			switch(this.doorAtBorder)
+			int x=this.posX+HouseL.width/2,y=this.posY+HouseL.height/2;
+			switch(this.direction)
 			{
 				case 1:
-					y+=this.height/1.2;
+					y+=HouseL.height/1.2;
 					break;
 				case 2:
-					x+=this.width/1.2;
+					x+=HouseL.width/1.2;
 					break;
 				case 3:
-					y-=this.height/1.2;
+					y-=HouseL.height/1.2;
 					break;
 				case 4:
-					x-=this.width/1.2;
+					x-=HouseL.width/1.2;
 					break;
 			}
-			PersonL novo = new PersonL(x,y,map);
-			novo.setTarget(map.lista_place.get(1));
+			PersonL novo = new PersonL(x,y);
+			novo.setTarget((Place) Map.singleton.lista.get(1));
 			novo.id = 0;
-			map.lista_person.add(novo);
-			map.lista_person_toActor.add(novo);
+			Map.singleton.lista_person.add(novo);
+			Map.singleton.lista_person_toActor.add(novo);
 		}
+		return 0;
 	}
+
+	@Override
+	public int getPrice() {
+		return HouseL.price;
+	}
+
+	
 
 }

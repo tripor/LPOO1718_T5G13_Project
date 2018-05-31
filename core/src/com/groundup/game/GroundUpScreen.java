@@ -23,11 +23,6 @@ public class GroundUpScreen extends ScreenAdapter {
 	 * Control for the user
 	 */
 	public final UserControl userControl;
-
-    /**
-     * Controls all the conveyor frames on the screen
-     */
-    public float conveyorStateTime=0;
     
 	
 	/**
@@ -56,7 +51,7 @@ public class GroundUpScreen extends ScreenAdapter {
 		this.userControl.InputHandler(); 
 		
 		
-		this.conveyorStateTime+=Gdx.graphics.getDeltaTime();
+		GameStage.singleton.stateTime+=Gdx.graphics.getDeltaTime();
 		this.game.updateMaterials();
 
 		game.act();

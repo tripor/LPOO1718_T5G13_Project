@@ -1,8 +1,5 @@
 package logic.entities;
 
-import java.util.ArrayList;
-import java.util.UUID;
-
 import com.badlogic.gdx.utils.Array;
 
 import logic.Entity;
@@ -33,7 +30,7 @@ public class MaterialL extends Entity {
 	public MaterialL()
 	{
 		super();
-		this.id=1;
+		this.id=0;
 	}
 	/**
 	 * 
@@ -55,20 +52,64 @@ public class MaterialL extends Entity {
 	 * @param y_movement How much I want to move in pixels
 	 * @param map The map I want the material to move
 	 */
-	public void moveMaterial(int x_movement, int y_movement,Map map) {
+	public void moveMaterial(int x_movement, int y_movement) {
 		int new_x = this.getPosX() + x_movement;
 		int new_y = this.getPosY() + y_movement;
-		Array<Entity> elements = map.getMapPercisionPixel(new_x+this.getWidth()/2, new_y+this.getHeight()/2);
+		Array<Entity> elements = Map.singleton.getMapPercisionPixel(new_x+this.getWidth()/2, new_y+this.getHeight()/2);
 		for (Entity it : elements) {
 			if (ConveyorL.class.isAssignableFrom(it.getClass()) || this==it) {
 			} else {
 				return;
 			}
 		}
-		map.removeMap(this);
+		Map.singleton.removeMap(this);
 		this.posX=new_x;
 		this.posY=new_y;
-		map.addMap(this);
+		Map.singleton.addMap(this);
+	}
+
+	@Override
+	public float handler() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean receiveMaterial(MaterialL mat) {
+		return false;
+	}
+	
+	@Override
+	public MaterialL pickUp(String type) {
+		if(this.type.equals(type) || type.equals("any"))
+		{
+			Map.singleton.removeMap(this);
+			return this;
+		}
+		else
+			return null;
+	}
+
+	@Override
+	public boolean addEntity() {
+		if (Map.singleton.money >= this.getPrice()) {
+			Map.singleton.money -= this.getPrice();
+			Map.singleton.money_wasted += this.getPrice();
+			Map.singleton.lista_material.add(this);
+			this.id=0;
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public int getPrice() {
+		return 0;
+	}
+
+	@Override
+	public void removeEntity() {
+		Map.singleton.lista_material.removeValue(this, true);
 	}
 	
 	

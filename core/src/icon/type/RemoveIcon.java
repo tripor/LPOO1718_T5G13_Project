@@ -1,7 +1,6 @@
 package icon.type;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -10,60 +9,54 @@ import graphic.GameStage;
 import icon.Icon;
 
 public class RemoveIcon extends Icon {
-	private Texture[] frame=new Texture[3];
 	private boolean help=false;
-	private void createFactoryIcon() {
-		
-		frame[0] = this.game.getGame().getAssetManager().get("remove_icon.png");
-		frame[1] = this.game.getGame().getAssetManager().get("remove_icon_mouse.png");
-		frame[2] = this.game.getGame().getAssetManager().get("remove_icon_pressed.png");
-		
-		sprite = new Sprite(frame[0]);
-		sprite.setSize(this.getWidth(), this.getHeight());
-		sprite.setOrigin(this.getWidth()/2, this.getHeight()/2);
-	}
 	
-	public RemoveIcon(final GameStage game,int posX,int posY,int width,int height) {
-		super(game,posX,posY);
-		this.setWidth(width);
-		this.setHeight(height);
-		this.createFactoryIcon();
-		this.setPosition(posX, posY);
+	public RemoveIcon(int posX,int posY,int width,int height) {
+		super(posX,posY,width,height);
 		
 		this.addCaptureListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-            	if(game.getMouse().remove==false)
+            	if(GameStage.singleton.getMouse().remove==false)
             	{
-            		game.getMouse().remove=true;
-                    sprite.setTexture(frame[2]);
+            		GameStage.singleton.getMouse().remove=true;
+        	        sprite.setRegion(animation.getKeyFrame(2, false));
                     help=true;
             	}
             	else
             	{
-            		game.getMouse().remove=false;
-                    sprite.setTexture(frame[0]);
+            		GameStage.singleton.getMouse().remove=false;
+        	        sprite.setRegion(animation.getKeyFrame(0, false));
             	}
             		
             }
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
             {
-            	if(game.getMouse().remove==false)
-            		sprite.setTexture(frame[1]);
+            	if(GameStage.singleton.getMouse().remove==false)
+        	        sprite.setRegion(animation.getKeyFrame(1, false));
             }
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor)
             {
-            	if(game.getMouse().remove==false)
-            		sprite.setTexture(frame[0]);
+            	if(GameStage.singleton.getMouse().remove==false)
+        	        sprite.setRegion(animation.getKeyFrame(0, false));
             }
         });
 	}
 
 	@Override
 	public void update(float delta) {
-			if(this.game.getMouse().remove==false && this.help)
+			if(GameStage.singleton.getMouse().remove==false && this.help)
 			{
-                sprite.setTexture(frame[0]);
+    	        sprite.setRegion(animation.getKeyFrame(0, false));
 				this.help=false;
 			}
+	}
+
+	@Override
+	protected Texture[] createTexture() {
+		Texture[] frames=new Texture[3];
+		frames[0] = GameStage.singleton.getGame().getAssetManager().get("remove_icon.png");
+		frames[1] = GameStage.singleton.getGame().getAssetManager().get("remove_icon_mouse.png");
+		frames[2] = GameStage.singleton.getGame().getAssetManager().get("remove_icon_pressed.png");
+		return frames;
 	}
 }

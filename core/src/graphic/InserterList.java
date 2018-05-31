@@ -1,26 +1,18 @@
 package graphic;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import graphic.entities.InserterG;
-import logic.Place;
+import logic.Entity;
 import logic.entities.InserterL;
 
 
 public class InserterList extends GroupExtension{
-	
-	/**
-	 * The game that this group is in
-	 */
-	protected GameStage game;
 	/**
 	 * Constructor for the group of inserters of the game
 	 * @param game the game it belongs to
 	 */
-	public InserterList(GameStage game) {
-		this.game=game;
+	public InserterList() {
 	}
 	/**
 	 * Adds actor to the group and to the map
@@ -29,7 +21,7 @@ public class InserterList extends GroupExtension{
 	 */
 	public boolean addInserter(InserterG i) {
 
-		if(this.game.map.addMap(i.instance))
+		if(GameStage.singleton.map.addMap(i.instance))
 		{
 			this.addActor(i);
 			return true;
@@ -43,7 +35,7 @@ public class InserterList extends GroupExtension{
 	public void removeInserter(InserterG i)
 	{
 		this.removeActor(i);
-		this.game.map().removeMap(i.instance);
+		GameStage.singleton.map().removeMap(i.instance);
 	}
 	/**
 	 * Removes a inserter from the map and game
@@ -62,9 +54,12 @@ public class InserterList extends GroupExtension{
 	 * Loads all the inserters to the screen
 	 */
 	public void loadFromMap() {
-		for (InserterL it : this.game.map.lista_inserter) {
-			InserterG novo = new InserterG(this.game, it);
-			this.addInserter(novo);
+		for (Entity it : GameStage.singleton.map.lista) {
+			if(InserterL.class.isAssignableFrom(it.getClass()))
+			{
+				InserterG novo = new InserterG(it);
+				this.addInserter(novo);
+			}
 		}
 	}
 

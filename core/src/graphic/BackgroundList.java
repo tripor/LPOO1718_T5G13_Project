@@ -23,5 +23,10 @@ public class BackgroundList extends GroupExtension{
 		this.addActor(back);
 		
 	}
+	@Override
+	public void loadFromMap() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

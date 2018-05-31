@@ -14,9 +14,9 @@ public abstract class Place extends Entity {
 	 */
 	private ArrayList<MaterialL> internalStorage = new ArrayList<MaterialL>();
 	/**
-	 * Door at what border. 1-top,2-right,3-bottom,4-left
+	 * Storage that can be picked up
 	 */
-	protected int doorAtBorder;
+	private ArrayList<MaterialL> externalStorage = new ArrayList<MaterialL>();
 	/**
 	 * Constructor for the extend class
 	 * @param posX The X position in Pixels
@@ -28,7 +28,7 @@ public abstract class Place extends Entity {
 	protected Place(int posX,int posY,int width,int height,int doorAtBorder)
 	{
 		super(posX,posY,width,height);
-		this.doorAtBorder=doorAtBorder;
+		this.direction=doorAtBorder;
 	}
 	
 	protected Place()
@@ -44,51 +44,55 @@ public abstract class Place extends Entity {
 
 		mat.id=1;
 		
-		this.internalStorage.add(mat);
+		this.externalStorage.add(mat);
 	}
+	
 	/**
-	 * Removes a material form the place
-	 * @param type String name of material or "any" for the any material
-	 * @return the material or null if non
+	 * 
+	 * @return The position of the door
 	 */
-	public MaterialL removeMaterial(String type)
-	{
-		// Console.log(type);
-		
+	public int getDoorAtBorder() {
+		return this.direction;
+	}
+	@Override
+	public boolean receiveMaterial(MaterialL mat) {
+		this.addToStorage(mat);
+		Map.singleton.removeMap(mat);
+		return true;
+	}
+	@Override
+	public MaterialL pickUp(String type) {
 		if(type.equals("any"))
 		{
-			if(this.internalStorage.isEmpty())
+			if(this.externalStorage.isEmpty())
 			{
 				return null;
 			}
 			else
 			{
-				MaterialL devolver=this.internalStorage.get(0);
-				this.internalStorage.remove(0);
+				MaterialL devolver=this.externalStorage.get(0);
+				Map.singleton.lista_material_toActor.add(devolver);
+				devolver.id=0;
+				this.externalStorage.remove(0);
 				return devolver;
 			}
 		}
 		else
 		{
 			MaterialL devolver;
-			for(int i=0; i < this.internalStorage.size();i++)
+			for(int i=0; i < this.externalStorage.size();i++)
 			{
-				if(this.internalStorage.get(i).getType().equals(type))
+				if(this.externalStorage.get(i).getType().equals(type))
 				{
-					devolver=this.internalStorage.get(i);
-					this.internalStorage.remove(i);
+					devolver=this.externalStorage.get(i);
+					Map.singleton.lista_material_toActor.add(devolver);
+					devolver.id=0;
+					this.externalStorage.remove(i);
 					return devolver;
 				}
 			}
 		}
 		return null;
-	}
-	/**
-	 * 
-	 * @return The position of the door
-	 */
-	public int getDoorAtBorder() {
-		return doorAtBorder;
 	}
 	
 }

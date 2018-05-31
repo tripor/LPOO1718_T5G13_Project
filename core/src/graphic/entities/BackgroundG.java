@@ -1,11 +1,10 @@
 package graphic.entities;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import graphic.ActorExtension;
 import graphic.GameStage;
-import logic.Map;
+import logic.Entity;
 import logic.entities.BackGroundL;
 
 /**
@@ -13,33 +12,6 @@ import logic.entities.BackGroundL;
  *
  */
 public class BackgroundG extends ActorExtension {
-	
-	/**
-	 * Create a Graphic design of this Actor
-	 */
-	private void createBackground() {
-		Texture texture=null;
-		if(((BackGroundL)this.instance).getType().equals("iron_ore"))
-		{
-			texture = this.game.getGame().getAssetManager().get("land_iron.png");
-		}
-		else if(((BackGroundL)this.instance).getType().equals("grass"))
-		{
-			texture = this.game.getGame().getAssetManager().get("grass.png");
-		}
-		else if(((BackGroundL)this.instance).getType().equals("land"))
-		{
-			texture = this.game.getGame().getAssetManager().get("land.png");
-		}
-		else if(((BackGroundL)this.instance).getType().equals("copper_ore"))
-		{
-			texture = this.game.getGame().getAssetManager().get("land_copper.png");
-		}
-		
-
-		sprite = new Sprite(texture);
-		sprite.setSize(this.getWidth(), this.getHeight());
-	}
 	/**
 	 * Constructor for the graphical part of Background
 	 * @param top The X position
@@ -47,13 +19,9 @@ public class BackgroundG extends ActorExtension {
 	 * @param width The width
 	 * @param height The height
 	 */
-	public BackgroundG(GameStage game,int x, int y,BackGroundL inst) {
+	public BackgroundG(Entity inst) {
 		this.instance=inst;
-		this.game=game;
-		this.setWidth(Map.division*this.game.scale());
-		this.setHeight(Map.division*this.game.scale());
-		this.createBackground();
-		this.setPosition(x, y);
+		super.create();
 	}
 	
 	@Override
@@ -62,9 +30,10 @@ public class BackgroundG extends ActorExtension {
 		return "BackGround";
 	}
 	@Override
-	public void update(float delta) {
-		// TODO Auto-generated method stub
-		
+	protected Texture[] createTexture() {
+		Texture[] frames=new Texture[1];
+		frames[0] = GameStage.singleton.getGame().getAssetManager().get(((BackGroundL)this.instance).getTypeLand());
+		return frames;
 	}
 
 }

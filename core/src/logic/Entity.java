@@ -1,4 +1,8 @@
 package logic;
+
+import logic.entities.ConveyorL;
+import logic.entities.MaterialL;
+
 /**
  * General class for entities of the game
  *
@@ -20,6 +24,10 @@ public abstract class Entity {
 	 * The height in pixels
 	 */
 	protected int height;
+	/**
+	 * Direction it is facing
+	 */
+	protected int direction=4;
 	/**
 	 * Constructor for the extended classes
 	 * @param posX The x position in pixels
@@ -95,6 +103,58 @@ public abstract class Entity {
 	{
 		this.posX=posX;
 		this.posY=posY;
+	}
+	/**
+	 * Should be called to move entities
+	 * @return Float with information depending on the entity
+	 */
+	public abstract float handler();
+	/**
+	 * Entity tries to receive a material
+	 * @param mat The material to receive
+	 * @return True if it's able to receive a material or false otherwise
+	 */
+	public boolean receiveMaterial(MaterialL mat)
+	{
+		Map.singleton.addMap(mat);
+		mat.id=0;
+		return true;
+	}
+	/**
+	 * Tries to pick up from this entity
+	 * @param type The type of material trying to pick up
+	 * @return Null if can't of material the picked up material
+	 */
+	public MaterialL pickUp(String type) {
+		return null;
+	}
+	/**
+	 * Adds this entity to the list of the map
+	 * @return True if it's possible or false otherwise
+	 */
+	public boolean addEntity() {
+		if(Map.singleton.money>=ConveyorL.price)
+		{
+			Map.singleton.money-=ConveyorL.price;
+			Map.singleton.money_wasted+=ConveyorL.price;
+			Map.singleton.lista.add(this);
+			return true;
+		}
+		return false;
+	}
+	
+	public void removeEntity()
+	{
+		Map.singleton.lista.removeValue(this, true);
+	}
+	
+	public abstract int getPrice();
+	/**
+	 * 
+	 * @return Returns this entity facing direction
+	 */
+	public int getDirection() {
+		return this.direction;
 	}
 	
 	

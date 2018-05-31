@@ -20,10 +20,6 @@ public abstract class ActorExtension extends Actor implements Comparable<Object>
 	 */
 	protected Sprite sprite;
 	/**
-	 * The game that this actor is in
-	 */
-	protected GameStage game;
-	/**
 	 * Animation for the actor
 	 */
 	protected Animation<Texture> animation;
@@ -100,12 +96,15 @@ public abstract class ActorExtension extends Actor implements Comparable<Object>
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		if(!this.game.menuOpen)
+		if(!GameStage.singleton.menuOpen)
+		{
 			this.update(Gdx.graphics.getDeltaTime());
-		if (this.game.pixelOnScreen(this.getX(),this.getY())
-				|| this.game.pixelOnScreen(this.getX()+this.getWidth(),this.getY())
-				|| this.game.pixelOnScreen(this.getX(),this.getY()+this.getHeight())
-				|| this.game.pixelOnScreen(this.getX()+this.getWidth(),this.getY()+this.getHeight())) {
+		}
+		if (GameStage.singleton.pixelOnScreen(this.getX(),this.getY())
+				|| GameStage.singleton.pixelOnScreen(this.getX()+this.getWidth(),this.getY())
+				|| GameStage.singleton.pixelOnScreen(this.getX(),this.getY()+this.getHeight())
+				|| GameStage.singleton.pixelOnScreen(this.getX()+this.getWidth(),this.getY()+this.getHeight())) {
+	        sprite.setRegion(animation.getKeyFrame(GameStage.singleton.stateTime, true));
 			sprite.draw(batch);
 
 		}
@@ -114,13 +113,39 @@ public abstract class ActorExtension extends Actor implements Comparable<Object>
 	 * Call this every frame 
 	 * @param delta Time since the last frame
 	 */
-	public abstract void update(float delta);
+	public void update(float delta)
+	{
+		this.instance.handler();
+	}
 	/**
 	 * 
 	 * @return Returns the entity of this actor
 	 */
 	public Entity getInstance() {
 		return instance;
+	}
+	
+	protected abstract Texture[] createTexture();
+
+	
+	protected void create()
+	{
+		this.setWidth(this.instance.getWidth()*GameStage.singleton.scale());
+		this.setHeight(this.instance.getHeight()*GameStage.singleton.scale());
+		this.spriteCreator();
+		this.setPosition(this.instance.getPosX()*GameStage.singleton.scale(), this.instance.getPosY()*GameStage.singleton.scale());
+	}
+	
+	protected void spriteCreator()
+	{
+		this.animation= new Animation<Texture>(.25f,this.createTexture());
+		
+		sprite = new Sprite(animation.getKeyFrame(0));
+		sprite.setSize(this.getWidth(), this.getHeight());
+		sprite.setOrigin(this.getWidth()/2, this.getHeight()/2);
+		int direction=this.instance.getDirection();
+		if(direction!=4)
+			sprite.rotate(-90*direction);
 	}
 	
 	

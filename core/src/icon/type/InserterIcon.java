@@ -1,6 +1,6 @@
 package icon.type;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -9,26 +9,13 @@ import graphic.GameStage;
 import icon.Icon;
 
 public class InserterIcon  extends Icon  { 
-
-	private void createFactoryIcon() {
-		
-		frames[0] = this.game.getGame().getAssetManager().get("inserter_base.png");
-
-		sprite = new Sprite(frames[0]);
-		sprite.setSize(this.getWidth(), this.getHeight());
-		sprite.setOrigin(this.getWidth()/2, this.getHeight()/2);
-	}
 	
-	public InserterIcon(final GameStage game,int posX,int posY,final int width,final int height, final LabelIcon label) {
-		super(game,posX,posY);
-		this.setWidth(width);
-		this.setHeight(height);
-		this.createFactoryIcon();
-		this.setPosition(posX, posY);
+	public InserterIcon(int posX,int posY,int width,int height, final LabelIcon label) {
+		super(posX,posY,width,height);
 		
 		this.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-            		game.getMouse().createMouse("inserter_direction.png", 10, 10);
+            		GameStage.singleton.getMouse().createMouse("inserter_direction.png", 10, 10);
             }
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
             {
@@ -43,6 +30,13 @@ public class InserterIcon  extends Icon  {
 
 	@Override
 	public void update(float delta) {
+	}
+
+	@Override
+	protected Texture[] createTexture() {
+		Texture[] frames=new Texture[1];
+		frames[0] = GameStage.singleton.getGame().getAssetManager().get("inserter_base.png");
+		return frames;
 	}
 	
 }

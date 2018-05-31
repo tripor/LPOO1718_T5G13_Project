@@ -14,19 +14,17 @@ public class LabelIcon extends GroupExtension  {
 
 	private Label label;
 	private MenuBackgroundIcon back;
-	private GameStage game;
 	
-	public LabelIcon(final GameStage game,final int width,final int height) {
-		this.game=game;
+	public LabelIcon(final int width,final int height) {
 
-		back= new MenuBackgroundIcon(game,0,0,width,height);
+		back= new MenuBackgroundIcon(0,0,width,height);
 		this.addActor(back);
 		
 		label = new Label("0", new Label.LabelStyle(new BitmapFont(), null));
 		label.setColor(Color.BLACK);
-		label.setWidth(width-4*this.game.VIEWPORT_WIDTH/256);
+		label.setWidth(width-4*GameStage.singleton.VIEWPORT_WIDTH/256);
 		label.setHeight(height);
-		label.setFontScale((1f*this.game.VIEWPORT_WIDTH)/960);
+		label.setFontScale((1f*GameStage.singleton.VIEWPORT_WIDTH)/960);
 		label.setWrap(true);
 		label.setEllipsis(false);
 		
@@ -36,11 +34,13 @@ public class LabelIcon extends GroupExtension  {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		Vector3 mouse_pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-		this.game.getViewport().unproject(mouse_pos);
-		label.setPosition(mouse_pos.x + 3*this.game.VIEWPORT_WIDTH/256, mouse_pos.y + 3);
-		back.setIconPosition(mouse_pos.x + 3 - this.game.getCamera().position.x + (this.game.VIEWPORT_WIDTH / 2),
-				mouse_pos.y + 3 - this.game.getCamera().position.y + (this.game.VIEWPORT_HEIGHT / 2));
-		super.draw(batch,parentAlpha);
+		GameStage.singleton.getViewport().unproject(mouse_pos);
+		label.setPosition(mouse_pos.x + 3 * GameStage.singleton.VIEWPORT_WIDTH / 256, mouse_pos.y + 3);
+		back.setIconPosition(
+				mouse_pos.x + 3 - GameStage.singleton.getCamera().position.x + (GameStage.singleton.VIEWPORT_WIDTH / 2),
+				mouse_pos.y + 3 - GameStage.singleton.getCamera().position.y
+						+ (GameStage.singleton.VIEWPORT_HEIGHT / 2));
+		super.draw(batch, parentAlpha);
 	}
 	
 	public void setText(String text) {
@@ -54,5 +54,10 @@ public class LabelIcon extends GroupExtension  {
 	public Label getLabel()
 	{
 		return this.label;
+	}
+	@Override
+	public void loadFromMap() {
+		// TODO Auto-generated method stub
+		
 	}
 }

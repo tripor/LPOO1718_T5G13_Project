@@ -71,4 +71,9 @@ public class IconList extends GroupExtension{
 		}
 		return null;
 	}
+	@Override
+	public void loadFromMap() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -35,6 +35,8 @@ public class MenuStage extends Stage {
      */
     private OrthographicCamera camera;
     
+    public static MenuStage singleton;
+    
 	/**
 	 * Constructor of the class GameStage
 	 * It creates a viewport and loads all the texture of the game
@@ -42,11 +44,11 @@ public class MenuStage extends Stage {
 	 */
 	public MenuStage(GroundUpGame game) {
 	    this.game=game;
+		MenuStage.singleton=this;
 		this.icon_list= new IconList();
 		this.icon_list.setZ(5);
 		this.addActor(icon_list);
 		this.getActors().sort();
-			
 		
 		
 		// Set the viewport
@@ -70,7 +72,7 @@ public class MenuStage extends Stage {
 	 */
 	private void initializeIcons()
 	{
-		InicialHolder build_icon= new InicialHolder(this,this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT);
+		InicialHolder build_icon= new InicialHolder(this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT);
 		this.icon_list.addIcon(build_icon);
 		
 		this.icon_list.setHolder(1);

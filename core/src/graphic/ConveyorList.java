@@ -3,9 +3,8 @@ package graphic;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import graphic.entities.ConveyorG;
-import graphic.entities.InserterG;
+import logic.Entity;
 import logic.entities.ConveyorL;
-import logic.entities.InserterL;
 
 /**
  * Saves the conveyor in map
@@ -13,15 +12,10 @@ import logic.entities.InserterL;
  */
 public class ConveyorList extends GroupExtension{
 	/**
-	 * The game that this group is in
-	 */
-	protected GameStage game;
-	/**
 	 * Constructor for the group of conveyors
 	 * @param game
 	 */
-	public ConveyorList(GameStage game) {
-		this.game=game;
+	public ConveyorList() {
 	}
 	/**
 	 * Adds a conveyor to the group of actors and to the map
@@ -30,7 +24,7 @@ public class ConveyorList extends GroupExtension{
 	 */
 	public boolean addConveyor(ConveyorG c) {
 
-		if(this.game.map.addMap(c.instance))
+		if(GameStage.singleton.map.addMap(c.instance))
 		{	
 			this.addActor(c);
 			return true;
@@ -43,7 +37,7 @@ public class ConveyorList extends GroupExtension{
 	 */
 	public void removeConveyor(ConveyorG c) {
 		this.removeActor(c);
-		this.game.map().removeMap(c.instance);
+		GameStage.singleton.map().removeMap(c.instance);
 	}
 	public void removeConveyor(ConveyorL p) {
 		for(Actor it:this.getChildren())
@@ -59,10 +53,12 @@ public class ConveyorList extends GroupExtension{
 	 */
 	public void loadFromMap()
 	{
-		for(ConveyorL it:this.game.map.lista_conveyor)
+		for(Entity it:GameStage.singleton.map.lista)
 		{
-			ConveyorG novo=new ConveyorG(this.game,it);
-			this.addConveyor(novo);
+			if (ConveyorL.class.isAssignableFrom(it.getClass())) {
+				ConveyorG novo = new ConveyorG(it);
+				this.addConveyor(novo);
+			}
 		}
 	}
 	

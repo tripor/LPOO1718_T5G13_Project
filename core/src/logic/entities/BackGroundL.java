@@ -1,6 +1,7 @@
 package logic.entities;
 
 import logic.Entity;
+import logic.Map;
 
 /**
  * Class that handles the logic of the background
@@ -20,8 +21,9 @@ public class BackGroundL extends Entity {
 	 * @param type The type of material of the land
 	 * @param quantity The quantity of the material in the land
 	 */
-	public BackGroundL(String type,int quantity)
+	public BackGroundL(int posX,int posY,String type,int quantity)
 	{
+		super(posX,posY,Map.division,Map.division);
 		this.type=type;
 		this.quantity=quantity;
 	}
@@ -37,6 +39,29 @@ public class BackGroundL extends Entity {
 		return type;
 	}
 	/**
+	 * 
+	 * @return Returns the name of the land.png
+	 */
+	public String getTypeLand() {
+		if(this.type.equals("iron_ore"))
+		{
+			return "land_iron.png";
+		}
+		else if(this.type.equals("grass"))
+		{
+			return "grass.png";
+		}
+		else if(this.type.equals("land"))
+		{
+			return "land.png";
+		}
+		else if(this.type.equals("copper_ore"))
+		{
+			return "land_copper.png";
+		}
+		return "";
+	}
+	/**
 	 * Removes one material form the land if there is one available
 	 * @return True if there is a material or false otherwise
 	 */
@@ -47,6 +72,22 @@ public class BackGroundL extends Entity {
 		}
 		else
 			return false;
+	}
+	@Override
+	public float handler() {
+		return 0;
+		
+	}
+	@Override
+	public boolean addEntity() {
+		return true;
+	}
+	@Override
+	public int getPrice() {
+		return 0;
+	}
+	@Override
+	public void removeEntity() {
 	}
 	
 	

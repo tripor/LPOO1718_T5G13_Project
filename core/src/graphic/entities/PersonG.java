@@ -1,49 +1,34 @@
 package graphic.entities;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import graphic.ActorExtension;
 import graphic.GameStage;
+import logic.Entity;
 import logic.entities.PersonL;
 
 public class PersonG extends ActorExtension{
 	
-	private void createWorker()	{
-		
-		Texture texture = this.game.getGame().getAssetManager().get("worker.png");
-		
-		sprite = new Sprite(texture);
-		sprite.setSize(this.getWidth(), this.getHeight());
-		
-		this.setDebug(true);
-	}
-	
-	public PersonG(GameStage game) {
+	public PersonG() {
 		this.instance= null;
-		this.game=game;
 	}
 	
-	public PersonG(GameStage game, PersonL in) {
+	public PersonG(Entity in) {
 		this.instance=in;
-		this.game=game;
-		this.setWidth(this.instance.getWidth()*game.scale());
-		this.setHeight(this.instance.getHeight()*game.scale());
-		this.createWorker();
-		this.setPosition(this.instance.getPosX()*game.scale(), this.instance.getPosY()*game.scale());
+		super.create();
 	}
 
 	@Override
 	public void update(float delta) {
 		if(this.instance!=null)
 		{
-			this.setPosition(this.instance.getPosX()*game.scale(),this.instance.getPosY()*game.scale());
+			this.setPosition(this.instance.getPosX()*GameStage.singleton.scale(),this.instance.getPosY()*GameStage.singleton.scale());
 			if(((PersonL)this.instance).id==1)
 			{
 				this.setVisible(false);
 				this.instance=null;
-				this.game.unused_person.add(this);
-				this.game.people().removePerson(this);
+				GameStage.singleton.unused_person.add(this);
+				GameStage.singleton.people().removePerson(this);
 			}
 			else if(((PersonL)this.instance).id==0)
 			{
@@ -56,10 +41,14 @@ public class PersonG extends ActorExtension{
 	public void setInstance(PersonL mat)
 	{
 		this.instance=mat;
-		this.setWidth(this.instance.getWidth()*game.scale());
-		this.setHeight(this.instance.getHeight()*game.scale());
-		this.createWorker();
-		this.setPosition(mat.getPosX()*game.scale(), mat.getPosY()*game.scale());
+		super.create();
+	}
+
+	@Override
+	protected Texture[] createTexture() {
+		Texture[] frames=new Texture[1];
+		frames[0] = GameStage.singleton.getGame().getAssetManager().get("worker.png");
+		return null;
 	}
 	
 }
