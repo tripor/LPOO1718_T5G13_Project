@@ -13,7 +13,9 @@ import graphic.entities.FactoryG;
 import graphic.entities.HouseG;
 import graphic.entities.InserterG;
 import graphic.entities.MineG;
+import graphic.entities.SmelterG;
 import logic.Map;
+import logic.entities.FactoryL;
 /**
  * Class that handles related mouse events
  *
@@ -27,6 +29,7 @@ public class Mouse extends ActorExtension {
 	private int width;
 	private int height;
 	private int doorPosition=4;
+	public FactoryL selected;
 	/**
 	 * If i want to remove things from map
 	 */
@@ -55,8 +58,6 @@ public class Mouse extends ActorExtension {
 
 		if(this.doorPosition!=4)
 			sprite.rotate(-90*doorPosition);
-		
-		this.setDebug(true);
 		
 		this.isSelected=true;
 	}
@@ -105,6 +106,12 @@ public class Mouse extends ActorExtension {
 			if(this.type.equals("house.png"))
 			{
 				HouseG h= new HouseG(x,y,this.doorPosition);
+				if(GameStage.singleton.places().addPlace(h))
+					this.isSelected=false;
+			}
+			if(this.type.equals("smelter.png"))
+			{
+				SmelterG h= new SmelterG(x,y,this.doorPosition);
 				if(GameStage.singleton.places().addPlace(h))
 					this.isSelected=false;
 			}

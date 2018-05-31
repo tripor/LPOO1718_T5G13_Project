@@ -67,6 +67,16 @@ public class MaterialL extends Entity {
 		this.posY=new_y;
 		Map.singleton.addMap(this);
 	}
+	/**
+	 * Smelts the material if possible
+	 */
+	public void smelt()
+	{
+		if(this.type.equals("iron_ore"))
+			type="iron_plate";
+		else if(this.type.equals("copper_ore"))
+			type="copper_plate";
+	}
 
 	@Override
 	public float handler() {

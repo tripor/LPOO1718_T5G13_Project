@@ -10,11 +10,13 @@ import icon.type.HouseIcon;
 import icon.type.InserterIcon;
 import icon.type.LabelIcon;
 import icon.type.MineIcon;
+import icon.type.SmelterIcon;
 import logic.entities.ConveyorL;
 import logic.entities.FactoryL;
 import logic.entities.HouseL;
 import logic.entities.InserterL;
 import logic.entities.MineL;
+import logic.entities.SmelterL;
 
 public class BuildHolder extends GroupExtension {
 	
@@ -40,16 +42,7 @@ public class BuildHolder extends GroupExtension {
 		width_of_icons=20*GameStage.singleton.VIEWPORT_WIDTH/200;
 		height_of_icons=15*GameStage.singleton.VIEWPORT_HEIGHT/100;
 	
-		LabelIcon label= new LabelIcon(40*GameStage.singleton.VIEWPORT_WIDTH/200,25*GameStage.singleton.VIEWPORT_HEIGHT/100);
-		label.setZ(11);
-		label.setVisible(false);
-		label.setText("Factory\nA Factory accepts items from a inserter and produces new products to be delivered to the houses.Costs:"+FactoryL.price);
-		this.addActor(label);
 		
-		FactoryIcon button3= new FactoryIcon(pos_x,pos_y,width_of_icons,height_of_icons,label);
-		button3.setZ(10);
-		this.addActor(button3);
-		pos_x+=width_of_icons+1;
 		
 		LabelIcon label2= new LabelIcon(40*GameStage.singleton.VIEWPORT_WIDTH/200,25*GameStage.singleton.VIEWPORT_HEIGHT/100);
 		label2.setZ(11);
@@ -60,6 +53,28 @@ public class BuildHolder extends GroupExtension {
 		MineIcon button4= new MineIcon(pos_x,pos_y,width_of_icons,height_of_icons,label2);
 		button4.setZ(10);
 		this.addActor(button4);
+		pos_x+=width_of_icons+1;
+		
+		LabelIcon label6= new LabelIcon(40*GameStage.singleton.VIEWPORT_WIDTH/200,25*GameStage.singleton.VIEWPORT_HEIGHT/100);
+		label6.setZ(11);
+		label6.setVisible(false);
+		label6.setText("Smelter\nA Smelter transforms ores materials into plates materials. Costs:"+SmelterL.price);
+		this.addActor(label6);
+		
+		SmelterIcon button8= new SmelterIcon(pos_x,pos_y,width_of_icons,height_of_icons,label6);
+		button8.setZ(10);
+		this.addActor(button8);
+		pos_x+=width_of_icons+1;
+		
+		LabelIcon label= new LabelIcon(40*GameStage.singleton.VIEWPORT_WIDTH/200,25*GameStage.singleton.VIEWPORT_HEIGHT/100);
+		label.setZ(11);
+		label.setVisible(false);
+		label.setText("Factory\nA Factory accepts items from a inserter and produces new products to be delivered to the houses.Costs:"+FactoryL.price);
+		this.addActor(label);
+		
+		FactoryIcon button3= new FactoryIcon(pos_x,pos_y,width_of_icons,height_of_icons,label);
+		button3.setZ(10);
+		this.addActor(button3);
 		pos_x+=width_of_icons+1;
 		
 		LabelIcon label3= new LabelIcon(40*GameStage.singleton.VIEWPORT_WIDTH/200,25*GameStage.singleton.VIEWPORT_HEIGHT/100);

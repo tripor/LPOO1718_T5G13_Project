@@ -74,6 +74,13 @@ public class HouseL extends Place {
 		return HouseL.price;
 	}
 
+	@Override
+	public boolean receiveMaterial(MaterialL mat) {
+		this.addToStorage(mat);
+		Map.singleton.removeMap(mat);
+		return true;
+	}
+
 	
 
 }

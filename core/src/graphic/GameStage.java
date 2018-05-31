@@ -19,6 +19,7 @@ import icon.MenuHolder;
 import icon.MenuLoadHolder;
 import icon.MenuSaveHolder;
 import icon.NormalHolder;
+import icon.SelectedHolder;
 import icon.type.LoadingIcon;
 import logic.Map;
 import logic.SaveState;
@@ -165,6 +166,7 @@ public class GameStage extends Stage {
 	    game.getAssetManager().finishLoading();
 	    
 	    game.getAssetManager().load("factory.png", Texture.class);
+	    game.getAssetManager().load("smelter.png", Texture.class);
 	    game.getAssetManager().load("house.png", Texture.class);
 	    game.getAssetManager().load("menu_icon.png", Texture.class);
 	    game.getAssetManager().load("conveyor_icon.png", Texture.class);
@@ -177,6 +179,8 @@ public class GameStage extends Stage {
 	    game.getAssetManager().load("copper_ore.png", Texture.class);
 	    game.getAssetManager().load("iron_plate.png", Texture.class);
 	    game.getAssetManager().load("copper_plate.png", Texture.class);
+	    game.getAssetManager().load("copper_cable.png", Texture.class);
+	    game.getAssetManager().load("electronic_circuit.png", Texture.class);
 	    
 	    
 	    game.getAssetManager().load("build_icon.png", Texture.class);
@@ -188,6 +192,8 @@ public class GameStage extends Stage {
 	    game.getAssetManager().load("menu_icon_mouse.png", Texture.class);
 	    game.getAssetManager().load("cancel_icon.png", Texture.class);
 	    game.getAssetManager().load("cancel_icon_mouse.png", Texture.class);
+	    game.getAssetManager().load("button.png", Texture.class);
+	    game.getAssetManager().load("button_pressed.png", Texture.class);
 	    
 
 	    game.getAssetManager().load("menu_resume.png", Texture.class);
@@ -266,6 +272,9 @@ public class GameStage extends Stage {
 		
 		MenuLoadHolder icon5= new MenuLoadHolder(this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT);
 		this.icon_list.addIcon(icon5);
+		
+		SelectedHolder icon6= new SelectedHolder(this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT/3);
+		this.icon_list.addIcon(icon6);
 		this.icon_list.setHolder(1);
 	}
     

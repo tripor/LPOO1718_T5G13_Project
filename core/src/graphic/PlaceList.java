@@ -7,11 +7,13 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import graphic.entities.FactoryG;
 import graphic.entities.HouseG;
 import graphic.entities.MineG;
+import graphic.entities.SmelterG;
 import logic.Entity;
 import logic.Place;
 import logic.entities.FactoryL;
 import logic.entities.HouseL;
 import logic.entities.MineL;
+import logic.entities.SmelterL;
 
 
 
@@ -166,6 +168,10 @@ public class PlaceList extends GroupExtension{
 			else if(HouseL.class.isAssignableFrom(it.getClass()))
 			{
 				novo=new HouseG(it);
+			}
+			else if(SmelterL.class.isAssignableFrom(it.getClass()))
+			{
+				novo=new SmelterG(it);
 			}
 			if(novo!=null)
 				this.addPlace(novo);

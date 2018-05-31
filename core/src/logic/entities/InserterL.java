@@ -85,9 +85,7 @@ public class InserterL extends Entity {
 		this.blocked=false;
 		if(element.size==0)
 		{ 
-			Map.singleton.addMap(pickup);
-			this.pickup = null;
-			this.blocked = false;
+			this.blocked = true;
 		} else {
 			for(Entity it:element)
 			{

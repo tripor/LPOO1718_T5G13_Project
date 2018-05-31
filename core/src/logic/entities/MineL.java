@@ -20,14 +20,6 @@ public class MineL extends Place{
 	 */
 	public static int price=150;
 	/**
-	 * Time it takes to make a new material
-	 */
-	private int time_make_material=100;
-	/**
-	 * Time
-	 */
-	private int time=0;
-	/**
 	 * Constructor for the logic class mine
 	 * @param posX The X position in pixels
 	 * @param posY The Y position in pixels
@@ -45,7 +37,7 @@ public class MineL extends Place{
 	@Override
 	public float handler() {
 		time++;
-		if(time>=this.time_make_material)
+		if(time>=this.work_time)
 		{
 			time=0;
 			BackGroundL to_retrive=Map.singleton.getBackGroundPoint(this.posX, this.posY);
@@ -57,7 +49,7 @@ public class MineL extends Place{
 			{
 				if(to_retrive.getMaterial())
 				{
-					this.addToStorage(new MaterialL(0,0,to_retrive.getType()));
+					this.addToExternalStorage(new MaterialL(0,0,to_retrive.getType()));
 					return 1;
 				}
 			}
@@ -68,6 +60,11 @@ public class MineL extends Place{
 	@Override
 	public int getPrice() {
 		return MineL.price;
+	}
+
+	@Override
+	public boolean receiveMaterial(MaterialL mat) {
+		return false;
 	}
 
 }

@@ -366,10 +366,9 @@ public class Map {
 		for (int i = x; i < x + quantity_x; i++) {
 			for (int j = y; j < y + quantity_y; j++) {
 				Array<Entity> elements = this.getMapBlock(i, j);
-				for (Entity it : elements) {
-					if (!MaterialL.class.isAssignableFrom(it.getClass())) {
+				for(Entity it:elements) {
+					if(!MaterialL.class.isAssignableFrom(it.getClass()))
 						return false;
-					}
 				}
 			}
 		}

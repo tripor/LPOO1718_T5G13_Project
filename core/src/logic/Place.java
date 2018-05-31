@@ -17,6 +17,15 @@ public abstract class Place extends Entity {
 	 * Storage that can be picked up
 	 */
 	private ArrayList<MaterialL> externalStorage = new ArrayList<MaterialL>();
+
+	/**
+	 * Time it takes to make a new material
+	 */
+	protected int work_time=100;
+	/**
+	 * Time
+	 */
+	protected int time=0;
 	/**
 	 * Constructor for the extend class
 	 * @param posX The X position in Pixels
@@ -48,6 +57,22 @@ public abstract class Place extends Entity {
 		
 		this.internalStorage.add(mat);
 	}
+	/**
+	 * Adds a material to the external storage
+	 * @param mat The material I want to add
+	 */
+	public void addToExternalStorage(MaterialL mat) {
+		mat.setId(1);
+		this.externalStorage.add(mat);
+	}
+	/**
+	 * Moves the material from internal to external storage
+	 * @param mat
+	 */
+	public void moveToExternal(MaterialL mat) {
+		this.internalStorage.remove(mat);
+		this.externalStorage.add(mat);
+	}
 	
 	/**
 	 * 
@@ -57,11 +82,8 @@ public abstract class Place extends Entity {
 		return this.direction;
 	}
 	@Override
-	public boolean receiveMaterial(MaterialL mat) {
-		this.addToStorage(mat);
-		Map.singleton.removeMap(mat);
-		return true;
-	}
+	public abstract boolean receiveMaterial(MaterialL mat);
+	
 	@Override
 	public MaterialL pickUp(String type) {
 		if(type.equals("any"))

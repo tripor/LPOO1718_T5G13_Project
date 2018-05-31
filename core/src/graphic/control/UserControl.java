@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.TextureArrayData.Factory;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
 import graphic.GameStage;
+import icon.SelectedHolder;
 import logic.Entity;
 import logic.Place;
 import logic.entities.ConveyorL;
+import logic.entities.FactoryL;
 import logic.entities.InserterL;
 import logic.entities.MaterialL;
 import logic.entities.PersonL;
@@ -130,6 +133,22 @@ public class UserControl implements InputProcessor  {
 			}
 		}
 	}
+	
+	private void select() {
+		Vector3 mouse_pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+		this.game.getViewport().unproject(mouse_pos);
+		Array<Entity> elements=this.game.map().getMapPixel((int)(mouse_pos.x*this.game.reverseScale()),(int)(mouse_pos.y*this.game.reverseScale()));
+		for (Entity it : elements) {
+			if(FactoryL.class.isAssignableFrom(it.getClass()))
+			{
+				GameStage.singleton.getMouse().selected=(FactoryL) it;
+				GameStage.singleton.icons().setHolder(6);
+				SelectedHolder temp=(SelectedHolder) GameStage.singleton.icons().getCurrentHolder();
+				temp.select(((FactoryL) it).getSelectedRecipe());
+				return;
+			}
+		}
+	}
 	@Override
 	public boolean keyDown(int keycode) {
 		return false;
@@ -149,6 +168,10 @@ public class UserControl implements InputProcessor  {
 		else if(this.game.getMouse().remove)
 		{
 			this.deleteFromMap();
+		}
+		else if(!GameStage.singleton.menuOpen)
+		{
+			this.select();
 		}
 		
 		
