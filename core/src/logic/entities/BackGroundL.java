@@ -96,6 +96,7 @@ public class BackGroundL extends Entity {
 	public int getQuantity() {
 		return quantity;
 	}
+	 
 	
 	
 	
