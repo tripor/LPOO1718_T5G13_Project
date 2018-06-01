@@ -165,7 +165,6 @@ public class GameStage extends Stage {
 	    game.getAssetManager().load("loading6.png", Texture.class);
 	    game.getAssetManager().finishLoading();
 	    
-	    game.getAssetManager().load("factory.png", Texture.class);
 	    game.getAssetManager().load("smelter.png", Texture.class);
 	    game.getAssetManager().load("house.png", Texture.class);
 	    game.getAssetManager().load("menu_icon.png", Texture.class);
@@ -239,6 +238,7 @@ public class GameStage extends Stage {
 	    game.getAssetManager().load("barra5.png", Texture.class);
 	    game.getAssetManager().load("barra6.png", Texture.class);
 	    game.getAssetManager().load("barra7.png", Texture.class);
+	    game.getAssetManager().load("factory.png", Texture.class);
 	    
 	    build_icon= new LoadingIcon(0,0,this.VIEWPORT_WIDTH,this.VIEWPORT_HEIGHT);
 		this.addActor(build_icon);
