@@ -92,7 +92,7 @@ public class HouseL extends Place {
 			for(Place it:Map.singleton.getLooking_for_worker())
 			{
 				remove.add(it);
-				PersonL ir=this.inside.remove(0);
+				//PersonL ir=this.inside.remove(0);
 				//ir.setTarget(it);
 				//ir.setId(0);
 				//Map.singleton.getList_person_toActor().add(ir);
