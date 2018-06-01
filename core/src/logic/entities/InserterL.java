@@ -24,7 +24,7 @@ public class InserterL extends Entity {
 	/**
 	 * Rotating velocity
 	 */
-	private int rotating_velocity=7;
+	private int rotating_velocity=10;
 	/**
 	 * Material the inserter had picked up
 	 */
@@ -79,7 +79,7 @@ public class InserterL extends Entity {
 	 * Delivers the material to the map
 	 * @param map The Map I want to deliver the material
 	 */
-	private void deliverMaterial()
+	public void deliverMaterial()
 	{
 		Array<Entity> element = Map.singleton.getMapPercisionPixel(this.pickup.getPosX()+this.pickup.getWidth()/2,this.pickup.getPosY()+this.pickup.getHeight()/2);
 		this.blocked=false;
@@ -114,7 +114,6 @@ public class InserterL extends Entity {
 	}
 	/**
 	 * See if there is something for the inserter to pick up
-	 * @param map The Map I want to map the modificiation
 	 */
 	public void tryPickUp() {
 		Array<Entity> elements = null;
@@ -147,7 +146,7 @@ public class InserterL extends Entity {
 	/**
 	 * Rotates de Hand of the inserter 180 degree clockwise and returns
 	 */
-	private void rotateHand()
+	public void rotateHand()
 	{
 		this.isRotating=true;
 		this.rotating_quantity=0;
@@ -169,7 +168,7 @@ public class InserterL extends Entity {
 	 * @param retornar Current rotation
 	 * @return The new rotation
 	 */
-	private float algoritm(float retornar)
+	public float algoritm(float retornar)
 	{
 		int error = 0;
 		if (this.direction != 4) {
@@ -228,6 +227,62 @@ public class InserterL extends Entity {
 	@Override
 	public int getPrice() {
 		return InserterL.price;
+	}
+	/**
+	 * 
+	 * @return If the inserter is rotating
+	 */
+	public boolean isRotating() {
+		return isRotating;
+	}
+	/**
+	 * 
+	 * @return Rotation direction
+	 */
+	public boolean isRotationDirection() {
+		return rotationDirection;
+	}
+	/**
+	 * 
+	 * @return Amount of rotation
+	 */
+	public int getRotating_quantity() {
+		return rotating_quantity;
+	}
+	/**
+	 * 
+	 * @return The velocity of the rotation
+	 */
+	public int getRotating_velocity() {
+		return rotating_velocity;
+	}
+	/**
+	 * Pickup material
+	 * @return
+	 */
+	public MaterialL getPickup() {
+		return pickup;
+	}
+	/**
+	 * 
+	 * @return If the conveyor is blocked
+	 */
+	public boolean isBlocked() {
+		return blocked;
+	}
+	/**
+	 * Sets the rotation direction of the inserter
+	 * @param rotationDirection The direction
+	 */
+	public void setRotationDirection(boolean rotationDirection) {
+		this.rotationDirection = rotationDirection;
+	}
+	/**
+	 * Sets the inserter pickup material
+	 * @param pickup the material
+	 */
+	public void setPickup(MaterialL pickup) {
+		this.pickup = pickup;
 	}
 	
 	

@@ -346,8 +346,9 @@ public class UnitTest {
 		Map map=new Map(1000);
 		ConveyorL conv=new ConveyorL(0,0,1);
 		assertTrue(map.addMap(conv));
-		assertFalse(map.pointIsOccupied(10, 10, conv));
-		assertTrue(map.pointIsOccupied(0, 0, conv));
+		assertFalse(map.pointIsOccupied(10, 10, null));
+		assertTrue(map.pointIsOccupied(0, 0, null));
+		assertFalse(map.pointIsOccupied(0, 0, conv));
 		
 	}
 	@Test
@@ -841,8 +842,160 @@ public class UnitTest {
 	@Test
 	public void tryInserter() {
 		Map map= new Map(500);
+		InserterL in=new InserterL(10,0,4);
+		MaterialL mat= new MaterialL(0,0,"iron_ore");
+		assertTrue(map.addMap(mat));
+		assertTrue(map.addMap(in));
+		in.tryPickUp();
+		assertTrue(mat==in.getPickup());
+		in.tryPickUp();
+		assertNull(in.getPickup());
 	}
 	
+	@Test
+	public void tryInserter2() {
+		Map map= new Map(500);
+		InserterL in=new InserterL(10,10,1);
+		MaterialL mat= new MaterialL(10,20,"iron_ore");
+		MaterialL mat2= new MaterialL(10,25,"iron_ore");
+		assertTrue(map.addMap(mat));
+		assertTrue(map.addMap(mat2));
+		assertTrue(map.addMap(in));
+		in.tryPickUp();
+		assertTrue(mat==in.getPickup());
+		in.tryPickUp();
+		assertTrue(mat2==in.getPickup());
+	}
+	
+	@Test
+	public void tryInserter3() {
+		Map map= new Map(500);
+		InserterL in=new InserterL(10,10,2);
+		MaterialL mat= new MaterialL(20,10,"iron_ore");
+		assertTrue(map.addMap(mat));
+		assertTrue(map.addMap(in));
+		in.tryPickUp();
+		assertTrue(mat==in.getPickup());
+		in.tryPickUp();
+		assertNull(in.getPickup());
+	}
+	@Test
+	public void tryInserter4() {
+		Map map= new Map(500);
+		InserterL in=new InserterL(10,10,3);
+		MaterialL mat= new MaterialL(10,0,"iron_ore");
+		assertTrue(map.addMap(mat));
+		assertTrue(map.addMap(in));
+		in.tryPickUp();
+		assertTrue(mat==in.getPickup());
+		in.tryPickUp();
+		assertNull(in.getPickup());
+	}
+
+	@Test
+	public void tryInserterRotateHand() {
+		InserterL in=new InserterL(10,10,1);
+		assertFalse(in.isRotating());
+		in.setRotationDirection(false);
+		assertFalse(in.isRotationDirection());
+		in.algoritm(0);
+		assertTrue(in.getRotating_quantity()!=0);
+		in.rotateHand();
+		assertTrue(in.isRotating());
+		assertEquals(-90,in.getRotating_quantity());
+		InserterL in2=new InserterL(10,10,4);
+		MaterialL mat=new MaterialL(0,10,"iron");
+		in2.setPickup(mat);
+		in2.rotateHand();
+		in2.algoritm(0);
+		assertTrue(in2.getRotating_quantity()!=0);
+		in2.rotateHand();
+		assertEquals(0,in2.getRotating_quantity());
+	}
+	
+	@Test
+	public void tryInserterDeliver() {
+		Map map= new Map(500);
+		InserterL in=new InserterL(10,10,1);
+		MaterialL mat=new MaterialL(0,0,"iron_ore");
+		mat.setPosX(0);
+		mat.setPosY(0);
+		in.setPickup(mat);
+		assertFalse(in.isBlocked());
+		in.deliverMaterial();
+		assertTrue(in.isBlocked());
+		ConveyorL conv=new ConveyorL(0,0,1);
+		map.addMap(conv);
+		in.deliverMaterial();
+		assertFalse(in.isBlocked());
+		assertNull(in.getPickup());
+		MaterialL mat2=new MaterialL(2,2,"iron");
+		mat2.setPosX(2);
+		mat2.setPosY(2);
+		in.setPickup(mat2);
+		in.deliverMaterial();
+		assertTrue(in.getPickup()==mat2);
+		assertTrue(in.isBlocked());
+	}
+	
+	@Test
+	public void tryInserterDeliver2() {
+		Map map= new Map(500);
+		InserterL in=new InserterL(10,10,1);
+		MaterialL mat=new MaterialL(0,0,"iron");
+		mat.setPosX(0);
+		mat.setPosY(0);
+		in.setPickup(mat);
+		assertFalse(in.isBlocked());
+		in.deliverMaterial();
+		assertTrue(in.isBlocked());
+		FactoryL conv=new FactoryL(0,0,1);
+		map.addMap(conv);
+		in.deliverMaterial();
+		assertTrue(in.isBlocked());
+	}
+	@Test
+	public void tryAlg() {
+		Map map= new Map(500);
+		InserterL in=new InserterL(10,10,4);
+		MaterialL mat=new MaterialL(0,0,"iron");
+		mat.setPosX(0);
+		mat.setPosY(10);
+		map.addMap(mat);
+		in.handler();
+		assertEquals(0,in.getRotating_quantity());
+		assertTrue(in.isRotationDirection());
+		assertTrue(-in.getRotating_velocity()==in.handler());
+		assertEquals(in.getRotating_velocity(),-in.getRotating_quantity());
+		while(!in.isBlocked())
+		{
+			assertTrue(in.isRotationDirection());
+			assertEquals((int)(in.getPosX()-(in.width_hand*Math.cos((in.getRotating_quantity()+in.getRotating_velocity())* Math.PI / 180))),mat.getPosX());
+			assertEquals((int)(in.getPosY()-(in.width_hand*Math.sin((in.getRotating_quantity()+in.getRotating_velocity())* Math.PI / 180))),mat.getPosY());
+			in.handler();
+		}
+		assertTrue(mat==in.getPickup());
+		assertTrue(in.isBlocked());
+		assertTrue(0==in.handler());
+		assertTrue(in.isBlocked());
+		assertEquals(in.getPosX()+in.width_hand,mat.getPosX());
+		assertEquals(in.getPosY(),mat.getPosY());
+		ConveyorL conv=new ConveyorL(20,10,1);
+		assertTrue(map.addMap(conv));
+		in.handler();
+		assertFalse(in.isBlocked());
+		assertNull(in.getPickup());
+		in.handler();
+		float number=in.getRotating_quantity();
+		while(in.isRotating())
+		{
+			assertTrue(number==in.getRotating_quantity());
+			number+=in.handler();
+		}
+		assertFalse(in.receiveMaterial(null));
+		assertEquals(InserterL.price,in.getPrice());
+		
+	}
 	
 	
 	@Test
