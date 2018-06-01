@@ -25,4 +25,9 @@ https://github.com/tripor/LPOO1718_T5G13_Project/tree/finalRelease/doc
  - `Command` : Mouse, UserControl and Icons catch the user requests and clicks
  - `Template method` : Entity handler is redefined in the lower classes.They implement a algoritm that is diferent for from each other
  
-
+ ### PIT 
+ ![PIT](https://github.com/tripor/LPOO1718_T5G13_Project/blob/finalRelease/final/pit.PNG)
+ 
+ 
+ ### Eclema
+ ![Eclema](https://github.com/tripor/LPOO1718_T5G13_Project/blob/finalRelease/final/eclema.PNG)
