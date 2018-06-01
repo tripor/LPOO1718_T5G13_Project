@@ -346,6 +346,9 @@ public class UnitTest {
 		Map map=new Map(1000);
 		ConveyorL conv=new ConveyorL(0,0,1);
 		assertTrue(map.addMap(conv));
+		PersonL p = new PersonL();
+		assertFalse(map.pointIsOccupied(10, 10, p));
+		assertTrue(map.pointIsOccupied(0, 0, p));
 		assertFalse(map.pointIsOccupied(10, 10, null));
 		assertTrue(map.pointIsOccupied(0, 0, null));
 		assertFalse(map.pointIsOccupied(0, 0, conv));
@@ -1048,5 +1051,57 @@ public class UnitTest {
 		assertEquals("iron_plate",s.getExternalStorage().get(0).getType());
 		assertEquals(1,s.getInternalStorage().size());
 	}
+	
+	@Test
+	public void tryPerson() {
+		Map map = new Map(500);
+		FactoryL f = new FactoryL(30,5,2);
+		map.addMap(f);
+		MineL m = new MineL(200,10,3);
+		map.addMap(m);
+		
+		PersonL p = new PersonL(10, 10);
+		assertEquals("[Person] Row 12 Col 12", p.toString());
+		assertEquals(0, p.getPrice());
+		
+		p.setTarget(m);
+		assertEquals(m, p.getTarget());
+		
+		p.setId(0);
+		assertEquals(0, p.getId());
+		
+		int step = 0;
+		
+		int cur_step = 0;
+		int[][] steps = {
+				{12,12},{12,12},{12,12},{12,12},{13,11},{13,11},{13,11},{13,11},{13,11},{14,10},{14,10},{14,10},{14,10},{14,10},{15,9},{15,9},{15,9},{15,9},{15,9},{16,8},{16,8},{16,8},{16,8},{16,8},{17,7},{17,7},{17,7},{17,7},{17,7},{18,6},{18,6},{18,6},{18,6},{18,6},{19,5},{19,5},{19,5},{19,5},{19,5},{20,5},{20,5},{20,5},{20,5},{20,5},{21,5},{21,5},{21,5},{21,5},{21,5},{22,5},{22,5},{22,5},{22,5},{22,5},{23,5},{23,5},{23,5},{23,5},{23,5},{24,5},{24,5},{24,5},{24,5},{24,5},{25,5},{25,5},{25,5},{25,5},{25,5},{26,5},{26,5},{26,5},{26,5},{26,5},{27,5},{27,5},{27,5},{27,5},{27,5},{28,5},{28,5},{28,5},{28,5},{28,5},{29,5},{29,5},{29,5},{29,5},{29,5},{29,6},{29,6},{29,6},{29,6},{29,6},{29,7},{29,7},{29,7},{29,7},{29,7},{29,8},{29,8},{29,8},{29,8},{29,8},{29,9},{29,9},{29,9},{29,9},{29,9},{29,10},{29,10},{29,10},{29,10},{29,10},{29,11},{29,11},{29,11},{29,11},{29,11},{29,12},{29,12},{29,12},{29,12},{29,12},{29,13},{29,13},{29,13},{29,13},{29,13},{29,14},{29,14},{29,14},{29,14},{29,14},{29,15},{29,15},{29,15},{29,15},{29,15},{29,16},{29,16},{29,16},{29,16},{29,16},{29,17},{29,17},{29,17},{29,17},{29,17},{29,18},{29,18},{29,18},{29,18},{29,18},{29,19},{29,19},{29,19},{29,19},{29,19},{29,20},{29,20},{29,20},{29,20},{29,20},{29,21},{29,21},{29,21},{29,21},{29,21},{29,22},{29,22},{29,22},{29,22},{29,22},{29,23},{29,23},{29,23},{29,23},{29,23},{29,24},{29,24},{29,24},{29,24},{29,24},{29,25},{29,25},{29,25},{29,25},{29,25},{29,26},{29,26},{29,26},{29,26},{29,26},{29,27},{29,27},{29,27},{29,27},{29,27},{29,28}
+		};
+		
+		for(int i = 0; i < 200; i++) {
+
+			if(step < 4) {
+				step++;
+			}
+			else {
+				step = 0;
+			}
+			
+			assertEquals(step, ((int) p.handler()));
+			assertEquals(steps[cur_step][0], p.getPosX());
+			assertEquals(steps[cur_step][1], p.getPosY());
+			cur_step++;
+		}
+
+		assertTrue(p.addEntity());
+		assertEquals(150, Map.singleton.getMoney());
+		assertEquals(350, Map.singleton.getMoney_wasted());
+		assertEquals(1, Map.singleton.getList_person().size);
+		
+		Map.singleton.setMoney(-1);
+		assertFalse(p.addEntity());
+		
+		p.removeEntity();
+	}
+	
 
 }
