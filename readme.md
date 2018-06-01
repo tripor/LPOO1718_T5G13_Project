@@ -51,6 +51,8 @@ https://github.com/tripor/LPOO1718_T5G13_Project/tree/finalRelease/doc
   -Load : eneter a name and it will load the game from the server
   
   -Exit : exits the game
+  
+  Recipes of the factory can be modified by pressing on them in the map
 
  ### Other
  Save and load features are working in the game and other algoritms.
