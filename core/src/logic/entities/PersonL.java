@@ -1,6 +1,6 @@
 package logic.entities;
 
-import graphic.Console;
+//import graphic.Console;
 //import logic.AStar;
 //import logic.Node;
 import logic.Entity;
@@ -37,7 +37,7 @@ public class PersonL extends Entity{
 		// this.unique_id = UUID.randomUUID().toString();
 		// (removed) a duplication checking at personList is already performed.
 
-		Console.log("new PersonL(" +posX + "," + posY+ ");");
+		// Console.log("new PersonL(" +posX + "," + posY+ ");");
 		
 		this.target_x = posX;
 		this.target_y = posY;
@@ -57,7 +57,7 @@ public class PersonL extends Entity{
 		this.target_x = p.doorXposition();
 		this.target_y = p.doorYposition();
 		this.target=p;
-		Console.log("this.setTarget(" +target_x + "," + target_y+ ");");
+		// Console.log("this.setTarget(" +target_x + "," + target_y+ ");");
 	}
 	
 	public void getPath() {
@@ -66,7 +66,7 @@ public class PersonL extends Entity{
 			return;
 		}
 		
-		Console.log("getPath(" +posX+ ","+posY+ " to "+target_x+ ","+target_y+");");
+		// Console.log("getPath(" +posX+ ","+posY+ " to "+target_x+ ","+target_y+");");
 		
 		/**
 		 * Booleans for programming style.
@@ -84,10 +84,10 @@ public class PersonL extends Entity{
 		if      (at_top)     tmpY++;
 		else if (at_bottom)  tmpY--;
 		
-		Console.log(
-				(tmpX < posX ? "LEFT " : (tmpX > posX ? "RIGHT " : ""))
-				+ (tmpY > posY ? "TOP" : (tmpY < posY ? "BOT" : ""))
-			);
+	//	Console.log(
+	//			(tmpX < posX ? "LEFT " : (tmpX > posX ? "RIGHT " : ""))
+	//			+ (tmpY > posY ? "TOP" : (tmpY < posY ? "BOT" : ""))
+	//		);
 		
 		/**
 		 *  MINUS   REMAIN   ADD
@@ -130,8 +130,6 @@ public class PersonL extends Entity{
 		this.posY = tmpY;
 		Map.singleton.addMap(this);
 	}
-	
-	int step = 0;
 	
 //	public List<Node> getPath(int _target_row, int _target_col, boolean should_replace_global) {
 //
@@ -230,6 +228,8 @@ public class PersonL extends Entity{
 				+ " Row " + this.posX
 				+ " Col " + this.posY;
 	}
+	
+	int step = 0;
 
 	@Override
 	public float handler() {
@@ -246,8 +246,7 @@ public class PersonL extends Entity{
 				&& this.getPosY() <= this.target.doorYposition() + 1) {
 			target.acceptWorker(this);
 		}
-		
-		return 0;
+		return step;
 	}
 
 	@Override
