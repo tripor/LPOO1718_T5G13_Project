@@ -28,7 +28,7 @@ public class PersonList extends GroupExtension{
 	
 	public void loadFromMap()
 	{
-		for(PersonL it:GameStage.singleton.map.getLista_person())
+		for(PersonL it:GameStage.singleton.map.getList_person())
 		{
 			PersonG novo=new PersonG(it);
 			this.addPerson(novo);
@@ -60,7 +60,7 @@ public class PersonList extends GroupExtension{
 
 		// persons.add(p);
 		this.addActor(p);
-		this.lista.add(p);
+		this.list.add(p);
 		
 		return true;
 	}
@@ -118,7 +118,7 @@ public class PersonList extends GroupExtension{
 		    // });
 		// }
 		
-		for(Person p : lista) {
+		for(Person p : list) {
 			p.popPath();
 		}
 	}*/

@@ -40,7 +40,7 @@ public class MineL extends Place{
 		if(time>=this.work_time)
 		{
 			time=0;
-			BackGroundL to_retrive=Map.singleton.getBackGroundPoint(this.posX, this.posY);
+			BackgroundL to_retrive=Map.singleton.getBackgroundPoint(this.posX, this.posY);
 			if(to_retrive.getType().equals("grass") || to_retrive.getType().equals("land"))
 			{
 				

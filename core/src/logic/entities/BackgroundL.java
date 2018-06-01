@@ -7,7 +7,7 @@ import logic.Map;
  * Class that handles the logic of the background
  *
  */
-public class BackGroundL extends Entity {
+public class BackgroundL extends Entity {
 	/**
 	 * Type of material in the land
 	 */
@@ -21,7 +21,7 @@ public class BackGroundL extends Entity {
 	 * @param type The type of material of the land
 	 * @param quantity The quantity of the material in the land
 	 */
-	public BackGroundL(int posX,int posY,String type,int quantity)
+	public BackgroundL(int posX,int posY,String type,int quantity)
 	{
 		super(posX,posY,Map.division,Map.division);
 		this.type=type;
@@ -30,7 +30,7 @@ public class BackGroundL extends Entity {
 	/**
 	 * Empty constructor for Json
 	 */
-	public BackGroundL() {}
+	public BackgroundL() {}
 	/**
 	 * 
 	 * @return Returns the type of material there is in the land

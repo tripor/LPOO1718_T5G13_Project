@@ -100,7 +100,7 @@ public abstract class Place extends Entity {
 			else
 			{
 				MaterialL devolver=this.externalStorage.get(0);
-				Map.singleton.getLista_material_toActor().add(devolver);
+				Map.singleton.getList_material_toActor().add(devolver);
 				devolver.setId(0);
 				this.externalStorage.remove(0);
 				return devolver;
@@ -114,7 +114,7 @@ public abstract class Place extends Entity {
 				if(this.externalStorage.get(i).getType().equals(type))
 				{
 					devolver=this.externalStorage.get(i);
-					Map.singleton.getLista_material_toActor().add(devolver);
+					Map.singleton.getList_material_toActor().add(devolver);
 					devolver.setId(0);
 					this.externalStorage.remove(i);
 					return devolver;

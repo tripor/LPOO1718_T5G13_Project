@@ -95,7 +95,7 @@ public class HouseL extends Place {
 				PersonL ir=this.inside.remove(0);
 				ir.setTarget(it);
 				ir.setId(0);
-				Map.singleton.getLista_person_toActor().add(ir);
+				Map.singleton.getList_person_toActor().add(ir);
 			}
 			for(Place it:remove)
 			{

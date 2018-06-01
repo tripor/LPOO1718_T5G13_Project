@@ -138,7 +138,7 @@ public abstract class Entity {
 			int money=Map.singleton.getMoney(),money_wasted=Map.singleton.getMoney_wasted();
 			Map.singleton.setMoney(money-this.getPrice());
 			Map.singleton.setMoney_wasted(money_wasted+this.getPrice());
-			Map.singleton.getLista().add(this);
+			Map.singleton.getList().add(this);
 			return true;
 		}
 		return false;
@@ -148,7 +148,7 @@ public abstract class Entity {
 	 */
 	public void removeEntity()
 	{
-		Map.singleton.getLista().removeValue(this, true);
+		Map.singleton.getList().removeValue(this, true);
 	}
 	/**
 	 * Gets the cost of the entity

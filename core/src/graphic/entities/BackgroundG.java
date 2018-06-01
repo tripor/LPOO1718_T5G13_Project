@@ -5,10 +5,10 @@ import com.badlogic.gdx.graphics.Texture;
 import graphic.ActorExtension;
 import graphic.GameStage;
 import logic.Entity;
-import logic.entities.BackGroundL;
+import logic.entities.BackgroundL;
 
 /**
- * Class that handles the creation of the BackGround
+ * Class that handles the creation of the Background
  *
  */
 public class BackgroundG extends ActorExtension {
@@ -27,12 +27,12 @@ public class BackgroundG extends ActorExtension {
 	@Override
 	public String toString()
 	{
-		return "BackGround";
+		return "Background";
 	}
 	@Override
 	protected Texture[] createTexture() {
 		Texture[] frames=new Texture[1];
-		frames[0] = GameStage.singleton.getGame().getAssetManager().get(((BackGroundL)this.instance).getTypeLand());
+		frames[0] = GameStage.singleton.getGame().getAssetManager().get(((BackgroundL)this.instance).getTypeLand());
 		return frames;
 	}
 

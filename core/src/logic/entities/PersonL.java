@@ -1,19 +1,11 @@
 package logic.entities;
 
-import java.util.ArrayList;
-
-import com.badlogic.gdx.utils.Array;
-
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.UUID;
-
 import graphic.Console;
 //import logic.AStar;
+//import logic.Node;
 import logic.Entity;
 import logic.Map;
 import logic.Place;
-//import logic.Node;
 
 public class PersonL extends Entity{
 	
@@ -22,8 +14,8 @@ public class PersonL extends Entity{
 	
 	private int target_x, target_y;
 	
-	private int current_step;
-	private ArrayList<String> prevSteps = new ArrayList<String>();
+//	private int current_step;
+//	private ArrayList<String> prevSteps = new ArrayList<String>();
 	/**
 	 * Target of this person
 	 */
@@ -39,24 +31,6 @@ public class PersonL extends Entity{
 	
 //	List<Node> path = new ArrayList<Node>();
 	
-	private String posString(int posX, int posY) {
-		return posX + "," + posY;
-	}
-	
-	private void pushStep(int posX, int posY) {
-		prevSteps.add(this.current_step, posString(posX, posY));
-		this.current_step += 1;
-		this.posX = posX;
-		this.posY = posY;
-		Console.log("Steps=" + prevSteps.size() + ", Cur=" + (this.current_step));
-	}
-	
-	private void reinitStep() {
-		current_step = 0;
-		prevSteps = new ArrayList<String>();
-		pushStep(this.posX, this.posY);
-	}
-	
 	public PersonL(int posX, int posY) {
 		super(posX,posY,PersonL.width,PersonL.height);
 
@@ -65,7 +39,6 @@ public class PersonL extends Entity{
 
 		Console.log("new PersonL(" +posX + "," + posY+ ");");
 		
-		reinitStep();
 		this.target_x = posX;
 		this.target_y = posY;
 		this.id=1;
@@ -84,7 +57,6 @@ public class PersonL extends Entity{
 		this.target_x = p.doorXposition();
 		this.target_y = p.doorYposition();
 		this.target=p;
-		reinitStep();
 		Console.log("this.setTarget(" +target_x + "," + target_y+ ");");
 	}
 	
@@ -104,105 +76,59 @@ public class PersonL extends Entity{
 				at_top     = target_y > this.posY,
 				at_bottom  = target_y < this.posY;
 		
-		/**
-		 * Perferred orders for different angles.
-		 */
-		int order[][] = {
-				{0, 1, 3, 2, 5, 6, 7, 8},	//   to left-top
-				{1, 0, 2, 3, 5, 6, 8, 7},	// 1 to top
-				{2, 1, 5, 0, 3, 8, 7, 6},	//   to right-top
-				{3, 0, 6, 1, 7, 2, 8, 5},	//   to left
-				{                      },	// 4 stay
-				{5, 2, 8, 1, 7, 6, 0, 3},	//   to right
-				{6, 3, 7, 8, 0, 5, 2, 1},	//   to left-bottom
-				{7, 8, 6, 5, 3, 0, 2, 1},	// 7 to bottom
-				{8, 5, 7, 6, 2, 1, 0, 3},	//   to right-bottom
-		};
+		int tmpX=posX, tmpY=posY;
+		
+		if      (at_left)    tmpX--;
+		else if (at_right)   tmpX++;
+
+		if      (at_top)     tmpY++;
+		else if (at_bottom)  tmpY--;
+		
+		Console.log(
+				(tmpX < posX ? "LEFT " : (tmpX > posX ? "RIGHT " : ""))
+				+ (tmpY > posY ? "TOP" : (tmpY < posY ? "BOT" : ""))
+			);
 		
 		/**
-		 * determine which order should be taken.
+		 *  MINUS   REMAIN   ADD
+		 *    4   |   5   |   6
+		 *   
+		 * [tIndex=0] `6|5` = (X+1,    ) => GO RIGHT (road-block on bottom)
+		 * [      =1] `5|6` = (   , Y+1) => GO UP    (road-block on right)
+		 * [      =2] `4|5` = (X-1,    ) => GO LEFT  (road-block on top)
+		 * [      =3] `5|4` = (   , Y-1) => GO DOWN  (road-block on left)
 		 */
-		int take_order = 4;	// default, stay
+		int[] try_order = {65, 56, 45, 54};
+		int tIndex = (
+				at_left ? 3 
+					:(at_right ? 1
+						:(at_top ? 2
+							: 0	//=else
+			)));
 		
-		if(at_top) {
-			take_order = 1;
-		}
-		else if(at_bottom) {
-			take_order = 7;
-		}
-		
-		if(at_left) {
-			take_order--;
-		}
-		else if(at_right) {
-			take_order++;
-		}
-		
-		/**
-		 * check grid one-by-one in the selected order
-		 */
-		int tmpX = posX,
-			tmpY = posY;
-
-		Array<Entity> target_pixel_elements;
-		int target_pixel_elements_size;
-		
-		int selected_order[] = order[take_order];
-		
-	//	String s = "";
-	//	for(int i=0; i<selected_order.length; i++) {
-	//		s += selected_order[i];
-	//	}
-	//	
-	//	Console.log("Check Order = " + s);
-		
-		for(int i = 0; i < selected_order.length; i++) {
-
-			Console.log(": Checking " + ((selected_order[i] % 3) - 1)  + "," + ((selected_order[i]/3) - 1));
-
-			tmpY = posY - (selected_order[i]/3) + 1;	// posY - [-1 | 0 | 1]
-			tmpX = posX + (selected_order[i] % 3) - 1;	// posX + [-1 | 0 | 1]
-			
-			boolean should_skip = false;
-			
-			int repeatStepIndex = prevSteps.indexOf(posString(tmpX, posY));
-			
-			if(repeatStepIndex <= -1) {
-				// didn't repeat = pass.
-			}
-			else if(repeatStepIndex >= (current_step - 1)) {
-				should_skip = true;
-				Console.log("Repeated - " + repeatStepIndex + ">=" + current_step);
-			}
-			else {
-				Console.log("Changed - Index=" + repeatStepIndex + "<" + current_step + " - Str=" + posString(posX, posY));
-				current_step = repeatStepIndex;
-			}
-			
-			if(should_skip) {
-				// skip.
-				// Console.log("Skipped.");
-			}
-			else {
+		if(Map.singleton.pointIsOccupied(tmpX, tmpY, this)) {
+			while(true) {
+				tmpX = posX + (try_order[tIndex] / 10) - 5;
+				tmpY = posY + (try_order[tIndex] % 10) - 5;
 				
-				target_pixel_elements = Map.singleton.getMapPercisionPixel(tmpX, tmpY);
-				target_pixel_elements_size = target_pixel_elements.size;
-				
-				// Console.log(tmp_array_size);
-				
-				if(target_pixel_elements.contains(this, false)){
-					target_pixel_elements_size--;
+				if(Map.singleton.pointIsOccupied(tmpX, tmpY, this)) {
+					if(++tIndex >= try_order.length) {
+						tIndex = 0;
+					}
 				}
-				
-				if(target_pixel_elements_size < 1) {
-
-					pushStep(tmpX, tmpY);
-					Map.singleton.removeMap(this);
-					Map.singleton.addMap(this);
+				else {
+				//	Console.log("FINAL==" +
+				//			(tmpX < posX ? "LEFT " : (tmpX > posX ? "RIGHT " : ""))
+				//			+ (tmpY > posY ? "TOP" : (tmpY < posY ? "BOT" : ""))
+				//		);
 					break;
 				}
 			}
 		}
+		Map.singleton.removeMap(this);
+		this.posX = tmpX;
+		this.posY = tmpY;
+		Map.singleton.addMap(this);
 	}
 	
 	int step = 0;
@@ -308,7 +234,7 @@ public class PersonL extends Entity{
 	@Override
 	public float handler() {
 
-		if(step < 1) {
+		if(step < 4) {
 			step++;
 		}
 		else {
@@ -330,7 +256,7 @@ public class PersonL extends Entity{
 		if (money >= this.getPrice()) {
 			Map.singleton.setMoney(money- this.getPrice()); 
 			Map.singleton.setMoney_wasted(money_wasted+ this.getPrice());
-			Map.singleton.getLista_person().add(this);
+			Map.singleton.getList_person().add(this);
 			return true;
 		}
 		return false;
@@ -343,7 +269,7 @@ public class PersonL extends Entity{
 
 	@Override
 	public void removeEntity() {
-		Map.singleton.getLista_person().removeValue(this, true);
+		Map.singleton.getList_person().removeValue(this, true);
 		
 	}
 	/**
@@ -366,11 +292,6 @@ public class PersonL extends Entity{
 	public Place getTarget() {
 		return target;
 	}
-	
-	
-	
-	
-	
 //	public void sizePlace(float amountX,float amountY)
 //	{
 //		this.setWidth(amountX);

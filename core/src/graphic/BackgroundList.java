@@ -9,7 +9,7 @@ import graphic.entities.BackgroundG;
 public class BackgroundList extends GroupExtension{
 	
 	/**
-	 * Constructor for the class BackGroundList
+	 * Constructor for the class BackgroundList
 	 */
 	public BackgroundList()
 	{
