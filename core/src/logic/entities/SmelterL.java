@@ -39,14 +39,12 @@ public class SmelterL extends Place {
 	@Override
 	public float handler() {
 		time++;
-		if(time>=this.work_time)
-		{
-			time=0;
-			if(this.getInternalStorage().isEmpty())
-				time=this.work_time;
-			else
-			{
-				MaterialL trans=this.getInternalStorage().get(0);
+		if (time >= this.work_time) {
+			time = 0;
+			if (this.getInternalStorage().isEmpty())
+				time = this.work_time;
+			else {
+				MaterialL trans = this.getInternalStorage().get(0);
 				trans.smelt();
 				this.moveToExternal(trans);
 			}
@@ -58,18 +56,20 @@ public class SmelterL extends Place {
 	public int getPrice() {
 		return SmelterL.price;
 	}
+
 	@Override
 	public boolean receiveMaterial(MaterialL mat) {
-		if(mat.getType().equals("iron_ore")) {
+		if (mat.getType().equals("iron_ore")) {
 			this.addToStorage(mat);
 			Map.singleton.removeMap(mat);
 			return true;
 		}
-		if(mat.getType().equals("copper_ore")) {
+		if (mat.getType().equals("copper_ore")) {
 			this.addToStorage(mat);
 			Map.singleton.removeMap(mat);
 			return true;
 		}
+
 		return false;
 	}
 

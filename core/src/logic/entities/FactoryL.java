@@ -92,33 +92,34 @@ public class FactoryL extends Place {
 	@Override
 	public float handler() {
 		time++;
-		if(time>=this.receita.timeToBuild())
-		{
-			time=0;
-			if(this.getInternalStorage().isEmpty())
-				time=this.receita.timeToBuild();
-			else
-			{
-				MaterialL adicionar=this.transform();
-				if(adicionar!=null)
+		if (time >= this.receita.timeToBuild()) {
+			time = 0;
+			if (this.getInternalStorage().isEmpty())
+				time = this.receita.timeToBuild();
+			else {
+				MaterialL adicionar = this.transform();
+				if (adicionar != null)
 					this.addToExternalStorage(adicionar);
 			}
 		}
 		return 0;
 	}
+
 	@Override
 	public int getPrice() {
 		return FactoryL.price;
 	}
+
 	@Override
 	public boolean receiveMaterial(MaterialL mat) {
-		if(this.receita.canReceive(mat.getType())) {
+		if (this.receita.canReceive(mat.getType())) {
 			this.addToStorage(mat);
 			Map.singleton.removeMap(mat);
 			return true;
 		}
 		return false;
 	}
+
 	/**
 	 * 
 	 * @return This factory recipes

@@ -11,6 +11,7 @@ import icon.type.InserterIcon;
 import icon.type.LabelIcon;
 import icon.type.MineIcon;
 import icon.type.SmelterIcon;
+import icon.type.StatIcon;
 import logic.entities.ConveyorL;
 import logic.entities.FactoryL;
 import logic.entities.HouseL;
@@ -19,6 +20,8 @@ import logic.entities.MineL;
 import logic.entities.SmelterL;
 
 public class BuildHolder extends GroupExtension {
+	
+	private StatIcon money;
 	
 	public BuildHolder(int width,int height)
 	{
@@ -47,7 +50,7 @@ public class BuildHolder extends GroupExtension {
 		LabelIcon label2= new LabelIcon(40*GameStage.singleton.VIEWPORT_WIDTH/200,25*GameStage.singleton.VIEWPORT_HEIGHT/100);
 		label2.setZ(11);
 		label2.setVisible(false);
-		label2.setText("Mine\nA mine produces materials periodicaly and are saved in a internal storage. Materials can be removed with inserters.Costs:"+MineL.price);
+		label2.setText("Mine\nA mine produces materials periodicaly and are saved in a external storage. Materials can be removed with inserters.Costs:"+MineL.price);
 		this.addActor(label2);
 		
 		MineIcon button4= new MineIcon(pos_x,pos_y,width_of_icons,height_of_icons,label2);
@@ -66,10 +69,10 @@ public class BuildHolder extends GroupExtension {
 		this.addActor(button8);
 		pos_x+=width_of_icons+1;
 		
-		LabelIcon label= new LabelIcon(40*GameStage.singleton.VIEWPORT_WIDTH/200,25*GameStage.singleton.VIEWPORT_HEIGHT/100);
+		LabelIcon label= new LabelIcon(40*GameStage.singleton.VIEWPORT_WIDTH/200,30*GameStage.singleton.VIEWPORT_HEIGHT/100);
 		label.setZ(11);
 		label.setVisible(false);
-		label.setText("Factory\nA Factory accepts items from a inserter and produces new products to be delivered to the houses.Costs:"+FactoryL.price);
+		label.setText("Factory\nA Factory accepts items from a inserter and produces new products to be delivered to the houses. Select a Factory to select a recipe.Costs:"+FactoryL.price);
 		this.addActor(label);
 		
 		FactoryIcon button3= new FactoryIcon(pos_x,pos_y,width_of_icons,height_of_icons,label);
@@ -77,10 +80,10 @@ public class BuildHolder extends GroupExtension {
 		this.addActor(button3);
 		pos_x+=width_of_icons+1;
 		
-		LabelIcon label3= new LabelIcon(40*GameStage.singleton.VIEWPORT_WIDTH/200,25*GameStage.singleton.VIEWPORT_HEIGHT/100);
+		LabelIcon label3= new LabelIcon(40*GameStage.singleton.VIEWPORT_WIDTH/200,30*GameStage.singleton.VIEWPORT_HEIGHT/100);
 		label3.setZ(11);
 		label3.setVisible(false);
-		label3.setText("House\nA house is here people live. People work in factories and places and increase productivity. The more house the more people.Cost:"+HouseL.price);
+		label3.setText("House\nA house is where people live and where you ca sell items. People work in factories and places and make them work. People are automatically assigned.Cost:"+HouseL.price);
 		this.addActor(label3);
 		
 		HouseIcon button5= new HouseIcon(pos_x,pos_y,width_of_icons,height_of_icons,label3);
@@ -109,6 +112,12 @@ public class BuildHolder extends GroupExtension {
 		button7.setZ(10);
 		this.addActor(button7);
 		pos_x+=width_of_icons+1;
+		
+		money= new StatIcon(100,GameStage.singleton.VIEWPORT_HEIGHT-200,200*GameStage.singleton.VIEWPORT_WIDTH/200,10*GameStage.singleton.VIEWPORT_HEIGHT/100);
+		money.setZ(11);
+		money.setVisible(true);
+		money.setText("Money: 0");
+		this.addActor(money);
 		
 		this.getChildren().sort();
 	}

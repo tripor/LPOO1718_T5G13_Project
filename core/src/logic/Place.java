@@ -21,7 +21,7 @@ public abstract class Place extends Entity {
 	/**
 	 * Person that workes in this place
 	 */
-	protected PersonL worker=null;
+	protected boolean has_worker=false;
 
 	/**
 	 * Time it takes to make a new material
@@ -142,7 +142,8 @@ public abstract class Place extends Entity {
 	 * @param per The worker
 	 */
 	public void acceptWorker(PersonL per) {
-		this.worker=per;
+		this.has_worker=true;
+		Map.singleton.removeMap(per);
 		per.setId(1);
 	}
 	/**
@@ -153,10 +154,17 @@ public abstract class Place extends Entity {
 	}
 	/**
 	 * 
-	 * @return The worker associated with this place
+	 * @return If this place has a worker
 	 */
-	public PersonL getWorker() {
-		return worker;
+	public boolean isHas_worker() {
+		return has_worker;
+	}
+	/**
+	 * Sets if this place has a worker
+	 * @param has_worker true|false
+	 */
+	public void setHas_worker(boolean has_worker) {
+		this.has_worker = has_worker;
 	}
 	/**
 	 * 

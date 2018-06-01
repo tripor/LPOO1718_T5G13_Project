@@ -451,7 +451,8 @@ public class GameStage extends Stage {
 	{
 		System.out.println(nome);
 		SaveState instancia=new SaveState();
-		instancia.saveGame(nome, map);
+		instancia.saveGame(nome,map);
+		this.loadGame(nome);
 	}
 	/**
 	 * Load the game

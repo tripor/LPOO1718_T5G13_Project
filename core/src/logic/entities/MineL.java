@@ -37,19 +37,14 @@ public class MineL extends Place{
 	@Override
 	public float handler() {
 		time++;
-		if(time>=this.work_time)
-		{
-			time=0;
-			BackgroundL to_retrive=Map.singleton.getBackgroundPoint(this.posX, this.posY);
-			if(to_retrive.getType().equals("grass") || to_retrive.getType().equals("land"))
-			{
-				
-			}
-			else
-			{
-				if(to_retrive.getMaterial())
-				{
-					this.addToExternalStorage(new MaterialL(0,0,to_retrive.getType()));
+		if (time >= this.work_time) {
+			time = 0;
+			BackgroundL to_retrive = Map.singleton.getBackgroundPoint(this.posX, this.posY);
+			if (to_retrive.getType().equals("grass") || to_retrive.getType().equals("land")) {
+
+			} else {
+				if (to_retrive.getMaterial()) {
+					this.addToExternalStorage(new MaterialL(0, 0, to_retrive.getType()));
 					return 1;
 				}
 			}

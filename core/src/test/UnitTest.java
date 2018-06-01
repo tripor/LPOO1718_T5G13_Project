@@ -562,9 +562,9 @@ public class UnitTest {
 		Map map=new Map(50);
 		FactoryL fac=new FactoryL(0,100,2);
 		PersonL person=new PersonL(0,0);
-		assertNull(fac.getWorker());
+		assertFalse(fac.isHas_worker());
 		fac.acceptWorker(person);
-		assertTrue(fac.getWorker()==person);
+		assertTrue(fac.isHas_worker());
 		assertEquals(1,person.getId());
 		assertEquals(0,map.getLooking_for_worker().size);
 		fac.lookForWorker();
@@ -649,6 +649,7 @@ public class UnitTest {
 		
 		Map map = new Map(60);
 		FactoryL fac= new FactoryL(0,0,1);
+		fac.setHas_worker(true);
 		assertEquals(0,fac.getReceita().selectedRecipie());
 		assertEquals(0,fac.getSelectedRecipe());
 		MaterialL mat=new MaterialL(0,0,"copper_plate");
@@ -716,8 +717,6 @@ public class UnitTest {
 		assertEquals(1,map.getLooking_for_worker().size);
 		h.handler();
 		assertEquals(0,map.getLooking_for_worker().size);
-		assertEquals(0,retirar.getId());
-		assertTrue(fac==retirar.getTarget());
 		assertEquals(9,h.getInside().size());
 		map.setMoney(0);
 		MaterialL mat=new MaterialL(0,0,"iron_ore");
@@ -1006,6 +1005,7 @@ public class UnitTest {
 		Map map=new Map(500);
 		map.getList_background().get(0).set(0, new BackgroundL(0,0,"iron_ore",200));
 		MineL mine=new MineL(0,0,1);
+		mine.setHas_worker(true);
 		assertEquals(0,mine.getTime());
 		for(int i=1;i<=mine.getWork_time()-1;i++)
 		{
@@ -1024,6 +1024,7 @@ public class UnitTest {
 	public void trySmelter() {
 		Map map=new Map(500);
 		SmelterL s=new SmelterL(0,0,1);
+		s.setHas_worker(true);
 		assertEquals(0,s.getTime());
 		for(int i=1;i<=s.getWork_time()-1;i++)
 		{
@@ -1102,6 +1103,5 @@ public class UnitTest {
 		
 		p.removeEntity();
 	}
-	
 
 }

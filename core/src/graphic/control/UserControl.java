@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.TextureArrayData.Factory;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
@@ -125,10 +124,13 @@ public class UserControl implements InputProcessor  {
 			}
 			else if(InserterL.class.isAssignableFrom(it.getClass()))
 			{
+				if(((InserterL)it).getPickup()!=null)
+					((InserterL)it).getPickup().setId(1);
 				this.game.inserters().removeInserter((InserterL)it);
 			}
 			else if(MaterialL.class.isAssignableFrom(it.getClass()))
 			{
+				((MaterialL)it).setId(1);
 				this.game.materials().removeMaterialAll((MaterialL)it);
 			}
 		}
