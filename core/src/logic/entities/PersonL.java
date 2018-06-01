@@ -1,5 +1,7 @@
 package logic.entities;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.utils.Array;
 
 //import java.util.ArrayList;
@@ -20,11 +22,8 @@ public class PersonL extends Entity{
 	
 	private int target_x, target_y;
 	
-	private int save_step = 7;
-	private int cur_step = 0;
-	
-	private int[] prevX = new int[save_step];
-	private int[] prevY = new int[save_step];
+	private int current_step;
+	private ArrayList<String> prevSteps = new ArrayList<String>();
 	/**
 	 * Target of this person
 	 */
@@ -40,7 +39,23 @@ public class PersonL extends Entity{
 	
 //	List<Node> path = new ArrayList<Node>();
 	
+	private String posString(int posX, int posY) {
+		return posX + "," + posY;
+	}
 	
+	private void pushStep(int posX, int posY) {
+		prevSteps.add(this.current_step, posString(posX, posY));
+		this.current_step += 1;
+		this.posX = posX;
+		this.posY = posY;
+		Console.log("Steps=" + prevSteps.size() + ", Cur=" + (this.current_step));
+	}
+	
+	private void reinitStep() {
+		current_step = 0;
+		prevSteps = new ArrayList<String>();
+		pushStep(this.posX, this.posY);
+	}
 	
 	public PersonL(int posX, int posY) {
 		super(posX,posY,PersonL.width,PersonL.height);
@@ -50,10 +65,7 @@ public class PersonL extends Entity{
 
 		Console.log("new PersonL(" +posX + "," + posY+ ");");
 		
-		for(int i=0; i<save_step; i++) {
-			prevX[i] = posX;
-			prevY[i] = posY;
-		}		
+		reinitStep();
 		this.target_x = posX;
 		this.target_y = posY;
 		this.id=1;
@@ -72,6 +84,7 @@ public class PersonL extends Entity{
 		this.target_x = p.doorXposition();
 		this.target_y = p.doorYposition();
 		this.target=p;
+		reinitStep();
 		Console.log("this.setTarget(" +target_x + "," + target_y+ ");");
 	}
 	
@@ -131,25 +144,39 @@ public class PersonL extends Entity{
 		int tmpX = posX,
 			tmpY = posY;
 
-		Array<Entity> tmp_array;
-		int tmp_array_size;
+		Array<Entity> target_pixel_elements;
+		int target_pixel_elements_size;
 		
 		int selected_order[] = order[take_order];
 		
+	//	String s = "";
+	//	for(int i=0; i<selected_order.length; i++) {
+	//		s += selected_order[i];
+	//	}
+	//	
+	//	Console.log("Check Order = " + s);
+		
 		for(int i = 0; i < selected_order.length; i++) {
 
-			// Console.log(": Checking " + ((selected_order[i] % 3) - 1)  + "," + ((selected_order[i]/3) - 1));
+			Console.log(": Checking " + ((selected_order[i] % 3) - 1)  + "," + ((selected_order[i]/3) - 1));
 
 			tmpY = posY - (selected_order[i]/3) + 1;	// posY - [-1 | 0 | 1]
 			tmpX = posX + (selected_order[i] % 3) - 1;	// posX + [-1 | 0 | 1]
 			
 			boolean should_skip = false;
 			
-			for(int s=0; s<save_step; s++) {
-				if(prevX[s]==posX && prevY[s]==posY) {
-					should_skip = true;
-					break;
-				}
+			int repeatStepIndex = prevSteps.indexOf(posString(tmpX, posY));
+			
+			if(repeatStepIndex <= -1) {
+				// didn't repeat = pass.
+			}
+			else if(repeatStepIndex >= (current_step - 1)) {
+				should_skip = true;
+				Console.log("Repeated - " + repeatStepIndex + ">=" + current_step);
+			}
+			else {
+				Console.log("Changed - Index=" + repeatStepIndex + "<" + current_step + " - Str=" + posString(posX, posY));
+				current_step = repeatStepIndex;
 			}
 			
 			if(should_skip) {
@@ -158,28 +185,19 @@ public class PersonL extends Entity{
 			}
 			else {
 				
-				tmp_array = Map.singleton.getMapPercisionPixel(tmpX, tmpY);
-				tmp_array_size = tmp_array.size;
+				target_pixel_elements = Map.singleton.getMapPercisionPixel(tmpX, tmpY);
+				target_pixel_elements_size = target_pixel_elements.size;
 				
-				Console.log(tmp_array_size);
+				// Console.log(tmp_array_size);
 				
-				if(tmp_array.contains(this, false)){
-					tmp_array_size--;
+				if(target_pixel_elements.contains(this, false)){
+					target_pixel_elements_size--;
 				}
 				
-				if(tmp_array_size < 1) {
+				if(target_pixel_elements_size < 1) {
 
-					prevX[cur_step] = posX;
-					prevY[cur_step] = posY;
-					cur_step++;
-					
-					if(cur_step >= save_step) {
-						cur_step = 0;
-					}
-
+					pushStep(tmpX, tmpY);
 					Map.singleton.removeMap(this);
-					this.posX = tmpX;
-					this.posY = tmpY;
 					Map.singleton.addMap(this);
 					break;
 				}
@@ -290,7 +308,7 @@ public class PersonL extends Entity{
 	@Override
 	public float handler() {
 
-		if(step < 10) {
+		if(step < 1) {
 			step++;
 		}
 		else {
