@@ -1,7 +1,7 @@
 # Ground Up
 
 ### Author
-João Augusto dos Santo Lima - up201605314@fe.up.pt  
+João Augusto dos Santos Lima - up201605314@fe.up.pt  
 Ka Chon Ho - up201711244@fe.up.pt
 
 ### Concept
@@ -31,3 +31,26 @@ https://github.com/tripor/LPOO1718_T5G13_Project/tree/finalRelease/doc
  
  ### Eclema
  ![Eclema](https://github.com/tripor/LPOO1718_T5G13_Project/blob/finalRelease/final/eclema.PNG)
+ 
+ ### Manual
+ After pressing the play button, we are presented with a map.
+ To move in the map we use the W,A,S,D keys.
+ To build building just press the build button. While overring the mouse on top there will be a description of what the building does and it's cost. To cancel just press cancel. 
+ To remove buildings just press the remove button and then on the building in the map. Price not refunded. To cancel press ESC.
+ Enter the menu by pressing menu:
+  -Resume : Resume the game
+  -Save : enter a name and press save and it will save the game to a server
+  -Load : eneter a name and it will load the game from the server
+  -Exit : exits the game
+
+ ### Other
+ Save and load features are working in the game and other algoritms.
+ Implementing the save/load , the path of the villagers and the movement of the inserter were the hardest things to implement.
+ Time spent:
+ João Lima: 120 hours
+ Ka Chon Ho: 15 hours
+ 
+ Implementation of the path of the persons was done by Ka Chon Ho.
+ Other things was done by João Lima.
+ 
+ Lerson learnd: use design patterns more often and organize code has you do it
