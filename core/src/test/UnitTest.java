@@ -346,8 +346,8 @@ public class UnitTest {
 		Map map=new Map(1000);
 		ConveyorL conv=new ConveyorL(0,0,1);
 		assertTrue(map.addMap(conv));
-		assertFalse(map.pointIsOccupied(10, 10));
-		assertTrue(map.pointIsOccupied(0, 0));
+		assertFalse(map.pointIsOccupied(10, 10, conv));
+		assertTrue(map.pointIsOccupied(0, 0, conv));
 		
 	}
 	@Test

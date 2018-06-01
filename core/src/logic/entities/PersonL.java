@@ -292,11 +292,6 @@ public class PersonL extends Entity{
 	public Place getTarget() {
 		return target;
 	}
-	
-	
-	
-	
-	
 //	public void sizePlace(float amountX,float amountY)
 //	{
 //		this.setWidth(amountX);
