@@ -7,39 +7,10 @@ Ka Chon Ho - up201711244@fe.up.pt
 ### Concept
 Let the players deal with the supply and demand between mines, factories, villagers.
 
-### Structure
-- `Place`: All place types.
-  - `Mine`: Produces materials for Factories.
-    - `IronMine`: Mines only produce iron.
-    - `...`
-  - `Factory`: Produces products for villagers.
-    - `...`: Factory only produce specific product(s).
-  - `House`: For villagers' living.
-    - `...`: Different kinds of houses.
-
-- `Person`: All human types.
-  - `Worker`: The people who work in a factory.
-
-- `Coisa`: Everything else.
-  - `FryingPan`
-  - `...`: Different materials, products
-
-- `Conveyor`: For moving one material/product to another place.
-
-- `Logic`
-  - `Console`: For programming habit (`Console.log("...")`).
-  - `Map`: Manage all the information for the game renderer.
-  - `Path`: Path finder
-    - `byAStar`: A Star algorithm
-  - `Storage`
-    - ...
-
 ### UML Diagram
-![UML Diagram (Updated 2018-04-27)](https://github.com/tripor/LPOO1718_T5G13_Project/blob/master/intermed/uml_20180427_2.jpg)
-(Simplified Version)
-
-### Behavioural Aspects
-![State Diagram](https://github.com/tripor/LPOO1718_T5G13_Project/blob/master/intermed/states.PNG)
+![UML Diagram](https://github.com/tripor/LPOO1718_T5G13_Project/blob/finalRelease/final/1.PNG)
+![UML Diagram](https://github.com/tripor/LPOO1718_T5G13_Project/blob/finalRelease/final/2.PNG)
+![UML Diagram](https://github.com/tripor/LPOO1718_T5G13_Project/blob/finalRelease/final/3.PNG)
 
 ### Design Patterns
  - `Factory Method`
@@ -47,18 +18,5 @@ Let the players deal with the supply and demand between mines, factories, villag
  Used the two design in combination
  - `Composite` : A tree structure of simple and composite objects
  - `Facade` : A single class that represents an entire subsystem
- - `State` : Alter an object's behavior when its state changes
  - `Strategy` : Encapsulates an algorithm inside a class
 
-### GUI Design
-Menu with Play and Load Game.
-The game it self should have on the top right a list the the materials/money of the player to build new buildings. On the bottom left there will be a build button with options to build different buildings
-
-![GUI](https://github.com/tripor/LPOO1718_T5G13_Project/blob/master/intermed/GUI.png)
-
-### Test Design
-- Test if the people move correctly
-- If the materials move currectly to the position
-- If the user can add building and delete
-- Check if the position of placement is currect
-- Save and Load Game
