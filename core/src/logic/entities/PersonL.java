@@ -256,7 +256,7 @@ public class PersonL extends Entity{
 		if (money >= this.getPrice()) {
 			Map.singleton.setMoney(money- this.getPrice()); 
 			Map.singleton.setMoney_wasted(money_wasted+ this.getPrice());
-			Map.singleton.getLista_person().add(this);
+			Map.singleton.getList_person().add(this);
 			return true;
 		}
 		return false;
@@ -269,7 +269,7 @@ public class PersonL extends Entity{
 
 	@Override
 	public void removeEntity() {
-		Map.singleton.getLista_person().removeValue(this, true);
+		Map.singleton.getList_person().removeValue(this, true);
 		
 	}
 	/**

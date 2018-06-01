@@ -17,11 +17,11 @@ public class UnitTest {
 		assertTrue(map==Map.singleton);
 		assertEquals(50, map.getMapWidth());
 		assertEquals(50, map.getMapHeight());
-		assertEquals(0,map.getLista().size);
-		assertEquals(0,map.getLista_material().size);
-		assertEquals(0,map.getLista_material_toActor().size);
-		assertEquals(0,map.getLista_person().size);
-		assertEquals(0,map.getLista_person_toActor().size);
+		assertEquals(0,map.getList().size);
+		assertEquals(0,map.getList_material().size);
+		assertEquals(0,map.getList_material_toActor().size);
+		assertEquals(0,map.getList_person().size);
+		assertEquals(0,map.getList_person_toActor().size);
 		assertEquals(5,map.getMap().size);
 		assertEquals(5,map.getMap().get(0).size);
 		assertEquals(0,map.getMap().get(0).get(0).size);
@@ -47,33 +47,33 @@ public class UnitTest {
 	@Test
 	public void mapSpawn() {	
 		Map map = new Map(50);
-		map.getLista_background().get(0).set(0,new BackGroundL(0,0,"land",0));
-		map.getLista_background().get(0).set(1,new BackGroundL(0,0,"land",0));
-		map.getLista_background().get(1).set(0,new BackGroundL(0,0,"land",0));
-		map.getLista_background().get(1).set(1,new BackGroundL(0,0,"land",0));
-		map.getLista_background().get(0).set(2,new BackGroundL(0,0,"land",0));
-		map.getLista_background().get(2).set(0,new BackGroundL(0,0,"land",0));
+		map.getList_background().get(0).set(0,new BackgroundL(0,0,"land",0));
+		map.getList_background().get(0).set(1,new BackgroundL(0,0,"land",0));
+		map.getList_background().get(1).set(0,new BackgroundL(0,0,"land",0));
+		map.getList_background().get(1).set(1,new BackgroundL(0,0,"land",0));
+		map.getList_background().get(0).set(2,new BackgroundL(0,0,"land",0));
+		map.getList_background().get(2).set(0,new BackgroundL(0,0,"land",0));
 		map.spawn(2, 0, 0, "iron_ore");
-		assertEquals("iron_ore",map.getLista_background().get(0).get(0).getType());
-		assertEquals("land_iron.png",map.getLista_background().get(0).get(0).getTypeLand());
-		assertEquals(0*Map.division,map.getLista_background().get(0).get(0).getPosX());
-		assertEquals(0*Map.division,map.getLista_background().get(0).get(0).getPosY());
-		assertEquals("iron_ore",map.getLista_background().get(0).get(1).getType());
-		assertEquals("land_iron.png",map.getLista_background().get(0).get(1).getTypeLand());
-		assertEquals(0*Map.division,map.getLista_background().get(0).get(1).getPosX());
-		assertEquals(1*Map.division,map.getLista_background().get(0).get(1).getPosY());
-		assertEquals("iron_ore",map.getLista_background().get(1).get(0).getType());
-		assertEquals("land_iron.png",map.getLista_background().get(1).get(0).getTypeLand());
-		assertEquals(1*Map.division,map.getLista_background().get(1).get(0).getPosX());
-		assertEquals(0*Map.division,map.getLista_background().get(1).get(0).getPosY());
+		assertEquals("iron_ore",map.getList_background().get(0).get(0).getType());
+		assertEquals("land_iron.png",map.getList_background().get(0).get(0).getTypeLand());
+		assertEquals(0*Map.division,map.getList_background().get(0).get(0).getPosX());
+		assertEquals(0*Map.division,map.getList_background().get(0).get(0).getPosY());
+		assertEquals("iron_ore",map.getList_background().get(0).get(1).getType());
+		assertEquals("land_iron.png",map.getList_background().get(0).get(1).getTypeLand());
+		assertEquals(0*Map.division,map.getList_background().get(0).get(1).getPosX());
+		assertEquals(1*Map.division,map.getList_background().get(0).get(1).getPosY());
+		assertEquals("iron_ore",map.getList_background().get(1).get(0).getType());
+		assertEquals("land_iron.png",map.getList_background().get(1).get(0).getTypeLand());
+		assertEquals(1*Map.division,map.getList_background().get(1).get(0).getPosX());
+		assertEquals(0*Map.division,map.getList_background().get(1).get(0).getPosY());
 		
 
-		assertEquals("land",map.getLista_background().get(1).get(1).getType());
-		assertEquals("land.png",map.getLista_background().get(1).get(1).getTypeLand());
-		assertEquals("land",map.getLista_background().get(2).get(0).getType());
-		assertEquals("land.png",map.getLista_background().get(2).get(0).getTypeLand());
-		assertEquals("land",map.getLista_background().get(0).get(2).getType());
-		assertEquals("land.png",map.getLista_background().get(0).get(2).getTypeLand());
+		assertEquals("land",map.getList_background().get(1).get(1).getType());
+		assertEquals("land.png",map.getList_background().get(1).get(1).getTypeLand());
+		assertEquals("land",map.getList_background().get(2).get(0).getType());
+		assertEquals("land.png",map.getList_background().get(2).get(0).getTypeLand());
+		assertEquals("land",map.getList_background().get(0).get(2).getType());
+		assertEquals("land.png",map.getList_background().get(0).get(2).getTypeLand());
 		
 	}
 	@Test
@@ -83,63 +83,63 @@ public class UnitTest {
 		{
 			for(int j=0;j<5;j++)
 			{
-				map.getLista_background().get(i).set(j,new BackGroundL(0,0,"land",0));
+				map.getList_background().get(i).set(j,new BackgroundL(0,0,"land",0));
 			}
 		}
 		map.spawn(2, 2, 2, "iron_ore");
-		assertEquals("iron_ore",map.getLista_background().get(2).get(2).getType());
-		assertEquals("land_iron.png",map.getLista_background().get(2).get(2).getTypeLand());
-		assertEquals(2*Map.division,map.getLista_background().get(2).get(2).getPosX());
-		assertEquals(2*Map.division,map.getLista_background().get(2).get(2).getPosY());
-		assertEquals("iron_ore",map.getLista_background().get(1).get(2).getType());
-		assertEquals("land_iron.png",map.getLista_background().get(1).get(2).getTypeLand());
-		assertEquals(1*Map.division,map.getLista_background().get(1).get(2).getPosX());
-		assertEquals(2*Map.division,map.getLista_background().get(1).get(2).getPosY());
-		assertEquals("iron_ore",map.getLista_background().get(3).get(2).getType());
-		assertEquals("land_iron.png",map.getLista_background().get(3).get(2).getTypeLand());
-		assertEquals(3*Map.division,map.getLista_background().get(3).get(2).getPosX());
-		assertEquals(2*Map.division,map.getLista_background().get(3).get(2).getPosY());
-		assertEquals("iron_ore",map.getLista_background().get(2).get(1).getType());
-		assertEquals("land_iron.png",map.getLista_background().get(2).get(1).getTypeLand());
-		assertEquals(2*Map.division,map.getLista_background().get(2).get(1).getPosX());
-		assertEquals(1*Map.division,map.getLista_background().get(2).get(1).getPosY());
-		assertEquals("iron_ore",map.getLista_background().get(2).get(3).getType());
-		assertEquals("land_iron.png",map.getLista_background().get(2).get(3).getTypeLand());
-		assertEquals(2*Map.division,map.getLista_background().get(2).get(3).getPosX());
-		assertEquals(3*Map.division,map.getLista_background().get(2).get(3).getPosY());
+		assertEquals("iron_ore",map.getList_background().get(2).get(2).getType());
+		assertEquals("land_iron.png",map.getList_background().get(2).get(2).getTypeLand());
+		assertEquals(2*Map.division,map.getList_background().get(2).get(2).getPosX());
+		assertEquals(2*Map.division,map.getList_background().get(2).get(2).getPosY());
+		assertEquals("iron_ore",map.getList_background().get(1).get(2).getType());
+		assertEquals("land_iron.png",map.getList_background().get(1).get(2).getTypeLand());
+		assertEquals(1*Map.division,map.getList_background().get(1).get(2).getPosX());
+		assertEquals(2*Map.division,map.getList_background().get(1).get(2).getPosY());
+		assertEquals("iron_ore",map.getList_background().get(3).get(2).getType());
+		assertEquals("land_iron.png",map.getList_background().get(3).get(2).getTypeLand());
+		assertEquals(3*Map.division,map.getList_background().get(3).get(2).getPosX());
+		assertEquals(2*Map.division,map.getList_background().get(3).get(2).getPosY());
+		assertEquals("iron_ore",map.getList_background().get(2).get(1).getType());
+		assertEquals("land_iron.png",map.getList_background().get(2).get(1).getTypeLand());
+		assertEquals(2*Map.division,map.getList_background().get(2).get(1).getPosX());
+		assertEquals(1*Map.division,map.getList_background().get(2).get(1).getPosY());
+		assertEquals("iron_ore",map.getList_background().get(2).get(3).getType());
+		assertEquals("land_iron.png",map.getList_background().get(2).get(3).getTypeLand());
+		assertEquals(2*Map.division,map.getList_background().get(2).get(3).getPosX());
+		assertEquals(3*Map.division,map.getList_background().get(2).get(3).getPosY());
 		
-		assertEquals("land",map.getLista_background().get(1).get(1).getType());
-		assertEquals("land.png",map.getLista_background().get(1).get(1).getTypeLand());
-		assertEquals("land",map.getLista_background().get(2).get(0).getType());
-		assertEquals("land.png",map.getLista_background().get(2).get(0).getTypeLand());
-		assertEquals("land",map.getLista_background().get(0).get(2).getType());
-		assertEquals("land.png",map.getLista_background().get(0).get(2).getTypeLand());
-		assertEquals("land",map.getLista_background().get(1).get(3).getType());
-		assertEquals("land.png",map.getLista_background().get(1).get(3).getTypeLand());
-		assertEquals("land",map.getLista_background().get(2).get(4).getType());
-		assertEquals("land.png",map.getLista_background().get(2).get(4).getTypeLand());
-		assertEquals("land",map.getLista_background().get(3).get(3).getType());
-		assertEquals("land.png",map.getLista_background().get(3).get(3).getTypeLand());
-		assertEquals("land",map.getLista_background().get(4).get(2).getType());
-		assertEquals("land.png",map.getLista_background().get(4).get(2).getTypeLand());
-		assertEquals("land",map.getLista_background().get(3).get(1).getType());
-		assertEquals("land.png",map.getLista_background().get(3).get(1).getTypeLand());
+		assertEquals("land",map.getList_background().get(1).get(1).getType());
+		assertEquals("land.png",map.getList_background().get(1).get(1).getTypeLand());
+		assertEquals("land",map.getList_background().get(2).get(0).getType());
+		assertEquals("land.png",map.getList_background().get(2).get(0).getTypeLand());
+		assertEquals("land",map.getList_background().get(0).get(2).getType());
+		assertEquals("land.png",map.getList_background().get(0).get(2).getTypeLand());
+		assertEquals("land",map.getList_background().get(1).get(3).getType());
+		assertEquals("land.png",map.getList_background().get(1).get(3).getTypeLand());
+		assertEquals("land",map.getList_background().get(2).get(4).getType());
+		assertEquals("land.png",map.getList_background().get(2).get(4).getTypeLand());
+		assertEquals("land",map.getList_background().get(3).get(3).getType());
+		assertEquals("land.png",map.getList_background().get(3).get(3).getTypeLand());
+		assertEquals("land",map.getList_background().get(4).get(2).getType());
+		assertEquals("land.png",map.getList_background().get(4).get(2).getTypeLand());
+		assertEquals("land",map.getList_background().get(3).get(1).getType());
+		assertEquals("land.png",map.getList_background().get(3).get(1).getTypeLand());
 		
 	}
 	@Test
 	public void mapCreateBackground() {	
 		Map map=new Map(50);
-		assertEquals(50/Map.division,map.getLista_background().size);
-		assertEquals(50/Map.division,map.getLista_background().get(0).size);
-		map.getLista_background().clear();
+		assertEquals(50/Map.division,map.getList_background().size);
+		assertEquals(50/Map.division,map.getList_background().get(0).size);
+		map.getList_background().clear();
 		map.createBackground();
 		for(int i=0;i<5;i++)
 		{
 			for(int j=0;j<5;j++)
 			{
-				assertEquals("land",map.getLista_background().get(i).get(j).getType());
-				assertEquals(i*Map.division,map.getLista_background().get(i).get(j).getPosX());
-				assertEquals(j*Map.division,map.getLista_background().get(i).get(j).getPosY());
+				assertEquals("land",map.getList_background().get(i).get(j).getType());
+				assertEquals(i*Map.division,map.getList_background().get(i).get(j).getPosX());
+				assertEquals(j*Map.division,map.getList_background().get(i).get(j).getPosY());
 			}
 		}
 	}
@@ -152,15 +152,15 @@ public class UnitTest {
 		{
 			for(int j=0;j<1000/Map.division;j++)
 			{
-				if(map.getLista_background().get(i).get(j).getType().equals("iron_ore"))
+				if(map.getList_background().get(i).get(j).getType().equals("iron_ore"))
 				{
 					iron++;
 				}
-				if(map.getLista_background().get(i).get(j).getType().equals("copper_ore"))
+				if(map.getList_background().get(i).get(j).getType().equals("copper_ore"))
 				{
 					copper++;
 				}
-				if(map.getLista_background().get(i).get(j).getType().equals("grass"))
+				if(map.getList_background().get(i).get(j).getType().equals("grass"))
 				{
 					grass++;
 				}
@@ -176,25 +176,25 @@ public class UnitTest {
 		Map map=new Map(50);
 		MaterialL mat=new MaterialL(0,0,"iron_ore");
 		PersonL per=new PersonL(0,0);
-		map.getLista_material().add(mat);
-		map.getLista_material().add(mat);
-		map.getLista_material().add(mat);
-		map.getLista_material_toActor().add(mat);
-		map.getLista_material_toActor().add(mat);
-		assertEquals(2,map.getLista_material_toActor().size);
-		map.getLista_person().add(per);
-		map.getLista_person().add(per);
-		map.getLista_person().add(per);
-		map.getLista_person_toActor().add(per);
-		map.getLista_person_toActor().add(per);
-		assertEquals(2,map.getLista_person_toActor().size);
+		map.getList_material().add(mat);
+		map.getList_material().add(mat);
+		map.getList_material().add(mat);
+		map.getList_material_toActor().add(mat);
+		map.getList_material_toActor().add(mat);
+		assertEquals(2,map.getList_material_toActor().size);
+		map.getList_person().add(per);
+		map.getList_person().add(per);
+		map.getList_person().add(per);
+		map.getList_person_toActor().add(per);
+		map.getList_person_toActor().add(per);
+		assertEquals(2,map.getList_person_toActor().size);
 		map.recreateMap();
 		assertEquals(50/Map.division,map.getMap().size);
 		assertEquals(50/Map.division,map.getMap().get(0).size);
-		assertEquals(3,map.getLista_material_toActor().size);
-		assertEquals(3,map.getLista_material().size);
-		assertEquals(3,map.getLista_person().size);
-		assertEquals(3,map.getLista_person_toActor().size);
+		assertEquals(3,map.getList_material_toActor().size);
+		assertEquals(3,map.getList_material().size);
+		assertEquals(3,map.getList_person().size);
+		assertEquals(3,map.getList_person_toActor().size);
 		
 		
 	}
@@ -303,7 +303,7 @@ public class UnitTest {
 				assertEquals(1,map.getMapBlock(i, j).size);
 			}
 		}
-		assertEquals(3,map.getLista().size);
+		assertEquals(3,map.getList().size);
 		map.removeMap(fac);
 		for(int i=0;i<4;i++)
 		{
@@ -326,7 +326,7 @@ public class UnitTest {
 				assertEquals(1,map.getMapBlock(i, j).size);
 			}
 		}
-		assertEquals(2,map.getLista().size);
+		assertEquals(2,map.getList().size);
 	}
 	@Test
 	public void mapCheckPositions() {	
@@ -353,8 +353,8 @@ public class UnitTest {
 	@Test
 	public void mapGetBackgorund() {	
 		Map map=new Map(50);
-		map.getLista_background().get(0).set(0,new BackGroundL(0,0,"land",0));
-		assertEquals("land",map.getBackGroundPoint(0, 0).getType());
+		map.getList_background().get(0).set(0,new BackgroundL(0,0,"land",0));
+		assertEquals("land",map.getBackgroundPoint(0, 0).getType());
 		
 	}
 	
@@ -398,7 +398,7 @@ public class UnitTest {
 		MaterialL mat= new MaterialL(1,1,"iron_ore");
 		assertEquals("iron_ore",mat.getType());
 		assertTrue(conv.receiveMaterial(mat));
-		assertEquals(1,map.getLista_material().size);
+		assertEquals(1,map.getList_material().size);
 		assertEquals(0,mat.getId());
 	}
 	
@@ -415,7 +415,7 @@ public class UnitTest {
 		assertEquals(500,map.getMoney());
 		assertEquals(0,map.getMoney_wasted());
 		assertTrue(conv.addEntity());
-		assertEquals(1,map.getLista().size);
+		assertEquals(1,map.getList().size);
 		assertEquals(500-ConveyorL.price,map.getMoney());
 		assertEquals(ConveyorL.price,map.getMoney_wasted());
 		map.setMoney(0);
@@ -423,10 +423,10 @@ public class UnitTest {
 		assertFalse(conv.addEntity());
 		assertEquals(0,map.getMoney());
 		assertEquals(ConveyorL.price,map.getMoney_wasted());
-		assertEquals(1,map.getLista().size);
+		assertEquals(1,map.getList().size);
 		map.setMoney(ConveyorL.price);
 		assertTrue(conv.addEntity());
-		assertEquals(2,map.getLista().size);
+		assertEquals(2,map.getList().size);
 		assertEquals(0,map.getMoney());
 	}
 
@@ -436,7 +436,7 @@ public class UnitTest {
 		ConveyorL conv=new ConveyorL(0,0,1);
 		conv.addEntity();
 		conv.removeEntity();
-		assertEquals(0,map.getLista().size);
+		assertEquals(0,map.getList().size);
 	}
 	
 	@Test
@@ -467,8 +467,8 @@ public class UnitTest {
 		SaveState save= new SaveState();
 		save.saveGame("test", map);
 		Map map2=save.loadGame("test");
-		assertTrue(map.getLista().size==map2.getLista().size);
-		assertTrue(map.getLista_material().size==map2.getLista_material().size);
+		assertTrue(map.getList().size==map2.getList().size);
+		assertTrue(map.getList_material().size==map2.getList_material().size);
 		Map map3=save.loadGame("LLLLLLLLLLLLLLL");
 		assertNull(map3);
 	}
@@ -545,13 +545,13 @@ public class UnitTest {
 		MaterialL devolvido=fac.pickUp("any");
 		assertTrue(devolvido!=null);
 		assertEquals(0,devolvido.getId());
-		assertEquals(1,map.getLista_material_toActor().size);
+		assertEquals(1,map.getList_material_toActor().size);
 		assertEquals(2,fac.getExternalStorage().size());
 		devolvido=null;
 		devolvido=fac.pickUp("iron_ore3");
 		assertTrue(devolvido!=null);
 		assertEquals(0,devolvido.getId());
-		assertEquals(2,map.getLista_material_toActor().size);
+		assertEquals(2,map.getList_material_toActor().size);
 	}
 	@Test
 	public void placeWorker() {
@@ -568,11 +568,11 @@ public class UnitTest {
 	}
 	@Test
 	public void backgroundType() {
-		BackGroundL b=new BackGroundL(0,0,"grass",0);
+		BackgroundL b=new BackgroundL(0,0,"grass",0);
 		assertEquals("grass.png",b.getTypeLand());
-		b=new BackGroundL(0,0,"copper_ore",0);
+		b=new BackgroundL(0,0,"copper_ore",0);
 		assertEquals("land_copper.png",b.getTypeLand());
-		b=new BackGroundL(0,0,"2",100);
+		b=new BackgroundL(0,0,"2",100);
 		assertEquals("",b.getTypeLand());
 		assertTrue(b.getMaterial());
 		assertEquals(99,b.getQuantity());
@@ -690,10 +690,10 @@ public class UnitTest {
 		MaterialL adicionar=new MaterialL(0,0,"iron_plate");
 		MaterialL adicionar2=new MaterialL(0,0,"copper_plate");
 		map.addMap(adicionar2);
-		assertEquals(1,map.getLista_material().size);
+		assertEquals(1,map.getList_material().size);
 		assertFalse(fac.receiveMaterial(adicionar));
 		assertTrue(fac.receiveMaterial(adicionar2));
-		assertEquals(0,map.getLista_material().size);
+		assertEquals(0,map.getList_material().size);
 		assertEquals(1,fac.getInternalStorage().size());
 		
 	}
@@ -717,12 +717,12 @@ public class UnitTest {
 		assertEquals(9,h.getInside().size());
 		map.setMoney(0);
 		MaterialL mat=new MaterialL(0,0,"iron_ore");
-		assertEquals(0,map.getLista_material().size);
+		assertEquals(0,map.getList_material().size);
 		map.addMap(mat);
-		assertEquals(1,map.getLista_material().size);
+		assertEquals(1,map.getList_material().size);
 		assertEquals(0,h.getInternalStorage().size());
 		assertTrue(h.receiveMaterial(mat));
-		assertEquals(0,map.getLista_material().size);
+		assertEquals(0,map.getList_material().size);
 		assertEquals(1,h.getInternalStorage().size());
 		h.handler();
 		assertEquals(1,map.getMoney());
@@ -823,13 +823,13 @@ public class UnitTest {
 		assertFalse(smelt.receiveMaterial(mat));
 		Map map2=new Map(500);
 		assertTrue(map2.addMap(smelt));
-		assertEquals(1,map2.getLista_material().size);
+		assertEquals(1,map2.getList_material().size);
 		assertNull(smelt.pickUp("t"));
 		assertTrue(smelt==smelt.pickUp("any"));
-		assertEquals(0,map2.getLista_material().size);
+		assertEquals(0,map2.getList_material().size);
 		map2.addMap(smelt);
 		assertTrue(smelt==smelt.pickUp(smelt.getType()));
-		assertEquals(0,map2.getLista_material().size);
+		assertEquals(0,map2.getList_material().size);
 		smelt.addEntity();
 		map2.setMoney(-1);
 		assertFalse(smelt.addEntity());
@@ -860,7 +860,7 @@ public class UnitTest {
 	@Test
 	public void tryMine() {
 		Map map=new Map(500);
-		map.getLista_background().get(0).set(0, new BackGroundL(0,0,"iron_ore",200));
+		map.getList_background().get(0).set(0, new BackgroundL(0,0,"iron_ore",200));
 		MineL mine=new MineL(0,0,1);
 		assertEquals(0,mine.getTime());
 		for(int i=1;i<=mine.getWork_time()-1;i++)
@@ -892,14 +892,14 @@ public class UnitTest {
 		MaterialL mat2=new MaterialL(0,0,"copper_ore");
 		MaterialL mat3=new MaterialL(0,0,"t");
 		map.addMap(mat);
-		assertEquals(1,map.getLista_material().size);
+		assertEquals(1,map.getList_material().size);
 		assertTrue(s.receiveMaterial(mat));
-		assertEquals(0,map.getLista_material().size);
+		assertEquals(0,map.getList_material().size);
 		assertEquals(1,s.getInternalStorage().size());
 		map.addMap(mat2);
-		assertEquals(1,map.getLista_material().size);
+		assertEquals(1,map.getList_material().size);
 		assertTrue(s.receiveMaterial(mat2));
-		assertEquals(0,map.getLista_material().size);
+		assertEquals(0,map.getList_material().size);
 		assertEquals(2,s.getInternalStorage().size());
 		assertFalse(s.receiveMaterial(mat3));
 		assertEquals(SmelterL.price,s.getPrice());

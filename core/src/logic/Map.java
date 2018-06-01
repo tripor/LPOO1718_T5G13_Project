@@ -6,7 +6,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.utils.Array;
 
-import logic.entities.BackGroundL;
+import logic.entities.BackgroundL;
 import logic.entities.MaterialL;
 import logic.entities.PersonL;
 
@@ -36,27 +36,27 @@ public class Map {
 	/**
 	 * Array with all the background of the game
 	 */
-	private Array<Array<BackGroundL>> lista_background;
+	private Array<Array<BackgroundL>> list_background;
 	/**
 	 * Array with all the static entities
 	 */
-	private Array<Entity> lista;
+	private Array<Entity> list;
 	/**
 	 * Array with all the materials in the map
 	 */
-	private Array<MaterialL> lista_material;
+	private Array<MaterialL> list_material;
 	/**
 	 * Array with all the Persons in the map
 	 */
-	private Array<PersonL> lista_person;
+	private Array<PersonL> list_person;
 	/**
 	 * Materials looking for an actor
 	 */
-	private transient Array<MaterialL> lista_material_toActor;
+	private transient Array<MaterialL> list_material_toActor;
 	/**
 	 * Persons looking for an actor
 	 */
-	private transient Array<PersonL> lista_person_toActor;
+	private transient Array<PersonL> list_person_toActor;
 	/**
 	 * Places looking for workers
 	 */
@@ -104,11 +104,11 @@ public class Map {
 			}
 		}
 		this.createBackground();
-		this.lista_material=new Array<MaterialL>();
-		this.lista=new Array<Entity>();
-		this.lista_person=new Array<PersonL>();
-		this.lista_material_toActor= new Array<MaterialL>();
-		this.lista_person_toActor= new Array<PersonL>();
+		this.list_material=new Array<MaterialL>();
+		this.list=new Array<Entity>();
+		this.list_person=new Array<PersonL>();
+		this.list_material_toActor= new Array<MaterialL>();
+		this.list_person_toActor= new Array<PersonL>();
 		this.looking_for_worker=new Array<Place>();
 		this.money=500;
 		this.money_wasted=0;
@@ -138,9 +138,9 @@ public class Map {
 		if (!this.isInsideMap(posX, posY) || quantidade < 1) {
 			return;
 		}
-		else if (this.lista_background.get(posX).get(posY).getType().equals("land")) {
-			BackGroundL novo = new BackGroundL(posX*Map.division,posY*Map.division,type, this.randomNumber(10000, 20000));
-			this.lista_background.get(posX).set(posY, novo);
+		else if (this.list_background.get(posX).get(posY).getType().equals("land")) {
+			BackgroundL novo = new BackgroundL(posX*Map.division,posY*Map.division,type, this.randomNumber(10000, 20000));
+			this.list_background.get(posX).set(posY, novo);
 			
 			boolean spam1 = true, spam2 = true, spam3 = true, spam4 = true;
 			while (spam1 || spam2 || spam3 || spam4) {
@@ -167,13 +167,13 @@ public class Map {
 	 */
 	public void createBackground()
 	{
-		this.lista_background=new Array<Array<BackGroundL>>();
+		this.list_background=new Array<Array<BackgroundL>>();
 		for(int i=0 ; i<this.transformToBlock(mapWidth) ;i++)
 		{
-			this.lista_background.add(new Array<BackGroundL>());
+			this.list_background.add(new Array<BackgroundL>());
 			for(int j=0; j<this.transformToBlock(mapHeight);j++)
 			{
-				this.lista_background.get(i).add(new BackGroundL(i*Map.division,j*Map.division,"land",0));
+				this.list_background.get(i).add(new BackgroundL(i*Map.division,j*Map.division,"land",0));
 			}
 		}
 		ArrayList<String> tipos=new ArrayList<String>();
@@ -206,15 +206,15 @@ public class Map {
 				map.get(i).add(new Array<Entity>());
 			}
 		}
-		this.lista_material_toActor= new Array<MaterialL>();
-		this.lista_person_toActor=new Array<PersonL>();
-		for(MaterialL it:this.lista_material)
+		this.list_material_toActor= new Array<MaterialL>();
+		this.list_person_toActor=new Array<PersonL>();
+		for(MaterialL it:this.list_material)
 		{
-			this.lista_material_toActor.add(it);
+			this.list_material_toActor.add(it);
 		}
-		for(PersonL it:this.lista_person)
+		for(PersonL it:this.list_person)
 		{
-			this.lista_person_toActor.add(it);
+			this.list_person_toActor.add(it);
 		}
 	}
 	/**
@@ -419,8 +419,8 @@ public class Map {
 	 * @param y The Y position in pixels
 	 * @return The background class
 	 */
-	public BackGroundL getBackGroundPoint(int x,int y) {
-		return this.lista_background.get(this.transformToBlock(x)).get(this.transformToBlock(y));
+	public BackgroundL getBackgroundPoint(int x,int y) {
+		return this.list_background.get(this.transformToBlock(x)).get(this.transformToBlock(y));
 	}
 	/**
 	 * 
@@ -433,43 +433,43 @@ public class Map {
 	 * 
 	 * @return Retuns the background list 
 	 */
-	public Array<Array<BackGroundL>> getLista_background() {
-		return lista_background;
+	public Array<Array<BackgroundL>> getList_background() {
+		return list_background;
 	}
 	/**
 	 * 
 	 * @return Returns the list of entities
 	 */
-	public Array<Entity> getLista() {
-		return lista;
+	public Array<Entity> getList() {
+		return list;
 	}
 	/**
 	 * 
 	 * @return Returns the list of materials
 	 */
-	public Array<MaterialL> getLista_material() {
-		return lista_material;
+	public Array<MaterialL> getList_material() {
+		return list_material;
 	}
 	/**
 	 * 
 	 * @return Retuns the list of persons
 	 */
-	public Array<PersonL> getLista_person() {
-		return lista_person;
+	public Array<PersonL> getList_person() {
+		return list_person;
 	}
 	/**
 	 * 
 	 * @return Retuns the list of materials looking for actor
 	 */
-	public Array<MaterialL> getLista_material_toActor() {
-		return lista_material_toActor;
+	public Array<MaterialL> getList_material_toActor() {
+		return list_material_toActor;
 	}
 	/**
 	 * 
 	 * @return Retuns the list of people looking for actor
 	 */
-	public Array<PersonL> getLista_person_toActor() {
-		return lista_person_toActor;
+	public Array<PersonL> getList_person_toActor() {
+		return list_person_toActor;
 	}
 	/**
 	 * 

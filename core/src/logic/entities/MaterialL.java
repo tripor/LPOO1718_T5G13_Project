@@ -109,7 +109,7 @@ public class MaterialL extends Entity {
 	public boolean addEntity() {
 		int money=Map.singleton.getMoney(),money_wasted=Map.singleton.getMoney_wasted();
 		if (money >= this.getPrice()) {
-			Map.singleton.getLista_material().add(this);
+			Map.singleton.getList_material().add(this);
 			return true;
 		}
 		return false;
@@ -117,7 +117,7 @@ public class MaterialL extends Entity {
 
 	@Override
 	public void removeEntity() {
-		Map.singleton.getLista_material().removeValue(this, true);
+		Map.singleton.getList_material().removeValue(this, true);
 	}
 	/**
 	 * 

@@ -59,11 +59,11 @@ public class MaterialList extends GroupExtension {
 	public void loadFromMap()
 	{
 		ArrayList<MaterialL> elements= new ArrayList<MaterialL>();
-		for(MaterialL it:GameStage.singleton.map.getLista_material())
+		for(MaterialL it:GameStage.singleton.map.getList_material())
 		{
 			elements.add(it);
 		}
-		GameStage.singleton.map.getLista_material().clear();
+		GameStage.singleton.map.getList_material().clear();
 		for(MaterialL it:elements)
 		{
 			MaterialG novo= new MaterialG(it);

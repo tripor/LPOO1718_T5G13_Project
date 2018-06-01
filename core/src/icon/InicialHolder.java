@@ -2,7 +2,7 @@ package icon;
 
 import graphic.GroupExtension;
 import graphic.MenuStage;
-import icon.type.BackGroundIcon;
+import icon.type.BackgroundIcon;
 import icon.type.ExitIcon;
 import icon.type.PlayIcon;
 
@@ -16,7 +16,7 @@ public class InicialHolder extends GroupExtension {
 		int pos_x=(int) (width/2.8);
 		int pos_y=(int) (height/3.2);
 		
-		BackGroundIcon base=new BackGroundIcon(0,0,width,height);
+		BackgroundIcon base=new BackgroundIcon(0,0,width,height);
 		this.addActor(base);
 		
 		ExitIcon button2= new ExitIcon(pos_x,pos_y,width_of_icons,height_of_icons);

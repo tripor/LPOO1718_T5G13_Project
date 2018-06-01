@@ -7,9 +7,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import graphic.MenuStage;
 import icon.Icon;
 
-public class BackGroundIcon extends Icon{
+public class BackgroundIcon extends Icon{
 	
-	public BackGroundIcon(int posX,int posY,int width,int height) {
+	public BackgroundIcon(int posX,int posY,int width,int height) {
 		super(posX,posY,width,height);
 	}
 

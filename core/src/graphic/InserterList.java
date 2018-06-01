@@ -54,7 +54,7 @@ public class InserterList extends GroupExtension{
 	 * Loads all the inserters to the screen
 	 */
 	public void loadFromMap() {
-		for (Entity it : GameStage.singleton.map.getLista()) {
+		for (Entity it : GameStage.singleton.map.getList()) {
 			if(InserterL.class.isAssignableFrom(it.getClass()))
 			{
 				InserterG novo = new InserterG(it);

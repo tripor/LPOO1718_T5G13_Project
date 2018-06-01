@@ -255,9 +255,9 @@
 //    		// for console log: time marker.
 //    		this.setblock_at = System.currentTimeMillis();
 //    		
-//    		Array<Place>     Ps = map.lista_place;
-//    		Array<ConveyorL> Cs = map.lista_conveyor;
-//    		Array<InserterL> Is = map.lista_inserter;
+//    		Array<Place>     Ps = map.list_place;
+//    		Array<ConveyorL> Cs = map.list_conveyor;
+//    		Array<InserterL> Is = map.list_inserter;
 //
 //    		if(Ps.size > 0) {
 //        		for(Entity p : Ps) {
