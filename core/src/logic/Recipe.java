@@ -183,4 +183,12 @@ public class Recipe {
 	public int timeToBuild() {
 		return this.time.get(selectedRecipie).intValue();
 	}
+	/**
+	 * 
+	 * @return Returns all the recipes
+	 */
+	public ArrayList<ArrayList<String>> getRecipe() {
+		return recipe;
+	}
+	
 }

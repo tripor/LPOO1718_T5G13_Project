@@ -2,11 +2,10 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
-import graphic.Console;
 import logic.*;
 import logic.entities.*;
 
@@ -26,8 +25,9 @@ public class UnitTest {
 		assertEquals(5,map.getMap().size);
 		assertEquals(5,map.getMap().get(0).size);
 		assertEquals(0,map.getMap().get(0).get(0).size);
-		assertEquals(5000,map.getMoney());
+		assertEquals(500,map.getMoney());
 		assertEquals(0,map.getMoney_wasted());
+		assertEquals(0,map.getLooking_for_worker().size);
 		
 	}
 	@Test
@@ -139,6 +139,7 @@ public class UnitTest {
 			{
 				assertEquals("land",map.getLista_background().get(i).get(j).getType());
 				assertEquals(i*Map.division,map.getLista_background().get(i).get(j).getPosX());
+				assertEquals(j*Map.division,map.getLista_background().get(i).get(j).getPosY());
 			}
 		}
 	}
@@ -288,6 +289,7 @@ public class UnitTest {
 	@Test
 	public void mapRemoveMap() {	
 		Map map=new Map(1000);
+		map.setMoney(10000);
 		FactoryL fac=new FactoryL(0,0,1);
 		FactoryL fac2=new FactoryL(40,0,1);
 		FactoryL fac3=new FactoryL(0,40,1);
@@ -374,7 +376,6 @@ public class UnitTest {
 
 	@Test
 	public void tryEntityConstructor() {
-		Map map=new Map(50);
 		InserterL insert= new InserterL(0,0,1);
 		assertEquals((Map.division-InserterL.width)/2,insert.getPosX());
 		assertEquals((Map.division-InserterL.height)/2,insert.getPosY());
@@ -411,11 +412,11 @@ public class UnitTest {
 	public void tryAddEntity() {
 		Map map=new Map(50);
 		ConveyorL conv=new ConveyorL(0,0,1);
-		assertEquals(5000,map.getMoney());
+		assertEquals(500,map.getMoney());
 		assertEquals(0,map.getMoney_wasted());
 		assertTrue(conv.addEntity());
 		assertEquals(1,map.getLista().size);
-		assertEquals(5000-ConveyorL.price,map.getMoney());
+		assertEquals(500-ConveyorL.price,map.getMoney());
 		assertEquals(ConveyorL.price,map.getMoney_wasted());
 		map.setMoney(0);
 		assertEquals(0,map.getMoney());
@@ -423,6 +424,10 @@ public class UnitTest {
 		assertEquals(0,map.getMoney());
 		assertEquals(ConveyorL.price,map.getMoney_wasted());
 		assertEquals(1,map.getLista().size);
+		map.setMoney(ConveyorL.price);
+		assertTrue(conv.addEntity());
+		assertEquals(2,map.getLista().size);
+		assertEquals(0,map.getMoney());
 	}
 
 	@Test
@@ -432,6 +437,22 @@ public class UnitTest {
 		conv.addEntity();
 		conv.removeEntity();
 		assertEquals(0,map.getLista().size);
+	}
+	
+	@Test
+	public void tryDoorPositionEntity() {
+		FactoryL fac=new FactoryL(40,40,1);
+		assertEquals(60,fac.doorXposition());
+		assertEquals(80,fac.doorYposition());
+		FactoryL fac2=new FactoryL(40,40,3);
+		assertEquals(60,fac2.doorXposition());
+		assertEquals(40-PersonL.height,fac2.doorYposition());
+		FactoryL fac3=new FactoryL(40,40,2);
+		assertEquals(80,fac3.doorXposition());
+		assertEquals(60,fac3.doorYposition());
+		FactoryL fac4=new FactoryL(40,40,4);
+		assertEquals(40-PersonL.width,fac4.doorXposition());
+		assertEquals(60,fac4.doorYposition());
 	}
 	
 	@Test
@@ -453,6 +474,37 @@ public class UnitTest {
 	}
 	
 	@Test
+	public void testRecipe() {
+		Recipe receita=new Recipe();
+		receita.selectRecipie(0);
+		ArrayList<String> testar=receita.getSelectedRecipe();
+		assertEquals("copper_plate",testar.get(0));
+		assertEquals("copper_cable",testar.get(1));
+		assertEquals(0,receita.selectedRecipie());
+		assertEquals(receita.getRecipe().size(),receita.totalNumber());
+		assertEquals("copper_plate = copper_cable",receita.getRecipeString(0));
+		assertEquals("iron_plate + copper_cable + copper_cable = electronic_circuit",receita.getRecipeString(1));
+		assertTrue(receita.canReceive("copper_plate"));
+		assertFalse(receita.canReceive("n"));
+		receita.selectRecipie(1);
+		assertTrue(receita.canReceive("iron_plate"));
+		assertTrue(receita.canReceive("copper_cable"));
+		assertFalse(receita.canReceive("electronic_circuit"));
+		testar=receita.getConsumir();
+		assertEquals("iron_plate",testar.get(0));
+		assertEquals("copper_cable",testar.get(1));
+		assertEquals("copper_cable",testar.get(2));
+		assertEquals(3,testar.size());
+		assertEquals("electronic_circuit",receita.getProduct());
+		receita.selectRecipie(0);
+		assertEquals("copper_cable",receita.getProduct());
+		assertEquals(15,receita.timeToBuild());
+		receita.selectRecipie(1);
+		assertEquals(25,receita.timeToBuild());
+		
+	}
+	
+	@Test
 	public void createPlace() {
 		FactoryL fac=new FactoryL(0,100,2);
 		assertEquals(0,fac.getPosX());
@@ -461,7 +513,6 @@ public class UnitTest {
 		assertEquals(FactoryL.height,fac.getHeight());
 		assertEquals(2,fac.getDirection());
 		assertEquals(2,fac.getDoorAtBorder());
-		FactoryL fac2=new FactoryL();
 	}
 	@Test
 	public void placeAddToStorage() {
@@ -471,60 +522,264 @@ public class UnitTest {
 		fac.addToStorage(mat);
 		assertEquals(1,mat.getId());
 		assertEquals(1,fac.getInternalStorage().size());
+		mat.setId(0);
+		fac.addToExternalStorage(mat);
+		assertEquals(1,mat.getId());
+		assertEquals(1,fac.getExternalStorage().size());
+		fac.moveToExternal(mat);
+		assertEquals(2,fac.getExternalStorage().size());
+		
 	}
 	@Test
 	public void placePickUp() {
 		Map map=new Map(50);
 		FactoryL fac=new FactoryL(0,100,2);
 		MaterialL mat=new MaterialL(0,0,"iron_ore");
-		fac.addToStorage(mat);
 		assertNull(fac.pickUp("any"));
 		assertNull(fac.pickUp("a"));
-		//TODO
-		
+		fac.addToExternalStorage(mat);
+		MaterialL mat2=new MaterialL(0,0,"iron_ore2");
+		MaterialL mat3=new MaterialL(0,0,"iron_ore3");
+		fac.addToExternalStorage(mat2);
+		fac.addToExternalStorage(mat3);
+		MaterialL devolvido=fac.pickUp("any");
+		assertTrue(devolvido!=null);
+		assertEquals(0,devolvido.getId());
+		assertEquals(1,map.getLista_material_toActor().size);
+		assertEquals(2,fac.getExternalStorage().size());
+		devolvido=null;
+		devolvido=fac.pickUp("iron_ore3");
+		assertTrue(devolvido!=null);
+		assertEquals(0,devolvido.getId());
+		assertEquals(2,map.getLista_material_toActor().size);
 	}
-	
-	
-	
-	
-	
-	
-	
+	@Test
+	public void placeWorker() {
+		Map map=new Map(50);
+		FactoryL fac=new FactoryL(0,100,2);
+		PersonL person=new PersonL(0,0);
+		assertNull(fac.getWorker());
+		fac.acceptWorker(person);
+		assertTrue(fac.getWorker()==person);
+		assertEquals(1,person.getId());
+		assertEquals(0,map.getLooking_for_worker().size);
+		fac.lookForWorker();
+		assertEquals(1,map.getLooking_for_worker().size);
+	}
+	@Test
+	public void backgroundType() {
+		BackGroundL b=new BackGroundL(0,0,"grass",0);
+		assertEquals("grass.png",b.getTypeLand());
+		b=new BackGroundL(0,0,"copper_ore",0);
+		assertEquals("land_copper.png",b.getTypeLand());
+		b=new BackGroundL(0,0,"2",100);
+		assertEquals("",b.getTypeLand());
+		assertTrue(b.getMaterial());
+		assertEquals(99,b.getQuantity());
+		assertEquals(0,(int)b.handler());
+		assertTrue(b.addEntity());
+		assertEquals(0,b.getPrice());
+		b.removeEntity();
+	}
 	
 	@Test
+	public void tryConveyor() {
+		Map map = new Map(60);
+		int direction = 1;
+		ConveyorL cvy = new ConveyorL(0, 0, direction);
+		assertEquals(direction, cvy.getDirection());
+		assertEquals(1, cvy.getMovementY());
+		assertEquals(0, cvy.getMovementX());
+		
+		direction = 3;
+		cvy = new ConveyorL(0, 0, direction);
+		assertEquals(-1, cvy.getMovementY());
+		assertEquals(0, cvy.getMovementX());
+		
+		direction = 4;
+		cvy = new ConveyorL(0, 0, direction);
+		assertEquals(0, cvy.getMovementY());
+		assertEquals(-1, cvy.getMovementX());
+		
+		direction = 2;
+		cvy = new ConveyorL(0, 0, direction);
+		assertEquals(0, cvy.getMovementY());
+		assertEquals(1, cvy.getMovementX());
+		
+		MaterialL mat=new MaterialL(0,0,"iron");
+		mat.setPosX(0);
+		mat.setPosY(0);
+		MaterialL mat2=new MaterialL(8,8,"iron");
+		mat2.setPosX(8);
+		mat2.setPosY(8);
+		MaterialL mat3=new MaterialL(0,15,"iron");
+		mat3.setPosX(0);
+		mat3.setPosY(15);
+
+		assertTrue(map.addMap(cvy));
+		assertTrue(map.addMap(mat));
+		assertTrue(map.addMap(mat2));
+		assertTrue(map.addMap(mat3));
+		assertEquals(0,mat.getPosX());
+		assertEquals(0,mat.getPosY());
+		cvy.handler();
+		assertEquals(1,mat.getPosX());
+		assertEquals(0,mat.getPosY());
+		assertEquals(9,mat2.getPosX());
+		assertEquals(8,mat2.getPosY());
+		assertEquals(0,mat3.getPosX());
+		assertEquals(15,mat3.getPosY());
+		cvy.handler();
+		cvy.handler();
+		cvy.handler();
+		cvy.handler();
+		cvy.handler();
+		cvy.handler();
+		cvy.handler();
+		cvy.handler();
+		assertEquals(9,mat.getPosX());
+		assertEquals(0,mat.getPosY());
+	}
+	@Test
 	public void tryFactory() {
-		int x = 4, y = 8, doorAtBorder = 3;
-		int x2 = 2, y2 = 5;
 		
 		Map map = new Map(60);
+		FactoryL fac= new FactoryL(0,0,1);
+		assertEquals(0,fac.getReceita().selectedRecipie());
+		assertEquals(0,fac.getSelectedRecipe());
+		MaterialL mat=new MaterialL(0,0,"copper_plate");
+		fac.getInternalStorage().add(mat);
+		assertEquals(1,fac.getInternalStorage().size());
+		fac.selectRecipe(1);
+		assertEquals(0,fac.getInternalStorage().size());
+		assertEquals(1,fac.getReceita().selectedRecipie());
+		MaterialL mat2=new MaterialL(0,0,"iron_ore");
+		fac.getInternalStorage().add(mat2);
+		fac.getInternalStorage().add(mat);
+		MaterialL devolvido=fac.transform();
+		assertNull(devolvido);
+		assertEquals(2,fac.getInternalStorage().size());
+		fac.selectRecipe(0);
+		fac.getInternalStorage().add(mat2);
+		fac.getInternalStorage().add(mat);
+		devolvido=fac.transform();
+		assertEquals("copper_cable",devolvido.getType());
+		assertEquals(1,fac.getInternalStorage().size());
+		assertEquals(0,fac.getTime());
+		assertEquals(10,fac.getWork_time());
+		for(int i=1;i<=fac.getReceita().timeToBuild()-1;i++)
+		{
+			assertEquals(0,(int)fac.handler());
+		}
+		assertEquals(14,fac.getTime());
+		fac.handler();
+		assertEquals(0,fac.getTime());
+		assertEquals(0,fac.getExternalStorage().size());
+		fac.getInternalStorage().clear();
+		for(int i=1;i<=fac.getReceita().timeToBuild();i++)
+		{
+			assertEquals(0,(int)fac.handler());
+		}
+		assertEquals(15,fac.getTime());
+		MaterialL mat3=new MaterialL(0,0,"copper_plate");
+		fac.getInternalStorage().add(mat3);
+		fac.handler();
+		assertEquals(1,fac.getExternalStorage().size());
+		fac.getInternalStorage().clear();
+		fac.getExternalStorage().clear();
+		MaterialL adicionar=new MaterialL(0,0,"iron_plate");
+		MaterialL adicionar2=new MaterialL(0,0,"copper_plate");
+		map.addMap(adicionar2);
+		assertEquals(1,map.getLista_material().size);
+		assertFalse(fac.receiveMaterial(adicionar));
+		assertTrue(fac.receiveMaterial(adicionar2));
+		assertEquals(0,map.getLista_material().size);
+		assertEquals(1,fac.getInternalStorage().size());
 		
-		FactoryL fac = new FactoryL(x, y, doorAtBorder);
-		assertEquals(x, fac.getPosX());
-		assertEquals(y, fac.getPosY());
-		assertEquals((x + fac.getWidth()), fac.getRight());
-		assertEquals((y - fac.getHeight()), fac.getTop());
-		assertEquals(doorAtBorder, fac.getDoorAtBorder());
-		
-		fac.setPosition(x2, y2);
-		assertEquals(x2, fac.getPosX());
-		assertEquals(y2, fac.getPosY());
-		assertEquals((x2 + fac.getWidth()), fac.getRight());
-		assertEquals((y2 - fac.getHeight()), fac.getTop());
-		
-		fac.setPosition(x, y);		
-		assertEquals(0, map.getMapPercisionPixel(fac.getPosX(), fac.getPosY()).size);
-
-		assertTrue(map.addMap(fac));
-		assertEquals(1, map.getMapPercisionPixel(fac.getPosX(), fac.getPosY()).size);
-		assertTrue(map.pointIsOccupied(fac.getPosX(), fac.getPosY()));
-		assertEquals(fac, map.getMapPercisionPixel(fac.getPosX(), fac.getPosY()).get(0));
-
-		FactoryL fac2 = new FactoryL(x, y, doorAtBorder);
-		assertFalse(map.addMap(fac2));
-		
-		map.removeMap(fac);
-		assertEquals(0, map.getMapPercisionPixel(fac.getPosX(), fac.getPosY()).size);
 	}
+	
+	@Test
+	public void tryHouse() {
+		Map map= new Map(500);
+		HouseL h= new HouseL(0,0,1);
+		assertEquals(h.getMaxNumber(),h.getInside().size());
+		assertEquals(0,(int)h.handler());
+		PersonL retirar=h.getInside().get(0);
+		assertEquals(1,retirar.getId());
+		FactoryL fac=new FactoryL(0,0,1);
+		assertEquals(0,map.getLooking_for_worker().size);
+		fac.lookForWorker();
+		assertEquals(1,map.getLooking_for_worker().size);
+		h.handler();
+		assertEquals(0,map.getLooking_for_worker().size);
+		assertEquals(0,retirar.getId());
+		assertTrue(fac==retirar.getTarget());
+		assertEquals(9,h.getInside().size());
+		map.setMoney(0);
+		MaterialL mat=new MaterialL(0,0,"iron_ore");
+		assertEquals(0,map.getLista_material().size);
+		map.addMap(mat);
+		assertEquals(1,map.getLista_material().size);
+		assertEquals(0,h.getInternalStorage().size());
+		assertTrue(h.receiveMaterial(mat));
+		assertEquals(0,map.getLista_material().size);
+		assertEquals(1,h.getInternalStorage().size());
+		h.handler();
+		assertEquals(1,map.getMoney());
+		assertEquals(0,h.getInternalStorage().size());
+		map.setMoney(0);
+		mat.setType("copper_ore");
+		h.getInternalStorage().add(mat);
+		h.handler();
+		assertEquals(1,map.getMoney());
+		map.setMoney(0);
+		mat.setType("iron_plate");
+		h.getInternalStorage().add(mat);
+		h.handler();
+		assertEquals(3,map.getMoney());
+		map.setMoney(0);
+		mat.setType("copper_plate");
+		h.getInternalStorage().add(mat);
+		h.handler();
+		assertEquals(3,map.getMoney());
+		map.setMoney(0);
+		mat.setType("copper_cable");
+		h.getInternalStorage().add(mat);
+		h.handler();
+		assertEquals(3,map.getMoney());
+		map.setMoney(0);
+		mat.setType("electronic_circuit");
+		h.getInternalStorage().add(mat);
+		h.handler();
+		assertEquals(20,map.getMoney());
+		map.setMoney(0);
+		mat.setType("gear");
+		h.getInternalStorage().add(mat);
+		h.handler();
+		assertEquals(3,map.getMoney());
+		map.setMoney(0);
+		mat.setType("advanced_circuit");
+		h.getInternalStorage().add(mat);
+		h.handler();
+		assertEquals(100,map.getMoney());
+		map.setMoney(0);
+		mat.setType("processing_unit");
+		h.getInternalStorage().add(mat);
+		h.handler();
+		assertEquals(500,map.getMoney());
+		map.setMoney(0);
+		mat.setType("pipe");
+		h.getInternalStorage().add(mat);
+		h.handler();
+		assertEquals(5,map.getMoney());
+		map.setMoney(0);
+		mat.setType("engine_unit");
+		h.getInternalStorage().add(mat);
+		h.handler();
+		assertEquals(40,map.getMoney());
+		
+	}
+	
 	
 	@Test
 	public void tryMaterial() {
@@ -552,15 +807,35 @@ public class UnitTest {
 		mat2.moveMaterial(moveX, moveY);
 		assertEquals((mX + moveX), mat2.getPosX());
 		assertEquals((mY + moveY), mat2.getPosY());
-
-		/*assertEquals(mat, fac.removeMaterial(typeText));
-		assertEquals(mat2, fac.removeMaterial("any"));
-		assertNull(fac.removeMaterial("any"));*/
 		
 		fac.addToStorage(mat);
 		fac.addToStorage(mat2);
 		
 		map.recreateMap();
+		
+		MaterialL smelt = new MaterialL(0,0,"iron_ore");
+		smelt.smelt();
+		assertEquals("iron_plate",smelt.getType());
+		smelt.setType("copper_ore");
+		smelt.smelt();
+		assertEquals("copper_plate",smelt.getType());
+		assertEquals(0,(int)smelt.handler());
+		assertFalse(smelt.receiveMaterial(mat));
+		Map map2=new Map(500);
+		assertTrue(map2.addMap(smelt));
+		assertEquals(1,map2.getLista_material().size);
+		assertNull(smelt.pickUp("t"));
+		assertTrue(smelt==smelt.pickUp("any"));
+		assertEquals(0,map2.getLista_material().size);
+		map2.addMap(smelt);
+		assertTrue(smelt==smelt.pickUp(smelt.getType()));
+		assertEquals(0,map2.getLista_material().size);
+		smelt.addEntity();
+		map2.setMoney(-1);
+		assertFalse(smelt.addEntity());
+		
+		
+		
 	}
 	
 	@Test
@@ -580,93 +855,57 @@ public class UnitTest {
 		new InserterL();
 	}
 	
-	@Test
-	public void tryBudget() {
-		Map map = new Map(700);
-		
-		for(int i=0; i<10; i+=50) {
-			for(int j=0; j<10; j+=50) {
-				//assertTrue(map.addEntityLista(new FactoryL(i, j, 2)));
-			}
-		}
-	}
 	
-	@Test
-	public void tryConveyor() {
-		
-		int x = 3, y = 4;
-		
-		FactoryL fac = new FactoryL(4, 8, 3);
-		
-		Map map = new Map(60);
-		assertTrue(map.addMap(fac));
-		
-		int direction;
-		
-		direction = 1;
-		ConveyorL cvy = new ConveyorL(x, y, direction);
-		assertEquals(direction, cvy.getDirection());
-		assertEquals(1, cvy.getMovementY());
-		assertEquals(0, cvy.getMovementX());
-		
-		direction = 2;
-		cvy = new ConveyorL(x, y, direction);
-		assertEquals(0, cvy.getMovementY());
-		assertEquals(1, cvy.getMovementX());
-		
-		direction = 3;
-		cvy = new ConveyorL(x, y, direction);
-		assertEquals(-1, cvy.getMovementY());
-		assertEquals(0, cvy.getMovementX());
-		
-		direction = 4;
-		cvy = new ConveyorL(x, y, direction);
-		assertEquals(0, cvy.getMovementY());
-		assertEquals(-1, cvy.getMovementX());
-		
-		map.addMap(new MaterialL());
-		
-		cvy.handler();
-		assertFalse(map.getLista_background().first().first().getMaterial());
-	}
 	
 	@Test
 	public void tryMine() {
-		int x = 4, y = 8, doorAtBorder = 3;
-		
-		Map map = new Map(60);
-		
-		MineL mine = new MineL(x, y, doorAtBorder);
-		assertTrue(map.addMap(mine));
-		
-		int i; 
-		
-		/*for(i = 0; i < 99; i++) {
+		Map map=new Map(500);
+		map.getLista_background().get(0).set(0, new BackGroundL(0,0,"iron_ore",200));
+		MineL mine=new MineL(0,0,1);
+		assertEquals(0,mine.getTime());
+		for(int i=1;i<=mine.getWork_time()-1;i++)
+		{
 			assertEquals(0,(int)mine.handler());
 		}
-		assertEquals(1,(int)mine.handler());*/
+		assertEquals(mine.getWork_time()-1,mine.getTime());
+		assertEquals(1,(int)mine.handler());
+		assertEquals(1,mine.getExternalStorage().size());
+		assertEquals("iron_ore",mine.getExternalStorage().get(0).getType());
+		assertEquals(MineL.price,mine.getPrice());
+		assertFalse(mine.receiveMaterial(null));
+		assertEquals(0,mine.getTime());
 	}
 	
 	@Test
-	public void tryHouseAndPerson() {
-
-		/*int from_x = 4, from_y = 8,
-			to_x = 30, to_y = 20;
-		
-		Map map = new Map(80);
-		
-		HouseL h = new HouseL(from_x, from_y, 2);
-		FactoryL f = new FactoryL(to_x, to_y, 3);
-		
-		map.addMap(h);
-		map.addMap(f);
-		
-		h.handler(map);
-		// including add person
-		
-		for(int i=0; i<100; i++) {
-			map.lista_person.first().getPath();
-		}*/
+	public void trySmelter() {
+		Map map=new Map(500);
+		SmelterL s=new SmelterL(0,0,1);
+		assertEquals(0,s.getTime());
+		for(int i=1;i<=s.getWork_time()-1;i++)
+		{
+			assertEquals(0,(int)s.handler());
+		}
+		assertEquals(s.getWork_time()-1,s.getTime());
+		s.handler();
+		assertEquals(s.getWork_time(),s.getTime());
+		MaterialL mat=new MaterialL(0,0,"iron_ore");
+		MaterialL mat2=new MaterialL(0,0,"copper_ore");
+		MaterialL mat3=new MaterialL(0,0,"t");
+		map.addMap(mat);
+		assertEquals(1,map.getLista_material().size);
+		assertTrue(s.receiveMaterial(mat));
+		assertEquals(0,map.getLista_material().size);
+		assertEquals(1,s.getInternalStorage().size());
+		map.addMap(mat2);
+		assertEquals(1,map.getLista_material().size);
+		assertTrue(s.receiveMaterial(mat2));
+		assertEquals(0,map.getLista_material().size);
+		assertEquals(2,s.getInternalStorage().size());
+		assertFalse(s.receiveMaterial(mat3));
+		assertEquals(SmelterL.price,s.getPrice());
+		s.handler();
+		assertEquals("iron_plate",s.getExternalStorage().get(0).getType());
+		assertEquals(1,s.getInternalStorage().size());
 	}
 
 }

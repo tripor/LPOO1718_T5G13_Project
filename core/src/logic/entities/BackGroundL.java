@@ -89,6 +89,15 @@ public class BackGroundL extends Entity {
 	@Override
 	public void removeEntity() {
 	}
+	/**
+	 * 
+	 * @return The quantity of materials in the land
+	 */
+	public int getQuantity() {
+		return quantity;
+	}
+	
+	
 	
 	
 

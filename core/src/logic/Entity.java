@@ -192,4 +192,19 @@ public abstract class Entity {
 			return this.posY+this.height;
 		}
 	}
+	/**
+	 * Sets this entity X position
+	 * @param posX The X position
+	 */
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+	/**
+	 * Sets this entity Y position
+	 * @param posY The Y position
+	 */
+	public void setPosY(int posY) {
+		this.posY = posY;
+	}
+	
 }

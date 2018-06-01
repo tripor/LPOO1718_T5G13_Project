@@ -22,7 +22,9 @@ public class FactoryL extends Place {
 	 * Height of the factory
 	 */
 	public static int height=40;
-	
+	/**
+	 * Recipies of this factories
+	 */
 	private Recipe receita;
 	/**
 	 * Constructor of the class Factory Logic with width 40 and height 40
@@ -34,7 +36,6 @@ public class FactoryL extends Place {
 	{
 		super(posX,posY,FactoryL.width,FactoryL.height,doorAtBorder);
 		receita=new Recipe();
-		receita.selectRecipie(0);
 	}
 	/**
 	 * Empty constructor
@@ -118,6 +119,15 @@ public class FactoryL extends Place {
 		}
 		return false;
 	}
+	/**
+	 * 
+	 * @return This factory recipes
+	 */
+	public Recipe getReceita() {
+		return receita;
+	}
+	
+	
 	
 
 }

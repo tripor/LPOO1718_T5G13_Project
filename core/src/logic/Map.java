@@ -300,7 +300,6 @@ public class Map {
 		}
 		if(!ent.addEntity())
 		{
-			System.out.println("here");
 			return false;
 		}
 		

@@ -21,7 +21,7 @@ public abstract class Place extends Entity {
 	/**
 	 * Person that workes in this place
 	 */
-	protected PersonL worker;
+	protected PersonL worker=null;
 
 	/**
 	 * Time it takes to make a new material
@@ -151,6 +151,29 @@ public abstract class Place extends Entity {
 	public void lookForWorker() {
 		Map.singleton.getLooking_for_worker().add(this);
 	}
+	/**
+	 * 
+	 * @return The worker associated with this place
+	 */
+	public PersonL getWorker() {
+		return worker;
+	}
+	/**
+	 * 
+	 * @return The work time of the place
+	 */
+	public int getWork_time() {
+		return work_time;
+	}
+	/**
+	 * 
+	 * @return The time passed
+	 */
+	public int getTime() {
+		return time;
+	}
+	
+	
 	
 	
 	

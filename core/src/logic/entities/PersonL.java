@@ -342,6 +342,14 @@ public class PersonL extends Entity{
 	public void setId(int id) {
 		this.id = id;
 	}
+	/*
+	 * Place target for the person
+	 */
+	public Place getTarget() {
+		return target;
+	}
+	
+	
 	
 	
 	

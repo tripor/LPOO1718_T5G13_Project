@@ -45,7 +45,9 @@ public class HouseL extends Place {
 			this.inside.add(new PersonL(this.doorXposition(),this.doorYposition()));
 		}
 	}
-	
+	/**
+	 * Empty constructor
+	 */
 	public HouseL()
 	{
 		super();
@@ -80,6 +82,7 @@ public class HouseL extends Place {
 				Map.singleton.setMoney(Map.singleton.getMoney()+Recipe.engine_unit_price);
 			
 		}
+		this.getInternalStorage().clear();
 	}
 
 	@Override
@@ -93,8 +96,6 @@ public class HouseL extends Place {
 				ir.setTarget(it);
 				ir.setId(0);
 				Map.singleton.getLista_person_toActor().add(ir);
-				if(this.inside.isEmpty())
-					break;
 			}
 			for(Place it:remove)
 			{
@@ -119,7 +120,22 @@ public class HouseL extends Place {
 		Map.singleton.removeMap(mat);
 		return true;
 	}
-
+	/**
+	 * 
+	 * @return The maximum number of people in the building
+	 */
+	public int getMaxNumber() {
+		return maxNumber;
+	}
+	/**
+	 * 
+	 * @return Array with the people inside
+	 */
+	public ArrayList<PersonL> getInside() {
+		return inside;
+	}
+	
+	
 	
 
 }
