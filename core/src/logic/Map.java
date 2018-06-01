@@ -398,17 +398,20 @@ public class Map {
 	/**
 	 * Check if a point is in building.
 	 * 
-	 * Todo:
-	 * this function should implement in placeList,
-	 * but it's now using as graphic.
-	 * 
 	 * @param x
 	 * @param y
+	 * @param el
 	 * @return true|false
 	 */
-	public boolean pointIsOccupied(int x, int y) {
+	public boolean pointIsOccupied(int x, int y, Entity el) {
+
+		Array<Entity> target_pixel_elements = this.getMapPercisionPixel(x, y);
+		int target_pixel_elements_size = target_pixel_elements.size;
 		
-		return (this.getMapPercisionPixel(x, y).size > 0);
+		if(target_pixel_elements.contains(el, false)){
+			target_pixel_elements_size--;
+		}
+		return (target_pixel_elements_size > 0);
 	}
 	/**
 	 * Gets the backgound in a point of the map
