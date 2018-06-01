@@ -840,19 +840,7 @@ public class UnitTest {
 	
 	@Test
 	public void tryInserter() {
-		
-		int x = 3, y = 4, direction = 1;
-		// direction = 1|2|3|4
-		
-		FactoryL fac = new FactoryL(4, 8, 3);
-		
-		Map map = new Map(60);
-		assertTrue(map.addMap(fac));
-		
-		InserterL ist = new InserterL(x, y, direction);
-		//ist.handler(map);
-		
-		new InserterL();
+		Map map= new Map(500);
 	}
 	
 	
