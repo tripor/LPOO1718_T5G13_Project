@@ -717,7 +717,7 @@ public class UnitTest {
 		assertEquals(1,map.getLooking_for_worker().size);
 		h.handler();
 		assertEquals(0,map.getLooking_for_worker().size);
-		assertEquals(10,h.getInside().size());
+		assertEquals(9,h.getInside().size());
 		map.setMoney(0);
 		MaterialL mat=new MaterialL(0,0,"iron_ore");
 		assertEquals(0,map.getList_material().size);
@@ -1062,7 +1062,6 @@ public class UnitTest {
 		map.addMap(m);
 		
 		PersonL p = new PersonL(10, 10);
-		assertEquals("[Person] Row 12 Col 12", p.toString());
 		assertEquals(0, p.getPrice());
 		
 		p.setTarget(m);

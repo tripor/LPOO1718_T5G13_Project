@@ -37,7 +37,7 @@ public class FactoryIcon extends Icon {
 
 	@Override
 	protected Texture[] createTexture() {
-		Texture[] frames=new Texture[2];
+		Texture[] frames=new Texture[1];
 		frames[0] = GameStage.singleton.getGame().getAssetManager().get("factory.png");
 		return frames;
 	}
