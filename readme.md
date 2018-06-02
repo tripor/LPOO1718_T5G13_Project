@@ -33,6 +33,8 @@ https://github.com/tripor/LPOO1718_T5G13_Project/tree/finalRelease/doc
  ![Eclema](https://github.com/tripor/LPOO1718_T5G13_Project/blob/finalRelease/final/eclema.PNG)
  
  ### Manual
+ Jar file to run the game: https://github.com/tripor/LPOO1718_T5G13_Project/blob/finalRelease/GroundUpGame.jar
+ 
  After pressing the play button, we are presented with a map.
  
  -To move in the map we use the W,A,S,D keys.
@@ -55,8 +57,6 @@ https://github.com/tripor/LPOO1718_T5G13_Project/tree/finalRelease/doc
   Recipes of the factory can be modified by pressing on them in the map
 
  ### Other
- Jar file to run the game: https://github.com/tripor/LPOO1718_T5G13_Project/blob/finalRelease/GroundUpGame.jar
- 
  Save and load features are working in the game and other algoritms.
  
  Implementing the save/load , the path of the villagers and the movement of the inserter were the hardest things to implement.
