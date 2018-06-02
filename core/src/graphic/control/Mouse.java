@@ -70,19 +70,13 @@ public class Mouse extends ActorExtension {
 	{
 		if(isSelected)
 		{
-			Vector3 mouse_pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-			GameStage.singleton.getViewport().unproject(mouse_pos);
-			int numero=Map.division;
-			int adicao_x=0;
-			int adicao_y=0;
-			if(this.width % numero!=0)
-				adicao_x = (numero - (this.width % numero)) / 2;
-			if(this.height % numero!=0)
-				adicao_y = (numero - (this.height % numero)) / 2;
-			int x = (int) (mouse_pos.x*GameStage.singleton.reverseScale()/numero) * numero + adicao_x;
-			int y = (int) (mouse_pos.y*GameStage.singleton.reverseScale()/numero) * numero + adicao_y;
-			x=(int) (x*GameStage.singleton.scale());
-			y=(int) (y*GameStage.singleton.scale());
+			int[] posXY = getMouseP();
+			int x = posXY[0], y = posXY[1];
+			
+			if(y < 180) {
+				return;
+			}
+
 			if(this.type.equals("factory.png"))
 			{
 				FactoryG fab= new FactoryG(x,y,this.doorPosition);
@@ -131,23 +125,31 @@ public class Mouse extends ActorExtension {
 		}
 	}
 	
+	private int[] getMouseP() {
+		Vector3 mouse_pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+		GameStage.singleton.getViewport().unproject(mouse_pos);
+		int numero=Map.division;
+		int adicao_x=0;
+		int adicao_y=0;
+		if(this.width % numero!=0)
+			adicao_x = (numero - (this.width % numero)) / 2;
+		if(this.height % numero!=0)
+			adicao_y = (numero - (this.height % numero)) / 2;
+		int x = (int) (mouse_pos.x*GameStage.singleton.reverseScale()/numero) * numero + adicao_x;
+		int y = (int) (mouse_pos.y*GameStage.singleton.reverseScale()/numero) * numero + adicao_y;
+		
+		x = (int) (x * GameStage.singleton.scale());
+		y = (int) (y * GameStage.singleton.scale());
+		
+		int[] pos = {x,y};
+		return pos;
+	}
+	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		if (this.isSelected) {
-			Vector3 mouse_pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-			GameStage.singleton.getViewport().unproject(mouse_pos);
-			int numero=Map.division;
-			int adicao_x=0;
-			int adicao_y=0;
-			if(this.width % numero!=0)
-				adicao_x = (numero - (this.width % numero)) / 2;
-			if(this.height % numero!=0)
-				adicao_y = (numero - (this.height % numero)) / 2;
-			int x = (int) (mouse_pos.x*GameStage.singleton.reverseScale()/numero) * numero + adicao_x;
-			int y = (int) (mouse_pos.y*GameStage.singleton.reverseScale()/numero) * numero + adicao_y;
-			
-			x = (int) (x * GameStage.singleton.scale());
-			y = (int) (y * GameStage.singleton.scale());
+			int[] posXY = getMouseP();
+			int x = posXY[0], y = posXY[1];
 			
 			if(y < 180) {
 				return;
