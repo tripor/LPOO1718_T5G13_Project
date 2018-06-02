@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import graphic.ActorExtension;
 import graphic.GameStage;
 import logic.Entity;
-import logic.Place;
+//import logic.Place;
 import logic.entities.FactoryL;
 /**
  * Class that handles the graphical part of the Factory

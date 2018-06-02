@@ -107,7 +107,8 @@ public class MaterialL extends Entity {
 	
 	@Override
 	public boolean addEntity() {
-		int money=Map.singleton.getMoney(),money_wasted=Map.singleton.getMoney_wasted();
+		int money = Map.singleton.getMoney();
+		// int money_wasted = Map.singleton.getMoney_wasted();
 		if (money >= this.getPrice()) {
 			Map.singleton.getList_material().add(this);
 			return true;
