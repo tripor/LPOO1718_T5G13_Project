@@ -28,17 +28,17 @@ public class NormalHolder extends GroupExtension {
 		MenuIcon button3= new MenuIcon(pos_x,pos_y,width_of_icons,height_of_icons);
 		button3.setZ(10);
 		this.addActor(button3);
-		pos_y+=height_of_icons+1;
+		pos_y+=height_of_icons;
 		
 		RemoveIcon button2= new RemoveIcon(pos_x,pos_y,width_of_icons,height_of_icons);
 		button2.setZ(10);
 		this.addActor(button2);
-		pos_y+=height_of_icons+1;
+		pos_y+=height_of_icons;
 		
 		BuildIcon button1= new BuildIcon(pos_x,pos_y,width_of_icons,height_of_icons);
 		button1.setZ(10);
 		this.addActor(button1);
-		pos_y+=height_of_icons+1;
+		pos_y+=height_of_icons;
 		
 		pos_x=(int) (width/4.5);
 		pos_y=(int) (height/3);

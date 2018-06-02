@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
 
 import graphic.ActorExtension;
+import graphic.Console;
 import graphic.GameStage;
 import graphic.entities.ConveyorG;
 import graphic.entities.FactoryG;
@@ -144,7 +145,15 @@ public class Mouse extends ActorExtension {
 				adicao_y = (numero - (this.height % numero)) / 2;
 			int x = (int) (mouse_pos.x*GameStage.singleton.reverseScale()/numero) * numero + adicao_x;
 			int y = (int) (mouse_pos.y*GameStage.singleton.reverseScale()/numero) * numero + adicao_y;
-			this.setPosition(x*GameStage.singleton.scale(), y*GameStage.singleton.scale());
+			
+			x = (int) (x * GameStage.singleton.scale());
+			y = (int) (y * GameStage.singleton.scale());
+			
+			if(y < 180) {
+				return;
+			}
+			
+			this.setPosition(x, y);
 			sprite.draw(batch);
 		}
 	}

@@ -97,6 +97,7 @@ public class GameStage extends Stage {
     public ArrayList<PersonG> unused_person;
     
     public float stateTime=0;
+    
     /**
      * Scale of the map
      * @return float
@@ -215,7 +216,7 @@ public class GameStage extends Stage {
 	    
 	    game.getAssetManager().load("worker.png", Texture.class);
 	    game.getAssetManager().load("grass01.png", Texture.class);
-	    game.getAssetManager().load("nothing.png", Texture.class);
+	   // game.getAssetManager().load("nothing.png", Texture.class);
 	    game.getAssetManager().load("conveyor1.png", Texture.class);
 	    game.getAssetManager().load("conveyor2.png", Texture.class);
 	    game.getAssetManager().load("conveyor3.png", Texture.class);
