@@ -33,7 +33,7 @@ https://github.com/tripor/LPOO1718_T5G13_Project/tree/finalRelease/doc
  ![Eclema](https://github.com/tripor/LPOO1718_T5G13_Project/blob/finalRelease/final/eclema.PNG)
  
  ### Manual
- Jar file to run the game: https://github.com/tripor/LPOO1718_T5G13_Project/blob/finalRelease/GroundUpGame.jar
+ Jar file to run the game: https://github.com/tripor/LPOO1718_T5G13_Project/blob/finalRelease/final/GroundUpGame.jar
  
  After pressing the play button, we are presented with a map.
  
@@ -49,7 +49,7 @@ https://github.com/tripor/LPOO1718_T5G13_Project/tree/finalRelease/doc
   
   -Save : enter a name and press save and it will save the game to a server
 
-  -Load : eneter a name and it will load the game from the server
+  -Load : enter a name and it will load the game from the server
   
   -Exit : exits the game
   
