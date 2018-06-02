@@ -55,6 +55,8 @@ https://github.com/tripor/LPOO1718_T5G13_Project/tree/finalRelease/doc
   Recipes of the factory can be modified by pressing on them in the map
 
  ### Other
+ Jar file to run the game: https://github.com/tripor/LPOO1718_T5G13_Project/blob/finalRelease/GroundUpGame.jar
+ 
  Save and load features are working in the game and other algoritms.
  
  Implementing the save/load , the path of the villagers and the movement of the inserter were the hardest things to implement.
